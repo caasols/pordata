@@ -1,0 +1,33 @@
+name: sitemap snapshot
+
+# Fetches the PORDATA sitemap (one polite request) and commits the sorted
+# URL list, so git history records every indicator page added or removed.
+# Manual trigger only for now; add a cron schedule once the baseline and
+# the diff routine have proven themselves.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch sitemap
+        run: python3 scripts/fetch_sitemap.py
+
+      - name: Commit snapshot if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/sitemap-urls.txt
+          if git diff --cached --quiet; then
+            echo "No change since last snapshot."
+          else
+            git commit -m "data: sitemap snapshot $(date -u +%Y-%m-%d)"
+            git push
+          fi
