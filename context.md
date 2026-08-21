@@ -49,14 +49,16 @@ simulators including an inflation calculator covering 1960 to 2025, and publicat
 
 Measured live on 2026-08-18, not read off documentation. Re-measure before relying on them.
 
-Re-measured 2026-08-21 from the first committed sitemap snapshot (`data/sitemap-urls.txt`,
-fetched by the Actions workflow): 5,906 unique URLs. The sitemap **does carry `<lastmod>`**, so
-change tracking can eventually see updates, not just adds and removes. Indicator-page counts
-moved against the 2026-08-18 measurement: 1,055 Portugal (+1), 812 municipal (+308), 666 Europe
-(+28), total 2,533 in the three statistical areas. The +308 municipal jump exactly matches the
-number of municipalities and deserves a look before being trusted as "new indicators"; the URLs
-are genuine indicator slugs (including municipal election results per year), so the earlier 504
-may simply have been measured with a narrower filter.
+Re-measured 2026-08-21 from the first committed sitemap snapshot (`data/sitemap-urls.txt` and
+`data/sitemap-lastmod.tsv`, fetched by the Actions workflow): 5,906 unique URLs. The sitemap
+**carries `<lastmod>`** on 4,423 of them, with real, varied per-page dates (2023 through
+2026-08), so update tracking is high-signal, not churn. The 1,483 blank-lastmod pages are the
+whole `/en` tree in the sample plus structural pages: 308 `municipios/quadro+resumo/<concelho>`
+summary tables (one per municipality — these, not new indicators, explain the apparent +308
+municipal jump against 2026-08-18; municipal indicators with lastmod number 506, matching the
+earlier 504), 260 subtema and 48 tema taxonomy pages, and 29 retratos. Portugal 1,055 and Europe
+666 indicator pages (was 1,054 / 638). The per-municipality quadros resumo are further evidence
+for the central insight: hand-built joins, one per concelho.
 
 | Fact | Value | How established |
 |---|---|---|
@@ -182,13 +184,14 @@ Open items only. Verify against reality before acting; strike items when they la
    none, as intended. Still open: attempt each question with today's tools, recording which of
    the four stages broke and how long it took. Converts an opinion into evidence and tells you
    what deserves building.
-2a. ~~**Run the sitemap fetch.**~~ **Done 2026-08-21**, via GitHub Actions
-   (`.github/workflows/sitemap.yml`) because neither the remote sandbox nor a phone could run it:
-   the runner fetches the sitemap and commits `data/sitemap-urls.txt` (see Measured facts for
-   what it found, including that `<lastmod>` is present). The workflow triggers on pushes
-   touching itself or the fetch script, plus manual dispatch once it reaches the default branch.
-   Still open: add a cron schedule after merge to make it a standing add/remove watcher, and
-   consider capturing `<lastmod>` values for update tracking.
+2a. ~~**Run the sitemap fetch.**~~ **Done 2026-08-21 and upgraded to a full watcher the same
+   day**, via GitHub Actions (`.github/workflows/sitemap.yml`) because neither the remote
+   sandbox nor a phone could reach pordata.pt. Each run fetches the sitemap (one request),
+   diffs URLs and `<lastmod>` against the last committed snapshot
+   (`scripts/diff_sitemap.py`), commits the snapshot plus a `data/CHANGELOG.md` entry, and
+   opens a GitHub issue when pages are added or removed. Validated end to end on the branch.
+   Remaining: the daily cron (06:17 UTC) only fires once the workflow is on the default
+   branch, so it arms itself on merge.
 3. **Spike: is INE's catalogue queryable?** Untested, and it gates the whole catalogue plan. INE
    has a JSON API, but whether it exposes an enumerable indicator catalogue (rather than only
    per-series fetches given a code you already know) has not been checked. If it does, much of the
