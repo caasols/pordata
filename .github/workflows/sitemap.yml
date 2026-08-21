@@ -1,24 +1,29 @@
-name: sitemap snapshot
+name: sitemap watch
 
-# Fetches the PORDATA sitemap (one polite request) and commits the sorted
-# URL list, so git history records every indicator page added or removed.
-# workflow_dispatch only works once this file reaches the default branch,
-# so a paths-filtered push trigger covers development branches too. Add a
-# cron schedule once the baseline and the diff routine have proven
-# themselves.
+# Fetches the PORDATA sitemap (one polite request), diffs it against the
+# last committed snapshot, commits the new snapshot plus a changelog entry,
+# and opens a GitHub issue when indicator pages were added or removed.
+#
+# The cron schedule only fires once this file is on the default branch;
+# until then the paths-filtered push trigger and (post-merge) manual
+# dispatch cover it.
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * *"
   push:
     paths:
       - ".github/workflows/sitemap.yml"
       - "scripts/fetch_sitemap.py"
+      - "scripts/diff_sitemap.py"
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
-  fetch:
+  watch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,14 +31,28 @@ jobs:
       - name: Fetch sitemap
         run: python3 scripts/fetch_sitemap.py
 
-      - name: Commit snapshot if changed
+      - name: Diff against last snapshot
+        id: diff
+        run: python3 scripts/diff_sitemap.py --changelog | tee /tmp/sitemap-diff.md
+
+      - name: Commit snapshot
+        if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/sitemap-urls.txt
+          git add data/
           if git diff --cached --quiet; then
-            echo "No change since last snapshot."
+            echo "Nothing staged; skipping commit."
           else
-            git commit -m "data: sitemap snapshot $(date -u +%Y-%m-%d)"
+            git commit -m "data: sitemap snapshot $(date -u +%Y-%m-%d) (+${{ steps.diff.outputs.added }} -${{ steps.diff.outputs.removed }} ~${{ steps.diff.outputs.updated }})"
             git push
           fi
+
+      - name: Open issue for added/removed pages
+        if: steps.diff.outputs.notify == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "PORDATA sitemap: +${{ steps.diff.outputs.added }} -${{ steps.diff.outputs.removed }} pages ($(date -u +%Y-%m-%d))" \
+            --body-file /tmp/sitemap-diff.md
