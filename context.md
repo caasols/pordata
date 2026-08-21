@@ -22,8 +22,8 @@ There is no code yet. The repo holds research only.
 |---|---|
 | `CLAUDE.md` | The map. Ranked pointers, current focus |
 | `context.md` | This file. All project state: findings, decisions, backlog |
-| `README.md` | Placeholder, one line. Human front door, not yet written |
-| `.gitignore` | Inherited from the wrong GitHub template. See backlog item 5 |
+| `README.md` | Human front door. Brief overview, cross-links here for all state |
+| `.gitignore` | Standard Python, Node and OS patterns plus `graphify-out/` |
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `graphify-out/` | Derived code graph, gitignored. Currently indexes only these docs' headings |
 
@@ -175,12 +175,11 @@ Open items only. Verify against reality before acting; strike items when they la
    scope); a **consumer site** (type a question, get a chart plus its source: broadest reach, most
    work, hardest from a phone); **data stories** (most immediately satisfying, leaves no reusable
    tool behind).
-5. **Replace `.gitignore`.** It is the GitHub template for AL / Dynamics 365 Business Central
-   (`.alpackages/`, `*.bclicense`, `rad.json`), inherited from the initial commit. Harmless but
-   wrong. Standard patterns have been appended; the AL block is still there pending a decision on
-   the project's actual language.
-6. **Write README.md.** Currently one line. Should be the human front door and cross-link here
-   without duplicating it.
+5. ~~**Replace `.gitignore`.**~~ **Done 2026-08-21.** AL / Dynamics template block removed;
+   now standard Python, Node and OS patterns plus `graphify-out/`. Python assumed as the likely
+   implementation language; revisit if that changes.
+6. ~~**Write README.md.**~~ **Done 2026-08-21.** Overview plus status, cross-linking here for
+   all state.
 
 ## Verification
 

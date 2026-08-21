@@ -11,7 +11,7 @@ Version 0.1.0.
 - [context.md](context.md) - the whole project: measured facts about PORDATA, the central
   insight, the four-stage problem framing, ecosystem, decisions and why, and the open backlog.
   Start here every session. Nothing else in this repo carries state.
-- [README.md](README.md) - placeholder, human front door. Not yet written.
+- [README.md](README.md) - human front door. Brief overview; carries no state.
 
 ## Current focus
 
