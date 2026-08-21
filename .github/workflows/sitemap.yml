@@ -2,11 +2,17 @@ name: sitemap snapshot
 
 # Fetches the PORDATA sitemap (one polite request) and commits the sorted
 # URL list, so git history records every indicator page added or removed.
-# Manual trigger only for now; add a cron schedule once the baseline and
-# the diff routine have proven themselves.
+# workflow_dispatch only works once this file reaches the default branch,
+# so a paths-filtered push trigger covers development branches too. Add a
+# cron schedule once the baseline and the diff routine have proven
+# themselves.
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/sitemap.yml"
+      - "scripts/fetch_sitemap.py"
 
 permissions:
   contents: write
