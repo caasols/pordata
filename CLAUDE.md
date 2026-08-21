@@ -15,8 +15,8 @@ Version 0.1.0.
 
 ## Current focus
 
-Problem definition, not building. The next two actions are in `context.md`'s backlog: email FFMS,
-then write the Question Ledger. An explicit decision recorded there is **not** to jump to an MCP
+Problem definition, not building. FFMS was emailed on 2026-08-21 (awaiting reply; see
+`context.md` backlog item 1). The next action is writing the Question Ledger. An explicit decision recorded there is **not** to jump to an MCP
 or a scraper before the catalogue question is settled.
 
 ## Sibling project

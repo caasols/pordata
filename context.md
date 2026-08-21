@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-18
+updated: 2026-08-21
 ---
 
 # pordata: context
@@ -24,6 +24,7 @@ There is no code yet. The repo holds research only.
 | `context.md` | This file. All project state: findings, decisions, backlog |
 | `README.md` | Placeholder, one line. Human front door, not yet written |
 | `.gitignore` | Inherited from the wrong GitHub template. See backlog item 5 |
+| `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `graphify-out/` | Derived code graph, gitignored. Currently indexes only these docs' headings |
 
 When code arrives, the shape implied by the decisions below is: a harvester producing an indicator
@@ -154,9 +155,12 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 
 Open items only. Verify against reality before acting; strike items when they land.
 
-1. **Email FFMS.** Highest leverage action available, and phone-sized. Their stated mission is
-   making this data available; they may hand over the catalogue, bless a project, or reveal that an
-   API is already planned. Any of those three changes everything downstream. Claude can draft it.
+1. ~~**Email FFMS.**~~ **Sent 2026-08-21** (text in `outreach/2026-08-21-ffms-email.md`). Asked
+   the three questions: is an API or open catalogue planned; would FFMS share the catalogue
+   metadata or accept a polite automated harvest of the public indicator pages; openness to a
+   conversation. **Awaiting reply.** If nothing by ~2026-09-04, send a short follow-up or try the
+   press/communication contact instead. A reply to any of the three questions redirects backlog
+   items 3 and 4 before they are acted on.
 2. **Write the Question Ledger.** 30 to 50 questions a real person would ask, in their own words.
    Then attempt each with today's tools, recording which of the four stages broke and how long it
    took. Converts an opinion into evidence and tells you what deserves building.
