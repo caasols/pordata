@@ -27,7 +27,8 @@ There is no code yet. The repo holds research only.
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `ledger/` | Question Ledger: 100 demand-side questions plus protocol. See backlog item 2 |
 | `scripts/` | `fetch_sitemap.py`, one polite request, writes `data/sitemap-urls.txt` for diffing |
-| `data/` | Fetched artifacts, committed for git-diff change tracking. Empty until first sitemap run |
+| `data/` | Fetched artifacts, committed for git-diff change tracking. Holds the sitemap snapshot |
+| `.github/workflows/` | `sitemap.yml`: Actions runner fetches the sitemap and commits the snapshot |
 | `graphify-out/` | Derived code graph, gitignored. Currently indexes only these docs' headings |
 
 When code arrives, the shape implied by the decisions below is: a harvester producing an indicator
@@ -47,6 +48,15 @@ simulators including an inflation calculator covering 1960 to 2025, and publicat
 ## Measured facts
 
 Measured live on 2026-08-18, not read off documentation. Re-measure before relying on them.
+
+Re-measured 2026-08-21 from the first committed sitemap snapshot (`data/sitemap-urls.txt`,
+fetched by the Actions workflow): 5,906 unique URLs. The sitemap **does carry `<lastmod>`**, so
+change tracking can eventually see updates, not just adds and removes. Indicator-page counts
+moved against the 2026-08-18 measurement: 1,055 Portugal (+1), 812 municipal (+308), 666 Europe
+(+28), total 2,533 in the three statistical areas. The +308 municipal jump exactly matches the
+number of municipalities and deserves a look before being trusted as "new indicators"; the URLs
+are genuine indicator slugs (including municipal election results per year), so the earlier 504
+may simply have been measured with a narrower filter.
 
 | Fact | Value | How established |
 |---|---|---|
@@ -166,14 +176,19 @@ Open items only. Verify against reality before acting; strike items when they la
    items 3 and 4 before they are acted on.
 2. **Write the Question Ledger.** *Questions drafted 2026-08-21*: 100 of them (expanded from
    30-50 by owner decision), written blind with no sitemap or catalogue consulted, in
-   `ledger/questions.csv` with the protocol in `ledger/README.md`. Still open: attempt each with
-   today's tools, recording which of the four stages broke and how long it took; and audit the
-   sample's spread against the sitemap slug list once fetched. Converts an opinion into evidence
-   and tells you what deserves building.
-2a. **Run the sitemap fetch.** `python3 scripts/fetch_sitemap.py` from a machine that can reach
-   pordata.pt (the remote sandbox cannot), then commit `data/sitemap-urls.txt`. Gives the
-   indicator slug list for the ledger's stratification audit, establishes the baseline for
-   add/remove change tracking via git diff, and answers whether the sitemap carries `<lastmod>`.
+   `ledger/questions.csv` with the protocol in `ledger/README.md`. Stratification audited
+   2026-08-21 against the sitemap slugs: every theme has real indicator backing (52 to 323
+   matching slugs per theme); the deliberately-unanswerable control question (Q098, pets) has
+   none, as intended. Still open: attempt each question with today's tools, recording which of
+   the four stages broke and how long it took. Converts an opinion into evidence and tells you
+   what deserves building.
+2a. ~~**Run the sitemap fetch.**~~ **Done 2026-08-21**, via GitHub Actions
+   (`.github/workflows/sitemap.yml`) because neither the remote sandbox nor a phone could run it:
+   the runner fetches the sitemap and commits `data/sitemap-urls.txt` (see Measured facts for
+   what it found, including that `<lastmod>` is present). The workflow triggers on pushes
+   touching itself or the fetch script, plus manual dispatch once it reaches the default branch.
+   Still open: add a cron schedule after merge to make it a standing add/remove watcher, and
+   consider capturing `<lastmod>` values for update tracking.
 3. **Spike: is INE's catalogue queryable?** Untested, and it gates the whole catalogue plan. INE
    has a JSON API, but whether it exposes an enumerable indicator catalogue (rather than only
    per-series fetches given a code you already know) has not been checked. If it does, much of the

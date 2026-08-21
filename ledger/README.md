@@ -32,9 +32,16 @@ a result.
 
 ## Stratification
 
-Spread at drafting time: ~13 themes; national, municipal and European geographies; ten personas.
-An audit of this spread against the real indicator list (sitemap slugs, `data/sitemap-urls.txt`
-once fetched) is pending — see backlog.
+Spread at drafting time: 13 themes; 66 national, 16 municipal, 18 European; nine personas;
+predicted kinds 54 lookup / 34 combo / 12 interp.
+
+**Audited 2026-08-21** against the real indicator slugs in `data/sitemap-urls.txt` (2,533
+indicator pages across `/portugal`, `/municipios`, `/europa`), by keyword match per theme. Every
+theme has real indicator backing — from 52 matching slugs (digital) to 323 (demografia), with
+política notably rich at 161 (including municipal election results per election year). The
+control question Q098 (registered pets), drafted as likely-unanswerable, matches zero slugs, as
+intended. Keyword matching understates true coverage, so these are floors, not counts. The
+sample stands: no theme needs rebalancing before attempts begin.
 
 ## Files
 

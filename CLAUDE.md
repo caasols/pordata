@@ -16,9 +16,9 @@ Version 0.1.0.
 ## Current focus
 
 Problem definition, not building. FFMS was emailed on 2026-08-21 (awaiting reply; see
-`context.md` backlog item 1). The Question Ledger's 100 questions are drafted in
-`ledger/questions.csv`; next actions are attempting them per `ledger/README.md` and running
-`scripts/fetch_sitemap.py` from a machine that can reach pordata.pt. An explicit decision recorded there is **not** to jump to an MCP
+`context.md` backlog item 1). The Question Ledger's 100 questions are drafted and
+stratification-audited in `ledger/`; the sitemap baseline is committed under `data/` via the
+Actions workflow. The next action is attempting the ledger questions per `ledger/README.md`. An explicit decision recorded there is **not** to jump to an MCP
 or a scraper before the catalogue question is settled.
 
 ## Sibling project
