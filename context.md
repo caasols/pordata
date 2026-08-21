@@ -25,6 +25,9 @@ There is no code yet. The repo holds research only.
 | `README.md` | Human front door. Brief overview, cross-links here for all state |
 | `.gitignore` | Standard Python, Node and OS patterns plus `graphify-out/` |
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
+| `ledger/` | Question Ledger: 100 demand-side questions plus protocol. See backlog item 2 |
+| `scripts/` | `fetch_sitemap.py`, one polite request, writes `data/sitemap-urls.txt` for diffing |
+| `data/` | Fetched artifacts, committed for git-diff change tracking. Empty until first sitemap run |
 | `graphify-out/` | Derived code graph, gitignored. Currently indexes only these docs' headings |
 
 When code arrives, the shape implied by the decisions below is: a harvester producing an indicator
@@ -161,9 +164,16 @@ Open items only. Verify against reality before acting; strike items when they la
    conversation. **Awaiting reply.** If nothing by ~2026-09-04, send a short follow-up or try the
    press/communication contact instead. A reply to any of the three questions redirects backlog
    items 3 and 4 before they are acted on.
-2. **Write the Question Ledger.** 30 to 50 questions a real person would ask, in their own words.
-   Then attempt each with today's tools, recording which of the four stages broke and how long it
-   took. Converts an opinion into evidence and tells you what deserves building.
+2. **Write the Question Ledger.** *Questions drafted 2026-08-21*: 100 of them (expanded from
+   30-50 by owner decision), written blind with no sitemap or catalogue consulted, in
+   `ledger/questions.csv` with the protocol in `ledger/README.md`. Still open: attempt each with
+   today's tools, recording which of the four stages broke and how long it took; and audit the
+   sample's spread against the sitemap slug list once fetched. Converts an opinion into evidence
+   and tells you what deserves building.
+2a. **Run the sitemap fetch.** `python3 scripts/fetch_sitemap.py` from a machine that can reach
+   pordata.pt (the remote sandbox cannot), then commit `data/sitemap-urls.txt`. Gives the
+   indicator slug list for the ledger's stratification audit, establishes the baseline for
+   add/remove change tracking via git diff, and answers whether the sitemap carries `<lastmod>`.
 3. **Spike: is INE's catalogue queryable?** Untested, and it gates the whole catalogue plan. INE
    has a JSON API, but whether it exposes an enumerable indicator catalogue (rather than only
    per-series fetches given a code you already know) has not been checked. If it does, much of the
