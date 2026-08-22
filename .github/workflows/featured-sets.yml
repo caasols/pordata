@@ -20,6 +20,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          # branch head at RUN time, not the trigger-time sha —
+          # a queued run must not work from a stale snapshot
+          ref: ${{ github.ref_name }}
 
       - name: Fetch featured sets
         run: python3 scripts/fetch_featured_sets.py

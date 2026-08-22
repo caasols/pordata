@@ -29,6 +29,10 @@ jobs:
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
+        with:
+          # branch head at RUN time, not the trigger-time sha —
+          # a queued run must not work from a stale snapshot
+          ref: ${{ github.ref_name }}
 
       - name: Harvest chunk
         env:
