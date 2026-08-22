@@ -2,6 +2,11 @@
 
 Making Portuguese public statistics consumable.
 
+**Search the catalogue: [caasols.github.io/pordata](https://caasols.github.io/pordata/)** — a
+fuzzy, multilingual (PT/EN/ES/FR/DE/IT) index of PORDATA's indicators, metadata only, every
+entry linking back to its PORDATA page. Machine-readable:
+[catalogue.json](docs/data/catalogue.json) · [catalogue.csv](docs/data/catalogue.csv).
+
 [PORDATA](https://www.pordata.pt) is Portugal's main free statistics database: 2,268 curated
 indicators covering the country, its 308 municipalities and Europe, with series reaching back to
 1960. It is excellent at presenting a single indicator to someone who already knows its name, and
