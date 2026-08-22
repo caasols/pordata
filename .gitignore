@@ -17,3 +17,5 @@ graphify-out/
 data/spikes/raw/
 data/catalogue/featured-raw/
 .coverage
+.mutmut-cache
+mutants/

@@ -1,8 +1,9 @@
-"""Shared test scaffolding: import the scripts (they are files, not a
-package) and build a temporary repo layout to chdir into, since the
-scripts resolve their data paths relative to the repo root."""
+"""Shared test scaffolding: import the scripts as the `scripts` package
+(the import path mutmut instruments) and build a temporary repo layout to
+chdir into, since the scripts resolve their data paths relative to the
+repo root."""
 
-import importlib.util
+import importlib
 import json
 import os
 import pathlib
@@ -10,20 +11,13 @@ import sys
 import tempfile
 import unittest
 
-SCRIPTS = pathlib.Path(__file__).resolve().parent.parent / "scripts"
-sys.path.insert(0, str(SCRIPTS))
-
-_cache = {}
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def load_script(name: str):
-    if name not in _cache:
-        spec = importlib.util.spec_from_file_location(
-            name, SCRIPTS / f"{name}.py")
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        _cache[name] = module
-    return _cache[name]
+    return importlib.import_module(f"scripts.{name}")
 
 
 PT = "https://www.pordata.pt"

@@ -12,8 +12,11 @@ import pathlib
 import re
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import pordata_lib as lib
+if __package__:
+    from . import pordata_lib as lib
+else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import pordata_lib as lib
 
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
 

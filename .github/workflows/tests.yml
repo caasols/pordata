@@ -5,6 +5,8 @@ on:
     paths:
       - "scripts/**"
       - "tests/**"
+      - "setup.cfg"
+      - "conftest.py"
       - ".github/workflows/tests.yml"
   pull_request:
 
@@ -25,5 +27,24 @@ jobs:
           pip install --quiet coverage
           coverage run --source=scripts -m unittest discover -s tests -v
           coverage report -m \
-            --omit="scripts/spike_*,scripts/fetch_ine_catalogue.py,scripts/fetch_sitemap.py" \
+            --omit="scripts/spike_*,scripts/fetch_ine_catalogue.py,scripts/fetch_sitemap.py,scripts/__init__.py" \
             --fail-under=80
+
+  mutation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mutation testing (mutmut)
+        # informative for now: baseline 2026-08-22 was 946 killed / 505
+        # survived / 217 uncovered; tighten into a gate as the suite grows
+        run: |
+          pip install --quiet mutmut pytest
+          python3 -m mutmut run || true
+          {
+            echo "## Mutation testing (mutmut)"
+            echo '```'
+            python3 -m mutmut results 2>/dev/null | head -60
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

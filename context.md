@@ -268,12 +268,22 @@ Open items only. Verify against reality before acting; strike items when they la
    sitemap slugs (EN pages share ids with PT pages; 100% coverage, zero extra requests).
    Deeper EN metadata (descriptions) would need harvesting the `/en` tree (~2,196 more
    pages) — deferred, recorded here.
+   *Extended again same day:* UI i18n is now **key-based** (`STRINGS[lang][key]` with
+   placeholder substitution in `docs/index.html`) and ships six languages — PT, EN, ES, FR,
+   DE, IT; adding a language is one data block. Indicator names remain PT/EN (what PORDATA
+   publishes); other UI languages show EN name first, PT underneath.
 3h. **Unit tests + CI (2026-08-22).** `tests/` (unittest, no deps) covers the corpus
    filter, record IO, harvester parse/plan, sitemap diff, catalogue build (tombstones, EN
    names, featured matching), QA checks, and quadro name extraction — 40 tests, 85% line
    coverage over the core scripts. `.github/workflows/tests.yml` runs them on every push
    touching `scripts/` or `tests/` with a `--fail-under=80` coverage gate (network
    fetchers exercised by live runs are omitted).
+   *Mutation testing added same day* (owner asked for Stryker; Stryker is JS/C#/Scala-only,
+   so mutmut — same idea, Python-native): `scripts/` became a package to satisfy mutmut's
+   import model; config in `setup.cfg`; a second CI job runs the full mutation suite
+   (~1,670 mutants, ~1 min) on every push. Baseline 2026-08-22: 946 killed / 505 survived /
+   217 uncovered (65% kill rate on covered code). Informative for now; open follow-up:
+   drive the kill rate up and turn it into a gate.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and

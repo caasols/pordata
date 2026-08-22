@@ -35,8 +35,11 @@ import sys
 import time
 import urllib.request
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import pordata_lib as lib
+if __package__:
+    from . import pordata_lib as lib
+else:  # executed directly, e.g. python3 scripts/harvest_catalogue.py
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import pordata_lib as lib
 
 USER_AGENT = (
     "pordata-map catalogue harvester "

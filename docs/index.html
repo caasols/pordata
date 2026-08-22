@@ -22,7 +22,8 @@
     font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   main { max-width: 780px; margin: 0 auto; padding: 24px 16px 64px; }
-  .top { display: flex; align-items: baseline; justify-content: space-between; }
+  .top { display: flex; align-items: baseline; justify-content: space-between;
+         flex-wrap: wrap; gap: 6px; }
   h1 { font-size: 1.5rem; margin: 0 0 4px; }
   h1 a { color: inherit; text-decoration: none; }
   .lang { font-size: .85rem; color: var(--muted); }
@@ -84,60 +85,102 @@
 <script>
 (async function () {
   "use strict";
-  const AREAS = { portugal: {pt: "Portugal", en: "Portugal"},
-                  municipios: {pt: "Municípios", en: "Municipalities"},
-                  europa: {pt: "Europa", en: "Europe"} };
-  const T = {
+
+  // ---- i18n ----------------------------------------------------------
+  // Key-based: add a language by adding one block here (and its label in
+  // AREA_LABELS). {n} / {m} are placeholders. Indicator names exist in
+  // PT and EN only (that is what PORDATA publishes); other UI languages
+  // show the EN name first and the PT original underneath.
+  const STRINGS = {
     pt: {
-      intro: (n) => `Catálogo pesquisável dos <b>${n}</b> indicadores da ` +
-        `<a href="https://www.pordata.pt" rel="noopener">PORDATA</a> ` +
-        `(Fundação Francisco Manuel dos Santos). Este índice contém apenas ` +
-        `<b>metadados</b> — os valores estão nas páginas da PORDATA e nas ` +
-        `fontes oficiais (INE, Eurostat, Banco de Portugal).`,
-      placeholder: "ex.: envelhecimento, salário médio, rendas…",
-      results: (n) => `${n} indicadores`,
-      showing: (m) => ` (a mostrar ${m})`,
-      removed: "descontinuado", sources: "Fontes", updated: "atual.",
-      loadfail: "Não foi possível carregar o catálogo.",
-      building: " (colheita em curso)", updatedAt: "Atualizado: ",
-      foot: `Dados e curadoria: <a href="https://www.pordata.pt" rel="noopener">PORDATA</a>, ` +
-        `Fundação Francisco Manuel dos Santos, e respetivas fontes. Índice ` +
-        `construído a partir das páginas públicas de indicadores; sem ` +
-        `redistribuição de valores. Código e metadados: ` +
-        `<a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a> ` +
-        `· <a href="data/catalogue.json">catalogue.json</a> ` +
-        `· <a href="data/catalogue.csv">catalogue.csv</a>`,
+      intro: 'Catálogo pesquisável dos <b>{n}</b> indicadores da {pordata} (Fundação Francisco Manuel dos Santos). Este índice contém apenas <b>metadados</b> — os valores estão nas páginas da PORDATA e nas fontes oficiais (INE, Eurostat, Banco de Portugal).',
+      placeholder: 'ex.: envelhecimento, salário médio, rendas…',
+      results: '{n} indicadores', showing: ' (a mostrar {m})',
+      removed: 'descontinuado', sources: 'Fontes', updated: 'atual.',
+      loadfail: 'Não foi possível carregar o catálogo.',
+      building: ' (colheita em curso)', updatedAt: 'Atualizado: ',
+      foot: 'Dados e curadoria: {pordata}, Fundação Francisco Manuel dos Santos, e respetivas fontes. Índice construído a partir das páginas públicas de indicadores; sem redistribuição de valores. Código e metadados: {repo} · {json} · {csv}',
     },
     en: {
-      intro: (n) => `Searchable catalogue of the <b>${n}</b> indicators of ` +
-        `<a href="https://www.pordata.pt" rel="noopener">PORDATA</a> ` +
-        `(Francisco Manuel dos Santos Foundation). This index holds ` +
-        `<b>metadata only</b> — the values live on PORDATA's pages and at ` +
-        `the official sources (INE, Eurostat, Banco de Portugal).`,
-      placeholder: "e.g.: ageing, average wage, rents…",
-      results: (n) => `${n} indicators`,
-      showing: (m) => ` (showing ${m})`,
-      removed: "discontinued", sources: "Sources", updated: "upd.",
-      loadfail: "Could not load the catalogue.",
-      building: " (harvest in progress)", updatedAt: "Updated: ",
-      foot: `Data and curation: <a href="https://www.pordata.pt" rel="noopener">PORDATA</a>, ` +
-        `Francisco Manuel dos Santos Foundation, and their sources. Built ` +
-        `from the public indicator pages; no data values are redistributed. ` +
-        `Code and metadata: ` +
-        `<a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a> ` +
-        `· <a href="data/catalogue.json">catalogue.json</a> ` +
-        `· <a href="data/catalogue.csv">catalogue.csv</a>`,
+      intro: 'Searchable catalogue of the <b>{n}</b> indicators of {pordata} (Francisco Manuel dos Santos Foundation). This index holds <b>metadata only</b> — the values live on PORDATA\'s pages and at the official sources (INE, Eurostat, Banco de Portugal).',
+      placeholder: 'e.g.: ageing, average wage, rents…',
+      results: '{n} indicators', showing: ' (showing {m})',
+      removed: 'discontinued', sources: 'Sources', updated: 'upd.',
+      loadfail: 'Could not load the catalogue.',
+      building: ' (harvest in progress)', updatedAt: 'Updated: ',
+      foot: 'Data and curation: {pordata}, Francisco Manuel dos Santos Foundation, and their sources. Built from the public indicator pages; no data values are redistributed. Code and metadata: {repo} · {json} · {csv}',
+    },
+    es: {
+      intro: 'Catálogo consultable de los <b>{n}</b> indicadores de {pordata} (Fundación Francisco Manuel dos Santos). Este índice contiene solo <b>metadatos</b>: los valores están en las páginas de PORDATA y en las fuentes oficiales (INE, Eurostat, Banco de Portugal). Los nombres de los indicadores existen en portugués e inglés.',
+      placeholder: 'p. ej.: envejecimiento, salario medio, alquileres…',
+      results: '{n} indicadores', showing: ' (mostrando {m})',
+      removed: 'descatalogado', sources: 'Fuentes', updated: 'act.',
+      loadfail: 'No se pudo cargar el catálogo.',
+      building: ' (recolección en curso)', updatedAt: 'Actualizado: ',
+      foot: 'Datos y curaduría: {pordata}, Fundación Francisco Manuel dos Santos, y sus fuentes. Construido a partir de las páginas públicas de indicadores; sin redistribución de valores. Código y metadatos: {repo} · {json} · {csv}',
+    },
+    fr: {
+      intro: 'Catalogue interrogeable des <b>{n}</b> indicateurs de {pordata} (Fondation Francisco Manuel dos Santos). Cet index ne contient que des <b>métadonnées</b> — les valeurs se trouvent sur les pages de PORDATA et auprès des sources officielles (INE, Eurostat, Banco de Portugal). Les noms des indicateurs existent en portugais et en anglais.',
+      placeholder: 'ex. : vieillissement, salaire moyen, loyers…',
+      results: '{n} indicateurs', showing: ' (affichage de {m})',
+      removed: 'discontinué', sources: 'Sources', updated: 'màj',
+      loadfail: 'Impossible de charger le catalogue.',
+      building: ' (collecte en cours)', updatedAt: 'Mis à jour : ',
+      foot: 'Données et curation : {pordata}, Fondation Francisco Manuel dos Santos, et leurs sources. Construit à partir des pages publiques des indicateurs ; aucune valeur n\'est redistribuée. Code et métadonnées : {repo} · {json} · {csv}',
+    },
+    de: {
+      intro: 'Durchsuchbarer Katalog der <b>{n}</b> Indikatoren von {pordata} (Stiftung Francisco Manuel dos Santos). Dieser Index enthält nur <b>Metadaten</b> — die Werte stehen auf den PORDATA-Seiten und bei den amtlichen Quellen (INE, Eurostat, Banco de Portugal). Die Indikatornamen liegen auf Portugiesisch und Englisch vor.',
+      placeholder: 'z. B.: Alterung, Durchschnittslohn, Mieten…',
+      results: '{n} Indikatoren', showing: ' (zeige {m})',
+      removed: 'eingestellt', sources: 'Quellen', updated: 'Stand',
+      loadfail: 'Der Katalog konnte nicht geladen werden.',
+      building: ' (Erhebung läuft)', updatedAt: 'Aktualisiert: ',
+      foot: 'Daten und Kuratierung: {pordata}, Stiftung Francisco Manuel dos Santos, und ihre Quellen. Erstellt aus den öffentlichen Indikatorseiten; keine Weiterverbreitung von Werten. Code und Metadaten: {repo} · {json} · {csv}',
+    },
+    it: {
+      intro: 'Catalogo consultabile dei <b>{n}</b> indicatori di {pordata} (Fondazione Francisco Manuel dos Santos). Questo indice contiene solo <b>metadati</b>: i valori si trovano sulle pagine di PORDATA e presso le fonti ufficiali (INE, Eurostat, Banco de Portugal). I nomi degli indicatori esistono in portoghese e inglese.',
+      placeholder: 'es.: invecchiamento, salario medio, affitti…',
+      results: '{n} indicatori', showing: ' (mostrando {m})',
+      removed: 'dismesso', sources: 'Fonti', updated: 'agg.',
+      loadfail: 'Impossibile caricare il catalogo.',
+      building: ' (raccolta in corso)', updatedAt: 'Aggiornato: ',
+      foot: 'Dati e cura: {pordata}, Fondazione Francisco Manuel dos Santos, e le rispettive fonti. Costruito dalle pagine pubbliche degli indicatori; nessuna ridistribuzione di valori. Codice e metadati: {repo} · {json} · {csv}',
     },
   };
+  const AREA_LABELS = {
+    portugal:   {pt: 'Portugal', en: 'Portugal', es: 'Portugal',
+                 fr: 'Portugal', de: 'Portugal', it: 'Portogallo'},
+    municipios: {pt: 'Municípios', en: 'Municipalities', es: 'Municipios',
+                 fr: 'Municipalités', de: 'Gemeinden', it: 'Comuni'},
+    europa:     {pt: 'Europa', en: 'Europe', es: 'Europa',
+                 fr: 'Europe', de: 'Europa', it: 'Europa'},
+  };
+  const LINKS = {
+    pordata: '<a href="https://www.pordata.pt" rel="noopener">PORDATA</a>',
+    repo: '<a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a>',
+    json: '<a href="data/catalogue.json">catalogue.json</a>',
+    csv: '<a href="data/catalogue.csv">catalogue.csv</a>',
+  };
+
+  function t(key, params) {
+    let s = (STRINGS[lang] || STRINGS.pt)[key] || STRINGS.pt[key] || key;
+    for (const [k, v] of Object.entries({...LINKS, ...(params || {})}))
+      s = s.split("{" + k + "}").join(v);
+    return s;
+  }
+
   const $ = (id) => document.getElementById(id);
   const norm = (s) => (s || "").toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   let lang;
   try { lang = localStorage.getItem("lang"); } catch (e) { lang = null; }
-  if (lang !== "pt" && lang !== "en")
-    lang = (navigator.language || "pt").startsWith("pt") ? "pt" : "en";
+  if (!STRINGS[lang]) {
+    const nav = (navigator.language || "pt").slice(0, 2).toLowerCase();
+    lang = STRINGS[nav] ? nav : "en";
+  }
 
+  // ---- data ----------------------------------------------------------
   let rows = [], stats = null;
   try {
     [rows, stats] = await Promise.all([
@@ -145,7 +188,7 @@
       fetch("data/stats.json").then(r => r.json()).catch(() => null),
     ]);
   } catch (e) {
-    $("out").textContent = T[lang].loadfail;
+    $("out").textContent = t("loadfail");
     return;
   }
   rows.forEach(r => {
@@ -155,7 +198,7 @@
     r._words = r._hay.split(/[^a-z0-9%€]+/).filter(w => w.length > 1);
   });
 
-  // bounded edit distance (returns > max when exceeded)
+  // ---- fuzzy search --------------------------------------------------
   function editDistance(a, b, max) {
     if (Math.abs(a.length - b.length) > max) return max + 1;
     let prev = Array.from({length: b.length + 1}, (_, i) => i);
@@ -173,26 +216,30 @@
     return prev[b.length];
   }
 
-  // score one query token against a row: substring > prefix > fuzzy
-  function tokenScore(t, r) {
-    if (r._hay.includes(t)) return r._name.includes(t) ? 3 : 2;
-    if (t.length < 3) return 0;
-    const maxEd = t.length >= 8 ? 2 : (t.length >= 5 ? 1 : 0);
+  function tokenScore(tok, r) {
+    if (r._hay.includes(tok)) return r._name.includes(tok) ? 3 : 2;
+    if (tok.length < 3) return 0;
+    const maxEd = tok.length >= 8 ? 2 : (tok.length >= 5 ? 1 : 0);
     let best = 0;
     for (const w of r._words) {
-      if (w.startsWith(t)) { best = Math.max(best, 1.5); continue; }
-      if (maxEd && editDistance(t, w, maxEd) <= maxEd)
+      if (w.startsWith(tok)) { best = Math.max(best, 1.5); continue; }
+      if (maxEd && editDistance(tok, w, maxEd) <= maxEd)
         best = Math.max(best, 1);
       if (best >= 1.5) break;
     }
     return best;
   }
 
-  const active = new Set(Object.keys(AREAS));
+  // ---- rendering -----------------------------------------------------
+  const active = new Set(Object.keys(AREA_LABELS));
   const MAX = 60;
 
+  function displayNames(r) {
+    if (lang === "pt") return [r.name, r.name_en];
+    return [r.name_en || r.name, r.name_en ? r.name : ""];
+  }
+
   function render() {
-    const t = T[lang];
     const terms = norm($("q").value).split(/\s+/).filter(Boolean);
     const hits = [];
     for (const r of rows) {
@@ -206,23 +253,22 @@
       if (score) hits.push([score, r]);
     }
     hits.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
-    $("meta").textContent = t.results(hits.length.toLocaleString()) +
-      (hits.length > MAX ? t.showing(MAX) : "");
+    $("meta").textContent =
+      t("results", {n: hits.length.toLocaleString()}) +
+      (hits.length > MAX ? t("showing", {m: MAX}) : "");
     $("out").innerHTML = hits.slice(0, MAX).map(([, r]) => {
-      const primary = (lang === "en" && r.name_en) ? r.name_en : r.name;
-      const alt = (lang === "en" && r.name_en) ? r.name
-        : (lang === "pt" && r.name_en ? r.name_en : "");
+      const [primary, alt] = displayNames(r);
       return `
       <div class="card">
         <a class="name" href="${r.url}" rel="noopener">${primary || r.url}</a>
         ${alt ? `<div class="alt">${alt}</div>` : ""}
         <div class="tags">
-          <span class="tag">${AREAS[r.area][lang]}</span>
-          ${r.removed ? `<span class="tag removed">${t.removed}</span>` : ""}
+          <span class="tag">${(AREA_LABELS[r.area] || {})[lang] || r.area}</span>
+          ${r.removed ? `<span class="tag removed">${t("removed")}</span>` : ""}
           ${(r.featured || []).map(f => `<span class="tag">★ ${f}</span>`).join("")}
-          ${r.fontes && r.fontes.length ? `<span class="tag">${t.sources}: ` +
+          ${r.fontes && r.fontes.length ? `<span class="tag">${t("sources")}: ` +
             r.fontes.join(", ") + "</span>" : ""}
-          ${r.ultima_atualizacao ? `<span class="tag">${t.updated} ` +
+          ${r.ultima_atualizacao ? `<span class="tag">${t("updated")} ` +
             r.ultima_atualizacao + "</span>" : ""}
         </div>
         ${(lang === "pt" && r.description)
@@ -232,14 +278,13 @@
   }
 
   function applyLang() {
-    const t = T[lang];
     document.documentElement.lang = lang;
-    $("intro").innerHTML = t.intro(rows.length.toLocaleString());
-    $("q").placeholder = t.placeholder;
-    $("foot").innerHTML = t.foot + (stats
-      ? `<div>${t.updatedAt}${stats.built_at}${stats.complete ? "" : t.building}</div>`
+    $("intro").innerHTML = t("intro", {n: rows.length.toLocaleString()});
+    $("q").placeholder = t("placeholder");
+    $("foot").innerHTML = t("foot") + (stats
+      ? `<div>${t("updatedAt")}${stats.built_at}${stats.complete ? "" : t("building")}</div>`
       : "");
-    $("lang").innerHTML = ["pt", "en"].map(l =>
+    $("lang").innerHTML = Object.keys(STRINGS).map(l =>
       `<span class="${l === lang ? "on" : ""}" data-l="${l}">${l.toUpperCase()}</span>`
     ).join(" ");
     for (const el of $("lang").children) {
@@ -254,10 +299,10 @@
   function buildAreaChips() {
     const box = $("areas");
     box.innerHTML = "";
-    for (const key of Object.keys(AREAS)) {
+    for (const key of Object.keys(AREA_LABELS)) {
       const el = document.createElement("span");
       el.className = "chip" + (active.has(key) ? " on" : "");
-      el.textContent = AREAS[key][lang];
+      el.textContent = AREA_LABELS[key][lang] || key;
       el.onclick = () => {
         if (active.has(key) && active.size === 1) return;
         active.has(key) ? active.delete(key) : active.add(key);
