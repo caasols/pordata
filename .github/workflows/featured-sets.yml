@@ -29,6 +29,13 @@ jobs:
           python3 scripts/build_catalogue.py
           python3 scripts/qa_catalogue.py
 
+      - name: Upload raw pages as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: featured-raw
+          path: data/catalogue/featured-raw/
+          retention-days: 14
+
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"

@@ -15,3 +15,4 @@ node_modules/
 # Derived
 graphify-out/
 data/spikes/raw/
+data/catalogue/featured-raw/

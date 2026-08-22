@@ -41,17 +41,33 @@ def fetch(url: str) -> str:
         return resp.read().decode("utf-8", errors="replace")
 
 
+def href_inventory(html: str) -> dict[str, int]:
+    """First path segment of every href on the page, for diagnosis when no
+    indicator links are found (the page may build links client-side)."""
+    counts: dict[str, int] = {}
+    for m in re.finditer(r'href="([^"]+)"', html):
+        href = m.group(1)
+        path = href.split("pordata.pt", 1)[-1] if "pordata.pt" in href else href
+        seg = "/".join(path.lstrip("/").split("/")[:2])[:60] or "(empty)"
+        counts[seg] = counts.get(seg, 0) + 1
+    return dict(sorted(counts.items(), key=lambda kv: -kv[1])[:30])
+
+
 def main() -> None:
     urls = URLS_FILE.read_text(encoding="utf-8").split()
-    quadros = [u for u in urls if "quadro+resumo" in u][:2]
+    quadros_mun = [u for u in urls if "municipios/quadro+resumo" in u][:2]
+    quadros_eur = [u for u in urls if "europa/quadro+resumo" in u][:1]
     retratos = [u for u in urls
                 if u.split("pordata.pt/", 1)[-1].startswith("retratos/")]
-    retratos = (sorted(retratos, key=lambda u: "municip" not in u))[:2]
+    retratos = (sorted(retratos, key=lambda u: "municip" not in u))[:1]
 
+    raw_dir = pathlib.Path("data/catalogue/featured-raw")
+    raw_dir.mkdir(parents=True, exist_ok=True)
     result = {"fetched_at": time.strftime("%Y-%m-%d", time.gmtime())}
     first = True
     sets = {}
-    for group, sample_urls in (("quadro_resumo", quadros),
+    for group, sample_urls in (("quadro_resumo_municipios", quadros_mun),
+                               ("quadro_resumo_europa", quadros_eur),
                                ("retratos", retratos)):
         per_page = []
         for url in sample_urls:
@@ -59,17 +75,23 @@ def main() -> None:
                 time.sleep(DELAY_SECONDS)
             first = False
             print("fetching", url)
-            per_page.append((url, indicator_ids(fetch(url))))
+            html = fetch(url)
+            slug = url.rstrip("/").rsplit("/", 1)[-1][:60]
+            (raw_dir / f"{group}-{slug}.html").write_text(
+                html, encoding="utf-8")
+            per_page.append((url, indicator_ids(html), href_inventory(html)))
         if not per_page:
             continue
-        union = set().union(*(ids for _, ids in per_page))
+        union = set().union(*(ids for _, ids, _ in per_page))
         identical = len(per_page) < 2 or per_page[0][1] == per_page[1][1]
         sets[group] = {
             "indicator_ids": sorted(union),
             "identical_across_samples": identical,
-            "samples": [u for u, _ in per_page],
-            "counts_per_sample": [len(ids) for _, ids in per_page],
+            "samples": [u for u, _, _ in per_page],
+            "counts_per_sample": [len(ids) for _, ids, _ in per_page],
         }
+        if not union:  # nothing matched; keep the diagnosis
+            sets[group]["debug_hrefs"] = per_page[0][2]
         print(f"{group}: {len(union)} indicators referenced, "
               f"identical_across_samples={identical}")
 
