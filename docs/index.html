@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>pordata map — catálogo de indicadores</title>
 <meta name="description" content="Catálogo pesquisável dos indicadores da PORDATA. Apenas metadados; os valores estão na PORDATA e nas fontes oficiais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
   /* set theme before first paint to avoid a flash */
   try {
@@ -16,56 +19,67 @@
 </script>
 <style>
   /* ---- shadcn theme tokens --------------------------------------------
-     Default neutral (zinc) theme. To apply a preset (e.g. from tweakcn),
-     replace the :root and .dark blocks below with the preset's exported
-     CSS variables — everything else reads from these tokens. */
+     Preset b1FQyVz3C from ui.shadcn.com/create (amber, Public Sans,
+     radius 0.45rem), extracted from the live preview 2026-08-22. To
+     re-theme, replace the :root and .dark blocks; values are complete
+     colors (oklch/lab), consumed via var() directly. */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.147 0.004 49.25);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.147 0.004 49.25);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.147 0.004 49.25);
+    --primary: oklch(0.555 0.163 48.998);
+    --primary-foreground: oklch(0.987 0.022 95.277);
+    --secondary: oklch(0.967 0.001 286.375);
+    --secondary-foreground: oklch(0.21 0.006 285.885);
+    --muted: oklch(0.97 0.001 106.424);
+    --muted-foreground: oklch(0.553 0.013 58.071);
+    --accent: oklch(0.97 0.001 106.424);
+    --accent-foreground: oklch(0.216 0.006 56.043);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: lab(96.4152% 3.22586 1.14673);
+    --border: oklch(0.923 0.003 48.717);
+    --input: oklch(0.923 0.003 48.717);
+    --ring: oklch(0.709 0.01 56.259);
+    --chart-1: oklch(0.879 0.169 91.605);
+    --chart-2: oklch(0.769 0.188 70.08);
+    --chart-3: oklch(0.666 0.179 58.318);
+    --chart-4: oklch(0.555 0.163 48.998);
+    --chart-5: oklch(0.473 0.137 46.201);
+    --radius: 0.45rem;
+    --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 9% 6%;
-    --card-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --background: oklch(0.147 0.004 49.25);
+    --foreground: oklch(0.985 0.001 106.423);
+    --card: oklch(0.216 0.006 56.043);
+    --card-foreground: oklch(0.985 0.001 106.423);
+    --popover: oklch(0.216 0.006 56.043);
+    --popover-foreground: oklch(0.985 0.001 106.423);
+    --primary: oklch(0.473 0.137 46.201);
+    --primary-foreground: oklch(0.987 0.022 95.277);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.268 0.007 34.298);
+    --muted-foreground: oklch(0.709 0.01 56.259);
+    --accent: oklch(0.268 0.007 34.298);
+    --accent-foreground: oklch(0.985 0.001 106.423);
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.987 0.022 95.277);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.553 0.013 58.071);
   }
 
   /* ---- base ---- */
-  * { box-sizing: border-box; border-color: hsl(var(--border)); }
+  * { box-sizing: border-box; border-color: var(--border); }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    margin: 0; background: hsl(var(--background)); color: hsl(var(--foreground));
-    font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0; background: var(--background); color: var(--foreground);
+    font: 15px/1.6 var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
   main { max-width: 768px; margin: 0 auto; padding: 28px 16px 64px; }
@@ -81,93 +95,94 @@
   /* lang picker: shadcn tabs */
   .lang {
     display: inline-flex; align-items: center; gap: 2px;
-    background: hsl(var(--muted)); border-radius: var(--radius); padding: 3px;
+    background: var(--muted); border-radius: var(--radius); padding: 3px;
   }
   .lang span {
     cursor: pointer; padding: 3px 9px; font-size: .8rem; font-weight: 500;
-    color: hsl(var(--muted-foreground));
+    color: var(--muted-foreground);
     border-radius: calc(var(--radius) - 4px); user-select: none;
   }
   .lang span.on {
-    background: hsl(var(--background)); color: hsl(var(--foreground));
+    background: var(--background); color: var(--foreground);
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.06);
   }
 
   /* theme toggle: shadcn ghost icon button */
   #themeBtn {
     display: inline-flex; align-items: center; justify-content: center;
-    height: 2.1rem; width: 2.1rem; border: 1px solid hsl(var(--border));
+    height: 2.1rem; width: 2.1rem; border: 1px solid var(--border);
     border-radius: calc(var(--radius) - 2px); background: transparent;
-    color: hsl(var(--muted-foreground)); cursor: pointer; font-size: 1rem;
+    color: var(--muted-foreground); cursor: pointer; font-size: 1rem;
   }
-  #themeBtn:hover { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+  #themeBtn:hover { background: var(--accent); color: var(--accent-foreground); }
 
-  .sub { color: hsl(var(--muted-foreground)); margin: 8px 0 20px; font-size: .92rem; }
-  .sub b { color: hsl(var(--foreground)); font-weight: 600; }
-  .sub a { color: hsl(var(--foreground)); text-underline-offset: 3px; }
+  .sub { color: var(--muted-foreground); margin: 8px 0 20px; font-size: .92rem; }
+  .sub b { color: var(--foreground); font-weight: 600; }
+  .sub a { color: var(--foreground); text-underline-offset: 3px; }
 
   /* ---- input: shadcn input ---- */
   #q {
     width: 100%; height: 2.75rem; padding: 0 14px; font-size: 1rem;
-    font-family: inherit; color: hsl(var(--foreground));
-    background: hsl(var(--background));
-    border: 1px solid hsl(var(--input));
+    font-family: inherit; color: var(--foreground);
+    background: var(--background);
+    border: 1px solid var(--input);
     border-radius: calc(var(--radius) - 2px); outline: none;
   }
-  #q::placeholder { color: hsl(var(--muted-foreground)); }
+  #q::placeholder { color: var(--muted-foreground); }
   #q:focus-visible {
-    border-color: hsl(var(--ring));
-    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.18);
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
   }
 
   /* ---- area filters: shadcn toggle badges ---- */
   .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 6px; }
   .chip {
     padding: 4px 12px; border-radius: 999px; font-size: .82rem; font-weight: 500;
-    border: 1px solid hsl(var(--border)); background: transparent;
-    color: hsl(var(--muted-foreground)); cursor: pointer; user-select: none;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--muted-foreground); cursor: pointer; user-select: none;
   }
-  .chip:hover { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+  .chip:hover { background: var(--accent); color: var(--accent-foreground); }
   .chip.on {
-    background: hsl(var(--primary)); border-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
+    background: var(--primary); border-color: var(--primary);
+    color: var(--primary-foreground);
   }
 
-  #meta { color: hsl(var(--muted-foreground)); font-size: .82rem; margin: 12px 2px; }
+  #meta { color: var(--muted-foreground); font-size: .82rem; margin: 12px 2px; }
 
   /* ---- results: shadcn cards ---- */
   .card {
-    background: hsl(var(--card)); color: hsl(var(--card-foreground));
-    border: 1px solid hsl(var(--border)); border-radius: var(--radius);
+    background: var(--card); color: var(--card-foreground);
+    border: 1px solid var(--border); border-radius: var(--radius);
     padding: 14px 16px; margin: 10px 0;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04);
     overflow-wrap: anywhere; /* long slugs/URLs must never widen the page */
   }
   .card a.name {
+    color: var(--primary);
     font-weight: 600; font-size: .98rem; text-decoration: none;
     text-underline-offset: 3px;
   }
   .card a.name:hover { text-decoration: underline; }
-  .alt { font-size: .84rem; color: hsl(var(--muted-foreground)); margin-top: 2px; }
+  .alt { font-size: .84rem; color: var(--muted-foreground); margin-top: 2px; }
   .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
     display: inline-flex; align-items: center;
-    background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground));
+    background: var(--secondary); color: var(--secondary-foreground);
     border-radius: calc(var(--radius) - 4px);
     padding: 2px 8px; font-size: .74rem; font-weight: 500;
   }
-  .tag.removed { background: hsl(var(--destructive)); color: hsl(var(--destructive-foreground)); }
+  .tag.removed { background: var(--destructive); color: var(--destructive-foreground); }
   .tag.outline {
-    background: transparent; border: 1px solid hsl(var(--border));
-    color: hsl(var(--muted-foreground)); font-weight: 400;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted-foreground); font-weight: 400;
   }
-  .desc { margin: 8px 0 0; font-size: .88rem; color: hsl(var(--muted-foreground)); }
+  .desc { margin: 8px 0 0; font-size: .88rem; color: var(--muted-foreground); }
 
   footer {
-    margin-top: 44px; padding-top: 18px; border-top: 1px solid hsl(var(--border));
-    color: hsl(var(--muted-foreground)); font-size: .82rem;
+    margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--border);
+    color: var(--muted-foreground); font-size: .82rem;
   }
-  footer a { color: hsl(var(--foreground)); text-underline-offset: 3px; }
+  footer a { color: var(--foreground); text-underline-offset: 3px; }
   footer div { margin-top: 6px; }
 </style>
 </head>
