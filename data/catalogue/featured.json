@@ -1,0 +1,27 @@
+{
+ "fetched_at": "2026-08-22",
+ "quadro_resumo": {
+  "indicator_ids": [],
+  "identical_across_samples": true,
+  "samples": [
+   "https://www.pordata.pt/europa/quadro+resumo/alemanha-826946",
+   "https://www.pordata.pt/europa/quadro+resumo/austria-826947"
+  ],
+  "counts_per_sample": [
+   0,
+   0
+  ]
+ },
+ "retratos": {
+  "indicator_ids": [],
+  "identical_across_samples": true,
+  "samples": [
+   "https://www.pordata.pt/retratos/2016/retrato+dos+municipios-41",
+   "https://www.pordata.pt/retratos/2009/retrato+de+portugal-9"
+  ],
+  "counts_per_sample": [
+   0,
+   0
+  ]
+ }
+}
