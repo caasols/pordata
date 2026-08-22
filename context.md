@@ -243,11 +243,18 @@ Open items only. Verify against reality before acting; strike items when they la
    BPstat for monetary series. Store match + confidence in the catalogue; unmatched entries
    stay honest with `crosswalk: null`. This is the artifact that makes Phase D (values via MCP)
    safe.
-3f. **Keep the catalogue fresh via lastmod.** The sitemap watcher already records per-page
-   `<lastmod>`; wire a small step that marks catalogue entries stale when their lastmod moves
-   past `harvested_at`, and let the harvest workflow re-fetch just those pages. Turns the
-   one-off harvest into a self-maintaining catalogue and gives the harvest cron a purpose
-   after completion (otherwise disable it).
+3f. **Keep the catalogue fresh: one signal chain, three change types.** The watcher's daily
+   sitemap snapshot is the harvester's input, so the pipeline
+   watcher → committed snapshot → harvest cron handles all three cases without a new job:
+   - **New indicator**: already automatic today — the URL lands in `sitemap-urls.txt`, the
+     next harvest cron run sees it missing from `pages.jsonl` and fetches it (within ~8 h).
+     Requires keeping the harvest cron enabled after the initial harvest completes.
+   - **Updated indicator**: the gap this item fills — compare the watcher's `<lastmod>`
+     against each entry's `harvested_at`, mark stale, and have the harvest run re-fetch just
+     those pages.
+   - **Removed indicator**: also to build — a URL gone from the sitemap should tombstone its
+     catalogue entry (`removed: <date>`), never delete it; deprecated indicators still matter
+     historically.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
