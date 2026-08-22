@@ -1,0 +1,49 @@
+name: preset fetch
+
+# One-off: fetch a ui.shadcn.com theme preset from a runner (the remote
+# sandbox cannot reach the host) and print its design tokens to the log.
+# Temporary utility; remove after use.
+
+on:
+  workflow_dispatch:
+    inputs:
+      preset:
+        description: "Preset id"
+        required: true
+        default: "b1FQyVz3C"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch preset page and extract tokens
+        env:
+          PRESET: ${{ inputs.preset }}
+        run: |
+          set -x
+          URL="https://ui.shadcn.com/create?item=preview&preset=${PRESET}&base=radix"
+          curl -sL --max-time 60 -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" \
+            "$URL" -o page.html || true
+          echo "== page size: $(wc -c < page.html || echo 0)"
+          echo "== marker counts"
+          for m in "$PRESET" -- oklch "hsl(" "font-sans" "radius"; do
+            printf '%s: %s\n' "$m" "$(grep -c -- "$m" page.html || true)"
+          done
+          echo "== css custom property declarations (first 150)"
+          grep -oE -- '--[a-zA-Z-]+:\s*[^;"\\{}]{1,80}' page.html | sort -u | head -150 || true
+          echo "== json-style token pairs (first 150)"
+          grep -oE '\\?"(background|foreground|card|popover|primary|secondary|muted|accent|destructive|border|input|ring|radius|chart-[0-9]|sidebar[a-zA-Z-]*|font-[a-z]+|[a-z]+-foreground)\\?":\\?"[^"\\]{1,80}' page.html | sort -u | head -150 || true
+          echo "== candidate api endpoints"
+          for u in \
+            "https://ui.shadcn.com/api/presets/${PRESET}" \
+            "https://ui.shadcn.com/api/preset/${PRESET}" \
+            "https://ui.shadcn.com/r/presets/${PRESET}.json" \
+            "https://ui.shadcn.com/create/api/preset/${PRESET}"; do
+            echo "--- $u"
+            curl -sL --max-time 30 -w "\nSTATUS:%{http_code}\n" "$u" | head -c 1500 || true
+            echo
+          done
