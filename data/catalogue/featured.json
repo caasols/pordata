@@ -1,27 +1,131 @@
 {
  "fetched_at": "2026-08-22",
- "quadro_resumo": {
+ "quadro_resumo_municipios": {
   "indicator_ids": [],
   "identical_across_samples": true,
   "samples": [
-   "https://www.pordata.pt/europa/quadro+resumo/alemanha-826946",
-   "https://www.pordata.pt/europa/quadro+resumo/austria-826947"
+   "https://www.pordata.pt/municipios/quadro+resumo/abrantes-828209",
+   "https://www.pordata.pt/municipios/quadro+resumo/agueda-828112"
   ],
   "counts_per_sample": [
    0,
    0
-  ]
+  ],
+  "debug_hrefs": {
+   "https:/": 10,
+   "javascript:__doPostBack(&#39;wt4$wtMainContent$SummaryBI_Wid": 8,
+   "Blocks/Site": 4,
+   "politica+privacidade": 4,
+   "RichWidgets/Blocks": 2,
+   "SummaryBI_Widgets/Blocks": 2,
+   "(empty)": 2,
+   "SummaryBI_Widgets/Simbology_PopUp.aspx?LanguageId=1&amp;Appl": 2,
+   "mailto:pordata@ffms.pt": 2,
+   "tel:(+351)%c2%a0210%20015%20800": 2,
+   "ffms": 2,
+   "sobre+a+pordata": 2,
+   "fontes+e+entidades": 2,
+   "glossario": 2,
+   "imprensa": 2,
+   "cookies": 2,
+   "termos+legais": 2,
+   "Site_Widgets/img": 1,
+   "Select2/Blocks": 1,
+   "Theme.Site.css?16330": 1,
+   "Summary_Table.css?16330": 1,
+   "Theme.Site.extra.css?16330": 1,
+   "home": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$Site_Widgets_wt129$bloc": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt219&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$Site_Widgets_wt20$block": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt43&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt156&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt90&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt60&#39;,&#39;&#39;)": 1
+  }
+ },
+ "quadro_resumo_europa": {
+  "indicator_ids": [],
+  "identical_across_samples": true,
+  "samples": [
+   "https://www.pordata.pt/europa/quadro+resumo/alemanha-826946"
+  ],
+  "counts_per_sample": [
+   0
+  ],
+  "debug_hrefs": {
+   "https:/": 10,
+   "javascript:__doPostBack(&#39;wt4$wtMainContent$SummaryBI_Wid": 8,
+   "Blocks/Site": 4,
+   "politica+privacidade": 4,
+   "RichWidgets/Blocks": 2,
+   "SummaryBI_Widgets/Blocks": 2,
+   "(empty)": 2,
+   "SummaryBI_Widgets/Simbology_PopUp.aspx?LanguageId=1&amp;Appl": 2,
+   "mailto:pordata@ffms.pt": 2,
+   "tel:(+351)%c2%a0210%20015%20800": 2,
+   "ffms": 2,
+   "sobre+a+pordata": 2,
+   "fontes+e+entidades": 2,
+   "glossario": 2,
+   "imprensa": 2,
+   "cookies": 2,
+   "termos+legais": 2,
+   "Site_Widgets/img": 1,
+   "Select2/Blocks": 1,
+   "Theme.Site.css?16330": 1,
+   "Summary_Table.css?16330": 1,
+   "Theme.Site.extra.css?16330": 1,
+   "home": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$Site_Widgets_wt129$bloc": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt219&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$Site_Widgets_wt20$block": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt43&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt156&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt90&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt4$wt2$wt60&#39;,&#39;&#39;)": 1
+  }
  },
  "retratos": {
   "indicator_ids": [],
   "identical_across_samples": true,
   "samples": [
-   "https://www.pordata.pt/retratos/2016/retrato+dos+municipios-41",
-   "https://www.pordata.pt/retratos/2009/retrato+de+portugal-9"
+   "https://www.pordata.pt/retratos/2016/retrato+dos+municipios-41"
   ],
   "counts_per_sample": [
-   0,
    0
-  ]
+  ],
+  "debug_hrefs": {
+   "https:/": 10,
+   "Blocks/Site": 8,
+   "politica+privacidade": 4,
+   "javascript:__doPostBack(&#39;wt14$wtMainContent$wt10$wtLRCat": 3,
+   "RichWidgets/Blocks": 2,
+   "(empty)": 2,
+   "javascript:__doPostBack(&#39;wt14$wt2$wtLRPublications2$ctl0": 2,
+   "Retratos/2016": 2,
+   "mailto:pordata@ffms.pt": 2,
+   "tel:(+351)%c2%a0210%20015%20800": 2,
+   "ffms": 2,
+   "sobre+a+pordata": 2,
+   "fontes+e+entidades": 2,
+   "glossario": 2,
+   "imprensa": 2,
+   "cookies": 2,
+   "termos+legais": 2,
+   "Site_Widgets/img": 1,
+   "Theme.Site.css?16330": 1,
+   "PortraitEdit.css?16330": 1,
+   "Theme.Site.extra.css?16330": 1,
+   "home": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$Site_Widgets_wt129$blo": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$wt219&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$Site_Widgets_wt20$bloc": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$wt43&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$wt156&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$wt90&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$wt60&#39;,&#39;&#39;)": 1,
+   "javascript:__doPostBack(&#39;wt14$wt2$wt77&#39;,&#39;&#39;)": 1
+  }
  }
 }
