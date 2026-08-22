@@ -1,0 +1,38 @@
+name: ine catalogue snapshot
+
+# Phase B: one-shot cache of the INE indicator catalogue (spike A2).
+# Manual dispatch only — INE's bot protection 403s repeat pulls from
+# cloud IPs, so this is fetched rarely and served from the repo cache.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ine-catalogue
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and parse INE catalogue
+        run: python3 scripts/fetch_ine_catalogue.py
+
+      - name: Commit cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ine/
+          if git diff --cached --quiet; then
+            echo "No change."
+          else
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git commit -m "data: INE catalogue snapshot $(date -u +%Y-%m-%d)"
+            git push
+          fi

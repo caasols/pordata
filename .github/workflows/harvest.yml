@@ -1,0 +1,49 @@
+name: catalogue harvest
+
+# Phase B: harvest PORDATA indicator metadata (metadata only, never data
+# values) at one request per 20 seconds. Each run is a resumable chunk
+# capped at 4.5h; the every-8-hours cron keeps launching chunks until the
+# ~2,225 target pages are done, after which runs no-op in seconds.
+# Disable the cron once REPORT.md shows completion.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: "Cap pages this run (empty = time-limited only)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "45 1,9,17 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalogue-harvest
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Harvest chunk
+        env:
+          MAX_PAGES: ${{ inputs.max_pages }}
+        run: python3 scripts/harvest_catalogue.py
+
+      - name: Commit progress
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/catalogue/
+          if git diff --cached --quiet; then
+            echo "No new pages harvested."
+          else
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git commit -m "data: catalogue harvest chunk $(date -u +%Y-%m-%dT%H:%M)"
+            git push
+          fi

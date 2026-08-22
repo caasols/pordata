@@ -18,8 +18,9 @@ Version 0.1.0.
 Problem definition, not building. FFMS was emailed on 2026-08-21 (awaiting reply; see
 `context.md` backlog item 1). The Question Ledger's 100 questions are drafted and
 stratification-audited in `ledger/`; the sitemap baseline is committed under `data/` via the
-Actions workflow. The next action is attempting the ledger questions per `ledger/README.md`. An explicit decision recorded there is **not** to jump to an MCP
-or a scraper before the catalogue question is settled.
+Actions workflow. Phase B (catalogue harvest + INE catalogue cache, decision 6 and backlog 3b
+in `context.md`) is running via Actions. Attempting the ledger questions per
+`ledger/README.md` stays open as the evidence base and acceptance tests.
 
 ## Sibling project
 

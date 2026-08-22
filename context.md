@@ -218,6 +218,14 @@ Open items only. Verify against reality before acting; strike items when they la
      guessed. **Caveat:** a second run 15 minutes later got 403 on every ine.pt endpoint —
      bot protection reacting to the 21 MB pull from a cloud IP. So: fetch the INE catalogue
      rarely, cache it in the repo, keep requests sparse, retry later not harder.
+3b. **Phase B: catalogue harvest.** *Started 2026-08-22 on owner go.*
+   `scripts/harvest_catalogue.py` via `.github/workflows/harvest.yml`: 2,196 target
+   indicator pages (quadro+resumo excluded), one request per 20 s, resumable 4.5 h chunks,
+   cron every 8 h until complete (~3 runs), then disable the cron. Output
+   `data/catalogue/pages.jsonl` (metadata + marker excerpts, never data values) and a
+   coverage REPORT.md. `scripts/fetch_ine_catalogue.py` via `ine-catalogue.yml`
+   (dispatch-only) caches the INE catalogue as `data/ine/catalogue.xml.gz` +
+   `indicators.csv` for the crosswalk.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
