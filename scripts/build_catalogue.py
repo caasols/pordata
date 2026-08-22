@@ -24,6 +24,7 @@ import pathlib
 import re
 import sys
 import time
+import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pordata_lib as lib
@@ -33,6 +34,85 @@ OUT_DIR = pathlib.Path("docs/data")
 
 AREA_LABELS = {"portugal": "Portugal", "municipios": "Municípios",
                "europa": "Europa"}
+
+
+# featured.json groups -> which catalogue area their names live in
+GROUP_AREAS = {"quadro_resumo_municipios": "municipios",
+               "quadro_resumo_europa": "europa"}
+
+
+NAME_STOPWORDS = {"de", "da", "do", "das", "dos", "e", "em", "no", "na",
+                  "nos", "nas", "por", "para", "a", "o", "os", "as", "com",
+                  "que", "total", "%", "€"}
+
+
+def norm_name(s: str) -> str:
+    s = unicodedata.normalize("NFD", s)
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = s.lower().replace("-", "")  # auto-estradas == autoestradas
+    s = re.sub(r"[^\w\s%€]", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def content_tokens(s: str) -> set[str]:
+    """Meaning-bearing tokens: stopwords out, crude plural strip so that
+    limites==limite across the quadro and catalogue spellings."""
+    tokens = set()
+    for t in norm_name(s).split():
+        if t in NAME_STOPWORDS or len(t) < 2:
+            continue
+        if len(t) > 3 and t.endswith("s"):
+            t = t[:-1]
+        tokens.add(t)
+    return tokens
+
+
+def resolve_featured(records: dict) -> tuple[dict[int, list[str]], dict]:
+    """Match quadro-resumo indicator names to catalogue ids (the quadro
+    pages carry names but no ids). Exact normalized match first, then
+    best token-overlap >= 0.6 within the group's area."""
+    if not FEATURED_FILE.exists():
+        return {}, {}
+    data = json.loads(FEATURED_FILE.read_text(encoding="utf-8"))
+    flags: dict[int, list[str]] = {}
+    stats: dict = {}
+    for group, area in GROUP_AREAS.items():
+        names = data.get(group, {}).get("indicator_names", [])
+        if not names:
+            continue
+        pool = [(norm_name(r["name"]), content_tokens(r["name"]), r["id"])
+                for r in records.values()
+                if "error" not in r and r["area"] == area and r.get("name")]
+        exact = {}
+        for n, _, rid in pool:
+            exact.setdefault(n, rid)
+        matched, unmatched = 0, []
+        for name in names:
+            n = norm_name(name)
+            rid = exact.get(n)
+            if rid is None:
+                tokens = content_tokens(name)
+                best, best_score, best_extra = None, 0.0, 10**9
+                if len(tokens) >= 2:
+                    for _, pt, pid in pool:
+                        # containment: quadro names are shortened subsets
+                        score = len(tokens & pt) / len(tokens)
+                        extra = len(pt - tokens)
+                        if score > best_score or \
+                                (score == best_score and extra < best_extra):
+                            best, best_score, best_extra = pid, score, extra
+                if best_score >= 0.7:
+                    rid = best
+            if rid is None:
+                unmatched.append(name)
+            else:
+                matched += 1
+                flags.setdefault(rid, [])
+                if "quadro_resumo" not in flags[rid]:
+                    flags[rid].append("quadro_resumo")
+        stats[group] = {"names": len(names), "matched": matched,
+                        "unmatched": unmatched}
+    return flags, stats
 
 
 def split_fontes(fontes: str) -> list[str]:
@@ -50,11 +130,7 @@ def split_fontes(fontes: str) -> list[str]:
 def main() -> None:
     records = lib.load_records()
     current = set(lib.targets())
-    featured: dict[str, list[int]] = {}
-    if FEATURED_FILE.exists():
-        data = json.loads(FEATURED_FILE.read_text(encoding="utf-8"))
-        for key in ("quadro_resumo", "retratos"):
-            featured[key] = set(data.get(key, {}).get("indicator_ids", []))
+    featured_flags, featured_stats = resolve_featured(records)
 
     rows = []
     for url in sorted(records):
@@ -73,14 +149,8 @@ def main() -> None:
         }
         if url not in current:
             row["removed"] = True
-        if featured:
-            flags = []
-            if rec["id"] in featured.get("quadro_resumo", ()):
-                flags.append("quadro_resumo")
-            if rec["id"] in featured.get("retratos", ()):
-                flags.append("retrato")
-            if flags:
-                row["featured"] = flags
+        if rec["id"] in featured_flags:
+            row["featured"] = featured_flags[rec["id"]]
         rows.append(row)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -109,6 +179,15 @@ def main() -> None:
         "complete": len(rows) >= len(current),
         "built_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
     }
+    if featured_stats:
+        stats["featured"] = {
+            g: {"names": s["names"], "matched": s["matched"],
+                "unmatched": len(s["unmatched"])}
+            for g, s in featured_stats.items()}
+        for g, s in featured_stats.items():
+            if s["unmatched"]:
+                print(f"featured {g}: {s['matched']}/{s['names']} matched; "
+                      f"unmatched: {s['unmatched'][:5]}")
     (OUT_DIR / "stats.json").write_text(
         json.dumps(stats, ensure_ascii=False), encoding="utf-8")
     print(f"built catalogue: {len(rows)} indicators "
