@@ -226,6 +226,28 @@ Open items only. Verify against reality before acting; strike items when they la
    coverage REPORT.md. `scripts/fetch_ine_catalogue.py` via `ine-catalogue.yml`
    (dispatch-only) caches the INE catalogue as `data/ine/catalogue.xml.gz` +
    `indicators.csv` for the crosswalk.
+3c. **Extract featured-indicator sets.** After the harvest completes: fetch ONE
+   `municipios/quadro+resumo/<concelho>` page (plus a second to confirm the indicator set is
+   identical across concelhos) and one Retrato, extract which indicators each references, and
+   flag those catalogue entries (`featured_in_quadro_resumo`, `featured_in_retrato`). Captures
+   PORDATA's editorial "what summarizes a place" curation without harvesting 308 near-identical
+   pages or any data values. The quadro resumo view itself becomes regenerable downstream:
+   filter catalogue to featured + concelho, fetch values from upstream.
+3d. **Harvest QA pass.** When REPORT.md shows 2,196/2,196: check field coverage per area,
+   spot-check ~20 records against their live pages, and re-parse any weak fields offline from
+   the stored `marker_windows` excerpts (that is what they are for) rather than re-fetching.
+3e. **Build the PORDATA→upstream crosswalk.** Needs 3d and the INE catalogue cache
+   (`data/ine/indicators.csv`, fetch pending INE unblocking). Match each catalogue entry to its
+   upstream series: exact/fuzzy name match against INE's catalogue for INE-sourced indicators;
+   Eurostat dataset codes for `europa` entries (fontes says Eurostat); Banco de Portugal via
+   BPstat for monetary series. Store match + confidence in the catalogue; unmatched entries
+   stay honest with `crosswalk: null`. This is the artifact that makes Phase D (values via MCP)
+   safe.
+3f. **Keep the catalogue fresh via lastmod.** The sitemap watcher already records per-page
+   `<lastmod>`; wire a small step that marks catalogue entries stale when their lastmod moves
+   past `harvested_at`, and let the harvest workflow re-fetch just those pages. Turns the
+   one-off harvest into a self-maintaining catalogue and gives the harvest cron a purpose
+   after completion (otherwise disable it).
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
