@@ -2,19 +2,25 @@
 """Phase B: harvest PORDATA indicator-page metadata into the catalogue.
 
 Targets the indicator pages in the three statistical areas (portugal,
-municipios, europa; quadro+resumo summary tables excluded). For each page
-it stores one JSON line in data/catalogue/pages.jsonl with the metadata
-the catalogue needs: name, title, description, JSON-LD block, sources
-(Fontes/Entidades), last-updated date, plus short text excerpts around
-each metadata marker so parsing can be refined offline without
-re-fetching. No data values are extracted or stored — metadata only, per
-the project's constraints.
+municipios, europa; quadro+resumo summary tables excluded — see
+pordata_lib.targets). For each page it stores one JSON line in
+data/catalogue/pages.jsonl with the metadata the catalogue needs: name,
+title, description, JSON-LD block, sources (Fontes/Entidades),
+last-updated date, plus short text excerpts around each metadata marker
+so parsing can be refined offline without re-fetching. No data values are
+extracted or stored — metadata only, per the project's constraints.
 
-Resumable and chunked: pages already in the JSONL are skipped, and the
-run stops at MAX_SECONDS (default 16,200 s = 4.5 h, safely under the 6 h
-Actions job cap) or MAX_PAGES if set. Pacing is one request per
-DELAY_SECONDS (default 20, owner's choice) — the full 2,225-page harvest
-therefore spans about three chunked runs.
+Each run fetches, in order:
+1. pages never harvested (includes indicators newly added to the sitemap,
+   since the target list is the watcher's committed snapshot);
+2. pages whose previous attempt errored;
+3. stale pages — the watcher's <lastmod> moved past the record's
+   harvested_at (re-harvest replaces the old record).
+
+Resumable and chunked: stops at MAX_SECONDS (default 16,200 s = 4.5 h,
+safely under the 6 h Actions job cap) or MAX_PAGES if set. Pacing is one
+request per DELAY_SECONDS (default 20, owner's choice). At the end the
+JSONL is rewritten deduplicated (last record per url wins).
 
 Run from the repo root. Environment overrides: MAX_PAGES, MAX_SECONDS,
 DELAY_SECONDS.
@@ -25,15 +31,18 @@ import json
 import os
 import pathlib
 import re
+import sys
 import time
 import urllib.request
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import pordata_lib as lib
 
 USER_AGENT = (
     "pordata-map catalogue harvester "
     "(github.com/caasols/pordata; metadata only; 1 request per 20s)"
 )
-URLS_FILE = pathlib.Path("data/sitemap-urls.txt")
-OUT_FILE = pathlib.Path("data/catalogue/pages.jsonl")
+OUT_FILE = lib.PAGES_FILE
 REPORT_FILE = pathlib.Path("data/catalogue/REPORT.md")
 
 DELAY_SECONDS = int(os.environ.get("DELAY_SECONDS") or 20)
@@ -42,31 +51,6 @@ MAX_PAGES = int(os.environ.get("MAX_PAGES") or 0)  # 0 = no page cap
 
 MARKER_WORDS = ["Fontes", "Entidades", "ltima atualiza", "ltima actualiza",
                 "revis", "Unidade"]
-AREA_PREFIXES = ("portugal", "municipios", "europa")
-
-
-def targets() -> list[str]:
-    urls = URLS_FILE.read_text(encoding="utf-8").split()
-    picked = []
-    for u in urls:
-        path = u.split("pordata.pt/", 1)[-1]
-        area = path.split("/", 1)[0]
-        if area in AREA_PREFIXES and "/en/" not in u \
-                and "quadro+resumo" not in u and re.search(r"-\d+$", u):
-            picked.append(u)
-    return picked
-
-
-def already_done() -> set[str]:
-    if not OUT_FILE.exists():
-        return set()
-    done = set()
-    for line in OUT_FILE.read_text(encoding="utf-8").splitlines():
-        try:
-            done.add(json.loads(line)["url"])
-        except (ValueError, KeyError):
-            continue
-    return done
 
 
 def strip_text(html: str) -> str:
@@ -117,10 +101,7 @@ def parse(url: str, status: int, body: bytes) -> dict:
     fontes = ""
     fontes_m = re.search(r"Fontes?\s*/\s*Entidades:?\s*(.{1,250})", text)
     if fontes_m:
-        fontes = re.split(
-            r"Carregue|ver tabela|ver o gráfico|Última|Ultima|Consulte|©"
-            r"|Fontes?\s*/\s*Entidades",
-            fontes_m.group(1))[0].strip(" ,;|-")
+        fontes = lib.clean_fontes(fontes_m.group(1))
     ultima_m = re.search(
         r"[ÚU]ltima\s+a[ct]+ualiza[çc][ãa]o:?\s*([0-9]{4}-[0-9]{2}-[0-9]{2})",
         text) or re.search(
@@ -144,27 +125,38 @@ def parse(url: str, status: int, body: bytes) -> dict:
     }
 
 
-def write_report(all_targets: list[str]) -> None:
-    records = []
-    if OUT_FILE.exists():
-        for line in OUT_FILE.read_text(encoding="utf-8").splitlines():
-            try:
-                records.append(json.loads(line))
-            except ValueError:
-                continue
-    total = len(all_targets)
-    n = len(records)
+def plan(all_targets: list[str], records: dict[str, dict]) -> dict[str, list[str]]:
+    mods = lib.lastmods()
+    missing, errored, stale = [], [], []
+    for u in all_targets:
+        rec = records.get(u)
+        if rec is None:
+            missing.append(u)
+        elif "error" in rec:
+            errored.append(u)
+        elif mods.get(u) and rec.get("harvested_at") \
+                and mods[u] > rec["harvested_at"]:
+            stale.append(u)
+    return {"missing": missing, "errored": errored, "stale": stale}
+
+
+def write_report(all_targets: list[str], todo_plan: dict) -> None:
+    records = lib.load_records()
+    ok = [r for r in records.values() if "error" not in r]
+    n = len(ok)
 
     def pct(k):
-        return f"{sum(1 for r in records if r.get(k)) * 100 // max(n, 1)}%"
+        return f"{sum(1 for r in ok if r.get(k)) * 100 // max(n, 1)}%"
 
     by_area: dict[str, int] = {}
-    for r in records:
+    for r in ok:
         by_area[r.get("area", "?")] = by_area.get(r.get("area", "?"), 0) + 1
     lines = [
         "# Catalogue harvest progress", "",
-        f"- harvested: **{n} / {total}** target pages "
+        f"- harvested: **{n} / {len(all_targets)}** target pages "
         f"({', '.join(f'{a}: {c}' for a, c in sorted(by_area.items()))})",
+        f"- pending: {len(todo_plan['missing'])} missing, "
+        f"{len(todo_plan['errored'])} errored, {len(todo_plan['stale'])} stale",
         f"- field coverage: name {pct('name')}, description "
         f"{pct('description')}, fontes {pct('fontes')}, "
         f"ultima_atualizacao {pct('ultima_atualizacao')}, "
@@ -177,42 +169,43 @@ def write_report(all_targets: list[str]) -> None:
 
 def main() -> None:
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    all_targets = targets()
-    done = already_done()
-    todo = [u for u in all_targets if u not in done]
-    print(f"{len(all_targets)} targets, {len(done)} done, {len(todo)} to go")
+    all_targets = lib.targets()
+    records = lib.load_records()
+    todo_plan = plan(all_targets, records)
+    todo = todo_plan["missing"] + todo_plan["errored"] + todo_plan["stale"]
+    print(f"{len(all_targets)} targets | "
+          f"{len(todo_plan['missing'])} missing, "
+          f"{len(todo_plan['errored'])} errored, "
+          f"{len(todo_plan['stale'])} stale")
 
     deadline = time.monotonic() + MAX_SECONDS
     harvested = 0
-    with OUT_FILE.open("a", encoding="utf-8") as out:
-        for url in todo:
-            if time.monotonic() + DELAY_SECONDS >= deadline:
-                print("time budget reached")
-                break
-            if MAX_PAGES and harvested >= MAX_PAGES:
-                print("page cap reached")
-                break
-            if harvested:
-                time.sleep(DELAY_SECONDS)
-            req = urllib.request.Request(
-                url, headers={"User-Agent": USER_AGENT})
-            try:
-                with urllib.request.urlopen(req, timeout=120) as resp:
-                    record = parse(url, resp.status, resp.read())
-            except Exception as exc:
-                record = {"url": url, "error": str(exc)[:200],
-                          "harvested_at": time.strftime(
-                              "%Y-%m-%d", time.gmtime())}
-            out.write(json.dumps(record, ensure_ascii=False) + "\n")
-            out.flush()
-            harvested += 1
-            if harvested % 25 == 0:
-                print(f"{harvested} pages this run "
-                      f"({len(done) + harvested}/{len(all_targets)} total)")
+    for url in todo:
+        if time.monotonic() + DELAY_SECONDS >= deadline:
+            print("time budget reached")
+            break
+        if MAX_PAGES and harvested >= MAX_PAGES:
+            print("page cap reached")
+            break
+        if harvested:
+            time.sleep(DELAY_SECONDS)
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                record = parse(url, resp.status, resp.read())
+        except Exception as exc:
+            record = {"url": url, "error": str(exc)[:200],
+                      "harvested_at": time.strftime("%Y-%m-%d", time.gmtime())}
+        records[url] = record
+        harvested += 1
+        if harvested % 25 == 0:
+            lib.write_records(records)  # checkpoint, safe against job loss
+            print(f"{harvested} pages this run")
 
-    write_report(all_targets)
+    lib.write_records(records)
+    write_report(all_targets, plan(all_targets, records))
     print(f"run complete: {harvested} pages this run, "
-          f"{len(done) + harvested}/{len(all_targets)} total")
+          f"{len(records)}/{len(all_targets)} total records")
 
 
 if __name__ == "__main__":

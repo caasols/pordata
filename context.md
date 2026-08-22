@@ -226,16 +226,18 @@ Open items only. Verify against reality before acting; strike items when they la
    coverage REPORT.md. `scripts/fetch_ine_catalogue.py` via `ine-catalogue.yml`
    (dispatch-only) caches the INE catalogue as `data/ine/catalogue.xml.gz` +
    `indicators.csv` for the crosswalk.
-3c. **Extract featured-indicator sets.** After the harvest completes: fetch ONE
-   `municipios/quadro+resumo/<concelho>` page (plus a second to confirm the indicator set is
-   identical across concelhos) and one Retrato, extract which indicators each references, and
-   flag those catalogue entries (`featured_in_quadro_resumo`, `featured_in_retrato`). Captures
-   PORDATA's editorial "what summarizes a place" curation without harvesting 308 near-identical
-   pages or any data values. The quadro resumo view itself becomes regenerable downstream:
-   filter catalogue to featured + concelho, fetch values from upstream.
-3d. **Harvest QA pass.** When REPORT.md shows 2,196/2,196: check field coverage per area,
-   spot-check ~20 records against their live pages, and re-parse any weak fields offline from
-   the stored `marker_windows` excerpts (that is what they are for) rather than re-fetching.
+3c. **Extract featured-indicator sets.** *Scaffolded 2026-08-22*: `scripts/fetch_featured_sets.py`
+   via `.github/workflows/featured-sets.yml` (dispatch-only, 4 requests) fetches two
+   quadro+resumo pages + two Retratos, records the indicator ids each references in
+   `data/catalogue/featured.json`, and `build_catalogue.py` merges them as `featured` flags.
+   Captures PORDATA's editorial "what summarizes a place" curation without harvesting 308
+   near-identical pages or any data values.
+3d. **Harvest QA pass.** *Tooling built 2026-08-22*: `scripts/qa_catalogue.py` runs after every
+   harvest chunk and writes `data/catalogue/QA.md` (coverage per area, over-capture detection,
+   error records, what is recoverable offline from `marker_windows`). Still open after
+   completion: repair the ~10 pre-parser-fix records' `fontes` in pages.jsonl offline (the
+   published catalogue already re-trims them defensively at build time), fix 2 empty names,
+   and spot-check ~20 records against live pages.
 3e. **Build the PORDATA→upstream crosswalk.** Needs 3d and the INE catalogue cache
    (`data/ine/indicators.csv`, fetch pending INE unblocking). Match each catalogue entry to its
    upstream series: exact/fuzzy name match against INE's catalogue for INE-sourced indicators;
@@ -243,18 +245,23 @@ Open items only. Verify against reality before acting; strike items when they la
    BPstat for monetary series. Store match + confidence in the catalogue; unmatched entries
    stay honest with `crosswalk: null`. This is the artifact that makes Phase D (values via MCP)
    safe.
-3f. **Keep the catalogue fresh: one signal chain, three change types.** The watcher's daily
-   sitemap snapshot is the harvester's input, so the pipeline
-   watcher → committed snapshot → harvest cron handles all three cases without a new job:
-   - **New indicator**: already automatic today — the URL lands in `sitemap-urls.txt`, the
-     next harvest cron run sees it missing from `pages.jsonl` and fetches it (within ~8 h).
-     Requires keeping the harvest cron enabled after the initial harvest completes.
-   - **Updated indicator**: the gap this item fills — compare the watcher's `<lastmod>`
-     against each entry's `harvested_at`, mark stale, and have the harvest run re-fetch just
-     those pages.
-   - **Removed indicator**: also to build — a URL gone from the sitemap should tombstone its
-     catalogue entry (`removed: <date>`), never delete it; deprecated indicators still matter
-     historically.
+3f. ~~**Keep the catalogue fresh: one signal chain, three change types.**~~ **Implemented
+   2026-08-22.** The pipeline watcher → committed snapshot → harvest cron handles all three
+   without a new job: **new** indicators land in `sitemap-urls.txt` and the next harvest run
+   fetches them (keep the harvest cron enabled after completion); **updated** pages are
+   detected in `harvest_catalogue.py` (`<lastmod>` newer than the record's `harvested_at` →
+   re-fetch replaces the record; error records are retried the same way); **removed** pages
+   are tombstoned at build time (`build_catalogue.py` sets `removed: true` for records no
+   longer in the target list, shown as "descontinuado" on the site; records are never
+   deleted).
+3g. **Phase C scaffolded (2026-08-22): static catalogue + search site.**
+   `scripts/build_catalogue.py` turns pages.jsonl into `docs/data/catalogue.json` + `.csv` +
+   `stats.json` (the static "API"); `docs/index.html` is a zero-dependency PT search page
+   (accent-insensitive, area filters, featured/discontinued badges, PORDATA credited
+   prominently, links every hit back to its PORDATA page). Both rebuild automatically in every
+   harvest-chunk run. **Open: enable GitHub Pages** (repo Settings → Pages → Deploy from a
+   branch → `main`, folder `/docs`) — an owner action, one time; the site then lives at
+   `https://caasols.github.io/pordata/`.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
