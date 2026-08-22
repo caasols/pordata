@@ -92,6 +92,21 @@ def main() -> None:
         }
         if not union:  # nothing matched; keep the diagnosis
             sets[group]["debug_hrefs"] = per_page[0][2]
+            # dump stripped text to the job log (ephemeral) so the
+            # name-based extractor can be designed without re-fetching
+            import html as html_mod
+            raw = (raw_dir / f"{group}-{per_page[0][0].rstrip('/').rsplit('/', 1)[-1][:60]}.html").read_text(encoding="utf-8")
+            text = re.sub(r"<(script|style)\b.*?</\1>", " ", raw,
+                          flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r"</(tr|li|div|h\d)>", "\n", text)
+            text = re.sub(r"<[^>]+>", " ", text)
+            text = html_mod.unescape(text)
+            text = re.sub(r"[ \t]+", " ", text)
+            text = "\n".join(ln.strip() for ln in text.splitlines()
+                             if ln.strip())
+            print(f"----- TEXT DUMP {group} (first 15000 chars) -----")
+            print(text[:15000])
+            print(f"----- END TEXT DUMP {group} -----")
         print(f"{group}: {len(union)} indicators referenced, "
               f"identical_across_samples={identical}")
 
