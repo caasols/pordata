@@ -114,9 +114,13 @@ def parse(url: str, status: int, body: bytes) -> dict:
         except ValueError:
             json_ld = {"unparsed": ld_m.group(1)[:800]}
 
-    fontes_m = re.search(
-        r"Fontes?\s*/\s*Entidades:?\s*(.{1,250}?)"
-        r"(?=Última|Ultima|©|Consulte|$)", text)
+    fontes = ""
+    fontes_m = re.search(r"Fontes?\s*/\s*Entidades:?\s*(.{1,250})", text)
+    if fontes_m:
+        fontes = re.split(
+            r"Carregue|ver tabela|ver o gráfico|Última|Ultima|Consulte|©"
+            r"|Fontes?\s*/\s*Entidades",
+            fontes_m.group(1))[0].strip(" ,;|-")
     ultima_m = re.search(
         r"[ÚU]ltima\s+a[ct]+ualiza[çc][ãa]o:?\s*([0-9]{4}-[0-9]{2}-[0-9]{2})",
         text) or re.search(
@@ -130,7 +134,7 @@ def parse(url: str, status: int, body: bytes) -> dict:
         "name": name,
         "title": title,
         "description": html_mod.unescape(desc_m.group(1)) if desc_m else "",
-        "fontes": fontes_m.group(1).strip() if fontes_m else "",
+        "fontes": fontes,
         "ultima_atualizacao": ultima_m.group(1).strip() if ultima_m else "",
         "json_ld": json_ld,
         "marker_windows": marker_windows(text),
