@@ -115,6 +115,24 @@ def resolve_featured(records: dict) -> tuple[dict[int, list[str]], dict]:
     return flags, stats
 
 
+def build_en_names(sitemap_text: str) -> dict[int, str]:
+    """id -> English name, derived from the /en tree's slugs in the same
+    sitemap snapshot (EN pages share page ids with their PT originals, so
+    this costs zero requests). Slugs are lowercase ASCII; we titlecase the
+    first letter only."""
+    en_names: dict[int, str] = {}
+    for url in sitemap_text.split():
+        m = re.match(
+            r"https://www\.pordata\.pt/en/"
+            r"(?:portugal|municipalities|europe)/([^/]+)-(\d+)$", url)
+        if not m or "summary+table" in url:
+            continue
+        name = re.sub(r"\s+", " ", m.group(1).replace("+", " ")).strip()
+        if name:
+            en_names[int(m.group(2))] = name[:1].upper() + name[1:]
+    return en_names
+
+
 def split_fontes(fontes: str) -> list[str]:
     # defensive re-trim: records harvested before the parser fix may still
     # carry trailing UI text; the JSONL is repaired in the 3d QA pass
@@ -131,6 +149,7 @@ def main() -> None:
     records = lib.load_records()
     current = set(lib.targets())
     featured_flags, featured_stats = resolve_featured(records)
+    en_names = build_en_names(lib.URLS_FILE.read_text(encoding="utf-8"))
 
     rows = []
     for url in sorted(records):
@@ -141,6 +160,7 @@ def main() -> None:
             "id": rec["id"],
             "area": rec["area"],
             "name": rec.get("name", ""),
+            "name_en": en_names.get(rec["id"], ""),
             "description": rec.get("description", ""),
             "fontes": split_fontes(rec.get("fontes", "")),
             "ultima_atualizacao": rec.get("ultima_atualizacao", ""),
@@ -161,10 +181,10 @@ def main() -> None:
     with (OUT_DIR / "catalogue.csv").open("w", encoding="utf-8",
                                           newline="") as fh:
         writer = csv.writer(fh)
-        writer.writerow(["id", "area", "name", "fontes",
+        writer.writerow(["id", "area", "name", "name_en", "fontes",
                          "ultima_atualizacao", "url", "removed", "featured"])
         for r in rows:
-            writer.writerow([r["id"], r["area"], r["name"],
+            writer.writerow([r["id"], r["area"], r["name"], r["name_en"],
                              " | ".join(r["fontes"]), r["ultima_atualizacao"],
                              r["url"], "yes" if r.get("removed") else "",
                              ",".join(r.get("featured", []))])

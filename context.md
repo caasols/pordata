@@ -262,6 +262,18 @@ Open items only. Verify against reality before acting; strike items when they la
    harvest-chunk run. **Open: enable GitHub Pages** (repo Settings → Pages → Deploy from a
    branch → `main`, folder `/docs`) — an owner action, one time; the site then lives at
    `https://caasols.github.io/pordata/`.
+   *Extended 2026-08-22 (owner ask):* **fuzzy search** (substring > word-prefix > bounded
+   edit distance, ranked, name matches weighted); **PT/EN localization** — full UI in both
+   languages with a toggle, and `name_en` on every catalogue row derived from the `/en`
+   sitemap slugs (EN pages share ids with PT pages; 100% coverage, zero extra requests).
+   Deeper EN metadata (descriptions) would need harvesting the `/en` tree (~2,196 more
+   pages) — deferred, recorded here.
+3h. **Unit tests + CI (2026-08-22).** `tests/` (unittest, no deps) covers the corpus
+   filter, record IO, harvester parse/plan, sitemap diff, catalogue build (tombstones, EN
+   names, featured matching), QA checks, and quadro name extraction — 40 tests, 85% line
+   coverage over the core scripts. `.github/workflows/tests.yml` runs them on every push
+   touching `scripts/` or `tests/` with a `--fail-under=80` coverage gate (network
+   fetchers exercised by live runs are omitted).
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and

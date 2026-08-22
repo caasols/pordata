@@ -22,8 +22,12 @@
     font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   main { max-width: 780px; margin: 0 auto; padding: 24px 16px 64px; }
+  .top { display: flex; align-items: baseline; justify-content: space-between; }
   h1 { font-size: 1.5rem; margin: 0 0 4px; }
   h1 a { color: inherit; text-decoration: none; }
+  .lang { font-size: .85rem; color: var(--muted); }
+  .lang span { cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+  .lang span.on { background: var(--accent); color: #fff; }
   .sub { color: var(--muted); margin: 0 0 20px; font-size: .95rem; }
   .sub b { color: var(--ink); }
   #q {
@@ -46,6 +50,7 @@
   }
   .card a.name { color: var(--accent); text-decoration: none; font-weight: 600; }
   .card a.name:hover { text-decoration: underline; }
+  .alt { font-size: .85rem; color: var(--muted); margin-top: 2px; }
   .tags { margin-top: 4px; font-size: .82rem; color: var(--muted); }
   .tag {
     display: inline-block; background: var(--chip); border-radius: 6px;
@@ -62,39 +67,76 @@
 </head>
 <body>
 <main>
-  <h1><a href="./">pordata map</a></h1>
-  <p class="sub">
-    Catálogo pesquisável dos <b id="total">…</b> indicadores da
-    <a href="https://www.pordata.pt" rel="noopener">PORDATA</a>
-    (Fundação Francisco Manuel dos Santos). Este índice contém apenas
-    <b>metadados</b> — os valores estão nas páginas da PORDATA e nas fontes
-    oficiais (INE, Eurostat, Banco de Portugal).
-  </p>
+  <div class="top">
+    <h1><a href="./">pordata map</a></h1>
+    <div class="lang" id="lang"></div>
+  </div>
+  <p class="sub" id="intro"></p>
 
-  <input id="q" type="search" placeholder="ex.: envelhecimento, salário médio, rendas…"
-         autocomplete="off" autofocus>
+  <input id="q" type="search" autocomplete="off" autofocus>
   <div class="chips" id="areas"></div>
   <div id="meta"></div>
   <div id="out"></div>
 
-  <footer>
-    Dados e curadoria: <a href="https://www.pordata.pt" rel="noopener">PORDATA</a>,
-    Fundação Francisco Manuel dos Santos, e respetivas fontes.
-    Índice construído a partir das páginas públicas de indicadores; sem
-    redistribuição de valores. Código e metadados:
-    <a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a>
-    · <a href="data/catalogue.json">catalogue.json</a>
-    · <a href="data/catalogue.csv">catalogue.csv</a>
-    <div id="built"></div>
-  </footer>
+  <footer id="foot"></footer>
 </main>
 
 <script>
 (async function () {
-  const AREAS = { portugal: "Portugal", municipios: "Municípios", europa: "Europa" };
+  "use strict";
+  const AREAS = { portugal: {pt: "Portugal", en: "Portugal"},
+                  municipios: {pt: "Municípios", en: "Municipalities"},
+                  europa: {pt: "Europa", en: "Europe"} };
+  const T = {
+    pt: {
+      intro: (n) => `Catálogo pesquisável dos <b>${n}</b> indicadores da ` +
+        `<a href="https://www.pordata.pt" rel="noopener">PORDATA</a> ` +
+        `(Fundação Francisco Manuel dos Santos). Este índice contém apenas ` +
+        `<b>metadados</b> — os valores estão nas páginas da PORDATA e nas ` +
+        `fontes oficiais (INE, Eurostat, Banco de Portugal).`,
+      placeholder: "ex.: envelhecimento, salário médio, rendas…",
+      results: (n) => `${n} indicadores`,
+      showing: (m) => ` (a mostrar ${m})`,
+      removed: "descontinuado", sources: "Fontes", updated: "atual.",
+      loadfail: "Não foi possível carregar o catálogo.",
+      building: " (colheita em curso)", updatedAt: "Atualizado: ",
+      foot: `Dados e curadoria: <a href="https://www.pordata.pt" rel="noopener">PORDATA</a>, ` +
+        `Fundação Francisco Manuel dos Santos, e respetivas fontes. Índice ` +
+        `construído a partir das páginas públicas de indicadores; sem ` +
+        `redistribuição de valores. Código e metadados: ` +
+        `<a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a> ` +
+        `· <a href="data/catalogue.json">catalogue.json</a> ` +
+        `· <a href="data/catalogue.csv">catalogue.csv</a>`,
+    },
+    en: {
+      intro: (n) => `Searchable catalogue of the <b>${n}</b> indicators of ` +
+        `<a href="https://www.pordata.pt" rel="noopener">PORDATA</a> ` +
+        `(Francisco Manuel dos Santos Foundation). This index holds ` +
+        `<b>metadata only</b> — the values live on PORDATA's pages and at ` +
+        `the official sources (INE, Eurostat, Banco de Portugal).`,
+      placeholder: "e.g.: ageing, average wage, rents…",
+      results: (n) => `${n} indicators`,
+      showing: (m) => ` (showing ${m})`,
+      removed: "discontinued", sources: "Sources", updated: "upd.",
+      loadfail: "Could not load the catalogue.",
+      building: " (harvest in progress)", updatedAt: "Updated: ",
+      foot: `Data and curation: <a href="https://www.pordata.pt" rel="noopener">PORDATA</a>, ` +
+        `Francisco Manuel dos Santos Foundation, and their sources. Built ` +
+        `from the public indicator pages; no data values are redistributed. ` +
+        `Code and metadata: ` +
+        `<a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a> ` +
+        `· <a href="data/catalogue.json">catalogue.json</a> ` +
+        `· <a href="data/catalogue.csv">catalogue.csv</a>`,
+    },
+  };
   const $ = (id) => document.getElementById(id);
   const norm = (s) => (s || "").toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  let lang;
+  try { lang = localStorage.getItem("lang"); } catch (e) { lang = null; }
+  if (lang !== "pt" && lang !== "en")
+    lang = (navigator.language || "pt").startsWith("pt") ? "pt" : "en";
 
   let rows = [], stats = null;
   try {
@@ -103,58 +145,134 @@
       fetch("data/stats.json").then(r => r.json()).catch(() => null),
     ]);
   } catch (e) {
-    $("out").innerHTML = "<p class='desc'>Não foi possível carregar o catálogo.</p>";
+    $("out").textContent = T[lang].loadfail;
     return;
   }
-  rows.forEach(r => { r._hay = norm([r.name, r.description,
-    (r.fontes || []).join(" "), AREAS[r.area]].join(" ")); });
+  rows.forEach(r => {
+    r._name = norm(r.name);
+    r._hay = norm([r.name, r.name_en, r.description,
+      (r.fontes || []).join(" ")].join(" "));
+    r._words = r._hay.split(/[^a-z0-9%€]+/).filter(w => w.length > 1);
+  });
 
-  $("total").textContent = rows.length.toLocaleString("pt-PT");
-  if (stats) $("built").textContent =
-    "Atualizado: " + stats.built_at + (stats.complete ? "" : " (colheita em curso)");
+  // bounded edit distance (returns > max when exceeded)
+  function editDistance(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    let prev = Array.from({length: b.length + 1}, (_, i) => i);
+    for (let i = 1; i <= a.length; i++) {
+      const cur = [i];
+      let rowMin = i;
+      for (let j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1,
+          prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        if (cur[j] < rowMin) rowMin = cur[j];
+      }
+      if (rowMin > max) return max + 1;
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+
+  // score one query token against a row: substring > prefix > fuzzy
+  function tokenScore(t, r) {
+    if (r._hay.includes(t)) return r._name.includes(t) ? 3 : 2;
+    if (t.length < 3) return 0;
+    const maxEd = t.length >= 8 ? 2 : (t.length >= 5 ? 1 : 0);
+    let best = 0;
+    for (const w of r._words) {
+      if (w.startsWith(t)) { best = Math.max(best, 1.5); continue; }
+      if (maxEd && editDistance(t, w, maxEd) <= maxEd)
+        best = Math.max(best, 1);
+      if (best >= 1.5) break;
+    }
+    return best;
+  }
 
   const active = new Set(Object.keys(AREAS));
-  const chipBox = $("areas");
-  for (const [key, label] of Object.entries(AREAS)) {
-    const el = document.createElement("span");
-    el.className = "chip on"; el.textContent = label;
-    el.onclick = () => {
-      if (active.has(key) && active.size === 1) return;
-      active.has(key) ? active.delete(key) : active.add(key);
-      el.classList.toggle("on", active.has(key));
-      render();
-    };
-    chipBox.appendChild(el);
-  }
-
   const MAX = 60;
+
   function render() {
+    const t = T[lang];
     const terms = norm($("q").value).split(/\s+/).filter(Boolean);
-    const hits = rows.filter(r => active.has(r.area) &&
-      terms.every(t => r._hay.includes(t)));
-    $("meta").textContent = hits.length.toLocaleString("pt-PT") +
-      " indicadores" + (hits.length > MAX ? " (a mostrar " + MAX + ")" : "");
-    $("out").innerHTML = hits.slice(0, MAX).map(r => `
+    const hits = [];
+    for (const r of rows) {
+      if (!active.has(r.area)) continue;
+      let score = 1;
+      for (const term of terms) {
+        const s = tokenScore(term, r);
+        if (!s) { score = 0; break; }
+        score += s;
+      }
+      if (score) hits.push([score, r]);
+    }
+    hits.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
+    $("meta").textContent = t.results(hits.length.toLocaleString()) +
+      (hits.length > MAX ? t.showing(MAX) : "");
+    $("out").innerHTML = hits.slice(0, MAX).map(([, r]) => {
+      const primary = (lang === "en" && r.name_en) ? r.name_en : r.name;
+      const alt = (lang === "en" && r.name_en) ? r.name
+        : (lang === "pt" && r.name_en ? r.name_en : "");
+      return `
       <div class="card">
-        <a class="name" href="${r.url}" rel="noopener">${r.name || r.url}</a>
+        <a class="name" href="${r.url}" rel="noopener">${primary || r.url}</a>
+        ${alt ? `<div class="alt">${alt}</div>` : ""}
         <div class="tags">
-          <span class="tag">${AREAS[r.area]}</span>
-          ${r.removed ? '<span class="tag removed">descontinuado</span>' : ""}
-          ${(r.featured || []).map(f => '<span class="tag">★ ' + f + "</span>").join("")}
-          ${r.fontes && r.fontes.length ? '<span class="tag">Fontes: ' +
+          <span class="tag">${AREAS[r.area][lang]}</span>
+          ${r.removed ? `<span class="tag removed">${t.removed}</span>` : ""}
+          ${(r.featured || []).map(f => `<span class="tag">★ ${f}</span>`).join("")}
+          ${r.fontes && r.fontes.length ? `<span class="tag">${t.sources}: ` +
             r.fontes.join(", ") + "</span>" : ""}
-          ${r.ultima_atualizacao ? '<span class="tag">atual.: ' +
+          ${r.ultima_atualizacao ? `<span class="tag">${t.updated} ` +
             r.ultima_atualizacao + "</span>" : ""}
         </div>
-        ${r.description ? '<p class="desc">' + r.description + "</p>" : ""}
-      </div>`).join("");
+        ${(lang === "pt" && r.description)
+          ? `<p class="desc">${r.description}</p>` : ""}
+      </div>`;
+    }).join("");
   }
 
-  let t = null;
+  function applyLang() {
+    const t = T[lang];
+    document.documentElement.lang = lang;
+    $("intro").innerHTML = t.intro(rows.length.toLocaleString());
+    $("q").placeholder = t.placeholder;
+    $("foot").innerHTML = t.foot + (stats
+      ? `<div>${t.updatedAt}${stats.built_at}${stats.complete ? "" : t.building}</div>`
+      : "");
+    $("lang").innerHTML = ["pt", "en"].map(l =>
+      `<span class="${l === lang ? "on" : ""}" data-l="${l}">${l.toUpperCase()}</span>`
+    ).join(" ");
+    for (const el of $("lang").children) {
+      el.onclick = () => {
+        lang = el.dataset.l;
+        try { localStorage.setItem("lang", lang); } catch (e) {}
+        applyLang(); buildAreaChips(); render();
+      };
+    }
+  }
+
+  function buildAreaChips() {
+    const box = $("areas");
+    box.innerHTML = "";
+    for (const key of Object.keys(AREAS)) {
+      const el = document.createElement("span");
+      el.className = "chip" + (active.has(key) ? " on" : "");
+      el.textContent = AREAS[key][lang];
+      el.onclick = () => {
+        if (active.has(key) && active.size === 1) return;
+        active.has(key) ? active.delete(key) : active.add(key);
+        el.classList.toggle("on", active.has(key));
+        render();
+      };
+      box.appendChild(el);
+    }
+  }
+
+  let timer = null;
   $("q").addEventListener("input", () => {
-    clearTimeout(t); t = setTimeout(render, 120);
+    clearTimeout(timer); timer = setTimeout(render, 120);
   });
-  render();
+  applyLang(); buildAreaChips(); render();
 })();
 </script>
 </body>

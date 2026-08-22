@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/tests.yml"
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run unit tests with coverage
+        # spike_*, fetch_ine_catalogue and fetch_sitemap are network
+        # fetchers exercised by live Actions runs rather than unit tests
+        run: |
+          pip install --quiet coverage
+          coverage run --source=scripts -m unittest discover -s tests -v
+          coverage report -m \
+            --omit="scripts/spike_*,scripts/fetch_ine_catalogue.py,scripts/fetch_sitemap.py" \
+            --fail-under=80
