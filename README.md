@@ -26,3 +26,12 @@ foundation behind PORDATA, has been contacted.
 
 All project state — measured facts, problem framing, decisions and the backlog — lives in
 [context.md](context.md).
+
+## Licensing
+
+Code is [MIT](LICENSE). The catalogue metadata (`docs/data/`, `data/catalogue/`) is derived
+from PORDATA's public indicator pages and is offered under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse it freely with attribution to
+**PORDATA / Fundação Francisco Manuel dos Santos** (the curators of the underlying indicators)
+and a link back to [pordata.pt](https://www.pordata.pt). No PORDATA data values are contained
+in or redistributed by this repository.

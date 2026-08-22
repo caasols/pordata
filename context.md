@@ -24,6 +24,7 @@ There is no code yet. The repo holds research only.
 | `context.md` | This file. All project state: findings, decisions, backlog |
 | `README.md` | Human front door. Brief overview, cross-links here for all state |
 | `.gitignore` | Standard Python, Node and OS patterns plus `graphify-out/` |
+| `LICENSE` | MIT (code). Catalogue metadata is CC BY 4.0 with PORDATA/FFMS attribution, per README |
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `ledger/` | Question Ledger: 100 demand-side questions plus protocol. See backlog item 2 |
 | `scripts/` | `fetch_sitemap.py`, one polite request, writes `data/sitemap-urls.txt` for diffing |
