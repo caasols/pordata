@@ -3,29 +3,42 @@
 Making Portuguese public statistics consumable.
 
 **Search the catalogue: [caasols.github.io/pordata](https://caasols.github.io/pordata/)** — a
-fuzzy, multilingual (PT/EN/ES/FR/DE/IT) index of PORDATA's indicators, metadata only, every
-entry linking back to its PORDATA page. Machine-readable:
-[catalogue.json](docs/data/catalogue.json) · [catalogue.csv](docs/data/catalogue.csv).
+fuzzy, multilingual index of every PORDATA indicator, metadata only, each entry linking back to
+its PORDATA page. Machine-readable at stable paths:
+[catalogue.json](https://caasols.github.io/pordata/data/catalogue.json) ·
+[catalogue.csv](https://caasols.github.io/pordata/data/catalogue.csv) ·
+[stats.json](https://caasols.github.io/pordata/data/stats.json).
 
-[PORDATA](https://www.pordata.pt) is Portugal's main free statistics database: 2,268 curated
-indicators covering the country, its 308 municipalities and Europe, with series reaching back to
-1960. It is excellent at presenting a single indicator to someone who already knows its name, and
-hard to use for everything else: there is no API, a filtered query cannot be linked or shared,
-and combining indicators means manual spreadsheet work.
+## Why
 
-The scarce asset is not the numbers. The official sources behind them (INE, Eurostat, Banco de
-Portugal) already publish openly through real APIs. What only PORDATA has is the curation: a
-catalogue of human-meaningful indicator definitions, organised by theme, harmonised across six
-decades and 308 municipalities, each attributed to its source. This project explores making that
-layer machine-readable: an open catalogue of indicator *metadata* that always points to the
-official sources for the values and credits PORDATA prominently. No PORDATA data values are
-redistributed.
+[PORDATA](https://www.pordata.pt) — run by the Fundação Francisco Manuel dos Santos — is
+Portugal's main free statistics database: 2,268 curated indicators covering the country, its
+308 municipalities and Europe, with series back to 1960. It is excellent at presenting one
+indicator to someone who already knows its name, and hard to use for everything else: no API,
+no linkable queries, no way to see what exists without already knowing the taxonomy.
 
-**Status:** research and problem definition. Nothing built yet, deliberately. FFMS, the
-foundation behind PORDATA, has been contacted.
+The scarce asset is not the numbers — the official sources behind them (INE, Eurostat, Banco
+de Portugal) publish openly through real APIs. It is the **curation**: PORDATA's map of
+human-meaningful indicator definitions, organised by theme, harmonised across six decades,
+each attributed to its source. This project makes that layer machine-readable and searchable.
+No PORDATA data values are redistributed — metadata only, values stay at the sources.
 
-All project state — measured facts, problem framing, decisions and the backlog — lives in
-[context.md](context.md).
+## What's here
+
+- **The search site** (`docs/`): zero-dependency static page — ranked fuzzy search, six UI
+  languages (PT/EN/ES/FR/DE/IT), indicator names in Portuguese and English, light/dark theme.
+- **A self-maintaining pipeline** (GitHub Actions): a daily sitemap watcher that opens an
+  issue when PORDATA adds or removes indicators, and a polite harvester (one request per 20 s,
+  metadata only) that keeps the catalogue fresh — new pages fetched, updated pages
+  re-harvested, removed indicators tombstoned as "descontinuado", the site rebuilt on every
+  change.
+- **Quality gates**: 40+ unit tests with a coverage gate and full mutation testing (mutmut)
+  on every push.
+- **Research** ([context.md](context.md)): measured facts about PORDATA, the four-stage
+  problem framing (discovery → extraction → combination → interpretation), decisions, and the
+  roadmap — next up, a crosswalk from each indicator to its upstream API series.
+
+All project state lives in [context.md](context.md).
 
 ## Licensing
 
