@@ -61,6 +61,7 @@
   .card {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 10px; padding: 12px 14px; margin: 10px 0;
+    overflow-wrap: anywhere; /* long slugs/URLs must never widen the page */
   }
   .card a.name { color: var(--accent); text-decoration: none; font-weight: 600; }
   .card a.name:hover { text-decoration: underline; }
@@ -271,8 +272,11 @@
   const MAX = 60;
 
   function displayNames(r) {
-    if (lang === "pt") return [r.name, r.name_en];
-    return [r.name_en || r.name, r.name_en ? r.name : ""];
+    const primary = lang === "pt" ? (r.name || r.name_en)
+                                  : (r.name_en || r.name);
+    const alt = primary === r.name ? r.name_en
+              : (r.name && r.name !== primary ? r.name : "");
+    return [primary, alt];
   }
 
   function render() {

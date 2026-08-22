@@ -136,6 +136,14 @@ def build_en_names(sitemap_text: str) -> dict[int, str]:
     return en_names
 
 
+def name_from_slug(slug: str) -> str:
+    """Readable fallback name for records whose <title> parse came up
+    empty: the PT slug minus the id, pluses as spaces."""
+    text = re.sub(r"-\d+$", "", slug.split("/")[-1]).replace("+", " ")
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:1].upper() + text[1:]
+
+
 def split_fontes(fontes: str) -> list[str]:
     # defensive re-trim: records harvested before the parser fix may still
     # carry trailing UI text; the JSONL is repaired in the 3d QA pass
@@ -162,7 +170,7 @@ def main() -> None:
         row = {
             "id": rec["id"],
             "area": rec["area"],
-            "name": rec.get("name", ""),
+            "name": rec.get("name") or name_from_slug(rec.get("slug", "")),
             "name_en": en_names.get(rec["id"], ""),
             "description": rec.get("description", ""),
             "fontes": split_fontes(rec.get("fontes", "")),

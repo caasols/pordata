@@ -23,6 +23,13 @@ class NormTest(unittest.TestCase):
         self.assertEqual(b.content_tokens("Pessoal em I&D"), {"pessoal"})
 
 
+class NameFromSlugTest(unittest.TestCase):
+    def test_slug_becomes_readable_fallback(self):
+        self.assertEqual(
+            b.name_from_slug("financiamento+da+uniao+europeia-3597"),
+            "Financiamento da uniao europeia")
+
+
 class SplitFontesTest(unittest.TestCase):
     def test_split_dedupe_and_trim(self):
         out = b.split_fontes(

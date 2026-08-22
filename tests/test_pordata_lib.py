@@ -58,6 +58,10 @@ class CleanFontesTest(unittest.TestCase):
             lib.clean_fontes("INE, PORDATA Última atualização: 2026"),
             "INE, PORDATA")
         self.assertEqual(lib.clean_fontes("INE, PORDATA"), "INE, PORDATA")
+        self.assertEqual(  # municipal toolbar variant
+            lib.clean_fontes(
+                "II/MTSSS, PORDATA Operações Opções Ver Gráfico Ranking"),
+            "II/MTSSS, PORDATA")
 
     def test_strips_punctuation_edges(self):
         self.assertEqual(lib.clean_fontes(" INE, PORDATA ,"), "INE, PORDATA")

@@ -16,8 +16,12 @@ PAGES_FILE = pathlib.Path("data/catalogue/pages.jsonl")
 AREA_PREFIXES = ("portugal", "municipios", "europa")
 
 # UI text that marks the end of the real Fontes/Entidades value on a page.
+# Europa pages append "Carregue aqui para ver o gráfico…", municipal pages
+# append the toolbar "Operações Opções Ver Gráfico Ranking".
 FONTES_BOUNDARY = (r"Carregue|ver tabela|ver o gráfico|Última|Ultima"
-                   r"|Consulte|©|Fontes?\s*/\s*Entidades")
+                   r"|Consulte|©|Fontes?\s*/\s*Entidades"
+                   r"|Operações|Opções|Ver Gráfico|Ranking|Simbologia"
+                   r"|Exportar")
 
 
 def clean_fontes(raw: str) -> str:
