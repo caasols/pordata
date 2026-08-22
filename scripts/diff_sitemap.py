@@ -14,11 +14,18 @@ When $GITHUB_OUTPUT is set (i.e. under GitHub Actions), writes:
 Adds and removes come from sitemap-urls.txt so the first run after the
 lastmod file was introduced still diffs cleanly against the older
 urls-only baseline.
+
+Lastmod updates are only reported for indicator-style pages (slug ending
+in -<id>): the section landing pages (root, /portugal, /europa,
+/municipios and their /en twins) are stamped with the current date every
+day, which is pure churn and would flood the changelog. The full lastmod
+table still lands in the snapshot commit either way.
 """
 
 import datetime
 import os
 import pathlib
+import re
 import subprocess
 import sys
 
@@ -64,6 +71,7 @@ def main() -> None:
     updated = sorted(
         u for u in new_urls & set(old_mods)
         if u in new_mods and old_mods[u] != new_mods[u]
+        and re.search(r"-\d+$", u)
     ) if old_mods else []
 
     today = datetime.date.today().isoformat()

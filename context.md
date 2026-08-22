@@ -189,9 +189,11 @@ Open items only. Verify against reality before acting; strike items when they la
    sandbox nor a phone could reach pordata.pt. Each run fetches the sitemap (one request),
    diffs URLs and `<lastmod>` against the last committed snapshot
    (`scripts/diff_sitemap.py`), commits the snapshot plus a `data/CHANGELOG.md` entry, and
-   opens a GitHub issue when pages are added or removed. Validated end to end on the branch.
-   Remaining: the daily cron (06:17 UTC) only fires once the workflow is on the default
-   branch, so it arms itself on merge.
+   opens a GitHub issue when pages are added or removed. Merged to main 2026-08-22, so the
+   daily cron (06:17 UTC) is armed. First production run caught 7 lastmod updates; they were
+   daily churn on section landing pages, so update reporting is now limited to
+   indicator-style URLs (slug ending in an id). Adds and removes are still tracked for every
+   page.
 3. **Spike: is INE's catalogue queryable?** Untested, and it gates the whole catalogue plan. INE
    has a JSON API, but whether it exposes an enumerable indicator catalogue (rather than only
    per-series fetches given a code you already know) has not been checked. If it does, much of the
