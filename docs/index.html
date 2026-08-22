@@ -10,11 +10,17 @@
     --bg: #faf9f7; --card: #ffffff; --ink: #1a1a1a; --muted: #6b6b6b;
     --accent: #0a6e4f; --border: #e3e0da; --chip: #eef2ef;
   }
+  /* system dark, unless the visitor forced light */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --bg: #141414; --card: #1e1e1e; --ink: #ececec; --muted: #9a9a9a;
       --accent: #4dc596; --border: #333; --chip: #24302a;
     }
+  }
+  /* visitor forced dark, wins over a light system */
+  :root[data-theme="dark"] {
+    --bg: #141414; --card: #1e1e1e; --ink: #ececec; --muted: #9a9a9a;
+    --accent: #4dc596; --border: #333; --chip: #24302a;
   }
   * { box-sizing: border-box; }
   body {
@@ -26,9 +32,16 @@
          flex-wrap: wrap; gap: 6px; }
   h1 { font-size: 1.5rem; margin: 0 0 4px; }
   h1 a { color: inherit; text-decoration: none; }
+  .controls { display: flex; align-items: center; gap: 10px; }
   .lang { font-size: .85rem; color: var(--muted); }
   .lang span { cursor: pointer; padding: 2px 6px; border-radius: 6px; }
   .lang span.on { background: var(--accent); color: #fff; }
+  #themeBtn {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--muted); cursor: pointer;
+    font: inherit; font-size: .95rem; padding: 2px 9px; line-height: 1.5;
+  }
+  #themeBtn:hover { color: var(--ink); border-color: var(--accent); }
   .sub { color: var(--muted); margin: 0 0 20px; font-size: .95rem; }
   .sub b { color: var(--ink); }
   #q {
@@ -70,7 +83,10 @@
 <main>
   <div class="top">
     <h1><a href="./">pordata map</a></h1>
-    <div class="lang" id="lang"></div>
+    <div class="controls">
+      <div class="lang" id="lang"></div>
+      <button id="themeBtn" aria-label="Light/dark theme"></button>
+    </div>
   </div>
   <p class="sub" id="intro"></p>
 
@@ -179,6 +195,26 @@
     const nav = (navigator.language || "pt").slice(0, 2).toLowerCase();
     lang = STRINGS[nav] ? nav : "en";
   }
+
+  // ---- theme (system by default; ☾/☀ forces and persists) -----------
+  const themeBtn = $("themeBtn");
+  function effTheme() {
+    return document.documentElement.dataset.theme ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+  function applyTheme(forced) {
+    if (forced) document.documentElement.dataset.theme = forced;
+    themeBtn.textContent = effTheme() === "dark" ? "☀" : "☾";
+  }
+  let storedTheme = null;
+  try { storedTheme = localStorage.getItem("theme"); } catch (e) {}
+  applyTheme(storedTheme === "dark" || storedTheme === "light"
+    ? storedTheme : null);
+  themeBtn.onclick = () => {
+    const next = effTheme() === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    applyTheme(next);
+  };
 
   // ---- data ----------------------------------------------------------
   let rows = [], stats = null;

@@ -1,44 +1,56 @@
 # pordata map
 
 Making Portuguese public statistics consumable. PORDATA holds 2,268 curated indicators behind a
-UI with no API; this project is working out what intervention would actually help.
+UI with no API; this project built the machine-readable layer on top: a self-maintaining
+catalogue of that curation (metadata only, never data values) with a public search site.
 
-**Status:** research and problem definition. No solution chosen, deliberately. Nothing built.
-Version 0.1.0.
+**Status:** shipped and live. The search site — fuzzy, six UI languages, PT/EN indicator
+names — is at [caasols.github.io/pordata](https://caasols.github.io/pordata/), rebuilt
+automatically by the harvest pipeline. Public repo, MIT (code) / CC BY 4.0 (metadata).
 
 ## Read this first
 
-- [context.md](context.md) - the whole project: measured facts about PORDATA, the central
-  insight, the four-stage problem framing, ecosystem, decisions and why, and the open backlog.
-  Start here every session. Nothing else in this repo carries state.
+- [context.md](context.md) - the whole project: what has been built and how it runs, measured
+  facts about PORDATA, the central insight, the four-stage problem framing, ecosystem,
+  decisions and why, and the roadmap. Start here every session. Nothing else in this repo
+  carries state.
 - [README.md](README.md) - human front door. Brief overview; carries no state.
 
 ## Current focus
 
-Problem definition, not building. FFMS was emailed on 2026-08-21 (awaiting reply; see
-`context.md` backlog item 1). The Question Ledger's 100 questions are drafted and
-stratification-audited in `ledger/`; the sitemap baseline is committed under `data/` via the
-Actions workflow. Phase B (catalogue harvest + INE catalogue cache, decision 6 and backlog 3b
-in `context.md`) is running via Actions. Attempting the ledger questions per
-`ledger/README.md` stays open as the evidence base and acceptance tests.
+The initial harvest self-completes overnight 2026-08-22→23 (cron chunks; 2,196 target pages),
+after which the same cron is pure maintenance. Next up per the roadmap in `context.md`: QA
+repair pass, featured re-match, the INE catalogue cache and the PORDATA→upstream **crosswalk**
+(the gateway to serving values and to Phase D, an MCP server — both gated on owner go). FFMS
+was emailed 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering
+task.
+
+## How it runs
+
+Everything is GitHub Actions on `main`: `sitemap.yml` (daily watcher, opens issues on
+add/remove), `harvest.yml` (3×/day; fetch-missing + re-fetch-stale + retry-errors, then
+rebuilds `docs/`), `tests.yml` (unit + coverage gate + mutation on every scripts/tests push),
+`featured-sets.yml` and `ine-catalogue.yml` (manual). Data-writing workflows check out the
+branch head at run time — never the trigger-time sha. This sandbox cannot reach pordata.pt or
+ine.pt; anything needing their network runs via Actions.
 
 ## Sibling project
 
 [../raycast-assembleia-da-republica/context.md](../raycast-assembleia-da-republica/context.md) -
 a Raycast extension over Portuguese parliamentary data via the openAR API. Separate repo,
 separate domain, but the same underlying interest in making public data reachable. openAR is the
-working template for what PORDATA lacks: one volunteer, an OpenAPI spec, ETags, incremental sync.
+working template throughout: one volunteer, an OpenAPI spec, ETags, incremental sync, an MCP.
 
 ## Deep navigation
 
 A graphify graph exists under `graphify-out/` (derived, gitignored; rebuild with
-`graphify update .`). Be aware it currently indexes only the markdown headings of these docs,
-since the repo holds no code, so its god-nodes reflect this file's structure rather than any
-architecture. It becomes useful once there is code. Read `graphify-out/GRAPH_REPORT.md` or query
-with `graphify path` / `explain`.
+`graphify update .`). Read `graphify-out/GRAPH_REPORT.md` or query with `graphify path` /
+`explain`.
 
 ## Health checks
 
 ```bash
+python3 -m unittest discover -s tests
+python3 scripts/build_catalogue.py
 python3 ~/.claude/skills/cartographer/scripts/audit.py . --style-lint
 ```
