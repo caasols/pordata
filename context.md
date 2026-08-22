@@ -157,6 +157,16 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 5. **Any answer must carry its source, its vintage, and any revision caveat.** Why: the sampled
    page's note about INE revising 2021 to 2024 is exactly the kind of thing that must not be
    silently dropped. Cost if wrong: none, this is a floor not a bet.
+6. **Proceed without waiting for FFMS (owner decision, 2026-08-22).** The email disclosed
+   exactly this plan, the reply can still redirect later, and the harvest stays on the
+   recorded legal line (metadata only). Phased: **A** spikes (is PORDATA metadata
+   server-rendered; is INE's catalogue enumerable) → **B** catalogue harvest → **C** static
+   catalogue + search on GitHub Pages → **D** MCP server over the catalogue,
+   discovery/pointers first, values from upstream only where the crosswalk is solid. Phases B
+   onward start only on explicit owner go. Harvest pacing set by owner at one request per 20
+   seconds; at 2,533 pages that is ~14 hours, over the 6-hour Actions job cap, so the
+   harvester must be resumable and chunked across runs. Cost if wrong: if FFMS replies with
+   objections, harvested metadata may need renegotiating or discarding.
 
 ## Constraints
 
@@ -194,10 +204,11 @@ Open items only. Verify against reality before acting; strike items when they la
    daily churn on section landing pages, so update reporting is now limited to
    indicator-style URLs (slug ending in an id). Adds and removes are still tracked for every
    page.
-3. **Spike: is INE's catalogue queryable?** Untested, and it gates the whole catalogue plan. INE
-   has a JSON API, but whether it exposes an enumerable indicator catalogue (rather than only
-   per-series fetches given a code you already know) has not been checked. If it does, much of the
-   crosswalk may not need harvesting at all.
+3. **Spike: is INE's catalogue queryable?** *In progress 2026-08-22* as Phase A spike A2
+   (`scripts/spike_ine_catalogue.py`, run via `.github/workflows/spikes.yml`; report lands in
+   `data/spikes/`), alongside spike A1 (`scripts/spike_pordata_probe.py`): is PORDATA
+   indicator metadata server-rendered or client-side? A1 decides the Phase B harvester's
+   shape; A2 gates how much crosswalk needs harvesting at all.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
