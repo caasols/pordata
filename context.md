@@ -215,7 +215,9 @@ Open items only. Verify against reality before acting; strike items when they la
      and `pindica.jsp?op=2&varcd=` the data, both JSON, no auth. The xportal docs page 403s
      non-browser clients, but the API endpoints themselves are open. Much of the
      PORDATA→INE crosswalk can therefore be built against a real INE catalogue instead of
-     guessed.
+     guessed. **Caveat:** a second run 15 minutes later got 403 on every ine.pt endpoint —
+     bot protection reacting to the 21 MB pull from a cloud IP. So: fetch the INE catalogue
+     rarely, cache it in the repo, keep requests sparse, retry later not harder.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
