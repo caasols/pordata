@@ -74,10 +74,13 @@ def extract_names(html: str) -> list[str]:
             name = re.sub(r"\s*\(\d\)\s*$", "", line).strip()
             # name/desc/name/desc rendering: absorb the subtitle line —
             # it disambiguates matching (e.g. which "renováveis" series)
-            if norm(lines[i + 2]) == n and len(lines) > i + 3 \
-                    and norm(lines[i + 1]) == norm(lines[i + 3]):
-                name = f"{name} — {lines[i + 1].strip()}"
-                seen.add(norm(lines[i + 1]))
+            subtitle = lines[i + 1].strip() if len(lines) > i + 3 else ""
+            if norm(lines[i + 2]) == n and subtitle \
+                    and norm(subtitle) == norm(lines[i + 3]) \
+                    and not re.fullmatch(r"\(\d+\)", subtitle) \
+                    and len(subtitle) > 4:
+                name = f"{name} — {subtitle}"
+                seen.add(norm(subtitle))
             names.append(name)
             seen.add(n)
     return names
