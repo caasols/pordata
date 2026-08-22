@@ -25,7 +25,7 @@ REPORT = pathlib.Path("data/spikes/a2-ine-catalogue.md")
 DELAY_SECONDS = 2
 
 CANDIDATES = [
-    ("docs-page", "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_api"),
+    # docs page (xportal) 403s bots; the API endpoints themselves are open
     ("json-series-example",
      "https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0000611&lang=PT"),
     ("json-metadata-example",
@@ -36,7 +36,7 @@ CANDIDATES = [
      "https://dados.gov.pt/api/1/datasets/?q=ine%20indicadores&page_size=5"),
 ]
 
-ENTRY_PATTERNS = [r"<indicador\b", r'"IndicadorCod"', r'"varcd"', r"<indic\b"]
+ENTRY_PATTERNS = [r"<indicator\b", r"<indicador\b", r'"IndicadorCod"', r'"varcd"']
 
 
 def fetch(name: str, url: str) -> dict:
@@ -50,6 +50,8 @@ def fetch(name: str, url: str) -> dict:
         return {"name": name, "url": url, "error": str(exc)[:200]}
     (RAW_DIR / f"ine-{name}.txt").write_bytes(body[:2_000_000])
     text = body.decode("utf-8", errors="replace")
+    if name == "xml-catalogue-opc2":
+        analyze_catalogue(text)
     entry_counts = {p: len(re.findall(p, text)) for p in ENTRY_PATTERNS}
     parsed_json_items = None
     if "json" in ctype or text.lstrip()[:1] in "[{":
@@ -64,6 +66,33 @@ def fetch(name: str, url: str) -> dict:
         "bytes": len(body), "sample": re.sub(r"\s+", " ", text[:280]),
         "entry_counts": entry_counts, "parsed_json_items": parsed_json_items,
     }
+
+
+CATALOGUE_NOTES = pathlib.Path("data/spikes/a2-ine-catalogue-detail.md")
+
+
+def analyze_catalogue(xml: str) -> None:
+    """Summarize the opc=2 catalogue: how many indicators, which themes,
+    what fields one entry carries. Runs on the runner because the 21 MB
+    payload never leaves it."""
+    ids = re.findall(r'<indicator id="([^"]+)"', xml)
+    themes = re.findall(r"<theme><!\[CDATA\[(.*?)\]\]></theme>", xml)
+    first = re.search(r"<indicator .*?</indicator>", xml, re.S)
+    fields = sorted(set(re.findall(r"<(\w+)[ >]", first.group(0)))) if first else []
+    theme_counts = {}
+    for t in themes:
+        theme_counts[t] = theme_counts.get(t, 0) + 1
+    lines = ["# Spike A2 detail: INE opc=2 catalogue", "",
+             f"- indicators: **{len(ids)}** ({len(set(ids))} distinct ids)",
+             f"- themes: {len(theme_counts)}", ""]
+    lines += [f"- {t}: {n}" for t, n in
+              sorted(theme_counts.items(), key=lambda kv: -kv[1])]
+    lines += ["", "## Fields on one <indicator> entry", ""]
+    lines += [f"- `{f}`" for f in fields]
+    if first:
+        lines += ["", "## First entry (verbatim)", "", "```xml",
+                  first.group(0)[:1500], "```"]
+    CATALOGUE_NOTES.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> None:

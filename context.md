@@ -204,11 +204,18 @@ Open items only. Verify against reality before acting; strike items when they la
    daily churn on section landing pages, so update reporting is now limited to
    indicator-style URLs (slug ending in an id). Adds and removes are still tracked for every
    page.
-3. **Spike: is INE's catalogue queryable?** *In progress 2026-08-22* as Phase A spike A2
-   (`scripts/spike_ine_catalogue.py`, run via `.github/workflows/spikes.yml`; report lands in
-   `data/spikes/`), alongside spike A1 (`scripts/spike_pordata_probe.py`): is PORDATA
-   indicator metadata server-rendered or client-side? A1 decides the Phase B harvester's
-   shape; A2 gates how much crosswalk needs harvesting at all.
+3. ~~**Spike: is INE's catalogue queryable?**~~ **Done 2026-08-22, answer: yes.** Phase A
+   spikes ran via `.github/workflows/spikes.yml`, reports in `data/spikes/`:
+   - **A1 (PORDATA pages): metadata is server-rendered.** All three sampled areas return
+     full HTML over plain HTTP with Fontes/Entidades, atualização dates and the data tables
+     present; no screenservices calls. The Phase B harvester needs no headless browser.
+   - **A2 (INE): the catalogue is enumerable.** `xml_indic.jsp?opc=2&lang=PT` returns the
+     full indicator catalogue as one ~21 MB XML with per-indicator theme and subtheme;
+     `pindicaMeta.jsp?varcd=` gives per-indicator metadata (periodicity, first/last period)
+     and `pindica.jsp?op=2&varcd=` the data, both JSON, no auth. The xportal docs page 403s
+     non-browser clients, but the API endpoints themselves are open. Much of the
+     PORDATA→INE crosswalk can therefore be built against a real INE catalogue instead of
+     guessed.
 4. **Then decide direction.** Candidates, recorded so they are not re-derived: the **catalogue**
    (harvest indicator metadata, publish as open JSON and CSV with search; fixes Discovery, measures
    the rest, and is the crosswalk any real tool needs); an **MCP server or skill** over INE and
