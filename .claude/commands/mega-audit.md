@@ -4,7 +4,9 @@ description: Ultra-deep cross-consistency audit - hidden dependencies, claims vs
 
 Perform an exhaustive cross-consistency audit of this repository. Use a workflow
 (multi-agent orchestration) to fan the dimensions out in parallel and adversarially
-verify every finding before reporting it. Be comprehensive; token cost is not a
+verify every finding before reporting it. Verification is the expensive half: batch it so
+a session limit cannot leave findings unverified, and if some do come back unverified, say
+so rather than presenting them as confirmed. Be comprehensive; token cost is not a
 constraint. The purpose is to catch the class of problem where **a plan, claim, or
 feature silently depends on something whose real state contradicts it** — the way the
 "featured pill" roadmap item once depended on a 29/56 match rate recorded only in a
@@ -65,12 +67,36 @@ Audit dimensions:
    strings, logic duplicated between Python and TypeScript that could drift (e.g.
    name-derivation rules), stale workflow steps.
 
-8. **Edge-case probes.** Actually execute, do not just read: the site headless against
+8. **Accessibility and discoverability of the deliverable.** The site is the product and
+   its stated purpose is reachability, so audit it as such: accessible names on every
+   control (not placeholders), keyboard reachability and visible focus, landmarks, live
+   regions for content that changes, contrast in both themes, and designed empty/error
+   states. Separately, machine discoverability of the deliverable itself: canonical link,
+   social meta, schema.org JSON-LD, robots/sitemap, and the payload a first visit
+   downloads (measure it; flag it as unbounded if it grows with the catalogue).
+
+9. **Provenance, licensing and supply chain.** Read `LICENSE` and any data licence: does
+   every licence the docs claim actually exist as a file, and does it cover what the repo
+   distributes? Does the attribution the project asks of its reusers match what it does
+   itself? Then the workflows: token scope (`permissions:`), third-party action pinning,
+   any untrusted value interpolated into a `run:` block, and dependency provenance.
+
+10. **The corners no dimension owns.** Explicitly open every directory in the repo,
+   including the ones the other dimensions never name — `ledger/`, `outreach/`,
+   `data/spikes/`, `data/audits/`, `.claude/` — and verify their contents against their
+   own claims. Anything asserted in one of these files (a stratification audit, a sent
+   email, a spike conclusion) is a claim like any other and must reproduce.
+
+11. **Edge-case probes.** Actually execute, do not just read: the site headless against
    the built bundle (empty results state, absurdly long query, query of only stopwords,
    localStorage disabled, data fetch 404, all filters + search + sort combined, tiny
    viewport) and the Python pipeline against synthetic hostile inputs (sitemap entry
    with no id, duplicate urls, record with every field empty, future dates, malformed
    JSONL line).
+
+Finally, audit **this command**: which parts of the repository, which risk classes, and
+which claim types do the dimensions above still not name? Report those as findings too —
+every blind spot in a previous run traced back to this file.
 
 Deliverable: a prioritized findings report (severity-ordered), each finding with
 evidence / impact / fix / prevention, followed by a short list of the systemic

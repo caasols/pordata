@@ -284,7 +284,11 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
    eight-dimension cross-consistency sweep (roadmap preconditions vs measured state, doc
    claims vs primary sources, data-quality gates, drift, silent failure paths, assumption
    inventory, dead code, executed edge probes) where every finding must carry an automated
-   prevention. Cost if wrong: audit overhead on a one-person project; mitigated by running it
+   prevention. Widened after its first run to eleven dimensions — the completeness critic
+   showed the command's own scope was the blind spot, so it now also names accessibility and
+   machine discoverability of the deliverable, licensing/provenance/supply chain, the
+   directories no other dimension opens (`ledger/`, `outreach/`, `.claude/`), and finally
+   itself. Cost if wrong: audit overhead on a one-person project; mitigated by running it
    at milestones, not on a schedule.
 
 ## Constraints
