@@ -119,6 +119,21 @@ The pipeline, end to end, all live on `main`:
   themes; per-indicator metadata and data via JSON, no auth) — but INE's bot protection
   blocks Actions runners persistently (403, timeout ×2 over two days), so the offline
   `data/ine/raw.xml` upload path exists and the fetch is deferred (roadmap 2).
+- **Audit and hardening** (2026-08-23, `/mega-audit` — report in `data/audits/`): 24 agents
+  across eleven dimensions, adversarially verified; **57 findings survived** (7 high) plus 9
+  gaps the completeness critic found. All seven high-severity findings and the
+  accessibility/SEO/licensing gaps were fixed the same day, in five batches:
+  **①** the four silent-failure paths — a failed re-fetch used to overwrite a good record and
+  silently delete a live indicator; corrupt JSONL lines vanished; a `<sitemapindex>` switch
+  was *verified* to tombstone all 2,195 rows automatically; and QA was a report, not a gate.
+  **②** the featured matcher, which was flagging the wrong indicator under a curated badge.
+  **③** the site's accessibility (the search box had no accessible name at all) and its
+  machine discoverability (a project about discoverability was invisible to machines).
+  **④** every disputed doc claim, including "2,268 indicators" — really 2,196 — which had
+  already reached FFMS; plus `abandoned.txt`, giving roadmap 1's tombstone plan the code path
+  it never had. **⑤** the audit command itself, whose scope was the root of every blind spot.
+  The lesson is recorded as decision 7: the quality machinery verified code, and nothing
+  verified plans or claims against measured state.
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 
@@ -298,6 +313,13 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
   should credit PORDATA prominently.
 - INE tolerates sparse requests only from cloud IPs: cache its catalogue, retry later not harder.
 - Interpretation errors are the real danger, not missing features.
+- **Nothing publishes past a failing gate.** `qa_catalogue.py --strict` and the sitemap
+  corpus floor exist because a green Actions run used to be compatible with a silently
+  degraded catalogue. Lowering a threshold to make a run pass is a decision to record, not a
+  fix to apply quietly.
+- **A curated badge must be right or absent.** The featured matcher is deliberately
+  high-precision: showing the wrong indicator under PORDATA's curation is worse than showing
+  none, because faithfully mirroring that curation is the whole claim.
 
 ## Roadmap
 
@@ -461,10 +483,23 @@ browser check — dead for humans too, so it is retired rather than retried.*
 ## Verification
 
 ```bash
-python3 -m unittest discover -s tests            # 40 tests
+# pipeline
+python3 -m unittest discover -s tests            # Python suite
 python3 -m mutmut run                            # mutation suite (~1 min)
 python3 scripts/build_catalogue.py               # rebuild docs/data from pages.jsonl
+python3 scripts/qa_catalogue.py --strict         # the data gate; non-zero = do not publish
+python3 scripts/repair_pages.py                  # idempotent fontes repair
+
+# site (never hand-edit docs/index.html or docs/assets)
+cd site && npm ci && npm run build               # typecheck + build into docs/
+npm run test:coverage                            # vitest, 80% line gate
+npm run mutation                                 # StrykerJS, break at 85
+
+# live
 curl -s https://caasols.github.io/pordata/data/stats.json
 curl -s https://www.pordata.pt/robots.txt
 python3 ~/.claude/skills/cartographer/scripts/audit.py . --style-lint
 ```
+
+Counts are deliberately not quoted here: the suites report them, and prose drifts
+(decision 7). At milestones run `/mega-audit`; its reports land in `data/audits/`.

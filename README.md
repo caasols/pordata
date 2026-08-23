@@ -3,8 +3,8 @@
 Making Portuguese public statistics consumable.
 
 **Search the catalogue: [caasols.github.io/pordata](https://caasols.github.io/pordata/)** — a
-fuzzy, multilingual index of every PORDATA indicator, metadata only, each entry linking back to
-its PORDATA page. Machine-readable at stable paths:
+fuzzy index of all 2,195 PORDATA indicators, metadata only, each entry linking back to its
+PORDATA page. Machine-readable at stable paths, no key and no rate limit:
 [catalogue.json](https://caasols.github.io/pordata/data/catalogue.json) ·
 [catalogue.csv](https://caasols.github.io/pordata/data/catalogue.csv) ·
 [stats.json](https://caasols.github.io/pordata/data/stats.json).
@@ -26,24 +26,40 @@ No PORDATA data values are redistributed — metadata only, values stay at the s
 ## What's here
 
 - **The search site** (`site/` → built into `docs/`): React + Vite + Tailwind with
-  shadcn-style components — ranked fuzzy search, UI in Portuguese and English
-  (four more languages prepared, pending indicator-content translation),
-  indicator names in Portuguese and English, area filters, sorting, infinite scroll,
-  light/dark theme. Served as a fully static build from GitHub Pages.
-- **A self-maintaining pipeline** (GitHub Actions): a daily sitemap watcher that opens an
-  issue when PORDATA adds or removes indicators, and a polite harvester (one request per 20 s,
-  metadata only) that keeps the catalogue fresh — new pages fetched, updated pages
-  re-harvested, removed indicators tombstoned as "descontinuado", the site rebuilt on every
-  change.
+  shadcn-style components — ranked fuzzy search (accent-blind, typo-tolerant), UI in
+  Portuguese and English (four more languages prepared, pending indicator-content
+  translation), indicator names in both, area filters, sorting, infinite scroll, light/dark
+  theme, and a schema.org `DataCatalog` description of itself. Served as a fully static build
+  from GitHub Pages.
+- **A self-maintaining pipeline** (GitHub Actions), as a detector→worker pair: a sitemap
+  watcher that opens an issue when PORDATA adds or removes indicators and dispatches the
+  harvester only when there is work, and a polite harvester (one request per 20 s, metadata
+  only) that keeps the catalogue fresh — new pages fetched, updated pages re-harvested,
+  removed indicators tombstoned as "descontinuado", the site rebuilt on every change.
 - **Quality gates**: unit tests with coverage gates and mutation testing on both sides —
-  Python (unittest + mutmut) and the site (vitest + StrykerJS, mutation score gated) — plus a
-  data-quality gate that blocks publishing when the harvest degrades. Counts live in
+  Python (unittest + mutmut) and the site (vitest + StrykerJS, score gated) — plus a
+  **data gate**: the harvest refuses to publish when coverage drops, records vanish, the
+  JSONL is corrupt or the sitemap loses a chunk of the corpus, reverting the build and
+  opening an issue instead of deploying a degraded catalogue. Counts live in
   [context.md](context.md), measured rather than quoted here.
 - **Research** ([context.md](context.md)): measured facts about PORDATA, the four-stage
   problem framing (discovery → extraction → combination → interpretation), decisions, and the
   roadmap — next up, a crosswalk from each indicator to its upstream API series.
+- **Audits** (`data/audits/`): periodic cross-consistency sweeps that check the project's own
+  plans and claims against measured state, not against each other.
 
 All project state lives in [context.md](context.md).
+
+## Using the data
+
+`catalogue.json` is one object per indicator: `id`, `area` (`portugal` | `municipios` |
+`europa`), `name`, `name_en`, `description`, `fontes` (the sources PORDATA credits),
+`ultima_atualizacao`, `url`, `harvested_at`, plus `removed: true` for discontinued
+indicators and `featured`
+for those PORDATA curates into its summary tables. `(area, id)` is the key — ids repeat across
+areas. `stats.json` carries counts and the build timestamp. Both are rebuilt by the pipeline
+and served from the same origin as the site, so a browser, a script or an agent can read them
+directly.
 
 ## Licensing
 
