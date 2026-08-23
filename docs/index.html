@@ -155,12 +155,20 @@
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
   }
 
-  /* ---- area filters: shadcn toggle badges ---- */
-  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 6px; }
+  /* ---- area filters: shadcn toggle badges ----
+     One row, horizontal swipe on overflow (scrollbar hidden); ready for
+     more pills (labels roadmap). The sort menu is position:fixed so the
+     scroll container cannot clip it. */
+  .chips {
+    display: flex; gap: 8px; flex-wrap: nowrap; margin: 14px 0 6px;
+    overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+  }
+  .chips::-webkit-scrollbar { display: none; }
   .chip {
     padding: 4px 12px; border-radius: 999px; font-size: .82rem; font-weight: 500;
     border: 1px solid var(--border); background: transparent;
     color: var(--muted-foreground); cursor: pointer; user-select: none;
+    flex: none; white-space: nowrap;
   }
   .chip:hover { background: var(--accent); color: var(--accent-foreground); }
   .chip.on {
@@ -173,7 +181,7 @@
   #sortBtn { display: inline-flex; align-items: center; gap: 5px; }
   #sortBtn svg { width: .8rem; height: .8rem; }
   #sortMenu {
-    position: absolute; left: 0; top: calc(100% + 6px); z-index: 50;
+    position: fixed; z-index: 50;  /* anchored to the pill via JS */
     min-width: 10rem; padding: 4px; white-space: nowrap;
     background: var(--popover); color: var(--popover-foreground);
     border: 1px solid var(--border); border-radius: var(--radius);
@@ -615,9 +623,20 @@
     '<path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>';
 
   function toggleSortMenu(open) {
-    $("sortMenu").hidden = !open;
+    const menu = $("sortMenu");
+    menu.hidden = !open;
     $("sortBtn").setAttribute("aria-expanded", String(open));
+    if (open) {  // anchor below the pill, clamped to the viewport
+      const r = $("sortBtn").getBoundingClientRect();
+      menu.style.top = (r.bottom + 6) + "px";
+      menu.style.left = Math.max(8, Math.min(r.left,
+        window.innerWidth - menu.offsetWidth - 8)) + "px";
+    }
   }
+  // a fixed-position menu does not follow its anchor: close on any scroll
+  addEventListener("scroll", () => {
+    if (!$("sortMenu").hidden) toggleSortMenu(false);
+  }, true);
 
   function buildSort() {
     const btn = $("sortBtn");
