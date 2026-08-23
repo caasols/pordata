@@ -415,12 +415,14 @@ browser check — dead for humans too, so it is retired rather than retried.*
 6. **Hardening backlog** *(absorbs the old item 11; sources: the 2026-08-23 `/mega-audit`,
    full report in `data/audits/`)*. Ordered by what breaks if ignored, not by effort.
 
-   **(a) Silent data corruption** — the pipeline can still publish wrong values without
-   tripping the gate: the fontes boundary vocabulary is circular, so new PORDATA UI text
-   passes harvest, QA and build straight into published sources; the `ultima_atualizacao`
-   fallback regex can publish arbitrary page text if PORDATA drops its on-page ISO dates, and
-   the site's default sort trusts that field; indicator-name extraction assumes today's
-   `<title>` template. Each needs a shape assertion at parse time, not a report afterwards.
+   **(a) Silent data corruption** — *done 2026-08-23.* Three shape assertions now run at
+   parse time in `pordata_lib`: `valid_date` (ISO, real calendar date, 1990 → today+2, since
+   the site's default sort trusts this field), `plausible_fontes` (length and words-per-part,
+   because the boundary vocabulary is circular and cannot catch UI text it has never seen) and
+   `name_from_title` (requires the `<Area>: <Name> | Pordata` template). A value that fails
+   its shape is **dropped rather than published**, and the record carries `parse_warnings`, so
+   a PORDATA template change trips the gate by name (`parse_warnings_max: 0`) instead of
+   quietly serving junk. Verified against all 2,195 records: zero false positives.
 
    **(b) Failures nobody hears** — the harvest commit step is skipped on crash/timeout, so
    in-run checkpoints protect nothing in Actions; `sitemap.yml` commits its snapshot before

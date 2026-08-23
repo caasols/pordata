@@ -84,10 +84,14 @@ def parse(url: str, status: int, body: bytes) -> dict:
     area, slug = path.split("/", 1)
     text = strip_text(html)
 
+    warnings: list[str] = []
+
     title_m = re.search(r"<title[^>]*>(.*?)</title>", html, re.DOTALL)
     title = html_mod.unescape(title_m.group(1)).strip() if title_m else ""
-    name = re.sub(r"\s*\|\s*Pordata\s*$", "", title)
-    name = re.sub(r"^(Portugal|Municípios|Europa):\s*", "", name)
+    name = lib.name_from_title(title)
+    if title and not name and "| Pordata" not in title:
+        # the '<Area>: <Name> | Pordata' template changed under us
+        warnings.append("title_template")
 
     desc_m = re.search(
         r'<meta\s+name="description"\s+content="([^"]*)"', html)
@@ -105,12 +109,24 @@ def parse(url: str, status: int, body: bytes) -> dict:
     fontes_m = re.search(r"Fontes?\s*/\s*Entidades:?\s*(.{1,250})", text)
     if fontes_m:
         fontes = lib.clean_fontes(fontes_m.group(1))
+        if fontes and not lib.plausible_fontes(fontes):
+            # boundary trimming missed new UI text: drop it rather than
+            # publish page prose as an attributed source
+            warnings.append("fontes_shape")
+            fontes = ""
+
     ultima_m = re.search(
         r"[ÚU]ltima\s+a[ct]+ualiza[çc][ãa]o:?\s*([0-9]{4}-[0-9]{2}-[0-9]{2})",
         text) or re.search(
         r"[ÚU]ltima\s+a[ct]+ualiza[çc][ãa]o:?\s*(.{1,30})", text)
+    ultima = ultima_m.group(1).strip() if ultima_m else ""
+    if ultima and not lib.valid_date(ultima):
+        # the loose fallback caught page text, or PORDATA post-dated a
+        # release; either way the site sorts on this field by default
+        warnings.append("date_shape")
+        ultima = ""
 
-    return {
+    record = {
         "url": url,
         "id": int(re.search(r"-(\d+)$", url).group(1)),
         "area": area,
@@ -119,13 +135,16 @@ def parse(url: str, status: int, body: bytes) -> dict:
         "title": title,
         "description": html_mod.unescape(desc_m.group(1)) if desc_m else "",
         "fontes": fontes,
-        "ultima_atualizacao": ultima_m.group(1).strip() if ultima_m else "",
+        "ultima_atualizacao": ultima,
         "json_ld": json_ld,
         "marker_windows": marker_windows(text),
         "http_status": status,
         "bytes": len(body),
         "harvested_at": time.strftime("%Y-%m-%d", time.gmtime()),
     }
+    if warnings:
+        record["parse_warnings"] = warnings
+    return record
 
 
 def plan(all_targets: list[str], records: dict[str, dict]) -> dict[str, list[str]]:

@@ -200,3 +200,55 @@ class QaGateTest(RepoCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ShapeAssertionTest(RepoCase):
+    """Roadmap 6a: the gate catches a field going empty, never a field
+    filled with something well-formed but wrong. These pin the three
+    ways PORDATA could feed us junk that looks fine."""
+
+    def parse(self, html):
+        return harvest.parse(f"{PT}/portugal/taxa-99", 200, html.encode())
+
+    def page(self, title="Portugal: Taxa | Pordata", fontes="INE, PORDATA",
+             ultima="2026-03-02"):
+        return (f"<html><head><title>{title}</title></head><body>"
+                f"Fontes/Entidades: {fontes} Última atualização: {ultima}"
+                f"</body></html>")
+
+    def test_healthy_page_has_no_warnings(self):
+        rec = self.parse(self.page())
+        self.assertNotIn("parse_warnings", rec)
+        self.assertEqual(rec["name"], "Taxa")
+        self.assertEqual(rec["fontes"], "INE, PORDATA")
+        self.assertEqual(rec["ultima_atualizacao"], "2026-03-02")
+
+    def test_changed_title_template_yields_no_name(self):
+        rec = self.parse(self.page(title="Taxa de natalidade — PORDATA 2026"))
+        self.assertEqual(rec["name"], "")
+        self.assertIn("title_template", rec["parse_warnings"])
+
+    def test_page_prose_is_not_published_as_a_source(self):
+        # deliberately free of every FONTES_BOUNDARY word: the point of a
+        # shape assertion is catching UI text the vocabulary never learnt
+        prose = ("Estes dados foram compilados a partir de diversas "
+                 "entidades nacionais e internacionais durante o processo "
+                 "de revisao anual das series estatisticas")
+        rec = self.parse(self.page(fontes=prose))
+        self.assertEqual(rec["fontes"], "")
+        self.assertIn("fontes_shape", rec["parse_warnings"])
+
+    def test_garbage_date_is_dropped_not_sorted_on(self):
+        rec = self.parse(self.page(ultima="Consulte aqui a nota metodologica"))
+        self.assertEqual(rec["ultima_atualizacao"], "")
+        self.assertIn("date_shape", rec["parse_warnings"])
+
+    def test_impossible_and_far_future_dates_rejected(self):
+        self.assertEqual(self.parse(self.page(ultima="2026-02-31"))
+                         ["ultima_atualizacao"], "")
+        self.assertEqual(self.parse(self.page(ultima="2099-01-01"))
+                         ["ultima_atualizacao"], "")
+
+    def test_gate_trips_on_parse_warnings(self):
+        self.assertIn("parse_warnings",
+                      " ".join(qa.gate({"parse_warnings": 4})))

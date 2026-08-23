@@ -51,6 +51,7 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - fontes_coverage: 1
 - date_iso_ratio: 1
 - duplicate_area_id: 0
+- parse_warnings: 0
 - published_rows_ratio: 1
 - featured_collisions: 0
 - featured_rows: 43

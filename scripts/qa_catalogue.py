@@ -50,6 +50,10 @@ THRESHOLDS = {
     # regression trips instead of quietly shrinking the badge set.
     "featured_collisions_max": 0,
     "featured_rows_min": 40,
+    # Parse-time shape assertions (roadmap 6a). A PORDATA template change
+    # shows up here first: fields are dropped rather than published, so
+    # this trips before coverage does and names the cause.
+    "parse_warnings_max": 0,
 }
 
 
@@ -133,6 +137,8 @@ def main(strict: bool = False) -> None:
                                         + (r.get("description") or ""))],
         "re-fetch failed; serving the previous good record":
             [r for r in ok if r.get("refetch_error")],
+        "parse-time shape assertion dropped a field (PORDATA changed?)":
+            [r for r in ok if r.get("parse_warnings")],
     }
     lines += ["", "## Findings", ""]
     if dup_keys:
@@ -192,6 +198,7 @@ def main(strict: bool = False) -> None:
             if re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", d)) / len(dates)
             if dates else 1.0),
         "duplicate_area_id": len(dup_keys),
+        "parse_warnings": sum(1 for r in ok if r.get("parse_warnings")),
         "published_rows_ratio": (len(published) / len(ok)
                                  if published and ok else 1.0),
     }

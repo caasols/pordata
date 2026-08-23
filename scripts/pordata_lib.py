@@ -5,6 +5,7 @@ indicator pages) and how the harvested JSONL is read. Harvest, QA and
 build all import from here so the definition cannot drift.
 """
 
+import datetime
 import json
 import os
 import pathlib
@@ -24,6 +25,69 @@ FONTES_BOUNDARY = (r"Carregue|ver tabela|ver o gráfico|Última|Ultima"
                    r"|Consulte|©|Fontes?\s*/\s*Entidades"
                    r"|Operações|Opções|Ver Gráfico|Ranking|Simbologia"
                    r"|Exportar")
+
+
+# ---- parse-time shape assertions (roadmap 6a) ------------------------
+# The QA gate catches a field going *empty*; it cannot catch a field
+# filled with something well-formed but wrong. These validators run at
+# parse time: a value that fails its shape is dropped rather than
+# published, and the record carries a warning so the gate sees the
+# coverage fall instead of the site quietly serving junk.
+
+MAX_FONTES_LEN = 200
+MAX_FONTE_PART_LEN = 90
+MAX_FONTE_PART_WORDS = 14
+EARLIEST_PLAUSIBLE_DATE = "1990-01-01"
+
+
+def valid_date(value: str, today: str | None = None) -> bool:
+    """ISO YYYY-MM-DD, a real calendar date, and inside the window a
+    PORDATA update could plausibly carry. The site's default sort is
+    'newest first', so a garbage date does not just display wrong - it
+    takes over the top of the results."""
+    if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value or ""):
+        return False
+    try:
+        datetime.date.fromisoformat(value)
+    except ValueError:            # 2026-02-31 and friends
+        return False
+    today = today or datetime.datetime.now(datetime.UTC).date().isoformat()
+    # +2 days of slack for timezones and for PORDATA post-dating a release
+    limit = (datetime.date.fromisoformat(today)
+             + datetime.timedelta(days=2)).isoformat()
+    return EARLIEST_PLAUSIBLE_DATE <= value <= limit
+
+
+def plausible_fontes(value: str) -> bool:
+    """A Fontes/Entidades value is a short list of organisation names.
+    The boundary vocabulary that trims it is a fixed list, so any new UI
+    string PORDATA introduces flows straight through: this checks the
+    *shape* instead of enumerating what to strip."""
+    if not value:
+        return False
+    if len(value) > MAX_FONTES_LEN:
+        return False
+    for part in re.split(r"[|,;]", value):
+        part = part.strip()
+        if not part:
+            continue
+        if len(part) > MAX_FONTE_PART_LEN:
+            return False
+        if len(part.split()) > MAX_FONTE_PART_WORDS:
+            return False
+    return True
+
+
+def name_from_title(title: str) -> str:
+    """PORDATA titles are '<Area>: <Name> | Pordata'. If that template
+    ever changes, deriving a name from it yields junk - so require the
+    suffix and return '' when it is absent, letting the build fall back
+    to the slug and the gate see name coverage drop."""
+    if not re.search(r"\|\s*Pordata\s*$", title or ""):
+        return ""
+    name = re.sub(r"\s*\|\s*Pordata\s*$", "", title)
+    name = re.sub(r"^(Portugal|Municípios|Europa):\s*", "", name)
+    return name.strip()
 
 
 def clean_fontes(raw: str) -> str:
