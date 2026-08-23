@@ -6,6 +6,9 @@
 
 type Strings = Record<string, string>;
 
+// Stryker disable all: the language tables are content, not logic;
+// mutating UI copy only generates unkillable string mutants.
+
 export const STRINGS: Record<string, Strings> = {
   pt: {
     intro: 'Catálogo pesquisável dos <b>{n}</b> indicadores da {pordata} (Fundação Francisco Manuel dos Santos). Este índice contém apenas <b>metadados</b> — os valores estão nas páginas da PORDATA e nas fontes oficiais (INE, Eurostat, Banco de Portugal).',
@@ -90,6 +93,8 @@ const LINKS: Record<string, string> = {
   json: '<a href="data/catalogue.json">catalogue.json</a>',
   csv: '<a href="data/catalogue.csv">catalogue.csv</a>',
 };
+
+// Stryker restore all
 
 export function translate(lang: string, key: string,
                           params?: Record<string, string>): string {

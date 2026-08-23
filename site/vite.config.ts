@@ -1,7 +1,7 @@
 import path from "node:path";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 
 // Builds straight into ../docs (GitHub Pages root). emptyOutDir stays
 // false because docs/data/ belongs to the harvest pipeline, not the UI
@@ -12,4 +12,14 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { "@": path.resolve(import.meta.dirname, "src") } },
   build: { outDir: "../docs", emptyOutDir: false },
+  test: {
+    environment: "jsdom",
+    setupFiles: ["src/test/setup.ts"],
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/main.tsx", "src/**/*.test.*", "src/test/**"],
+      thresholds: { lines: 80 },  // same gate as the Python suite
+    },
+  },
 });

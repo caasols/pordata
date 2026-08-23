@@ -1,9 +1,10 @@
 name: site build
 
-# Build check for the React app in site/ — verifies typecheck + vite
-# build on every push touching it. The deployed bundle in docs/ is
-# committed by whoever edits the UI (npm run build writes ../docs);
-# this workflow only proves the source still builds, it commits nothing.
+# Quality gates for the React app in site/, mirroring the Python side:
+# typecheck + vite build, vitest with an 80% line-coverage gate, and
+# StrykerJS mutation testing over src/lib. The deployed bundle in docs/
+# is committed by whoever edits the UI (npm run build writes ../docs);
+# this workflow proves the source, it commits nothing.
 
 on:
   push:
@@ -30,3 +31,22 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm run build
+      - name: Unit tests + coverage gate (80% lines)
+        run: npm run test:coverage
+
+  mutation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - name: Mutation testing (StrykerJS over src/lib)
+        run: npm run mutation

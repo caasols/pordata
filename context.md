@@ -26,8 +26,8 @@ server (Phase D). See Roadmap.
 | `README.md` | Human front door: overview, site link, licensing. Carries no state |
 | `LICENSE` | MIT (code). Catalogue metadata is CC BY 4.0 with PORDATA/FFMS attribution, per README |
 | `scripts/` | Python package: sitemap watcher, harvester, catalogue build, QA, featured sets, spikes |
-| `tests/` | 40 unittest cases, 85% coverage; mutation-tested via mutmut (`setup.cfg`) |
-| `.github/workflows/` | sitemap watch (daily), catalogue harvest (3×/day), tests+mutation (per push), featured sets + INE snapshot (dispatch) |
+| `tests/` | 46 unittest cases, 85% coverage; mutation-tested via mutmut (`setup.cfg`); site tests live in `site/src/**/*.test.*` |
+| `.github/workflows/` | sitemap watch (detector, 1-2×/day, dispatches harvest), catalogue harvest (worker + nightly safety net), tests+mutation for Python and site (per push), featured sets + INE snapshot (dispatch) |
 | `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA, spike reports |
 | `site/` | The search UI source: React + Vite + Tailwind + shadcn-style components (TypeScript). `npm run build` → `docs/` |
 | `docs/` | The GitHub Pages site: built UI bundle (from `site/`, committed) + `data/` (catalogue.json/csv/stats — the static "API") |
@@ -71,8 +71,8 @@ The pipeline, end to end, all live on `main`:
   `docs/index.html`/`docs/assets/`). Features: ranked fuzzy matching (substring > prefix >
   bounded edit distance), key-based i18n in six languages (PT/EN/ES/FR/DE/IT) with all 24 EU
   languages listed (rest greyed), `name_en` on every row derived free from the `/en` sitemap
-  slugs, opt-in area filter pills in one swipeable row, a sort pill (relevance, name A→Z/Z→A,
-  update date newest/oldest), infinite scroll in device-sized chunks, featured and
+  slugs, opt-in area filter pills in one swipeable row, a sort pill (newest/oldest/A→Z/Z→A,
+  newest default), infinite scroll in device-sized chunks, featured and
   "descontinuado" badges, light/dark theme, PORDATA credited prominently, every hit linking
   to its PORDATA page. Data redeploys automatically after every harvest chunk (the app
   fetches `docs/data/*.json` at runtime, so data changes need no rebuild). Repo made public
@@ -82,9 +82,13 @@ The pipeline, end to end, all live on `main`:
   matches them to catalogue entries by token containment. Confirmed: the municipal quadro set
   is exactly 37 indicators, identical across concelhos; Europa's is 56. Retratos pages are
   e-book publications with no indicator list — no signal there.
-- **Quality**: 45 unit tests (85% line coverage, `--fail-under=80` CI gate) plus full
-  mutation testing on every push (~1,670 mutants in ~1 min; baseline 946 killed / 505
-  survived / 217 uncovered). Network fetchers are validated by their live runs instead.
+- **Quality — Python**: 46 unit tests (85% line coverage, `--fail-under=80` CI gate) plus
+  full mutation testing on every push (mutmut, ~1,670 mutants in ~1 min; baseline 946 killed
+  / 505 survived / 217 uncovered). Network fetchers are validated by their live runs instead.
+- **Quality — site** (2026-08-23): 36 vitest tests (search/i18n logic + app behavior via
+  Testing Library with mocked data; 93% line coverage, 80% gate) plus StrykerJS mutation
+  testing over `site/src/lib` (vitest runner; UI copy tables marked no-mutate — content, not
+  logic). Both run in `site.yml` on every push touching `site/`.
 - **Question Ledger**: 100 questions drafted blind, stratification-audited against the real
   slug list (every theme backed; the control question correctly unanswerable).
 - **Spikes** (Phase A, both decisive): PORDATA indicator metadata is server-rendered (plain
@@ -304,8 +308,10 @@ Only open work. History lives in "What has been built" and git.
      `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
      useful without it; low-end phone memory during inference → that is why the model
      must stay in the small-quantized class, not a larger one.
-6. **Quality follow-ups**: drive the mutation kill rate up from 65% and turn it into a CI gate;
-   deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
+6. **Quality follow-ups**: drive the mutation kill rates up and turn them into CI gates —
+   Python (mutmut) from 65%, site (StrykerJS over `site/src/lib`, added 2026-08-23) from 69%, most survivors in `search.ts` comparator tie-breaks and `tokenScore` boundary
+   constants; deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become
+   worth having.
 7. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
    (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
    `missing_pt` (harvest found no name — the 3 known empties), `missing_en` (no `/en`
