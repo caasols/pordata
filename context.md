@@ -77,7 +77,12 @@ The pipeline, end to end, all live on `main`:
   "descontinuado" badges, light/dark theme, PORDATA credited prominently, every hit linking
   to its PORDATA page. Data redeploys automatically after every harvest chunk (the app
   fetches `docs/data/*.json` at runtime, so data changes need no rebuild). Repo made public
-  and Pages enabled 2026-08-22.
+  and Pages enabled 2026-08-22. A UI-consistency pass and a high-effort code audit
+  (2026-08-23) normalised typography to a 4-step scale and fixed seven findings — singular
+  result counts in all six languages, locale-aware number formatting, duplicate-name alt
+  dedupe, `aria-pressed` on filter pills, a "0 indicators" loading flash, sort-comparator
+  perf (precomputed keys + one collator) — and the build now strips PORDATA's inline HTML
+  from published names (`<em>`, with `<sub>`/`<sup>` digits converted to Unicode: CO₂, km²).
 - **Featured sets** (3c): quadro-resumo rows are OutSystems postbacks with no ids, but names
   are server-rendered; `fetch_featured_sets.py` extracts them (subtitle-aware) and the build
   matches them to catalogue entries by token containment. Confirmed: the municipal quadro set
@@ -262,14 +267,11 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 
 Only open work. History lives in "What has been built" and git.
 
-1. **Close out the initial harvest — one page left** *(2,195/2,196 as of 2026-08-23 08:15 UTC)*:
-   `portugal/…despesas…ambiente…(1995 2013)-1221` returns HTTP 500 from PORDATA itself (twice).
-   Every harvest cron retries it; if it stays 500 for a few days, tombstone it and consider
-   reporting the broken sitemap-listed page to FFMS. The 3d repair ran 2026-08-23 (512 stored
-   `fontes` trimmed; QA is down to the 3 empty-name slugs, tracked in item 7). Same pass fixed
-   a live bug: **page ids are only unique per area** (205 repeats across areas) — EN names and
-   featured flags are now keyed by `(area, id)`; 205 wrong `name_en` and 14 phantom featured
-   flags corrected. Remaining: spot-check ~20 records against live pages (owner, browser);
+1. **Close out the initial harvest — one page left** *(2,195/2,196)*:
+   `portugal/…despesas…ambiente…(1995 2013)-1221` returns HTTP 500 from PORDATA itself on
+   every retry (5+ by 2026-08-23). The pipeline keeps retrying automatically; if it stays 500
+   for a few days, tombstone it and consider reporting the broken sitemap-listed page to
+   FFMS. Also remaining: spot-check ~20 records against live pages (owner, browser);
    investigate featured unmatched names — municípios 32/37, Europa 29/56 (the Europa quadro
    uses long "name — definition" strings the containment matcher won't reach; likely needs a
    dash-split before matching).
@@ -350,6 +352,17 @@ Only open work. History lives in "What has been built" and git.
    the Phase D embeddings for semantic closeness. The `sortRelevance` i18n strings remain
    in `site/src/lib/i18n.ts` for its return. Design after the label system, since labels
    and ranking share the same signal inventory.
+10. **Card design review — information hierarchy** *(owner ask 2026-08-23)*. The result
+   card is currently a stain of undifferentiated text: title, EN alt, area badge,
+   featured/status badges, sources, update date and description all compete, and the eye
+   has nowhere to land. Run a proper design pass **with Claude Design** (the canvas
+   editor): establish a reading order — what a scanner needs first (title), second
+   (freshness? area?), what can collapse or truncate (long fontes lists, description),
+   what earns color vs. muted — and mock 2–3 card variants side by side on real data
+   (long municipal names, tag-heavy featured rows, tombstoned rows) before touching
+   `App.tsx`. Owner picks the winner on the canvas; then implement with the existing
+   shadcn tokens. Coordinates with item 8 (labels add more chips to the same card —
+   design them together, not twice).
 
 ## Verification
 

@@ -25,8 +25,9 @@ Same day: 3d QA repair (512 fontes), the `(area, id)` keying fix (ids repeat acr
 and site UX — opt-in area filters, infinite scroll in device-sized chunks. INE catalogue fetch
 is blocked from cloud IPs and deferred (offline `data/ine/raw.xml` upload path ready). Next up
 per the roadmap in `context.md`: the featured filter pill + its rename (roadmap 8d,
-fast-tracked), then the PORDATA→upstream **crosswalk** (gated on the INE cache) and the
-rest of the label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was
+fast-tracked) and the card information-hierarchy design pass with Claude Design (roadmap
+10), then the PORDATA→upstream **crosswalk** (gated on the INE cache) and the rest of the
+label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was
 emailed 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
 
 ## How it runs
