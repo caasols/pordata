@@ -206,12 +206,17 @@ describe("App", () => {
     expect(screen.queryByRole("button", { name: "Clear filters" })).toBeNull();
   });
 
-  it("badges the summary set with an attributed label, not the raw value",
+  it("badges the summary set with a plain label, not the raw value",
      async () => {
     render(<App />);
     await screen.findByText("Birth rate");
-    expect(screen.getByText("PORDATA summary")).toBeInTheDocument();
+    // badge and filter pill carry the same word, so both match
+    expect(screen.getAllByText("Summary").length).toBeGreaterThan(1);
     expect(screen.queryByText(/quadro_resumo/)).not.toBeInTheDocument();
+    // PORDATA attribution moved to the badge's tooltip
+    const badge = screen.getAllByText("Summary")
+      .find((el) => el.getAttribute("title"));
+    expect(badge?.getAttribute("title")).toMatch(/PORDATA/);
   });
 
   it("summary pill filters to PORDATA's per-location set and toggles off",

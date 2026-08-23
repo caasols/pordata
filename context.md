@@ -86,7 +86,7 @@ The pipeline, end to end, all live on `main`:
   slugs, opt-in area filter pills in one swipeable row plus a **Resumo/Summary** pill on its
   own axis (PORDATA's per-location overview set; ANDs with the areas), a sort pill
   (newest/oldest/A→Z/Z→A, newest default), infinite scroll in device-sized chunks, an
-  attributed "Resumo PORDATA" badge and a "descontinuado" badge, light/dark theme, PORDATA credited prominently, every hit linking
+  "Resumo" badge (attribution in its tooltip) and a "descontinuado" badge, light/dark theme, PORDATA credited prominently, every hit linking
   to its PORDATA page. Data redeploys automatically after every harvest chunk (the app
   fetches `docs/data/*.json` at runtime, so data changes need no rebuild). Repo made public
   and Pages enabled 2026-08-22. A UI-consistency pass and a high-effort code audit
@@ -593,7 +593,8 @@ call ("Resumo"/"Summary").*
    Discovery's own question — *what should I look at first?* — answered by PORDATA.
    Shipped: a `Resumo` filter pill as a separate axis (ANDs with the area pills), the card
    badge changed from the raw internal `★ quadro_resumo` to an attributed, localized
-   **"Resumo PORDATA"** with a tooltip naming the source, six languages, `aria-pressed`, and
+   **"Resumo"** — the same word as the filter pill, one i18n key for both so they cannot
+   drift — with the PORDATA attribution in its tooltip; six languages, `aria-pressed`, and
    clear-filters releasing it. 43 badged rows; ANDed with Europa, 26.
 
 13. **Upstream reuse terms — read and record** *(owner, laptop, ~30 min; gates item 14)*. Before

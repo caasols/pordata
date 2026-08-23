@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpDown, Check, ChevronDown, ChevronRight, Moon, Star,
+import { ArrowUpDown, Check, ChevronDown, ChevronRight, Moon,
   Sun } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -360,8 +360,7 @@ export default function App() {
                     )}
                     {r.featured?.length ? (
                       <Badge title={t("summaryTip")}>
-                        <Star className="mr-1 size-3" />
-                        {t("summaryBadge")}
+                        {t("summaryFilter")}
                       </Badge>
                     ) : null}
                   </div>

@@ -35,8 +35,9 @@ any threshold breaks. A `/mega-audit` on 2026-08-23 (57 verified findings, repor
 site's accessibility and SEO layer, and a sweep of doc corrections.
 
 Shipped since: **roadmap 6a** (parse-time shape assertions), **roadmap 12** (the
-Resumo/Summary filter pill and the attributed badge — the quadro-resumo is PORDATA's
-per-location overview, the same 37/56 indicators on every município's and country's page) and
+Resumo/Summary filter pill and badge — the quadro-resumo is PORDATA's per-location overview,
+the same 37/56 indicators on every município's and country's page; pill and badge share one
+i18n key, with the PORDATA attribution in the badge tooltip) and
 **roadmap 10** (the card design pass).
 
 The card is now a **routing decision**, not a summary. PORDATA's description is gone (96.3% of
