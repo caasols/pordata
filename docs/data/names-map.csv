@@ -640,15 +640,15 @@ id,area,name_pt,name_en,status
 522,municipios,Abono de família para crianças e jovens da Segurança Social,Child benefit from social security beneficiaries and descendants or equal status,ok
 498,municipios,Acidentes de viação com vítimas por mil habitantes,Road traffic accidents with victims per thousand inhabitants,ok
 230,municipios,Acidentes de viação com vítimas,Road traffic accidents with victims,ok
-797,municipios,"Agregados domésticos privados com computador, com ligação à Internet e com ligação à Internet através de banda larga (%)",Graduates in year in higher education in the area of health total and by sub system and type of education,ok
-826,municipios,Agregados domésticos privados monoparentais: total e por sexo,Female employment as a percentage of employment total and by situation in main occupation,ok
+797,municipios,"Agregados domésticos privados com computador, com ligação à Internet e com ligação à Internet através de banda larga (%)",Private households with a computer with internet access and with broadband internet access (percentage),ok
+826,municipios,Agregados domésticos privados monoparentais: total e por sexo,Single parent private households total and by sex,ok
 825,municipios,Agregados domésticos privados: total e por tipo de composição,Private households total and by household type,ok
 827,municipios,Agregados domésticos privados unipessoais: total e de indivíduos com 65 e mais anos,Single person private households total and with a person aged 65 and over,ok
 1,municipios,Água captada: total e por origem do caudal,Water abstraction total and by water source,ok
 484,municipios,Água distribuída/consumida por habitante,Water supplied consumed per inhabitant,ok
 3,municipios,Água distribuída/consumida,Water supplied consumed,ok
-92,municipios,Alojamentos familiares clássicos,Conventional family housing buildings,ok
-5,municipios,Alojamentos servidos por sistemas de drenagem de águas residuais (%),Resident population estimates at december 31st total and by sex,ok
+92,municipios,Alojamentos familiares clássicos,Conventional dwellings,ok
+5,municipios,Alojamentos servidos por sistemas de drenagem de águas residuais (%),Dwellings connected to sewerage systems (percentage),ok
 4,municipios,Alojamentos servidos por sistemas públicos de abastecimento de água (%),Dwellings connected to public water supply systems (percentage),ok
 746,municipios,Alojamentos turísticos: total e por tipo de alojamento,Tourist accommodations total and by type of accommodations,ok
 50,municipios,Altitude máxima por Território,Maximum height,ok
@@ -663,400 +663,400 @@ id,area,name_pt,name_en,status
 200,municipios,Alunos matriculados no ensino secundário público: total e por modalidade de ensino,Students enrolled in public upper secondary education total and by modality of education,ok
 175,municipios,Alunos matriculados no ensino secundário: total e por modalidade de ensino,Students enrolled in upper secondary education total and by modality of education,ok
 345,municipios,Alunos matriculados no ensino secundário: total e por subsistema de ensino,Students enrolled in upper secondary education total and by sub system of education,ok
-317,municipios,Alunos matriculados no ensino superior politécnico: total e por sexo,Personnel (fte) in research and development activities (r d) total and of enterprises sector,ok
+317,municipios,Alunos matriculados no ensino superior politécnico: total e por sexo,Students enrolled in polytechnic higher education total and by sex,ok
 304,municipios,Alunos matriculados no ensino superior privado: total e por tipo de ensino,Students enrolled in private higher education total and by type of education,ok
 303,municipios,Alunos matriculados no ensino superior público: total e por tipo de ensino,Students enrolled in public higher education total and by type of education,ok
-313,municipios,Alunos matriculados no ensino superior: total e por área de educação e formação,Corporate tax declarations with positive balances total and by sector of economic activity,ok
+313,municipios,Alunos matriculados no ensino superior: total e por área de educação e formação,Students enrolled in higher education total and by area of education and training,ok
 310,municipios,Alunos matriculados no ensino superior: total e por nível de formação,Students enrolled in higher education total and by level of training,ok
 305,municipios,Alunos matriculados no ensino superior: total e por sexo,Students enrolled in higher education total and by sex,ok
 301,municipios,Alunos matriculados no ensino superior: total e por subsistema de ensino,Students enrolled in higher education total and by sub system of education,ok
 302,municipios,Alunos matriculados no ensino superior: total e por tipo de ensino,Students enrolled in higher education total and by type of education,ok
-316,municipios,Alunos matriculados no ensino superior universitário: total e por sexo,Amount related to corporate tax declarations with negative balances total and by sector of economic activity,ok
+316,municipios,Alunos matriculados no ensino superior universitário: total e por sexo,Students enrolled in university higher education total and by sex,ok
 386,municipios,"Alunos matriculados nos ensinos pré-escolar, básico e secundário em % da população residente: total e por nível de ensino",Enrolled students in pre school primary lower secondary and upper secondary education as a percentage of resident population total and by level of education,ok
 203,municipios,"Alunos matriculados nos ensinos pré-escolar, básico e secundário privado: total e por nível de ensino",Enrolled students in private pre school primary lower secondary and upper secondary education total and by level of education,ok
 202,municipios,"Alunos matriculados nos ensinos pré-escolar, básico e secundário público: total e por nível de ensino",Enrolled students in public pre school primary lower secondary and upper secondary education total and by level of education,ok
 166,municipios,"Alunos matriculados nos ensinos pré-escolar, básico e secundário: total e por nível de ensino",Enrolled students in pre school primary lower secondary and upper secondary education total and by level of education,ok
-1015,municipios,Áreas Protegidas e Rede Natura 2000 (percentagem),Students enrolled in public upper secondary education total and by modality of education,ok
+1015,municipios,Áreas Protegidas e Rede Natura 2000 (percentagem),Protected areas and natura 2000 network (percentage),ok
 1014,municipios,Áreas Protegidas e Rede Natura 2000,Protected areas and natura 2000 network,ok
-541,municipios,Beneficiários ativos da Segurança Social no total da população residente com 15 e mais anos (%),Average monthly earnings of employees in transportation and storage total and by level of qualification,ok
+541,municipios,Beneficiários ativos da Segurança Social no total da população residente com 15 e mais anos (%),Social security active beneficiaries in total of resident population aged 15 and over (percentage),ok
 507,municipios,Beneficiários ativos da Segurança Social,Active beneficiaries from social security,ok
 716,municipios,Beneficiários das prestações de desemprego da Segurança Social no total da população residente com 15 e mais anos (%),Social security unemployment benefits in total of resident population aged 15 and over (percentage),ok
 715,municipios,Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social no total da população residente com 15 e mais anos (%),Social security beneficiaries of guaranteed minimum income and social integration benefit in total of resident population aged 15 and over (percentage),ok
 515,municipios,Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social: total e por grupo etário,Social security beneficiaries of guaranteed minimum income and social integration benefit total and by age group,ok
-513,municipios,Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social: total e por sexo,Resident population total and by major age groups,ok
-544,municipios,Beneficiários do subsídio de desemprego da Segurança Social no total de beneficiários ativos (%),Average monthly earnings of employees in wholesale and retail trade total and by level of qualification,ok
+513,municipios,Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social: total e por sexo,Social security beneficiaries of guaranteed minimum income and social integration benefit total and by sex,ok
+544,municipios,Beneficiários do subsídio de desemprego da Segurança Social no total de beneficiários ativos (%),Social security beneficiaries of unemployment benefit in total of active beneficiaries (percentage),ok
 512,municipios,Beneficiários do subsídio de desemprego da Segurança Social: total e por sexo,Social security beneficiaries of unemployment benefit total and by sex,ok
 517,municipios,Beneficiários do subsídio por doença da Segurança Social: total e por sexo,Social security beneficiaries of sickness benefit total and by sex,ok
 516,municipios,Beneficiários do subsídio social de desemprego da Segurança Social: total e por sexo,Social security beneficiaries of supplementary unemployment benefit total and by sex,ok
 493,municipios,Caixa Geral de Aposentações: reformados/aposentados e pensionistas,Public administration retirement fund retirees and pensioners,ok
 492,municipios,Caixa Geral de Aposentações: subscritores,Public administration retirement fund subscribers,ok
 927,municipios,Caixas Automáticas Multibanco,Atm machines,ok
-244,municipios,Camas nos hospitais,Courts of justice,ok
+244,municipios,Camas nos hospitais,Beds in hospitals,ok
 747,municipios,Capacidade nos alojamentos turísticos: total e por tipo de alojamento,Lodging capacity in tourist accommodations total and by type of accommodations,ok
 535,municipios,Cartórios notariais: principais atos notariais celebrados por escritura pública por tipo de ato,Notary%27s office main notary deeds entered into by public deed by type of deed,ok
 91,municipios,Casamentos dissolvidos por morte,Dissolved marriages by death,ok
 93,municipios,Casamentos entre pessoas do sexo oposto: total e por forma de celebração,Marriages between people of the opposite sex total and by type of ceremony,ok
-354,municipios,Casamentos não católicos entre pessoas do sexo oposto (%),Teaching staff in higher education total by sub system and by type of education,ok
+354,municipios,Casamentos não católicos entre pessoas do sexo oposto (%),Non catholic marriages between people of the opposite sex (percentage),ok
 95,municipios,Casamentos: total e por nacionalidade dos cônjuges,Marriages total and by spouses nationality,ok
-634,municipios,Número de Casamentos por região,Convicted persons per thousand inhabitants,ok
+634,municipios,Número de Casamentos por região,Marriages,ok
 489,municipios,Centros de saúde: consultas médicas por habitante (1999-2012),Primary health centres medical appointments per inhabitant (1999 2012),ok
 236,municipios,Centros de saúde: total e por tipo de serviço (1993-2012),Primary health centres total and by type of service (1993 2012),ok
 490,municipios,Centros de saúde: urgências por mil habitantes (1999-2012),Primary health centres emergencies per thousand inhabitants (1999 2012),ok
 51,municipios,Evolução do número de Cidades,Cities,ok
-11,municipios,Cinema: nº de ecrãs,Annual average resident female population total and by age group,ok
+11,municipios,Cinema: nº de ecrãs,Cinema screen,ok
 423,municipios,Cinema: espectadores por mil habitantes,Cinema audience per thousand inhabitants,ok
-16,municipios,Cinema: espectadores,Marriages,ok
-30,municipios,Cinema: lotação nas salas de cinema,Employment total and by sex,ok
+16,municipios,Cinema: espectadores,Cinema audiences,ok
+30,municipios,Cinema: lotação nas salas de cinema,Cinema capacity,ok
 424,municipios,Cinema: número médio de espectadores por sessão,Cinema average audience per screening,ok
-32,municipios,Cinema: receitas de bilheteira,Employment total and by large sectors of economic activity,ok
-6,municipios,Cinema: recintos por concelho,Annual average resident population total and by sex,ok
+32,municipios,Cinema: receitas de bilheteira,Cinema box office revenue,ok
+6,municipios,Cinema: recintos por concelho,Cinema facilities,ok
 13,municipios,Cinema: número de sessões exibidas,Cinema screenings,ok
-1004,municipios,Cirurgias nos hospitais - por dia,Students enrolled in private education total and by level of education,ok
+1004,municipios,Cirurgias nos hospitais - por dia,Daily surgeries in hospitals,ok
 933,municipios,Compras e valores das compras efetuadas em terminais de pagamento automático,Purchases and value of purchases made with automatic payment terminals,ok
 409,municipios,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário privado: total e por nível de ensino,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary private education total and by level of education,ok
 408,municipios,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário público: total e por nível de ensino,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary public education total and by level of education,ok
-389,municipios,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: total e por nível de ensino,Art galleries and other places for temporary exhibitions places exhibitions and works exhibited,ok
+389,municipios,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: total e por nível de ensino,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education total and by level of education,ok
 167,municipios,Computadores com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino,Computers with internet connection in private primary lower secondary and upper secondary education total and by level of education,ok
-180,municipios,Computadores com ligação à Internet no ensino básico e secundário público: total e por nível de ensino,Newspapers and other periodicals titles published,ok
-176,municipios,Computadores com ligação à Internet no ensino básico e secundário: total e por nível de ensino,Corporations constituted by public deed total and by main sector of economic activity,ok
-177,municipios,Computadores no ensino básico e secundário privado: total e por nível de ensino,Dissolved corporations by public deed total and by main sector of economic activity,ok
+180,municipios,Computadores com ligação à Internet no ensino básico e secundário público: total e por nível de ensino,Computers with internet connection in public primary lower secondary and upper secondary education total and by level of education,ok
+176,municipios,Computadores com ligação à Internet no ensino básico e secundário: total e por nível de ensino,Computers with internet connection in primary lower secondary and upper secondary education total and by level of education,ok
+177,municipios,Computadores no ensino básico e secundário privado: total e por nível de ensino,Computers in private primary lower secondary and upper secondary education total and by level of education,ok
 178,municipios,Computadores no ensino básico e secundário público: total e por nível de ensino,Computers in public primary lower secondary and upper secondary education total and by level of education,ok
-179,municipios,Computadores no ensino básico e secundário: total e por nível de ensino,Museums zoological botanic gardens and aquariums school visitors,ok
+179,municipios,Computadores no ensino básico e secundário: total e por nível de ensino,Computers in primary lower secondary and upper secondary education total and by level of education,ok
 991,municipios,Concentração de pessoal ao serviço das quatro maiores empresas não financeiras (%),Concentration of personnel employed of the four non financial enterprises (percentage),ok
 924,municipios,Concentração do volume de negócios e do valor acrescentado bruto das quatro maiores empresas não financeiras (%),Concentration of turnover and of gross value added of the four non financial enterprises (percentage),ok
-248,municipios,Consultas externas nos hospitais: total e por algumas especialidades médicas,Supreme court of justice initiated terminated proceedings and proceedings pending by legal area,ok
-249,municipios,Consultas médicas nos centros de saúde: total e por algumas especialidades médicas (1999-2012),Public prosecution service in courts of justice inquiry proceedings registered and acted upon,ok
+248,municipios,Consultas externas nos hospitais: total e por algumas especialidades médicas,External appointments in hospitals total and by some medical specialities,ok
+249,municipios,Consultas médicas nos centros de saúde: total e por algumas especialidades médicas (1999-2012),Medical appointments in primary health centres total and by some medical specialities (1999 2012),ok
 18,municipios,Consumidores de energia elétrica: total e por tipo de consumo,Electricity consumers total and by type of consumption,ok
-436,municipios,Consumo de energia elétrica por consumidor: total e por tipo de consumo,Crude schooling rate of females by level of education,ok
-435,municipios,Consumo de energia elétrica por habitante: total e por tipo de consumo,Crude schooling rate of males by level of education,ok
-28,municipios,Consumo de energia elétrica: total e por setor de atividade económica,Labour force total and by sex,ok
-25,municipios,Consumo de energia elétrica: total e por tipo de consumo,Foreign population with legal resident status total and by sex,ok
+436,municipios,Consumo de energia elétrica por consumidor: total e por tipo de consumo,Electricity consumption by consumer total and by type of consumption,ok
+435,municipios,Consumo de energia elétrica por habitante: total e por tipo de consumo,Electricity consumption per inhabitant total and by type of consumption,ok
+28,municipios,Consumo de energia elétrica: total e por setor de atividade económica,Electricity consumption total and by sector of economic activity,ok
+25,municipios,Consumo de energia elétrica: total e por tipo de consumo,Electricity consumption total and by type of consumption,ok
 485,municipios,Consumo de gás natural por habitante,Natural gas consumption per inhabitant,ok
-31,municipios,Consumo de gás natural,Employment total and by age group,ok
+31,municipios,Consumo de gás natural,Natural gas consumption,ok
 463,municipios,Contributo dos saldos natural e migratório para a variação populacional anual (%),Contribution of natural and migratory growth to annual population variation (percentage),ok
-40,municipios,Corpos de Bombeiros,Unemployment by age group,ok
-385,municipios,"Crédito concedido a clientes por bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de crédito",Social security beneficiaries of sickness benefit total and by age group,ok
+40,municipios,Corpos de Bombeiros,Fire brigade,ok
+385,municipios,"Crédito concedido a clientes por bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de crédito",Credit granted to customers by banking savings banks and mutual agricultural lending banks total and by type of credit,ok
 383,municipios,"Crédito concedido pelos bancos, caixas económicas e caixas de crédito agrícola mútuo: total, a clientes e a não clientes",Credit granted by banking savings banks and mutual agricultural lending banks total to customers and non customers,ok
 995,municipios,Crimes registados pelas polícias por mil habitantes,Crimes registered by police per thousand inhabitants,ok
-600,municipios,Crimes registados pelas polícias: total e por algumas categorias de crime,Nhs medical prescriptions and prescribed medicines mainland portugal,ok
+600,municipios,Crimes registados pelas polícias: total e por algumas categorias de crime,Crimes registered by police total and by some categories of crime,ok
 599,municipios,Crimes registados pelas polícias: total e por tipo de crime,Crimes registered by police total and by type of crime,ok
 920,municipios,Densidade das empresas não financeiras,Non financial enterprises density,ok
 452,municipios,Densidade populacional: estatísticas por município,Population density,ok
-377,municipios,"Depósitos de clientes nos bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de cliente",Average monthly earnings of employees total and by sector of economic activity,ok
-221,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por grupo etário,Female graduates in higher education total and by level of training,ok
-222,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por por nível de escolaridade completo,Graduates in higher education total and by area of education and training,ok
+377,municipios,"Depósitos de clientes nos bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de cliente",Customer deposits in banking savings banks and mutual agricultural lending banks total and by type of customer,ok
+221,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por grupo etário,Unemployment registered at the public employment office (yearly average) total and by age group,ok
+222,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por por nível de escolaridade completo,Unemployment registered at the public employment office (yearly average) total and by highest level of education completed,ok
 227,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por sexo,Unemployment registered at the public employment office (yearly average) total and by sex,ok
 228,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por tempo de inscrição,Unemployment registered at the public employment office (yearly average) total and by length of registration,ok
 229,municipios,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por tipo de desemprego,Unemployment registered at the public employment office (yearly average) total and by unemployment type,ok
 231,municipios,Desempregados inscritos nos centros de emprego e de formação profissional à procura de novo emprego (média anual): total e por grandes setores de atividade económica,Unemployment registered at the public employment office seeking a new job (yearly average) total and by large sectors of economic activity,ok
-592,municipios,Desempregados inscritos nos centros de emprego e de formação profissional no total da população residente com 15 a 64 anos (%),Theatre audience per thousand inhabitants,ok
-220,municipios,Desempregados inscritos nos centros de emprego e de formação profissional,Male graduates in higher education total and by level of training,ok
+592,municipios,Desempregados inscritos nos centros de emprego e de formação profissional no total da população residente com 15 a 64 anos (%),Unemployment registered at the public employment office in total of resident population aged 15 to 64 (percentage),ok
+220,municipios,Desempregados inscritos nos centros de emprego e de formação profissional,Unemployment registered at the public employment office,ok
 795,municipios,"Despesa das Câmaras Municipais em cultura e desporto: total, correntes e de capital",Town council expenditure on culture and sports total current and capital,ok
-35,municipios,Despesa das Câmaras Municipais em cultura e desporto: total e por domínio cultural (1995-2012),Employment total and by situation in main occupation,ok
+35,municipios,Despesa das Câmaras Municipais em cultura e desporto: total e por domínio cultural (1995-2012),Town council expenditure on culture and sports total and by cultural area (1995 2012),ok
 767,municipios,Despesa das Câmaras Municipais em cultura e desporto: total e por domínio cultural (2013-),Town council expenditure on culture and sports total and by cultural area (2013 ),ok
 796,municipios,Despesas das Câmaras Municipais em cultura e desporto em % do total de despesas,Town council expenditure on culture and sports as a percentage of total expenditure,ok
 799,municipios,Despesas dos Corpos de Bombeiros,Fire brigade expenditure,ok
 794,municipios,Despesas dos municípios em ambiente em % do total de despesas,Municipalities environmental expenditure as a percentage of total expenditure,ok
-434,municipios,Despesas dos municípios em ambiente <em>per capita</em>: por domínios de gestão e proteção ambiental,Crude schooling rate by level of education,ok
-12,municipios,Despesas dos municípios em ambiente: total e por domínios de gestão e proteção do ambiente,Annual average resident male population total and by age group,ok
+434,municipios,Despesas dos municípios em ambiente <em>per capita</em>: por domínios de gestão e proteção ambiental,Municipalities expenditure on environment per capita by environmental management and protection domains,ok
+12,municipios,Despesas dos municípios em ambiente: total e por domínios de gestão e proteção do ambiente,Municipalities environmental expenditure total and by environmental management and protection domains,ok
 946,municipios,Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB: por setor de execução,Expenditure in research and development activities (r d) as a percentage of gdp by sector of performance,ok
 876,municipios,Despesas em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Expenditure in research and development activities (r d) total and by sector of performance,ok
 250,municipios,Dias de internamento nos centros de saúde (1993-2012),Hospitalisation days in primary health centres (1993 2012),ok
 477,municipios,Diferença entre o salário mínimo nacional e a remuneração base média mensal dos trabalhadores por conta de outrem,Difference between the national minimum salary and average basic monthly remuneration of employees,ok
-847,municipios,Dimensão média dos agregados domésticos privados,Female employees as a percentage of employees total and by contract type,ok
+847,municipios,Dimensão média dos agregados domésticos privados,Average private households size,ok
 343,municipios,Diplomados no ensino superior: total e por área de educação e formação,Graduates in higher education total and by area of education and training,ok
 342,municipios,Diplomados no ensino superior: total e por nível de formação,Graduates in higher education total and by level of training,ok
 339,municipios,Diplomados no ensino superior: total e por sexo,Graduates in higher education total and by sex,ok
 341,municipios,Diplomados no ensino superior: total e por subsistema de ensino,Graduates in higher education total and by sub system of education,ok
 340,municipios,Diplomados no ensino superior: total e por tipo de ensino,Graduates in higher education total and by type of education,ok
-96,municipios,Divórcios entre pessoas do sexo oposto: total e por forma de celebração do casamento,Social security pensions total survivors pensioners disability pensioners old age pensioners,ok
+96,municipios,Divórcios entre pessoas do sexo oposto: total e por forma de celebração do casamento,Divorces between people of the opposite sex total and by type of marriage ceremony,ok
 97,municipios,Evolução do número de Divórcios,Divorces,ok
-326,municipios,Docentes do ensino superior: total e por grupo etário,Road traffic accidents with victims injuries and deaths mainland portugal,ok
-320,municipios,Docentes do ensino superior: total e por subsistema de ensino,Unemployment registered at the public employment office seeking a new job (yearly average) total and by large sectors of economic activity %e2%80%93 mainland portugal,ok
+326,municipios,Docentes do ensino superior: total e por grupo etário,Teaching staff in higher education total and by age group,ok
+320,municipios,Docentes do ensino superior: total e por subsistema de ensino,Teaching staff in higher education total and by sub system of education,ok
 324,municipios,Docentes do ensino superior: total e por tipo de ensino,Teaching staff in higher education total and by type of education,ok
 210,municipios,"Docentes em exercício nos ensinos pré-escolar, básico e secundário privado: total e por nível de ensino",Teaching staff in pre school primary lower secondary and upper secondary private education total and by level of education,ok
 209,municipios,"Docentes em exercício nos ensinos pré-escolar, básico e secundário público: total e por nível de ensino",Teaching staff in pre school primary lower secondary and upper secondary public education total and by level of education,ok
 208,municipios,"Docentes em exercício nos ensinos pré-escolar, básico e secundário: total e por nível de ensino",Teaching staff in pre school primary lower secondary and upper secondary education total and by level of education,ok
-761,municipios,Dormidas nos alojamentos turísticos por 100 habitantes,Social security beneficiaries of guaranteed minimum income and social integration benefit total and by age group,ok
+761,municipios,Dormidas nos alojamentos turísticos por 100 habitantes,Nights spent in tourist accommodations per 100 inhabitants,ok
 748,municipios,Dormidas nos alojamentos turísticos: total e por tipo de alojamento,Nights spent in tourist accommodations total and by type of establishment,ok
-917,municipios,Duração média semanal do trabalho efetivo dos trabalhadores por conta de outrem: total e por sexo,Balance of proceedings at the ombudsman,ok
-102,municipios,Edifícios concluídos para habitação familiar: total e por tipo de obra,Social security pensions total expenditure and by type,ok
-100,municipios,Edifícios concluídos: total e por tipo de obra,Social security expenditure total and by type,ok
+917,municipios,Duração média semanal do trabalho efetivo dos trabalhadores por conta de outrem: total e por sexo,Average length of working week by employees total and by sex,ok
+102,municipios,Edifícios concluídos para habitação familiar: total e por tipo de obra,Buildings completed for family housing total and by type of building work,ok
+100,municipios,Edifícios concluídos: total e por tipo de obra,Buildings completed total and by type of building work,ok
 88,municipios,Edifícios de habitação familiar clássica,Conventional family housing buildings,ok
 107,municipios,Edifícios licenciados para habitação familiar: total e por tipo de obra,Licensed buildings for family housing total and by type of building work,ok
 106,municipios,Edifícios licenciados: total e por tipo de obra,Licensed buildings total and by type of building work,ok
 622,municipios,"Eleitores nas eleições para a Assembleia da República: total, votantes e abstenção",Registered voters in the elections for the parliament total voters and abstention,ok
 633,municipios,"Eleitores nas eleições para a Assembleia Legislativa da Região Autónoma da Madeira: total, votantes e abstenção",Registered voters in the elections for the legislative assembly of the autonomous region of madeira total voters and abstention,ok
 645,municipios,"Eleitores nas eleições para a Assembleia Legislativa da Região Autónoma dos Açores: total, votantes e abstenção",Registered voters in the elections for the legislative assembly of the autonomous region of the azores total voters and abstention,ok
-619,municipios,"Eleitores nas eleições para a Presidência da República: total, votantes e abstenção",Maternal mortality rate,ok
-631,municipios,"Eleitores nas eleições para as Autarquias Locais: total, votantes e abstenção",Congestion rate in courts (percentage),ok
-625,municipios,"Eleitores nas eleições para o Parlamento Europeu: total, votantes e abstenção",Courts of justice per 100 thousand inhabitants,ok
+619,municipios,"Eleitores nas eleições para a Presidência da República: total, votantes e abstenção",Registered voters in the elections for the presidency of the republic total voters and abstention,ok
+631,municipios,"Eleitores nas eleições para as Autarquias Locais: total, votantes e abstenção",Registered voters in the elections for the local authorities total voters and abstention,ok
+625,municipios,"Eleitores nas eleições para o Parlamento Europeu: total, votantes e abstenção",Registered voters in the elections for the european parliament total voters and abstention,ok
 981,municipios,"Embarcações de pesca: total, com e sem motor",Fishing vessels total with and without motor,ok
 990,municipios,Empresas individuais não financeiras: total e por setor de atividade económica,Non financial individual business total and by sector of economic activity,ok
 919,municipios,Empresas não financeiras com menos de 10 pessoas ao serviço em % do total de empresas não financeiras,Non financial enterprises with fewer than 10 personnel employed as a percentage of total non financial enterprises,ok
 934,municipios,Empresas não financeiras por 100 habitantes,Non financial enterprises per 100 inhabitants,ok
-916,municipios,Empresas não financeiras: total e por dimensão,Balance of proceedings at the constitutional court,ok
-915,municipios,Empresas não financeiras: total e por escalão de pessoal ao serviço,Balance of proceedings at the appellate courts,ok
+916,municipios,Empresas não financeiras: total e por dimensão,Non financial enterprises total and by size,ok
+915,municipios,Empresas não financeiras: total e por escalão de pessoal ao serviço,Non financial enterprises total and by band of personnel employed,ok
 911,municipios,Empresas não financeiras: total e por forma jurídica,Non financial enterprises total and by legal form,ok
 346,municipios,Empresas não financeiras: total e por setor de atividade económica,Non financial enterprises total and by sector of economic activity,ok
 521,municipios,Entidades empregadoras com declaração de remuneração à Segurança Social,Employers with remuneration declaration made to social security,ok
-873,municipios,Esperança de vida à nascença: total e por sexo,Constitutional court initiated terminated proceedings and proceedings pending (1993 2010),ok
-872,municipios,Esperança de vida aos 65 anos: total e por sexo,Ombudsman initiated terminated proceedings and proceedings pending,ok
+873,municipios,Esperança de vida à nascença: total e por sexo,Life expectancy at birth total and by sex,ok
+872,municipios,Esperança de vida aos 65 anos: total e por sexo,Life expectancy at 65 years old total and by sex,ok
 52,municipios,Espetáculos ao vivo: bilhetes vendidos,Live show sold tickets,ok
 426,municipios,Espetáculos ao vivo: espectadores por mil habitantes,Live shows audience per thousand inhabitants,ok
 45,municipios,Espetáculos ao vivo: espectadores,Live shows audiences,ok
 427,municipios,Espetáculos ao vivo: número médio de espectadores por sessão,Live shows average audience per performance,ok
-37,municipios,Espetáculos ao vivo: receitas de bilheteira,Female employment total and by situation in main occupation,ok
-43,municipios,Espetáculos ao vivo: sessões,Male unemployment total and by duration of job seeking,ok
-368,municipios,"Estabelecimentos de bancos, caixas económicas e caixas de crédito agrícola mútuo",Average monthly basic remuneration of male employees total and by sector of economic activity,ok
+37,municipios,Espetáculos ao vivo: receitas de bilheteira,Live shows box office revenue,ok
+43,municipios,Espetáculos ao vivo: sessões,Live shows performances,ok
+368,municipios,"Estabelecimentos de bancos, caixas económicas e caixas de crédito agrícola mútuo",Banking savings banks and mutual agricultural lending bank establishments,ok
 335,municipios,Estabelecimentos de ensino superior: total e por subsistema de ensino,Institutions in higher education total and by sub system of education,ok
 336,municipios,Estabelecimentos de ensino superior: total e por tipo de ensino,Institutions in higher education total and by type of education,ok
 213,municipios,"Estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino",Schools in pre school primary lower secondary and upper secondary education by level of education,ok
 215,municipios,"Estabelecimentos nos ensinos pré-escolar, básico e secundário privado: por nível de ensino",Schools in pre school primary lower secondary and upper secondary private education by level of education,ok
 214,municipios,"Estabelecimentos nos ensinos pré-escolar, básico e secundário público: por nível de ensino",Schools in pre school primary lower secondary and upper secondary public education by level of education,ok
 384,municipios,"Estabelecimentos públicos em % do total de estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino",Public schools as a percentage of total schools in pre school primary lower secondary and upper secondary education by level of education,ok
-758,municipios,"Estada média nos alojamentos turísticos: total, residentes em Portugal e residentes no estrangeiro",Deaths by certain causes (percentage),ok
+758,municipios,"Estada média nos alojamentos turísticos: total, residentes em Portugal e residentes no estrangeiro",Average stay in tourist accommodations total residents and non residents,ok
 239,municipios,Extensões dos centros de saúde (1993-2011),Branches of primary health centres (1993 2011),ok
-252,municipios,Farmácias e postos farmacêuticos móveis,Criminal investigation department initiated terminated proceedings and proceedings pending,ok
+252,municipios,Farmácias e postos farmacêuticos móveis,Pharmacies and mobile medicine depots,ok
 232,municipios,Feridos e mortos em acidentes de viação,Injuries and deaths in road traffic accidents,ok
 94,municipios,Fogos concluídos em construções novas para habitação familiar: total e por tipologia do fogo,Completed dwellings in new constructions for family housing total and by dwelling typology,ok
 957,municipios,Formação bruta de capital fixo da agricultura: total e por tipo de produtos,Gross fixed capital formation of agriculture total and by type of products,ok
-54,municipios,Freguesias de Portugal,Male unemployment total and by highest level of education completed,ok
-60,municipios,Galerias de arte e outros espaços de exposição temporária: exposições,Unemployment registered at the public employment office (yearly average) total and by age group mainland portugal,ok
-58,municipios,Galerias de arte e outros espaços de exposição temporária: número de espaços,Unemployment registered at the public employment office (yearly average) total and by sex,ok
-71,municipios,Galerias de arte e outros espaços de exposição temporária: obras expostas,Strikes total workers involved and workdays lost,ok
+54,municipios,Freguesias de Portugal,Parishes,ok
+60,municipios,Galerias de arte e outros espaços de exposição temporária: exposições,Art galleries and other places for temporary exhibitions exhibitions,ok
+58,municipios,Galerias de arte e outros espaços de exposição temporária: número de espaços,Art galleries and other places for temporary exhibitions places,ok
+71,municipios,Galerias de arte e outros espaços de exposição temporária: obras expostas,Art galleries and other places for temporary exhibitions works exhibited,ok
 288,municipios,Ganho médio mensal dos trabalhadores por conta de outrem: total e por nível de escolaridade,Average monthly earnings of employees total and by level of education,ok
 283,municipios,Ganho médio mensal dos trabalhadores por conta de outrem: total e por setor de atividade económica,Average monthly earnings of employees total and by sector of economic activity,ok
 282,municipios,Salário médio em Portugal: trabalhadores por conta de outrem,Average monthly earnings of employees total and by sex,ok
 888,municipios,Habitantes por bombeiro,Inhabitants per firemen,ok
 487,municipios,Habitantes por centro de saúde e extensão (1993-2011),Inhabitants per primary health centre and branch,ok
 491,municipios,Habitantes por farmácia e posto farmacêutico móvel,Inhabitants per pharmacy and mobile medicine depot,ok
-495,municipios,Habitantes por médico e farmacêutico,Minimum monthly remunerations of general government%27s special careers,ok
+495,municipios,Habitantes por médico e farmacêutico,Inhabitants per doctor and pharmacist,ok
 725,municipios,Habitantes por pessoal ao serviço nos centros de saúde (1999-2012),Inhabitants per personnel employed in primary health centres (1999 2012),ok
 757,municipios,Hóspedes nos alojamentos turísticos por 100 habitantes,Guests in tourist accommodations per 100 inhabitants,ok
 750,municipios,Hóspedes nos alojamentos turísticos: total e por tipo de alojamento,Guests in tourist accommodations total and by type of establishment,ok
-247,municipios,Hospitais: total e por natureza institucional,Courts of justice initiated terminated proceedings and proceedings pending,ok
+247,municipios,Hospitais: total e por natureza institucional,Hospitals total and by nature of institution,ok
 842,municipios,Idade média da mãe ao nascimento de um filho,Mean age of the mother at birth of a child,ok
 843,municipios,Idade média da mãe ao nascimento do primeiro filho,Mean age of the mother at birth of first child,ok
-41,municipios,Incêndios rurais por Território,Female unemployment total and by duration of job seeking,ok
+41,municipios,Incêndios rurais por Território,Rural fires,ok
 461,municipios,Índice de dependência de idosos,Old age dependency ratio,ok
 460,municipios,Índice de dependência de jovens,Young age dependency ratio,ok
 459,municipios,Índice de dependência total,Total dependency rate,ok
-379,municipios,Índice de envelhecimento dos docentes do ensino superior,Active beneficiaries from social security,ok
+379,municipios,Índice de envelhecimento dos docentes do ensino superior,Ageing index of teaching staff in higher education,ok
 337,municipios,"Índice de envelhecimento dos docentes em exercício  nos ensinos pré-escolar, básico e secundário: por nível de ensino",Ageing index of teaching staff in pre school primary lower secondary and upper secondary education by level of education,ok
 458,municipios,Índice de envelhecimento,Ageing index,ok
 791,municipios,Índice de hierarquia de gestão dos resíduos urbanos,Urban waste management hierarchy index,ok
 457,municipios,Índice de longevidade,Longevity index,ok
 798,municipios,Indivíduos com 16 e mais anos que utilizam computador e Internet em % do total de indivíduos: por sexo,Individuals of 16 or over that use computers and internet as a percentage of total of individuals by sex,ok
-641,municipios,Indivíduos com contribuição de serviço doméstico paga à Segurança Social,Nhs beds in hospitals per 100 thousand inhabitants mainland portugal,ok
-241,municipios,Internamentos nos centros de saúde (1993-2012),Teaching staff in pre school primary lower secondary and upper secondary public education total and by level of education,ok
-245,municipios,Internamentos nos hospitais,Lawyers total and by sex,ok
-874,municipios,Investigadores (ETI) em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Appelate courts initiated terminated proceedings and proceedings pending,ok
+641,municipios,Indivíduos com contribuição de serviço doméstico paga à Segurança Social,Individuals with domestic service contribution paid to social security,ok
+241,municipios,Internamentos nos centros de saúde (1993-2012),Admissions in primary health centres (1993 2012),ok
+245,municipios,Internamentos nos hospitais,Admissions in hospitals,ok
+874,municipios,Investigadores (ETI) em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Researchers (fte) involved in research and development activities (r d) total and by sector of performance,ok
 66,municipios,Jornais e outras publicações periódicas: edições,Newspapers and other periodicals editions,ok
 64,municipios,Jornais e outras publicações periódicas: títulos publicados,Newspapers and other periodicals titles published,ok
 977,municipios,Número de Lagares de azeite,Oil press units,ok
 928,municipios,"Levantamentos, pagamentos de serviços e consultas nas caixas automáticas multibanco",Withdrawals payment of services and balance requests from atms machines,ok
-240,municipios,Lotação dos centros de saúde (1993-2012),Teaching staff in pre school primary lower secondary and upper secondary education total and by level of education,ok
-441,municipios,Médicos: não especialistas e especialistas por algumas especialidades,Average monthly basic remuneration of employees in mining and quarrying total and by qualification level,ok
-901,municipios,Mortes de empresas não financeiras: total e por setor de atividade económica,Average monthly wage of employees in accommodation and food service activities basic remuneration and earnings by sex,ok
-497,municipios,Mortos por 100 acidentes de viação com vítimas,Employment in general government central regional local government and social security funds,ok
-742,municipios,Evolução do número de Museus,Initiated terminated proceedings and proceedings pending per lawyer,ok
+240,municipios,Lotação dos centros de saúde (1993-2012),Capacity of primary health centres (1993 2012),ok
+441,municipios,Médicos: não especialistas e especialistas por algumas especialidades,Doctors non specialists and specialist by some specialist areas,ok
+901,municipios,Mortes de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 deaths total and by sector of economic activity,ok
+497,municipios,Mortos por 100 acidentes de viação com vítimas,Deaths by 100 road traffic accidents with victims,ok
+742,municipios,Evolução do número de Museus,Museums number,ok
 744,municipios,"Museus: total de visitantes, visitantes escolares e estrangeiros",Museums total visitors school and foreign visitors,ok
 936,municipios,N.º médio de pessoas ao serviço nas empresas não financeiras: total e por setor de atividade económica,Average no. of personnel employed by enterprise total and by sector of economic activity,ok
-108,municipios,Nados-vivos de mães residentes em Portugal: fora do casamento por coabitação dos pais,Social security beneficiaries of unemployment benefit total and by sex,ok
+108,municipios,Nados-vivos de mães residentes em Portugal: fora do casamento por coabitação dos pais,Live births of mothers resident in portugal outside marriage by cohabitation of parents,ok
 105,municipios,Nados-vivos de mães residentes em Portugal: total e fora do casamento,Live births of mothers resident in portugal total and outside marriage,ok
-104,municipios,Nados-vivos de mães residentes em Portugal: total e por grupo etário da mãe,Social security unemployment benefit total benefits unemployment benefit and supplementary unemployment benefit,ok
-718,municipios,Nados-vivos de mães residentes em Portugal: total e por nacionalidade da mãe,Pensions as a percentage of resident population aged 15 and over total social security and public administration retirement fund,ok
+104,municipios,Nados-vivos de mães residentes em Portugal: total e por grupo etário da mãe,Live births of mothers resident in portugal total and by mother%c2%b4s age group,ok
+718,municipios,Nados-vivos de mães residentes em Portugal: total e por nacionalidade da mãe,Live births of mothers resident in portugal total and by mother%27s nationality,ok
 719,municipios,Nados-vivos de mães residentes em Portugal: total e por nível de escolaridade completo mais elevado da mãe,Live births of mothers resident in portugal total and by mother%27s highest level of educational qualifications obtained,ok
-103,municipios,Nados-vivos de mães residentes em Portugal: total e por sexo,Minimum monthly pension within general scheme from social security old age disability and survivors pensions,ok
+103,municipios,Nados-vivos de mães residentes em Portugal: total e por sexo,Live births of mothers resident in portugal total and by sex,ok
 370,municipios,"Nados-vivos fora do casamento, com coabitação e sem coabitação dos pais (%)",Live births outside of marriage with parents co habiting or not (percentage),ok
-904,municipios,"Nascimentos, mortes e sobrevivência a 1 ano de empresas não financeiras",Average monthly wage of employees in human health and social work basic remuneration and earnings by sex,ok
-899,municipios,Nascimentos de empresas não financeiras: total e por setor de atividade económica,Average monthly wage of employees in construction basic remuneration and earnings by sex,ok
+904,municipios,"Nascimentos, mortes e sobrevivência a 1 ano de empresas não financeiras",Born dead and surviving of non financial enterprises,ok
+899,municipios,Nascimentos de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 births total and by sector of economic activity,ok
 39,municipios,Bombeiros- profissionais e voluntários,Firemen,ok
 462,municipios,Número de indivíduos em idade ativa por idoso,Number of people of active age per aged person,ok
-511,municipios,Número de sociedades constituídas por número de sociedades dissolvidas: total e por setor de atividade económica principal,Average private households size,ok
+511,municipios,Número de sociedades constituídas por número de sociedades dissolvidas: total e por setor de atividade económica principal,Number of corporations constituted by number of corporations dissolved total and by main sector of economic activity,ok
 422,municipios,Número médio de alojamentos familiares clássicos por km<sup>2</sup>,Average number of conventional dwellings per km2,ok
-185,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino,Cultural facilities number and capacity,ok
+185,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino,Average number of students by computer with internet connection in private primary lower secondary and upper secondary education total and by level of education,ok
 186,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário público: total e por nível de ensino,Average number of students by computer with internet connection in public primary lower secondary and upper secondary education total and by level of education,ok
-189,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário: total e por nível de ensino,Completed dwellings in new constructions for family housing total and by dwelling typology,ok
+189,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário: total e por nível de ensino,Average number of students by computer with internet connection in primary lower secondary and upper secondary education total and by level of education,ok
 190,municipios,Número médio de alunos por computador no ensino básico e secundário privado: total e por nível de ensino,Average number of students by computer in private primary lower secondary and upper secondary education total and by level of education,ok
 191,municipios,Número médio de alunos por computador no ensino básico e secundário público: total e por nível de ensino,Average number of students by computer in public primary lower secondary and upper secondary education total and by level of education,ok
 192,municipios,Número médio de alunos por computador no ensino básico e secundário: total e por nível de ensino,Average number of students by computer in primary lower secondary and upper secondary education total and by level of education,ok
-884,municipios,Número médio de indivíduos por alojamento familiar clássico,Resident population aged between 16 and 89 by level of highest educational qualifications obtained (percentage),ok
-117,municipios,Óbitos de residentes em Portugal por algumas causas de morte,Active beneficiaries from social security receiving benefit by benefit type,ok
-109,municipios,Óbitos de residentes em Portugal: total e no primeiro ano de vida,Social security beneficiaries of unemployment benefit total and by age group,ok
-112,municipios,Óbitos de residentes em Portugal: total e por grupo etário,Social security beneficiaries of supplementary unemployment benefit total and by age group,ok
+884,municipios,Número médio de indivíduos por alojamento familiar clássico,Average number of people per conventional dwelling,ok
+117,municipios,Óbitos de residentes em Portugal por algumas causas de morte,Deaths of residents in portugal by certain cause,ok
+109,municipios,Óbitos de residentes em Portugal: total e no primeiro ano de vida,Deaths of residents in portugal total and in first year of life,ok
+112,municipios,Óbitos de residentes em Portugal: total e por grupo etário,Deaths of residents in portugal total and by age group,ok
 111,municipios,Óbitos de residentes em Portugal: total e por sexo,Deaths of residents in portugal total and by sex,ok
-116,municipios,Óbitos neonatais de mães residentes em Portugal,Social security expenditure on maternal and illness benefits,ok
-114,municipios,Óbitos perinatais de mães residentes em Portugal,Social security compensation for late payment of salaries,ok
+116,municipios,Óbitos neonatais de mães residentes em Portugal,Neonatal deaths of mothers residents in portugal,ok
+114,municipios,Óbitos perinatais de mães residentes em Portugal,Perinatal deaths of mothers residents in portugal,ok
 373,municipios,Óbitos por algumas causas de morte (%),Deaths by certain causes (percentage),ok
 234,municipios,Ofertas de emprego (média anual) disponíveis nos centros de emprego e formação profissional: total e por grandes setores de atividade económica (2001-2014),Job offers (yearly average) available at the public employment office total and by large sectors of economic activity (2001 2014),ok
 811,municipios,Ofertas de emprego (média anual) disponíveis nos centros de emprego e formação profissional: total e por grandes setores de atividade económica,Job offers (yearly average) available at the public employment office total and by large sectors of economic activity,ok
-38,municipios,Organizações não Governamentais de Ambiente (ONGA): número,Unemployment total and by sex,ok
-256,municipios,Partos nos hospitais,Crimes registered with the criminal investigation department total and by type,ok
+38,municipios,Organizações não Governamentais de Ambiente (ONGA): número,Environmental non governmental organizations (engo) number,ok
+256,municipios,Partos nos hospitais,Childbirths in hospitals,ok
 985,municipios,Peixe capturado: total e por alguns tipos de peixe,Captured fish total and by some type of fish,ok
-547,municipios,Pensões da Segurança Social e Caixa Geral de Aposentações no total da população residente com 15 e mais anos (%),Activity rate total and by sex (percentage),ok
+547,municipios,Pensões da Segurança Social e Caixa Geral de Aposentações no total da população residente com 15 e mais anos (%),Social security and public administration retirement fund pensions in total of resident population aged 15 and over (percentage),ok
 887,municipios,Pensões da Segurança Social por beneficiário,Social security pensions by beneficiary,ok
-506,municipios,"Pensões da Segurança Social: total, de sobrevivência, de invalidez e de velhice",Households gross income and income tax paid category 2,ok
-549,municipios,"Pensões: total, da Segurança Social e da Caixa Geral de Aposentações",Employment rate total and by sex (percentage),ok
+506,municipios,"Pensões da Segurança Social: total, de sobrevivência, de invalidez e de velhice",Social security pensions total survivors disability old age,ok
+549,municipios,"Pensões: total, da Segurança Social e da Caixa Geral de Aposentações",Pensions total social security and public administration retirement fund,ok
 233,municipios,Peões atropelados: total e mortos,Pedestrian accidents total and deaths,ok
 980,municipios,Pescadores matriculados,Registered fishermen,ok
 353,municipios,Pessoal ao serviço nas empresas não financeiras: total e por setor de atividade económica,Personnel employed in non financial enterprises total and by sector of economic activity,ok
-443,municipios,Pessoal ao serviço nos centros de saúde: total e por tipo de pessoal ao serviço (1999-2012),Average monthly basic remuneration of employees in electricity gas and water supply total and by qualification level,ok
-444,municipios,Pessoal ao serviço nos hospitais: total e por tipo de pessoal ao serviço,Average monthly basic remuneration of employees in construction total and by qualification level,ok
+443,municipios,Pessoal ao serviço nos centros de saúde: total e por tipo de pessoal ao serviço (1999-2012),Personnel employed in primary health centres total and by type of personnel employed (1999 2012),ok
+444,municipios,Pessoal ao serviço nos hospitais: total e por tipo de pessoal ao serviço,Personnel employed in hospitals total and by type of personnel employed,ok
 875,municipios,Pessoal total (ETI) em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Total personnel (fte) involved in research and development activities (r d) total and by sector of performance,ok
 877,municipios,Pessoal total e investigadores em atividades de investigação e desenvolvimento (I&D): equivalente a tempo integral por 1000 ativos,Total personnel and researchers involved in research and development activities (r d) full time equivalent per 1 000 active persons,ok
-896,municipios,PIB <em>per capita</em>,Average monthly wage of employees in mining and quarrying basic remuneration and earnings by sex,ok
-118,municipios,Poder de compra <em>per capita</em>,Social security beneficiaries of sickness benefit total and by sex,ok
-855,municipios,População ativa por inativa,General government expenditure on health as percentage of gdp,ok
-854,municipios,População ativa por pensionista de velhice da Segurança Social e reformado/aposentado da Caixa Geral de Aposentações,General government expenditure on health,ok
-807,municipios,População ativa: total e por grupo etário,National library expenditure,ok
+896,municipios,PIB <em>per capita</em>,Gdp per capita,ok
+118,municipios,Poder de compra <em>per capita</em>,Purchasing power per capita,ok
+855,municipios,População ativa por inativa,Active population per inactive population,ok
+854,municipios,População ativa por pensionista de velhice da Segurança Social e reformado/aposentado da Caixa Geral de Aposentações,Active population per social security old age pensioner and public administration retirement fund retiree,ok
+807,municipios,População ativa: total e por grupo etário,Labour force total and by age group,ok
 808,municipios,População ativa: total e por nível de escolaridade completo,Labour force total and by highest level of education completed,ok
-806,municipios,População ativa: total e por sexo,National library books and library users,ok
+806,municipios,População ativa: total e por sexo,Labour force total and by sex,ok
 833,municipios,População desempregada à procura de novo emprego: total e por sexo,Unemployed persons seeking a new job total and by sex,ok
 836,municipios,População desempregada: total e há 25 meses ou mais,Unemployment total and for 25 months or more,ok
-832,municipios,População desempregada: total e por duração da procura de emprego,Gross emigration rate,ok
+832,municipios,População desempregada: total e por duração da procura de emprego,Unemployment total and by duration of job seeking,ok
 834,municipios,População desempregada: total e por grupo etário,Unemployment total and by age group,ok
 835,municipios,População desempregada: total e por nível de escolaridade completo,Unemployment total and by highest level of education completed,ok
 809,municipios,População desempregada: total e por sexo,Unemployment total and by sex,ok
 814,municipios,População empregada: total e a tempo completo e parcial,Employment total and full and part time,ok
 816,municipios,População empregada: total e por grandes setores de atividade económica,Employment total and by large sectors of economic activity,ok
 815,municipios,População empregada: total e por grupo etário,Employment total and by age group,ok
-820,municipios,População empregada: total e por nível de escolaridade completo,Average length of working week by male employees total and by sector of economic activity,ok
+820,municipios,População empregada: total e por nível de escolaridade completo,Employment total and by highest level of education completed,ok
 812,municipios,População empregada: total e por sexo,Employment total and by sex,ok
 817,municipios,População empregada: total e por situação na profissão principal,Employment total and by situation in main occupation,ok
 101,municipios,População estrangeira com estatuto legal de residente: total e por algumas nacionalidades,Foreign population with legal resident status total and by certain nationalities,ok
-99,municipios,População estrangeira com estatuto legal de residente: total e por sexo,Social security survivor and old age beneficiaries by type of pension or benefit,ok
-821,municipios,População inativa com 16 e mais anos: total e por sexo,Private households by age group of the household%27s representative,ok
+99,municipios,População estrangeira com estatuto legal de residente: total e por sexo,Foreign population with legal resident status total and by sex,ok
+821,municipios,População inativa com 16 e mais anos: total e por sexo,Inactive population aged 16 and over total and by sex,ok
 839,municipios,População inativa com 16 ou mais anos: total e por condição perante o trabalho,Inactive population aged 16 and over total and by work situation,ok
 823,municipios,População inativa: total e por grupo etário,Inactive population total and by age group,ok
 136,municipios,"População residente, estimativas a 31 de dezembro: total e por sexo",Resident population estimates at december 31st total and by sex,ok
-886,municipios,População residente com idade entre 16 e 89 anos sem o ensino secundário (%),Resident male population aged between 16 and 89 by level of highest educational qualifications obtained (percentage),ok
+886,municipios,População residente com idade entre 16 e 89 anos sem o ensino secundário (%),Resident population aged between 16 and 89 without upper secondary education (percentage),ok
 802,municipios,População residente com idade entre 16 e 89 anos: total e por nível de escolaridade completo mais elevado,Resident population aged between 16 and 89 total and by highest level of educational qualifications obtained,ok
-804,municipios,População residente do sexo feminino com idade entre 16 e 89 anos: total e por nível de escolaridade completo mais elevado,Graduates in year in higher education in the area of health total by area of education and training and sex,ok
+804,municipios,População residente do sexo feminino com idade entre 16 e 89 anos: total e por nível de escolaridade completo mais elevado,Resident female population aged between 16 and 89 total and by highest level of educational qualifications obtained,ok
 466,municipios,População residente do sexo feminino: total e por grandes grupos etários,Resident female population total and by major age groups,ok
 453,municipios,População residente do sexo feminino: total e por grupo etário,Resident female population total and by age group,ok
 803,municipios,População residente do sexo masculino com idade entre 16 e 89 anos: total e por nível de escolaridade completo mais elevado,Resident male population aged between 16 and 89 total and by highest level of educational qualifications obtained,ok
 465,municipios,População residente do sexo masculino: total e por grandes grupos etários,Resident male population total and by major age groups,ok
 464,municipios,População residente do sexo masculino: total e por grupo etário,Resident male population total and by age group,ok
-891,municipios,População residente que viajou em turismo: total e por condição perante o trabalho  (%),Average monthly earnings of female employees total and by qualification level,ok
-890,municipios,População residente que viajou em turismo: total e por grupo etário,Average monthly earnings of employees total and by qualification level,ok
-892,municipios,População residente que viajou em turismo: total e por nível de instrução (%),Average monthly basic remuneration of male employees total and by qualification level,ok
+891,municipios,População residente que viajou em turismo: total e por condição perante o trabalho  (%),Resident population who went on tourism total and by work situation (percentage),ok
+890,municipios,População residente que viajou em turismo: total e por grupo etário,Resident population who went on tourism total and by age group,ok
+892,municipios,População residente que viajou em turismo: total e por nível de instrução (%),Resident population who went on tourism total and by level of schooling (percentage),ok
 889,municipios,População residente que viajou em turismo: total e por sexo,Resident population who went on tourism total and by sex,ok
 726,municipios,População residente: total e por grandes grupos etários (percentagem),Resident population total and by major age groups (percentage),ok
 390,municipios,População residente: total e por grandes grupos etários,Resident population total and by major age groups,ok
-358,municipios,População residente: total e por grupo etário,Unemployment total and by type of unemployment,ok
-357,municipios,População residente: total e por sexo,Male employment total and full and part time,ok
-359,municipios,População residente: total,Unemployed males total and by type of unemployment,ok
-182,municipios,Postos telefónicos analógicos principais: total e por tipo,Opera performances and audiences,ok
+358,municipios,População residente: total e por grupo etário,Resident population total and by age group,ok
+357,municipios,População residente: total e por sexo,Resident population total and by sex,ok
+359,municipios,População residente: total,Resident population total,ok
+182,municipios,Postos telefónicos analógicos principais: total e por tipo,Analogue main lines telephone stations total and by type,ok
 412,municipios,Postos telefónicos analógicos residenciais por mil habitantes,Analogue residential telephone stations per thousand inhabitants,ok
 972,municipios,Produção das principais culturas agrícolas,Main crops prodution,ok
 978,municipios,Produção de azeite,Olive oil production,ok
 974,municipios,Produção de azeitona,Olive production,ok
 975,municipios,Produção de vinho por cor,Wine production by colour,ok
 973,municipios,Produtividade das principais culturas agrícolas,Main crops yield,ok
-894,municipios,PIB - Criação de Riqueza,Average monthly wage of employees basic remuneration and earnings by sex,ok
-442,municipios,"Profissionais de saúde: médicos, dentistas, enfermeiros e farmacêuticos",Average monthly basic remuneration of employees in manufacturing total and by qualification level,ok
+894,municipios,PIB - Criação de Riqueza,Gross domestic product (gdp),ok
+442,municipios,"Profissionais de saúde: médicos, dentistas, enfermeiros e farmacêuticos",Healthcare personnel doctors dentists nurses and pharmacists,ok
 763,municipios,Proporção de dormidas nos alojamentos turísticos entre os meses de Julho-Setembro,Proportion of nights spent at tourist accommodations between july september,ok
-762,municipios,Proporção de hóspedes estrangeiros nos alojamentos turísticos,Contribution of natural and migratory growth to annual population variation (percentage),ok
+762,municipios,Proporção de hóspedes estrangeiros nos alojamentos turísticos,Proportion of foreign guests in tourist accommodations,ok
 119,municipios,Proporção de poder de compra,Proportion of buying power,ok
 769,municipios,Proveitos totais dos alojamentos turísticos: total e por tipo de alojamento,Total incomes of tourist accommodations total and by type of establishment,ok
-8,municipios,Qualidade da água para consumo humano,Resident female population estimates at december 31st total and by age group,ok
-9,municipios,Qualidade das águas balneares costeiras e de transição/estuarinas (%),Resident male population estimates at december 31st total and by age group,ok
-10,municipios,Qualidade das águas balneares interiores (%),Annual average resident population total and by age group,ok
+8,municipios,Qualidade da água para consumo humano,Water quality for human consumption,ok
+9,municipios,Qualidade das águas balneares costeiras e de transição/estuarinas (%),Coastal and transition estuary bathing water quality (percentage),ok
+10,municipios,Qualidade das águas balneares interiores (%),Bathing water quality in the interior (percentage),ok
 770,municipios,Quartos nos alojamentos turísticos: total e por tipo de alojamento,Bedrooms in tourist accommodations total and by type of accommodations,ok
 988,municipios,Receitas do peixe vendido em lota: total e por alguns tipos de peixe,Revenue from fish auction sales total and by some type of fish,ok
-654,municipios,Recenseados: total e por grupo etário,Art galleries per 100 thousand inhabitants,ok
+654,municipios,Recenseados: total e por grupo etário,Registred individuals total and by age group,ok
 617,municipios,Recenseados: total e por nacionalidade,Registred individuals total and by citizenship,ok
 653,municipios,Recenseados: total e por sexo,Registred individuals total and by sex,ok
-56,municipios,Recintos culturais: lotação,Unemployment registered at the public employment office,ok
-55,municipios,Recintos culturais: número,Female unemployment total and by highest level of education completed,ok
-449,municipios,Relação de masculinidade,Average monthly basic remuneration of employees in education total and by qualification level,ok
+56,municipios,Recintos culturais: lotação,Cultural facilities capacity,ok
+55,municipios,Recintos culturais: número,Cultural facilities number,ok
+449,municipios,Relação de masculinidade,Sex ratio,ok
 238,municipios,Remuneração base média mensal dos trabalhadores por conta de outrem: total e por setor de atividade económica,Average monthly basic remuneration of employees total and by sector of economic activity,ok
 235,municipios,Remuneração base média mensal dos trabalhadores por conta de outrem: total e por sexo,Average monthly basic remuneration of employees total and by sex,ok
 810,municipios,Remunerações dos empregados,Compensation of employees,ok
-844,municipios,Rendimento das famílias,Employees total and by contract type,ok
+844,municipios,Rendimento das famílias,Individuals income,ok
 959,municipios,Rendimento empresarial líquido da agricultura,Net entrepreneurial income from agriculture,ok
-438,municipios,Resíduos urbanos recolhidos por habitante,Unemployed persons seeking a new job total and by sex,ok
+438,municipios,Resíduos urbanos recolhidos por habitante,Urban waste collection per inhabitant,ok
 439,municipios,Resíduos urbanos recolhidos seletivamente por habitante,Urban waste selective collection per inhabitant,ok
-67,municipios,Resíduos urbanos: total e por tipo de operação de destino,Strikes total and by sector of economic activity,ok
+67,municipios,Resíduos urbanos: total e por tipo de operação de destino,Urban waste total and by type of destination,ok
 65,municipios,Resíduos urbanos: total e por tipo de recolha,Urban waste total and by type of collection,ok
 649,municipios,Resultados nas eleições para a Assembleia Legislativa da Região Autónoma dos Açores: eleitos por partido político ou coligação,Results in the elections for the legislative assembly of the autonomous region of the azores elected individuals by political party or coalition,ok
 650,municipios,"Resultados nas eleições para as Câmaras Municipais: eleitos por partido político, coligação ou grupos de cidadãos",Results in the elections for the city hall elected individuals by political party coalition or citizens group,ok
 253,municipios,Salas de operação nos hospitais,Surgery rooms in hospitals,ok
-376,municipios,"Saldos populacionais anuais: total, natural e migratório",Average monthly earnings of male employees total and by qualification level,ok
-268,municipios,SNS: camas nos hospitais gerais e especializados,Convicted persons total and by type of crime (1984 ),ok
-272,municipios,"SNS: consultas externas nos hospitais, por algumas especialidades médicas",Prisoners total and by age group,ok
-274,municipios,SNS: dias de internamento nos hospitais,Convicted prisoners total and by category of crime,ok
+376,municipios,"Saldos populacionais anuais: total, natural e migratório",Annual population growth total natural and migratory,ok
+268,municipios,SNS: camas nos hospitais gerais e especializados,Nhs beds in general and specialist hospitals,ok
+272,municipios,"SNS: consultas externas nos hospitais, por algumas especialidades médicas",Nhs external appointments in hospitals by some medical specialities,ok
+274,municipios,SNS: dias de internamento nos hospitais,Nhs hospitalisation days in hospitals,ok
 605,municipios,SNS: habitantes por pessoal ao serviço nos hospitais,Nhs inhabitants per personnel employed in hospitals,ok
-267,municipios,SNS: hospitais gerais e especializados,Convicted persons total and by category of crime (1960 1983),ok
-270,municipios,SNS: internamentos nos hospitais,Prisons total and capacity,ok
-278,municipios,SNS: partos nos hospitais,Minors in institutional care total and by age group,ok
-446,municipios,SNS: pessoal ao serviço nos hospitais por tipo de pessoal ao serviço,Average monthly basic remuneration of employees in accommodation and food service activities total and by qualification level,ok
-275,municipios,SNS: salas de operação nos hospitais,Prisoners released total and by main reasons,ok
-271,municipios,SNS: urgências nos hospitais,Prisoners total and by sex,ok
-903,municipios,Sobrevivência a 1 ano de empresas não financeiras: total e por setor de atividade económica,Average monthly wage of employees in education basic remuneration and earnings by sex,ok
-356,municipios,Sociedades constituídas por escritura pública: total e por setor de atividade económica principal,Employment total and full and part time,ok
+267,municipios,SNS: hospitais gerais e especializados,Nhs general and specialist hospitals,ok
+270,municipios,SNS: internamentos nos hospitais,Nhs admissions in hospitals,ok
+278,municipios,SNS: partos nos hospitais,Nhs childbirths in hospitals,ok
+446,municipios,SNS: pessoal ao serviço nos hospitais por tipo de pessoal ao serviço,Nhs personnel employed in hospitals by type of personnel employed,ok
+275,municipios,SNS: salas de operação nos hospitais,Nhs surgery rooms in hospitals,ok
+271,municipios,SNS: urgências nos hospitais,Nhs emergencies in hospitals,ok
+903,municipios,Sobrevivência a 1 ano de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 survival at 1 year total and by sector of economic activity,ok
+356,municipios,Sociedades constituídas por escritura pública: total e por setor de atividade económica principal,Corporations constituted by public deed total and by main sector of economic activity,ok
 364,municipios,Sociedades dissolvidas por escritura pública: total e por setor de atividade económica principal,Dissolved corporations by public deed total and by main sector of economic activity,ok
-399,municipios,Sociedades não financeiras: total e por setor de atividade económica,Cinema box office revenue,ok
+399,municipios,Sociedades não financeiras: total e por setor de atividade económica,Non financial corporations total and by sector of economic activity,ok
 524,municipios,Subsídio de bonificação por deficiência da Segurança Social,Disability allowance of social security,ok
 523,municipios,Subsídio mensal vitalício da Segurança Social (2001-2017),Lifelong monthly allowance of social security (2001 2017),ok
 525,municipios,Subsídio por assistência à 3ª pessoa da Segurança Social,Tertiary care allowance of social security,ok
 947,municipios,Superfície ardida (percentagem),Burnt area (percentage),ok
-42,municipios,Superfície ardida,Female unemployment total and by type of unemployment,ok
+42,municipios,Superfície ardida,Burnt area,ok
 976,municipios,Superfície das principais árvores de fruto e oliveiras,Surface area of the main fruit and olive trees,ok
 970,municipios,Superfície das principais culturas agrícolas,Main crops area,ok
 1011,municipios,Superfície florestal no total da superfície do território (%),Forest area in the total area of the territory (percentage),ok
 1007,municipios,Superfície florestal por espécie,Forest area by specie,ok
-57,municipios,Superfície por Territórios,Unemployment registered at the public employment office (yearly average) total and by unemployment type,ok
-367,municipios,Taxa bruta de mortalidade,Average monthly basic remuneration of employees total and by sex,ok
+57,municipios,Superfície por Territórios,Area,ok
+367,municipios,Taxa bruta de mortalidade,Crude death rate,ok
 366,municipios,Taxa bruta de natalidade,Crude birth rate,ok
 801,municipios,Taxa de abandono escolar: total e por sexo,Early leavers from education and training rate total and by sex,ok
-630,municipios,Taxa de abstenção nas eleições para a Assembleia da República,Initiated terminated proceedings and proceedings pending per judge,ok
+630,municipios,Taxa de abstenção nas eleições para a Assembleia da República,Abstention rate in the elections for the parliament,ok
 644,municipios,Taxa de abstenção nas eleições para a Assembleia Legislativa da Região Autónoma da Madeira,Abstention rate in the elections for the legislative assembly of the autonomous region of madeira,ok
 648,municipios,Taxa de abstenção nas eleições para a Assembleia Legislativa da Região Autónoma dos Açores,Abstention rate in the elections for the legislative assembly of the autonomous region of the azores,ok
-629,municipios,Taxa de abstenção nas eleições para a Presidência da República,Initiated and terminated proceedings by law court,ok
+629,municipios,Taxa de abstenção nas eleições para a Presidência da República,Abstention rate in the elections for the presidency of the republic,ok
 642,municipios,Taxa de abstenção nas eleições para as Autarquias Locais,Abstention rate in the elections for the local authorities,ok
-628,municipios,Taxa de abstenção nas eleições para o Parlamento Europeu,Courts of justice initiated and terminated proceedings per thousand inhabitants,ok
+628,municipios,Taxa de abstenção nas eleições para o Parlamento Europeu,Abstention rate in the elections for the european parliament,ok
 848,municipios,Taxa de atividade: total e por sexo (%),Activity rate total and by sex (percentage),ok
 858,municipios,Taxa de desemprego: total e por sexo (%),Unemployment rate total and by sex (percentage),ok
-361,municipios,Taxa de divórcio,Average length of working week by employees total and by sector of economic activity,ok
+361,municipios,Taxa de divórcio,Crude divorce rate,ok
 861,municipios,Taxa de emprego: total e por sexo (%),Employment rate total and by sex (percentage),ok
-856,municipios,Taxa de inatividade: total e por sexo (%),General government expenditure on health per capita,ok
-846,municipios,Taxa de Inflação (Taxa de Variação do Índice de Preços no Consumidor): total e por consumo individual por objetivo,Female employees total and by contract type,ok
+856,municipios,Taxa de inatividade: total e por sexo (%),Inactivity rate total and by sex (percentage),ok
+846,municipios,Taxa de Inflação (Taxa de Variação do Índice de Preços no Consumidor): total e por consumo individual por objetivo,Inflation rate (growth rate consumer price index) total and individual consumption by purpose,ok
 907,municipios,Taxa de mortalidade das empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 death rate total and by sector of economic activity,ok
 371,municipios,Taxa de mortalidade infantil,Infant mortality rate,ok
-905,municipios,"Taxa de natalidade, mortalidade e sobrevivência das empresas não financeiras",Average monthly wage of employees in financial and insurance activities basic remuneration and earnings by sex,ok
-906,municipios,Taxa de natalidade das empresas não financeiras: total e por setor de atividade económica,Average monthly wage of employees in public administration defence and compulsory social security basic remuneration and earnings by sex,ok
-360,municipios,Taxa de nupcialidade,Unemployment total and by duration of job seeking,ok
-1003,municipios,Taxa de ocupação nos hospitais,Students enrolled in public education total and by level of education,ok
+905,municipios,"Taxa de natalidade, mortalidade e sobrevivência das empresas não financeiras",Birth death and survival rates of non financial enterprises,ok
+906,municipios,Taxa de natalidade das empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 birth rate total and by sector of economic activity,ok
+360,municipios,Taxa de nupcialidade,Crude marriage rate,ok
+1003,municipios,Taxa de ocupação nos hospitais,Hospitals bed occupancy rate,ok
 996,municipios,Taxa de retenção e desistência no ensino básico: total e por ano de escolaridade,Retention and desistance rate in primary and lower secondary education total and by school years,ok
 997,municipios,"Taxa de retenção e desistência no ensino secundário: total, por modalidade de ensino e ano de escolaridade",Retention and desistance rate in upper secondary education total and by school years,ok
-938,municipios,Taxa de sobrevivência a 1 ano das empresas não financeiras: por setor de atividade económica,Nhs beds in hospitals mainland portugal,ok
-1002,municipios,Taxa do Imposto Municipal sobre Imóveis,Enrolled students total and by level of education,ok
-852,municipios,Trabalhadores da Administração Pública Local por mil habitantes,Students enrolled in pre school education total and by sex,ok
+938,municipios,Taxa de sobrevivência a 1 ano das empresas não financeiras: por setor de atividade económica,Non financial enterprises%27 survival rate at 1 year total and by sector of economic activity,ok
+1002,municipios,Taxa do Imposto Municipal sobre Imóveis,Municipal property tax,ok
+852,municipios,Trabalhadores da Administração Pública Local por mil habitantes,Employees in local government per thousand inhabitants,ok
 849,municipios,Trabalhadores da Administração Pública Local: total e por sexo,Employees in local government total and by sex,ok
-518,municipios,Trabalhadores por conta de outrem com declaração de remuneração à Segurança Social,Resident male population total and by major age groups,ok
+518,municipios,Trabalhadores por conta de outrem com declaração de remuneração à Segurança Social,Employees with remuneration declaration made to social security,ok
 819,municipios,Trabalhadores por conta de outrem: total e por nível de escolaridade completo,Employees total and by highest level of education completed,ok
 837,municipios,Trabalhadores por conta própria: total e por nível de escolaridade completo,Self employed persons with or without workers total and by highest level of education completed,ok
 958,municipios,Transferências de capital na agricultura,Capital transfers in agriculture,ok
-242,municipios,Urgências nos centros de saúde (1999-2012),Teaching staff in pre school primary lower secondary and upper secondary private education total and by level of education,ok
-246,municipios,Urgências nos hospitais,Court officials responsible for executing sentences total and by sex,ok
+242,municipios,Urgências nos centros de saúde (1999-2012),Emergencies in primary health centres (1999 2012),ok
+246,municipios,Urgências nos hospitais,Emergencies in hospitals,ok
 1009,municipios,Valor acrescentado bruto da agricultura em % do PIB,Gross value added of agriculture in percentage of gdp,ok
 954,municipios,Valor acrescentado bruto da agricultura,Gross value added of agriculture,ok
-588,municipios,Valor acrescentado bruto das empresas não financeiras: total e por setor de atividade económica,Newspapers and other periodicals print run and circulation per inhabitant,ok
+588,municipios,Valor acrescentado bruto das empresas não financeiras: total e por setor de atividade económica,Gross value added of non financial enterprises total and by sector of economic activity,ok
 956,municipios,Valor da produção agrícola: total e por tipo,Value of the agricultural production total and by type,ok
 955,municipios,Valor da produção vegetal: total e por tipo de bens,Value of the crop output total and by goods,ok
 393,municipios,Valor dos bens importados e exportados pelas empresas,Value of of goods imported and exported by enterprises,ok
 1000,municipios,Valor mediano de avaliação bancária por m<sup>2</sup>: total e por tipo de construção,Median value of bank evaluation per m2 total and by type of construction,ok
 929,municipios,Valores processados em levantamentos e pagamentos de serviços nas caixas automáticas multibanco,Amounts of withdrawals and payments of services using atms,ok
-34,municipios,Venda de combustíveis para consumo,Male employment total and by large sectors of economic activity,ok
-53,municipios,Onde existem mais Vilas?,Unemployment total and by highest level of education completed,ok
-589,municipios,Volume de negócios das empresas não financeiras: total e por setor de atividade económica,Libraries users per thousand inhabitants (1960 2003),ok
-623,municipios,"Votos nas eleições para a Assembleia da República: total, válidos, brancos e nulos",Foreign population with regular residence total and by sex,ok
-635,municipios,"Votos nas eleições para a Assembleia Legislativa da Região Autónoma da Madeira: total, válidos, brancos e nulos",Actual prison occupancy (percentage),ok
+34,municipios,Venda de combustíveis para consumo,Fuel sales for consumption,ok
+53,municipios,Onde existem mais Vilas?,Small towns,ok
+589,municipios,Volume de negócios das empresas não financeiras: total e por setor de atividade económica,Turnover of non financial enterprises total and by sector of economic activity,ok
+623,municipios,"Votos nas eleições para a Assembleia da República: total, válidos, brancos e nulos",Votes in the elections for the parliament total valid blank and null,ok
+635,municipios,"Votos nas eleições para a Assembleia Legislativa da Região Autónoma da Madeira: total, válidos, brancos e nulos",Votes in the elections for the legislative assembly of the autonomous region of madeira total valid blank and null,ok
 646,municipios,"Votos nas eleições para a Assembleia Legislativa da Região Autónoma dos Açores: total, válidos, brancos e nulos",Votes in the elections for the legislative assembly of the autonomous region of the azores total valid blank and null,ok
-620,municipios,"Votos nas eleições para a Presidência da República: total, válidos, brancos e nulos",Live births outside of marriage with parents co habiting or not (percentage),ok
+620,municipios,"Votos nas eleições para a Presidência da República: total, válidos, brancos e nulos",Votes in the elections for the presidency of the republic total valid blank and null,ok
 632,municipios,"Votos nas eleições para as Câmaras Municipais: total, válidos, brancos e nulos",Votes in the elections for the city hall total valid blank and null,ok
 626,municipios,"Votos nas eleições para o Parlamento Europeu: total, válidos, brancos e nulos",Votes in the elections for the european parliament total valid blank and null,ok
 624,municipios,Votos válidos na eleição para a Assembleia Constituinte 1975: total e por partido político ou coligação,Valid votes in the 1975 election for the constituent assembly total and by political party or coalition,ok
@@ -1072,72 +1072,72 @@ id,area,name_pt,name_en,status
 677,municipios,Votos válidos na eleição para a Assembleia da República de 2002: total e por partido político ou coligação,Valid votes in the 2002 election for the parliament total and by political party or coalition,ok
 678,municipios,Votos válidos na eleição para a Assembleia da República de 2005: total e por partido político ou coligação,Valid votes in the 2005 election for the parliament total and by political party or coalition,ok
 679,municipios,Votos válidos na eleição para a Assembleia da República de 2009: total e por partido político ou coligação,Valid votes in the 2009 election for the parliament total and by political party or coalition,ok
-680,municipios,Votos válidos na eleição para a Assembleia da República de 2011: total e por partido político ou coligação,Female graduates as a percentage of graduates in higher education total and by area of education and training,ok
-775,municipios,Votos válidos na eleição para a Assembleia da República de 2015: total e por partido político ou coligação,Researchers (fte) in research and development activities (r d) total and of enterprises sector,ok
+680,municipios,Votos válidos na eleição para a Assembleia da República de 2011: total e por partido político ou coligação,Valid votes in the 2011 election for the parliament total and by political party or coalition,ok
+775,municipios,Votos válidos na eleição para a Assembleia da República de 2015: total e por partido político ou coligação,Valid votes in the 2015 election for the parliament total and by political party or coalition,ok
 994,municipios,Votos válidos na eleição para a Assembleia da República de 2019: total e por partido político ou coligação,Valid votes in the 2019 election for the parliament total and by political party or coalition,ok
-1008,municipios,Votos válidos na eleição para a Assembleia da República de 2022: total e por partido político ou coligação,Labour force total and by highest level of education completed,ok
-1070,municipios,Votos válidos na eleição para a Assembleia da República de 2024: total e por partido político ou coligação,Total rainfall,ok
+1008,municipios,Votos válidos na eleição para a Assembleia da República de 2022: total e por partido político ou coligação,Valid votes in the 2022 election for the parliament total and by political party or coalition,ok
+1070,municipios,Votos válidos na eleição para a Assembleia da República de 2024: total e por partido político ou coligação,Valid votes in the 2024 election for the parliament total and by political party or coalition,ok
 1074,municipios,Votos válidos na eleição para a Assembleia da República de 2025: total e por partido político ou coligação,Valid votes in the 2025 election for the parliament total and by political party or coalition,ok
 643,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1976: total e por partido político ou coligação,Valid votes in the 1976 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
-691,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1980: total e por partido político ou coligação,Graduates in higher education by sub system of education and sex,ok
+691,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1980: total e por partido político ou coligação,Valid votes in the 1980 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 692,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1984: total e por partido político ou coligação,Valid votes in the 1984 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 694,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1988: total e por partido político ou coligação,Valid votes in the 1988 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 695,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1992: total e por partido político ou coligação,Valid votes in the 1992 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 696,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 1996: total e por partido político ou coligação,Valid votes in the 1996 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
-697,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2000: total e por partido político ou coligação,Number of corporations constituted by public deed by number of corporations dissolved,ok
+697,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2000: total e por partido político ou coligação,Valid votes in the 2000 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 698,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2004: total e por partido político ou coligação,Valid votes in the 2004 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
-700,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2007: total e por partido político ou coligação,Corporate tax declarations with positive balances as a percentage of total of non null balance declarations total and by sector of economic activity,ok
-699,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2011: total e por partido político ou coligação,Enterprises%27 average income declared total and by sector of economic activity,ok
+700,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2007: total e por partido político ou coligação,Valid votes in the 2007 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
+699,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2011: total e por partido político ou coligação,Valid votes in the 2011 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 773,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2015: total e por partido político ou coligação,Valid votes in the 2015 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
-993,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2019: total e por partido político ou coligação,Terminated civil actions in courts of first instance total and by duration,ok
-1068,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2023: total e por partido político ou coligação,Maximum air temperature (yearly average),ok
-1071,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2024: total e por partido político ou coligação,Number of rain free days,ok
+993,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2019: total e por partido político ou coligação,Valid votes in the 2019 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
+1068,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2023: total e por partido político ou coligação,Valid votes in the 2023 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
+1071,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma da Madeira de 2024: total e por partido político ou coligação,Valid votes in the 2024 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,ok
 1075,municipios,Votos validos na eleicao para a assembleia legislativa da regiao autonoma da madeira de 2025 total e por partido politico ou coligacao,Valid votes in the 2025 election for the legislative assembly of the autonomous region of madeira total and by political party or coalition,missing_pt
 647,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1976: total e por partido político ou coligação,Valid votes in the 1976 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
 701,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1980: total e por partido político ou coligação,Valid votes in the 1980 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
 702,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1984: total e por partido político ou coligação,Valid votes in the 1984 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
 703,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1988: total e por partido político ou coligação,Valid votes in the 1988 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
-704,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1992: total e por partido político ou coligação,Social security old age pensions and public administration retirement fund retirees as a percentage of active population,ok
-705,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1996: total e por partido político ou coligação,Social security expenditure as percentage of gdp,ok
+704,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1992: total e por partido político ou coligação,Valid votes in the 1992 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
+705,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 1996: total e por partido político ou coligação,Valid votes in the 1996 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
 706,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2000: total e por partido político ou coligação,Valid votes in the 2000 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
 707,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2004: total e por partido político ou coligação,Valid votes in the 2004 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
-708,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2008: total e por partido político ou coligação,Social security average expenditure on unemployment benefits per beneficiary total unemployment benefit and supplementary unemployment benefit,ok
-709,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2012: total e por partido político ou coligação,Social security beneficiaries of unemployment benefits in total of unemployment registered at the public employment offic (percentage),ok
-822,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2016: total e por partido político ou coligação,Single person private households total and with a person aged 65 and over,ok
+708,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2008: total e por partido político ou coligação,Valid votes in the 2008 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
+709,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2012: total e por partido político ou coligação,Valid votes in the 2012 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
+822,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2016: total e por partido político ou coligação,Valid votes in the 2016 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
 998,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2020: total e por partido político ou coligação,Valid votes in the 2020 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
-1069,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2024: total e por partido político ou coligação,Minimum air temperature,ok
-621,municipios,Votos válidos na eleição para a Presidência da República de 1976: total e por candidato Presidencial,Sex ratio,ok
-660,municipios,Votos válidos na eleição para a Presidência da República de 1980: total e por candidato Presidencial,Expenditure on social work grants in higher education total and by sub system of education,ok
+1069,municipios,Votos válidos na eleição para a Assembleia Legislativa da Região Autónoma dos Açores de 2024: total e por partido político ou coligação,Valid votes in the 2024 election for the legislative assembly of the autonomous region of the azores total and by political party or coalition,ok
+621,municipios,Votos válidos na eleição para a Presidência da República de 1976: total e por candidato Presidencial,Valid votes in the 1976 election for the presidency of the republic total and by presidential candidate,ok
+660,municipios,Votos válidos na eleição para a Presidência da República de 1980: total e por candidato Presidencial,Valid votes in the 1980 election for the presidency of the republic total and by presidential candidate,ok
 1082,municipios,Votos válidos na eleição para a Presidência da República de 1986 (1.ª volta): total e por candidato Presidencial,Valid votes in the first 1986 election for the presidency of the republic total and by presidential candidate,ok
 662,municipios,Votos válidos na eleição para a Presidência da República de 1986: total e por candidato Presidencial,Valid votes in the 1986 election for the presidency of the republic total and by presidential candidate,ok
 663,municipios,Votos válidos na eleição para a Presidência da República de 1991: total e por candidato Presidencial,Valid votes in the 1991 election for the presidency of the republic total and by presidential candidate,ok
-664,municipios,Votos válidos na eleição para a Presidência da República de 1996: total e por candidato Presidencial,Graduates in higher education total and by sex,ok
-665,municipios,Votos válidos na eleição para a Presidência da República de 2001: total e por candidato Presidencial,Balance of proceedings in courts of justice,ok
-666,municipios,Votos válidos na eleição para a Presidência da República de 2006: total e por candidato Presidencial,Teaching staff in higher education total and by sex,ok
-667,municipios,Votos válidos na eleição para a Presidência da República de 2011: total e por candidato Presidencial,Employment in general government total and by legal relationship (1996 2005),ok
+664,municipios,Votos válidos na eleição para a Presidência da República de 1996: total e por candidato Presidencial,Valid votes in the 1996 election for the presidency of the republic total and by presidential candidate,ok
+665,municipios,Votos válidos na eleição para a Presidência da República de 2001: total e por candidato Presidencial,Valid votes in the 2001 election for the presidency of the republic total and by presidential candidate,ok
+666,municipios,Votos válidos na eleição para a Presidência da República de 2006: total e por candidato Presidencial,Valid votes in the 2006 election for the presidency of the republic total and by presidential candidate,ok
+667,municipios,Votos válidos na eleição para a Presidência da República de 2011: total e por candidato Presidencial,Valid votes in the 2011 election for the presidency of the republic total and by presidential candidate,ok
 787,municipios,Votos válidos na eleição para a Presidência da República de 2016: total e por candidato Presidencial,Valid votes in the 2016 election for the presidency of the republic total and by presidential candidate,ok
 999,municipios,Votos válidos na eleição para a Presidência da República de 2021: total e por candidato Presidencial,Valid votes in the 2021 election for the presidency of the republic total and by presidential candidate,ok
-1080,municipios,Votos válidos na eleição para a Presidência da República de 2026 (1.ª volta) : total e por candidato Presidencial,Acidification potential total and by some sectors of economic activity,ok
-1081,municipios,Votos válidos na eleição para a Presidência da República de 2026 (2.ª volta) : total e por candidato Presidencial,Gas emissions,ok
-627,municipios,Votos válidos na eleição para o Parlamento Europeu de 1987: total e por partido político ou coligação,Judges in courts of justice and lawyers per 100 thousand inhabitants,ok
-710,municipios,Votos válidos na eleição para o Parlamento Europeu de 1989: total e por partido político ou coligação,Savings and wages salaries in total of disposable income (percentage),ok
+1080,municipios,Votos válidos na eleição para a Presidência da República de 2026 (1.ª volta) : total e por candidato Presidencial,Valid votes in the 2026 election for the presidency of the republic total and by presidential candidate,ok
+1081,municipios,Votos válidos na eleição para a Presidência da República de 2026 (2.ª volta) : total e por candidato Presidencial,Valid votes in the 2026 election for the presidency of the republic total and by presidential candidate,ok
+627,municipios,Votos válidos na eleição para o Parlamento Europeu de 1987: total e por partido político ou coligação,Valid votes in the 1987 election for the european parliament total and by political party or coalition,ok
+710,municipios,Votos válidos na eleição para o Parlamento Europeu de 1989: total e por partido político ou coligação,Valid votes in the 1989 election for the european parliament total and by political party or coalition,ok
 711,municipios,Votos válidos na eleição para o Parlamento Europeu de 1994: total e por partido político ou coligação,Valid votes in the 1994 election for the european parliament total and by political party or coalition,ok
 712,municipios,Votos válidos na eleição para o Parlamento Europeu de 1999: total e por partido político ou coligação,Valid votes in the 1999 election for the european parliament total and by political party or coalition,ok
 713,municipios,Votos válidos na eleição para o Parlamento Europeu de 2004: total e por partido político ou coligação,Valid votes in the 2004 election for the european parliament total and by political party or coalition,ok
 714,municipios,Votos válidos na eleição para o Parlamento Europeu de 2009: total e por partido político ou coligação,Valid votes in the 2009 election for the european parliament total and by political party or coalition,ok
 740,municipios,Votos válidos na eleição para o Parlamento Europeu de 2014: total e por partido político ou coligação,Valid votes in the 2014 election for the european parliament total and by political party or coalition,ok
-992,municipios,Votos válidos na eleição para o Parlamento Europeu de 2019: total e por partido político ou coligação,Average length of some terminated civil proceedings in courts of first instance,ok
-1072,municipios,Votos válidos na eleição para o Parlamento Europeu de 2024: total e por partido político ou coligação,Global warming potential total of the industries and of the households,ok
-640,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1976: total e por partido político ou coligação,Number of inhabitants per doctor and healthcare personnel,ok
+992,municipios,Votos válidos na eleição para o Parlamento Europeu de 2019: total e por partido político ou coligação,Valid votes in the 2019 election for the european parliament total and by political party or coalition,ok
+1072,municipios,Votos válidos na eleição para o Parlamento Europeu de 2024: total e por partido político ou coligação,Valid votes in the 2024 election for the european parliament total and by political party or coalition,ok
+640,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1976: total e por partido político ou coligação,Valid votes in the 1976 elections for the city hall total and by political party or coalition,ok
 682,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1979: total e por partido político ou coligação,Valid votes in the 1979 elections for the city hall total and by political party or coalition,ok
 683,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1982: total e por partido político ou coligação,Valid votes in the 1982 elections for the city hall total and by political party or coalition,ok
-684,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1985: total e por partido político ou coligação,Balance of proceedings at supreme court of justice,ok
+684,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1985: total e por partido político ou coligação,Valid votes in the 1985 elections for the city hall total and by political party or coalition,ok
 685,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1989: total e por partido político ou coligação,Valid votes in the 1989 elections for the city hall total and by political party or coalition,ok
 686,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1993: total e por partido político ou coligação,Valid votes in the 1993 elections for the city hall total and by political party or coalition,ok
 687,municipios,Votos válidos nas eleições para as Câmaras Municipais de 1997: total e por partido político ou coligação,Valid votes in the 1997 elections for the city hall total and by political party or coalition,ok
 688,municipios,Votos válidos nas eleições para as Câmaras Municipais de 2001: total e por partido político ou coligação,Valid votes in the 2001 elections for the city hall total and by political party or coalition,ok
 689,municipios,"Votos válidos nas eleições para as Câmaras Municipais de 2005: total e por partido político, coligação ou grupos de cidadãos",Valid votes in the 2005 elections for the city hall total and by political party coalition or citizens group,ok
-690,municipios,"Votos válidos nas eleições para as Câmaras Municipais de 2009: total e por partido político, coligação e grupos de cidadãos",Graduates in higher education by type of education and sex,ok
+690,municipios,"Votos válidos nas eleições para as Câmaras Municipais de 2009: total e por partido político, coligação e grupos de cidadãos",Valid votes in the 2009 elections for the city hall total and by political party coalition or citizens group,ok
 733,municipios,"Votos válidos nas eleições para as Câmaras Municipais de 2013: total e por partido político, coligação ou grupos de cidadãos",Valid votes in the 2013 elections for the city hall total and by political party coalition or citizens group,ok
 878,municipios,"Votos válidos nas eleições para as Câmaras Municipais de 2017: total e por partido político, coligação ou grupos de cidadãos",Valid votes in the 2017 elections for the city hall total and by political party coalition or citizens group,ok
 1001,municipios,"Votos válidos nas eleições para as Câmaras Municipais de 2021: total e por partido político, coligação ou grupos de cidadãos",Valid votes in the 2021 elections for the city hall total and by political party coalition or citizens group,ok
