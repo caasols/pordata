@@ -14,8 +14,16 @@ what happens when that condition does not hold.
 **Current phase: the Discovery stage is shipped and live** — a public, multilingual, fuzzy
 search over PORDATA's full indicator catalogue at
 **[caasols.github.io/pordata](https://caasols.github.io/pordata/)**, self-maintaining via
-GitHub Actions. Next frontiers: the upstream crosswalk (Extraction) and, gated on it, an MCP
-server (Phase D). See Roadmap.
+GitHub Actions.
+
+**Where it is going (owner, 2026-08-23).** Not a catalogue of pointers, and not a mirror of
+PORDATA. Go to the sources, pull the series, archive them, and build the interface PORDATA
+does not have — charts people can actually work with — with the explicit goal of ending up
+**more complete than PORDATA**. This stays inside decision 1: values come from INE, Eurostat
+and BPstat under *their* terms, never from PORDATA's rendering of them, and PORDATA's
+contribution stays the curation. The crosswalk (Extraction) is therefore not one roadmap item
+among many but the **spine**: the archive, the detail pages, the coverage gap and Phase D all
+hang off it. See Roadmap; execution order is in its header.
 
 ## Architecture and inventory
 
@@ -142,6 +150,27 @@ The pipeline, end to end, all live on `main`:
   `parse_warnings` for the gate to trip on (verified against all 2,195 records, zero false
   positives). **12** then shipped the Resumo/Summary pill and retired the raw
   `quadro_resumo` badge, which the matcher rewrite had finally made safe to surface.
+- **The card became a routing decision** (roadmap 10, 2026-08-23). It answers *is this the
+  row I meant?*, not *what is this indicator?* PORDATA's description is gone from it — 96.3%
+  of descriptions are exactly the SEO template, 0.5% are definitional — and the English alt
+  name left the card while staying in search and sort. A `Badge` now means *a facet you can
+  filter on* and nothing else, which is what stops the card becoming a wall of pills when item
+  8's labels land; sources and freshness are labelled micro-columns; freshness is month
+  precision; the whole card is one tap target. The chart slot is reserved, muted and inert —
+  no values exist until roadmap 14 and PORDATA's are never redistributed — and the click still
+  leaves for pordata.pt until the detail pages (15) land.
+  **The coverage line came out of the title.** The descriptive half was already in the
+  catalogue, welded on with a colon at equal weight, which *was* the hierarchy problem:
+  `split_breakdown` demotes that tail on 1,196 rows (54.5%) and refuses when the tail is the
+  indicator itself. `extract_unit` recovers a unit from the chart caption already sitting in
+  `marker_windows` on 1,138 rows (51.8%) — 78.4% of rows carry a coverage line, and the card
+  renders correctly without one. Marker windows are searched slice by slice, never joined:
+  joining spliced two truncated fragments into a plausible-but-corrupt unit. Four derived
+  metrics became QA thresholds, because a derived field degrades silently.
+  **A second upstream defect for the FFMS follow-up:** PORDATA serves a literal `?` where an
+  en dash belongs in 37 names; our decoding is clean and their own slug drops the character,
+  so it is theirs. Repaired at build time, anchored mid-string so "Onde existem mais Vilas?"
+  (a real question) survives.
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 

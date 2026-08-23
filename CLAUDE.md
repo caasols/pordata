@@ -2,7 +2,10 @@
 
 Making Portuguese public statistics consumable. PORDATA holds 2,196 curated indicator pages behind a
 UI with no API; this project built the machine-readable layer on top: a self-maintaining
-catalogue of that curation (metadata only, never data values) with a public search site.
+catalogue of that curation (**metadata only — no PORDATA data values, ever**) with a public
+search site. Where it is heading: pull the actual series from INE, Eurostat and BPstat under
+*their* terms, archive them, and build the interface PORDATA lacks — aiming to end up more
+complete than PORDATA, with its curation as the map rather than the cargo.
 
 **Status:** shipped and live. The search site — fuzzy, PT/EN UI (four more prepared), PT/EN indicator
 names — is at [caasols.github.io/pordata](https://caasols.github.io/pordata/), rebuilt

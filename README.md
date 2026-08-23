@@ -22,6 +22,8 @@ de Portugal) publish openly through real APIs. It is the **curation**: PORDATA's
 human-meaningful indicator definitions, organised by theme, harmonised across six decades,
 each attributed to its source. This project makes that layer machine-readable and searchable.
 No PORDATA data values are redistributed — metadata only, values stay at the sources.
+(Planned work fetches series from INE, Eurostat and BPstat directly, under those bodies'
+own reuse terms; PORDATA's own values are never republished.)
 
 ## What's here
 
