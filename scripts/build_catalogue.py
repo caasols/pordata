@@ -200,6 +200,29 @@ def main() -> None:
                              r["url"], "yes" if r.get("removed") else "",
                              ",".join(r.get("featured", []))])
 
+    # PT<->EN names map with coverage flags: which indicators still lack a
+    # harvested PT name or an EN name from the /en sitemap slugs
+    name_status_counts: dict[str, int] = {}
+    with (OUT_DIR / "names-map.csv").open("w", encoding="utf-8",
+                                          newline="") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["id", "area", "name_pt", "name_en", "status"])
+        for url in sorted(records):
+            rec = records[url]
+            if "error" in rec:
+                continue
+            raw_pt = rec.get("name", "")
+            name_en = en_names.get(rec["id"], "")
+            status = ("ok" if raw_pt and name_en
+                      else "missing_en" if raw_pt
+                      else "missing_pt" if name_en
+                      else "missing_both")
+            name_status_counts[status] = name_status_counts.get(status, 0) + 1
+            writer.writerow([
+                rec["id"], rec["area"],
+                raw_pt or name_from_slug(rec.get("slug", "")),
+                name_en, status])
+
     by_area = {}
     for r in rows:
         by_area[r["area"]] = by_area.get(r["area"], 0) + 1
@@ -210,6 +233,11 @@ def main() -> None:
         "complete": len(rows) >= len(current),
         "built_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
     }
+    stats["names"] = name_status_counts
+    flagged = sum(n for k, n in name_status_counts.items() if k != "ok")
+    if flagged:
+        print(f"names-map: {flagged} indicators flagged "
+              f"({ {k: v for k, v in name_status_counts.items() if k != 'ok'} })")
     if featured_stats:
         stats["featured"] = {
             g: {"names": s["names"], "matched": s["matched"],

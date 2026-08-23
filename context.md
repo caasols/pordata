@@ -247,6 +247,15 @@ Only open work. History lives in "What has been built" and git.
    `@openar/mcp` is the shape precedent.
 7. **Quality follow-ups**: drive the mutation kill rate up from 65% and turn it into a CI gate;
    deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
+8. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
+   (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
+   `missing_pt` (harvest found no name — the 2 known empties), `missing_en` (no `/en`
+   sitemap slug for the id), counts in `stats.json` under `names`. After the harvest
+   completes: review flagged rows and repair. Separately, the site's language selector now
+   lists all 24 EU official languages with only PT/EN selectable; enable others
+   progressively by translating the `STRINGS` block (ES/FR/DE/IT UI strings already exist
+   in the file, greyed pending the content-language decision) and adding the code to
+   `AVAILABLE`.
 
 ## Verification
 

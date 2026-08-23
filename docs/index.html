@@ -118,6 +118,11 @@
   }
   .langItem:hover { background: var(--accent); color: var(--accent-foreground); }
   .langItem svg { width: .9rem; height: .9rem; }
+  .langItem.disabled {
+    opacity: .4; cursor: not-allowed;
+  }
+  .langItem.disabled:hover { background: transparent; color: inherit; }
+  #langMenu { max-height: 60vh; overflow-y: auto; }
 
   /* theme toggle: shadcn ghost icon button */
   #themeBtn {
@@ -325,11 +330,15 @@
   const norm = (s) => (s || "").toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
+  // Selectable today: content (indicator names) exists in PT and EN only.
+  // The dropdown lists all EU languages; the rest are greyed out until
+  // their UI strings and content story are ready (then add them here).
+  const AVAILABLE = new Set(["pt", "en"]);
   let lang;
   try { lang = localStorage.getItem("lang"); } catch (e) { lang = null; }
-  if (!STRINGS[lang]) {
+  if (!AVAILABLE.has(lang)) {
     const nav = (navigator.language || "pt").slice(0, 2).toLowerCase();
-    lang = STRINGS[nav] ? nav : "en";
+    lang = AVAILABLE.has(nav) ? nav : "en";
   }
 
   // ---- theme (shadcn .dark class; system by default, ☾/☀ persists) ---
@@ -463,20 +472,34 @@
   }
 
   // ---- language dropdown (shadcn select) ----
-  const LANG_NAMES = { pt: "Português", en: "English", es: "Español",
-                       fr: "Français", de: "Deutsch", it: "Italiano" };
+  // All EU official languages, native names; available ones first.
+  const ALL_LANGS = [
+    ["pt", "Português"], ["en", "English"], ["bg", "Български"],
+    ["cs", "Čeština"], ["da", "Dansk"], ["de", "Deutsch"],
+    ["el", "Ελληνικά"], ["es", "Español"], ["et", "Eesti"],
+    ["fi", "Suomi"], ["fr", "Français"], ["ga", "Gaeilge"],
+    ["hr", "Hrvatski"], ["hu", "Magyar"], ["it", "Italiano"],
+    ["lt", "Lietuvių"], ["lv", "Latviešu"], ["mt", "Malti"],
+    ["nl", "Nederlands"], ["pl", "Polski"], ["ro", "Română"],
+    ["sk", "Slovenčina"], ["sl", "Slovenščina"], ["sv", "Svenska"],
+  ];
   const CHECK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
   const langBtn = $("langBtn"), langMenu = $("langMenu");
 
   function renderLangUI() {
     $("langLabel").textContent = lang.toUpperCase();
-    langMenu.innerHTML = Object.keys(STRINGS).map(l => `
-      <div class="langItem" role="option" data-l="${l}"
-           aria-selected="${l === lang}">
-        <span>${LANG_NAMES[l] || l.toUpperCase()}</span>
+    langMenu.innerHTML = ALL_LANGS.map(([l, name]) => {
+      const ok = AVAILABLE.has(l);
+      return `
+      <div class="langItem${ok ? "" : " disabled"}" role="option"
+           data-l="${l}" aria-selected="${l === lang}"
+           ${ok ? "" : 'aria-disabled="true"'}>
+        <span>${name}</span>
         ${l === lang ? CHECK_SVG : ""}
-      </div>`).join("");
+      </div>`;
+    }).join("");
     for (const el of langMenu.children) {
+      if (el.classList.contains("disabled")) continue;
       el.onclick = () => {
         lang = el.dataset.l;
         try { localStorage.setItem("lang", lang); } catch (e) {}

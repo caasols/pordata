@@ -120,6 +120,14 @@ class BuildEndToEndTest(RepoCase):
         csv_text = pathlib.Path("docs/data/catalogue.csv").read_text(
             encoding="utf-8")
         self.assertIn("Taxa de natalidade", csv_text)
+        names_map = pathlib.Path("docs/data/names-map.csv").read_text(
+            encoding="utf-8")
+        self.assertIn("99,portugal,Taxa de natalidade,Birth rate,ok",
+                      names_map)
+        # 777 is absent from the /en sitemap fixture -> flagged
+        self.assertIn("777,portugal,Indicador extinto,,missing_en", names_map)
+        self.assertEqual(stats["names"],
+                         {"ok": 1, "missing_en": 1})
 
 
 if __name__ == "__main__":
