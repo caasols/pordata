@@ -168,6 +168,18 @@
     color: var(--primary-foreground);
   }
 
+  /* sort pill: first chip, opens a small popover menu */
+  .sortWrap { position: relative; display: inline-flex; }
+  #sortBtn { display: inline-flex; align-items: center; gap: 5px; }
+  #sortBtn svg { width: .8rem; height: .8rem; }
+  #sortMenu {
+    position: absolute; left: 0; top: calc(100% + 6px); z-index: 50;
+    min-width: 10rem; padding: 4px; white-space: nowrap;
+    background: var(--popover); color: var(--popover-foreground);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  }
+
   #meta { color: var(--muted-foreground); font-size: .82rem; margin: 12px 2px; }
 
   /* ---- results: shadcn cards ---- */
@@ -232,7 +244,14 @@
   <p class="sub" id="intro"></p>
 
   <input id="q" type="search" autocomplete="off" autofocus>
-  <div class="chips" id="areas"></div>
+  <div class="chips">
+    <span class="sortWrap" id="sortWrap">
+      <span class="chip" id="sortBtn" role="button" tabindex="0"
+            aria-haspopup="listbox" aria-expanded="false"></span>
+      <div id="sortMenu" role="listbox" hidden></div>
+    </span>
+    <span id="areas" style="display: contents"></span>
+  </div>
   <div id="meta"></div>
   <div id="out"></div>
   <div id="sentinel"></div>
@@ -256,6 +275,8 @@
       results: '{n} indicadores', showing: ' (a mostrar {m})',
       removed: 'descontinuado', sources: 'Fontes', updated: 'atual.',
       loadfail: 'Não foi possível carregar o catálogo.',
+      sortRelevance: 'Relevância', sortAz: 'Nome A→Z', sortZa: 'Nome Z→A',
+      sortNew: 'Mais recentes', sortOld: 'Mais antigos',
       building: ' (colheita em curso)', updatedAt: 'Atualizado: ',
       foot: 'Dados e curadoria: {pordata}, Fundação Francisco Manuel dos Santos, e respetivas fontes. Índice construído a partir das páginas públicas de indicadores; sem redistribuição de valores. Código e metadados: {repo} · {json} · {csv}',
     },
@@ -265,6 +286,8 @@
       results: '{n} indicators', showing: ' (showing {m})',
       removed: 'discontinued', sources: 'Sources', updated: 'upd.',
       loadfail: 'Could not load the catalogue.',
+      sortRelevance: 'Relevance', sortAz: 'Name A→Z', sortZa: 'Name Z→A',
+      sortNew: 'Newest first', sortOld: 'Oldest first',
       building: ' (harvest in progress)', updatedAt: 'Updated: ',
       foot: 'Data and curation: {pordata}, Francisco Manuel dos Santos Foundation, and their sources. Built from the public indicator pages; no data values are redistributed. Code and metadata: {repo} · {json} · {csv}',
     },
@@ -274,6 +297,8 @@
       results: '{n} indicadores', showing: ' (mostrando {m})',
       removed: 'descatalogado', sources: 'Fuentes', updated: 'act.',
       loadfail: 'No se pudo cargar el catálogo.',
+      sortRelevance: 'Relevancia', sortAz: 'Nombre A→Z', sortZa: 'Nombre Z→A',
+      sortNew: 'Más recientes', sortOld: 'Más antiguos',
       building: ' (recolección en curso)', updatedAt: 'Actualizado: ',
       foot: 'Datos y curaduría: {pordata}, Fundación Francisco Manuel dos Santos, y sus fuentes. Construido a partir de las páginas públicas de indicadores; sin redistribución de valores. Código y metadatos: {repo} · {json} · {csv}',
     },
@@ -283,6 +308,8 @@
       results: '{n} indicateurs', showing: ' (affichage de {m})',
       removed: 'discontinué', sources: 'Sources', updated: 'màj',
       loadfail: 'Impossible de charger le catalogue.',
+      sortRelevance: 'Pertinence', sortAz: 'Nom A→Z', sortZa: 'Nom Z→A',
+      sortNew: 'Plus récents', sortOld: 'Plus anciens',
       building: ' (collecte en cours)', updatedAt: 'Mis à jour : ',
       foot: 'Données et curation : {pordata}, Fondation Francisco Manuel dos Santos, et leurs sources. Construit à partir des pages publiques des indicateurs ; aucune valeur n\'est redistribuée. Code et métadonnées : {repo} · {json} · {csv}',
     },
@@ -292,6 +319,8 @@
       results: '{n} Indikatoren', showing: ' (zeige {m})',
       removed: 'eingestellt', sources: 'Quellen', updated: 'Stand',
       loadfail: 'Der Katalog konnte nicht geladen werden.',
+      sortRelevance: 'Relevanz', sortAz: 'Name A→Z', sortZa: 'Name Z→A',
+      sortNew: 'Neueste zuerst', sortOld: 'Älteste zuerst',
       building: ' (Erhebung läuft)', updatedAt: 'Aktualisiert: ',
       foot: 'Daten und Kuratierung: {pordata}, Stiftung Francisco Manuel dos Santos, und ihre Quellen. Erstellt aus den öffentlichen Indikatorseiten; keine Weiterverbreitung von Werten. Code und Metadaten: {repo} · {json} · {csv}',
     },
@@ -301,6 +330,8 @@
       results: '{n} indicatori', showing: ' (mostrando {m})',
       removed: 'dismesso', sources: 'Fonti', updated: 'agg.',
       loadfail: 'Impossibile caricare il catalogo.',
+      sortRelevance: 'Rilevanza', sortAz: 'Nome A→Z', sortZa: 'Nome Z→A',
+      sortNew: 'Più recenti', sortOld: 'Più vecchi',
       building: ' (raccolta in corso)', updatedAt: 'Aggiornato: ',
       foot: 'Dati e cura: {pordata}, Fondazione Francisco Manuel dos Santos, e le rispettive fonti. Costruito dalle pagine pubbliche degli indicatori; nessuna ridistribuzione di valori. Codice e metadati: {repo} · {json} · {csv}',
     },
@@ -488,6 +519,22 @@
       if (score) hits.push([score, r]);
     }
     hits.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
+    if (sortMode !== "relevance") {
+      const nameOf = (h) => displayNames(h[1])[0] || "";
+      const cmpName = (a, b) => nameOf(a).localeCompare(nameOf(b), lang);
+      const dateOf = (h) => h[1].ultima_atualizacao || "";
+      if (sortMode === "az") hits.sort(cmpName);
+      else if (sortMode === "za") hits.sort((a, b) => cmpName(b, a));
+      else if (sortMode === "new")   // empty dates compare lowest -> last
+        hits.sort((a, b) =>
+          dateOf(b).localeCompare(dateOf(a)) || cmpName(a, b));
+      else if (sortMode === "old")   // undated entries go last, not first
+        hits.sort((a, b) => {
+          const da = dateOf(a), db = dateOf(b);
+          if (!da || !db) return !da && !db ? cmpName(a, b) : (da ? -1 : 1);
+          return da.localeCompare(db) || cmpName(a, b);
+        });
+    }
     shown = 0;
     $("out").innerHTML = "";
     showMore();
@@ -555,7 +602,57 @@
     if (e.key === "Escape") toggleLangMenu(false);
   });
 
+  // ---- sort pill -----------------------------------------------------
+  const SORT_KEYS = {relevance: "sortRelevance", az: "sortAz",
+                     za: "sortZa", new: "sortNew", old: "sortOld"};
+  let sortMode = "relevance";
+  // lucide "arrow-up-down"
+  const SORT_ICON =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ' +
+    'fill="none" stroke="currentColor" stroke-width="2" ' +
+    'stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="m21 16-4 4-4-4"/><path d="M17 20V4"/>' +
+    '<path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>';
+
+  function toggleSortMenu(open) {
+    $("sortMenu").hidden = !open;
+    $("sortBtn").setAttribute("aria-expanded", String(open));
+  }
+
+  function buildSort() {
+    const btn = $("sortBtn");
+    btn.innerHTML = SORT_ICON + t(SORT_KEYS[sortMode]);
+    btn.classList.toggle("on", sortMode !== "relevance");
+    const menu = $("sortMenu");
+    menu.innerHTML = "";
+    for (const mode of Object.keys(SORT_KEYS)) {
+      const el = document.createElement("div");
+      el.className = "langItem";
+      el.setAttribute("role", "option");
+      el.setAttribute("aria-selected", String(mode === sortMode));
+      el.textContent = t(SORT_KEYS[mode]);
+      el.onclick = (e) => {
+        e.stopPropagation();
+        sortMode = mode;
+        toggleSortMenu(false);
+        buildSort(); render();
+      };
+      menu.appendChild(el);
+    }
+  }
+  $("sortBtn").onclick = (e) => {
+    e.stopPropagation(); toggleSortMenu($("sortMenu").hidden);
+  };
+  document.addEventListener("click", (e) => {
+    if (!$("sortMenu").hidden && !e.target.closest("#sortWrap"))
+      toggleSortMenu(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") toggleSortMenu(false);
+  });
+
   function buildAreaChips() {
+    buildSort();  // shares the chips row; refresh labels together
     const box = $("areas");
     box.innerHTML = "";
     for (const key of Object.keys(AREA_LABELS)) {

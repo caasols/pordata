@@ -319,6 +319,12 @@ Only open work. History lives in "What has been built" and git.
    OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
    stale >5y); **(d) status** (featured, descontinuado — already badges, not yet filters).
    Start with (b)+(c) (zero new requests), design (a)'s harvest, then the UI.
+9. **Relevance / recommended sorting** *(owner ask 2026-08-23)*. The sort pill ships with
+   relevance (fuzzy score), name A→Z/Z→A and update date newest/oldest. A real
+   relevance/recommended mode would blend signals beyond match score: featured status,
+   update recency, breadth (a headline indicator over a narrow breakdown), and eventually
+   the Phase D embeddings for semantic closeness. Design after the label system, since
+   labels and ranking share the same signal inventory.
 
 ## Verification
 
