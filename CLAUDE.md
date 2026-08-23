@@ -63,6 +63,10 @@ cd site && npm ci && npm run build   # UI: typecheck + build into docs/
 python3 ~/.claude/skills/cartographer/scripts/audit.py . --style-lint
 ```
 
+At milestones, run `/mega-audit` — the cross-consistency sweep that checks plans and doc
+claims against measured state (decision 7 in `context.md`). Roadmap items always state
+their preconditions; feature-gating metrics belong in QA thresholds, not prose.
+
 The site is a React + Vite + Tailwind app in `site/` (shadcn-style components, TypeScript);
 `npm run build` writes the deployable bundle into `docs/` (committed — Pages serves it).
 Never hand-edit `docs/index.html` or `docs/assets/`; edit `site/src/` and rebuild.

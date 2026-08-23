@@ -34,6 +34,7 @@ server (Phase D). See Roadmap.
 | `ledger/` | Question Ledger: 100 demand-side questions plus protocol |
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `graphify-out/` | Derived code graph, gitignored |
+| `.claude/commands/` | `/mega-audit`: the cross-consistency deep-audit prompt (decision 7) |
 
 ## What has been built (2026-08-21 → 2026-08-23)
 
@@ -253,6 +254,18 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
    shipped 2026-08-22; D (MCP) remains gated on the owner and the crosswalk. Harvest pacing set
    by owner at one request per 20 seconds. Cost if wrong: if FFMS replies with objections,
    harvested metadata may need renegotiating or discarding.
+7. **Plans and claims must be verifiable against measured state (2026-08-23).** Prompted by a
+   near-miss: the fast-tracked featured pill silently depended on a 29/56 Europa match rate
+   recorded only in `stats.json` — the quality machinery verified code, but nothing verified
+   plans against reality. Three practices follow: **(a)** roadmap items state their
+   preconditions explicitly where the plan is written; **(b)** any metric a feature depends on
+   becomes a machine-checked threshold in the QA report, never prose someone must remember;
+   **(c)** `/mega-audit` (`.claude/commands/mega-audit.md`) runs periodically — an
+   eight-dimension cross-consistency sweep (roadmap preconditions vs measured state, doc
+   claims vs primary sources, data-quality gates, drift, silent failure paths, assumption
+   inventory, dead code, executed edge probes) where every finding must carry an automated
+   prevention. Cost if wrong: audit overhead on a one-person project; mitigated by running it
+   at milestones, not on a schedule.
 
 ## Constraints
 
