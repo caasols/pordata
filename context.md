@@ -41,13 +41,16 @@ The pipeline, end to end, all live on `main`:
 - **Sitemap watcher** (`sitemap.yml`, daily 06:17 UTC): fetches PORDATA's sitemap, diffs URLs
   and `<lastmod>` against the committed snapshot, writes `data/CHANGELOG.md`, opens a GitHub
   issue when indicator pages are added or removed. Landing-page lastmod churn is filtered out.
-- **Catalogue harvester** (`harvest.yml`, cron 01:45/09:45/17:45 UTC): 2,196 indicator pages
-  (quadro+resumo excluded), one request per 20 s, resumable 4.5 h chunks, metadata only —
-  name, description, Fontes/Entidades, última atualização, JSON-LD, marker excerpts for
-  offline re-parsing. **Freshness is built in**: each run also fetches pages new to the
-  sitemap, re-fetches pages whose lastmod moved past `harvested_at`, and retries errors;
-  removed pages are tombstoned at build time, never deleted. The cron therefore stays enabled
-  permanently as the maintenance loop.
+- **Catalogue harvester** (`harvest.yml`): 2,196 indicator pages (quadro+resumo excluded),
+  one request per 20 s, resumable 4.5 h chunks, metadata only — name, description,
+  Fontes/Entidades, última atualização, JSON-LD, marker excerpts for offline re-parsing.
+  **Freshness is built in**: each run fetches only pages new to the sitemap, pages whose
+  lastmod moved past `harvested_at`, and stored errors; removed pages are tombstoned at build
+  time, never deleted. Since 2026-08-23 it is the worker in a **detector→worker pair** (owner
+  ask): the sitemap watcher dispatches it whenever the fresh snapshot leaves pending work, so
+  changes are harvested minutes after detection; the harvester keeps one nightly cron
+  (01:45 UTC) purely as a safety net for missed dispatches. During the initial harvest the
+  cron ran 3×/day launching back-to-back chunks.
 - **Published catalogue + search site** (Phase C, live): `build_catalogue.py` renders
   `pages.jsonl` into `docs/data/catalogue.json` / `.csv` / `stats.json`; `docs/index.html` is
   a zero-dependency search page — ranked fuzzy matching (substring > prefix > bounded edit

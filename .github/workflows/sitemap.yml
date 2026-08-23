@@ -3,6 +3,9 @@ name: sitemap watch
 # Fetches the PORDATA sitemap (one polite request), diffs it against the
 # last committed snapshot, commits the new snapshot plus a changelog entry,
 # and opens a GitHub issue when indicator pages were added or removed.
+# The detector drives the worker: when the fresh snapshot leaves the
+# harvester with pending work (new, stale or errored pages), this workflow
+# dispatches harvest.yml so changes are picked up minutes after detection.
 #
 # The cron schedule only fires once this file is on the default branch;
 # until then the paths-filtered push trigger and (post-merge) manual
@@ -21,6 +24,7 @@ on:
 permissions:
   contents: write
   issues: write
+  actions: write  # to dispatch harvest.yml when work is pending
 
 # Runs push commits; queue them instead of letting concurrent runs race.
 concurrency:
@@ -65,3 +69,19 @@ jobs:
           gh issue create \
             --title "PORDATA sitemap: +${{ steps.diff.outputs.added }} -${{ steps.diff.outputs.removed }} pages ($(date -u +%Y-%m-%d))" \
             --body-file /tmp/sitemap-diff.md
+
+      # Detector -> worker: harvest exactly what the fresh snapshot says is
+      # pending. Runs even when the sitemap is unchanged so stored error
+      # records keep being retried.
+      - name: Dispatch harvest if work is pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pending=$(python3 -c "import sys; sys.path.insert(0, 'scripts'); \
+            import pordata_lib as lib, harvest_catalogue as h; \
+            p = h.plan(lib.targets(), lib.load_records()); \
+            print(sum(len(v) for v in p.values()))")
+          echo "pending pages: $pending"
+          if [ "$pending" -gt 0 ]; then
+            gh workflow run harvest.yml --ref "${{ github.ref_name }}"
+          fi

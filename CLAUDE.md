@@ -28,10 +28,12 @@ ledger attempts remain the owner's evidence-gathering task.
 
 ## How it runs
 
-Everything is GitHub Actions on `main`: `sitemap.yml` (daily watcher, opens issues on
-add/remove), `harvest.yml` (3×/day; fetch-missing + re-fetch-stale + retry-errors, then
-rebuilds `docs/`), `tests.yml` (unit + coverage gate + mutation on every scripts/tests push),
-`featured-sets.yml` and `ine-catalogue.yml` (manual). Data-writing workflows check out the
+Everything is GitHub Actions on `main`, as a detector→worker pair: `sitemap.yml` (daily
+watcher; opens issues on add/remove and dispatches the harvest when the fresh snapshot leaves
+pending work), `harvest.yml` (the worker; fetch-missing + re-fetch-stale + retry-errors, then
+rebuilds `docs/`; nightly cron only as a safety net for missed dispatches), `tests.yml` (unit
++ coverage gate + mutation on every scripts/tests push), `featured-sets.yml` and
+`ine-catalogue.yml` (manual). Data-writing workflows check out the
 branch head at run time — never the trigger-time sha. This sandbox cannot reach pordata.pt or
 ine.pt; anything needing their network runs via Actions.
 

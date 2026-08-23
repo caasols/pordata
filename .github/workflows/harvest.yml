@@ -3,9 +3,10 @@ name: catalogue harvest
 # Harvest PORDATA indicator metadata (metadata only, never data values)
 # at one request per 20 seconds. Each run is a resumable chunk capped at
 # 4.5h working, in order: sitemap-new pages, errored-page retries, stale
-# re-fetches (lastmod past harvested_at). With the initial harvest done
-# (2026-08-23) the cron IS the maintenance loop - keep it enabled; runs
-# with nothing to do no-op in seconds.
+# re-fetches (lastmod past harvested_at). Initial harvest done 2026-08-23;
+# since then this is the worker in a detector->worker pair: sitemap.yml
+# dispatches it whenever its fresh snapshot leaves pending work. The
+# nightly cron is only a safety net for missed dispatches - keep it.
 
 on:
   workflow_dispatch:
@@ -15,7 +16,7 @@ on:
         required: false
         default: ""
   schedule:
-    - cron: "45 1,9,17 * * *"
+    - cron: "45 1 * * *"
 
 permissions:
   contents: write
