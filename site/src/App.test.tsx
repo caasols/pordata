@@ -215,12 +215,14 @@ describe("App", () => {
     // Every card reserves all three cells, so ATUAL./UNIDADE/FONTES start
     // at the same x down the list. Two of the three fixtures have no unit.
     grids.forEach((g) => expect(g.children).toHaveLength(3));
-    const reserved = [...grids].filter(
-      (g) => g.children[1].getAttribute("aria-hidden") === "true"
-        && !g.children[1].textContent);
-    expect(reserved).toHaveLength(2);
+    // Two of the three fixtures have no unit; those cells keep their
+    // label and show the placeholder rather than going blank.
+    const placeheld = [...grids].filter(
+      (g) => g.children[1].textContent === "unitn/a");
+    expect(placeheld).toHaveLength(2);
     // the card that does have one still renders it
     expect(screen.getByText("Taxa - \u2030")).toBeInTheDocument();
+    expect(screen.getAllByText("n/a")).toHaveLength(2);
   });
 
   it("badges the summary set with a plain label, not the raw value",

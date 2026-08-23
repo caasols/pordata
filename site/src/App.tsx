@@ -82,18 +82,24 @@ export function shortSources(fontes: string[] | undefined): string {
   return fontes.length > 1 ? `${first} +${fontes.length - 1}` : first;
 }
 
-// One fixed grid cell. It is rendered even with no value to report: the
-// three columns must start at the same x on every card, and the unit is
-// absent on 48% of rows, so an omitted cell would slide the sources
-// column left and break the alignment down a scrolling list.
-function Meta({ label, value }: { label: string; value: string }) {
-  if (!value) return <div aria-hidden="true" />;
+// One fixed grid cell, always rendered. The three columns must start at
+// the same x on every card and the unit is absent on 48% of rows, so an
+// omitted cell would slide the sources column left down a scrolling
+// list. A missing value keeps its label and shows a dimmed placeholder:
+// a labelled "n/d" reads as deliberate, a blank gap reads as a bug.
+function Meta({ label, value, empty }:
+    { label: string; value: string; empty: string }) {
   return (
     <div className="min-w-0">
       <span className="block text-[9.5px] uppercase tracking-[0.1em]
         text-muted-foreground/75">{label}</span>
-      <span className="block line-clamp-2 text-xs tabular-nums"
-        title={value}>{value}</span>
+      <span
+        className={cn("block line-clamp-2 text-xs tabular-nums",
+          !value && "text-muted-foreground/50")}
+        title={value || undefined}
+      >
+        {value || empty}
+      </span>
     </div>
   );
 }
@@ -371,10 +377,12 @@ export default function App() {
                     ) : null}
                   </div>
                   <div className="grid grid-cols-3 gap-x-3">
-                    <Meta label={t("updated")}
+                    <Meta label={t("updated")} empty={t("notAvailable")}
                       value={monthYear(r.ultima_atualizacao, lang)} />
-                    <Meta label={t("unit")} value={r.unit || ""} />
-                    <Meta label={t("sources")} value={sources} />
+                    <Meta label={t("unit")} empty={t("notAvailable")}
+                      value={r.unit || ""} />
+                    <Meta label={t("sources")} empty={t("notAvailable")}
+                      value={sources} />
                   </div>
                   <ChartSlot label={t("chartSoon")} />
                 </div>
