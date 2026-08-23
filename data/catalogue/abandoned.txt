@@ -7,5 +7,7 @@
 # dead in a normal browser too (owner, 2026-08-23), so it is PORDATA's
 # bug, not bot-blocking. The series is discontinued (1995-2013); it is
 # still cited in the wild, e.g. Gulbenkian "Governar a Próxima Geração"
-# (2022), and its upstream lives on as Eurostat gov_10a_exp (COFOG GF05).
+# (2022). Finding where its data lives now is roadmap 2a - the crosswalk
+# pilot. A COFOG/Eurostat gov_10a_exp lead is recorded there as an
+# explicitly UNVERIFIED hypothesis, not as fact.
 https://www.pordata.pt/portugal/despesas+das+administracoes+publicas+em+ambiente+em+percentagem+do+total+das+despesas+(1995+2013)-1221

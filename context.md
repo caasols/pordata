@@ -50,9 +50,8 @@ The pipeline, end to end, all live on `main`:
   2,196th (`portugal/…despesas…ambiente…-1221`) returns HTTP 500 on every attempt and is dead
   in a normal browser too (owner-verified), so it is listed in `data/catalogue/abandoned.txt`:
   skipped by the harvest plan and tombstoned at build time instead of retried for ever. Its
-  series is discontinued (1995-2013), still cited in the wild (Gulbenkian, 2022), and its
-  upstream lives on as Eurostat `gov_10a_exp` (COFOG GF05) — the first acceptance case for the
-  crosswalk. Same day: the fontes repair pass (512 stored `fontes` trimmed of pre-fix UI text) and a
+  series is discontinued (1995-2013) and still cited in the wild (Gulbenkian, "Governar a
+  Próxima Geração", 2022 — owner find). Finding where its data lives now is roadmap 2a. Same day: the fontes repair pass (512 stored `fontes` trimmed of pre-fix UI text) and a
   live-bug fix — **page ids repeat across areas**, so EN names and featured flags are keyed by
   `(area, id)` (205 wrong `name_en` and 14 phantom featured flags corrected).
 - **Catalogue harvester** (`harvest.yml`): 2,196 indicator pages (quadro+resumo excluded),
@@ -314,8 +313,9 @@ unchanged. The audit's remaining medium/low findings live in
 
 **Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
 crosswalk — the roadmap's biggest strategic lever), the 8d name call
-("Destaques"/"Highlights" proposed), the id-1221 browser check, the ~20-record spot-check,
-and ledger attempts (3).
+("Destaques"/"Highlights" proposed), the ~20-record spot-check, curating
+`data/catalogue/FEATURED-UNMATCHED.md` (item 1), and ledger attempts (3). *Done: the id-1221
+browser check — dead for humans too, so it is retired rather than retried.*
 
 1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
    upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
@@ -335,6 +335,22 @@ and ledger attempts (3).
    match each catalogue entry to its upstream series: name-match against INE's catalogue for
    INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary. Store
    match + confidence; unmatched entries stay honest with `crosswalk: null`.
+
+   **2a. Pilot: find the upstream of the dead page (id 1221).** "Despesas das administrações
+   públicas em ambiente em % do total das despesas (1995-2013)" is the ideal first case —
+   PORDATA's page is gone, so a successful crosswalk demonstrates the whole value
+   proposition: *the curation layer still routes you to living data*. It also strengthens the
+   FFMS follow-up (item 4) from "your page is broken" to "your page is broken, here is where
+   the series lives, and here is a user still citing it in 2022".
+   **Hypothesis, unverified** (asserted from memory 2026-08-23; this sandbox cannot reach
+   Eurostat or INE, so it has *not* been checked against a primary source — decision 7): this
+   looks like COFOG data, environmental protection = division GF05, which Eurostat publishes
+   in `gov_10a_exp` (general government expenditure by function) and INE mirrors in national
+   accounts under "Despesas das Administrações Públicas por funções"; the 2013 cut-off is
+   consistent with the ESA 95 → ESA 2010 changeover. **Verify before recording it anywhere as
+   fact** — dataset code, the exact "% of total expenditure" measure, and whether the series
+   is Portugal-only or EU-wide. Do it when the INE cache lands, or sooner from any machine
+   with open internet.
 3. **Attempt the ledger questions** (owner, browser, spare moments): 100 questions in
    `ledger/questions.csv` per `ledger/README.md`. The evidence base for what to build next and
    the acceptance tests for everything built so far.
