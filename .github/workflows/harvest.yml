@@ -1,10 +1,11 @@
 name: catalogue harvest
 
-# Phase B: harvest PORDATA indicator metadata (metadata only, never data
-# values) at one request per 20 seconds. Each run is a resumable chunk
-# capped at 4.5h; the every-8-hours cron keeps launching chunks until the
-# ~2,225 target pages are done, after which runs no-op in seconds.
-# Disable the cron once REPORT.md shows completion.
+# Harvest PORDATA indicator metadata (metadata only, never data values)
+# at one request per 20 seconds. Each run is a resumable chunk capped at
+# 4.5h working, in order: sitemap-new pages, errored-page retries, stale
+# re-fetches (lastmod past harvested_at). With the initial harvest done
+# (2026-08-23) the cron IS the maintenance loop - keep it enabled; runs
+# with nothing to do no-op in seconds.
 
 on:
   workflow_dispatch:
