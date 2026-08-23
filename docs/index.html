@@ -200,6 +200,8 @@
   }
   footer a { color: var(--foreground); text-underline-offset: 3px; }
   footer div { margin-top: 6px; }
+  .credit { margin-top: 10px; }
+  .credit .heart { color: var(--primary); }
 </style>
 </head>
 <body>
@@ -454,7 +456,9 @@
     $("q").placeholder = t("placeholder");
     $("foot").innerHTML = t("foot") + (stats
       ? `<div>${t("updatedAt")}${stats.built_at}${stats.complete ? "" : t("building")}</div>`
-      : "");
+      : "") +
+      `<div class="credit">Made with <span class="heart">&#9829;</span> by ` +
+      `<a href="https://benevol.us" target="_blank" rel="noopener">Benevolus</a> studio</div>`;
     renderLangUI();
   }
 
