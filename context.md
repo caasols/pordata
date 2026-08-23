@@ -344,8 +344,8 @@ retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
 
 **Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
-crosswalk — the roadmap's biggest strategic lever), the 8d name call
-("Destaques"/"Highlights" proposed, item 12), the ~20-record spot-check, curating
+crosswalk — the roadmap's biggest strategic lever), the item 12 name call
+("Destaques"/"Highlights" proposed), the ~20-record spot-check, curating
 `data/catalogue/FEATURED-UNMATCHED.md` (item 1), and ledger attempts (3). *Done: the id-1221
 browser check — dead for humans too, so it is retired rather than retried.*
 
