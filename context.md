@@ -265,16 +265,26 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 
 ## Roadmap
 
-Only open work. History lives in "What has been built" and git.
+Only open work. History lives in "What has been built" and git. Item numbers are stable ids
+(referenced from code and docs), **not** priority order.
+
+**Execution order (reprioritized 2026-08-23):** ① fix the Europa featured matcher
+(dash-split; prerequisite — the 8d pill would otherwise ship missing half of Europa's set)
+→ ② 8d featured pill + rename (owner confirms the name) → ③ 10 card design pass, which
+owns all badge presentation so the card is designed once → ④ 8b/c labels, then 9. Items 4
+(calendar), 5 (gated on 2), 6 (background) unchanged.
+
+**Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
+crosswalk — the roadmap's biggest strategic lever), the 8d name call
+("Destaques"/"Highlights" proposed), the id-1221 browser check, the ~20-record spot-check,
+and ledger attempts (3).
 
 1. **Close out the initial harvest — one page left** *(2,195/2,196)*:
    `portugal/…despesas…ambiente…(1995 2013)-1221` returns HTTP 500 from PORDATA itself on
    every retry (5+ by 2026-08-23). The pipeline keeps retrying automatically; if it stays 500
    for a few days, tombstone it and consider reporting the broken sitemap-listed page to
-   FFMS. Also remaining: spot-check ~20 records against live pages (owner, browser);
-   investigate featured unmatched names — municípios 32/37, Europa 29/56 (the Europa quadro
-   uses long "name — definition" strings the containment matcher won't reach; likely needs a
-   dash-split before matching).
+   FFMS. Also remaining: spot-check ~20 records against live pages (owner, browser). The
+   featured-matching investigation moved to item 8d as its prerequisite.
 2. **INE catalogue snapshot, then the crosswalk (3e)** — the gateway to Extraction and Phase D.
    Three fetch attempts failed from Actions runners (403, timeout ×2, 2026-08-22/23): INE
    likely blocks cloud IP ranges persistently, not temporarily. Fallback shipped: the owner
@@ -335,8 +345,12 @@ Only open work. History lives in "What has been built" and git.
    harvested — 223 raw strings that need normalising to ~30 organisations (INE, Eurostat,
    OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
    stale >5y); **(d) status** (featured, descontinuado — already badges, not yet filters).
-   **(d) is fast-tracked as the next site task** *(owner ask 2026-08-23)*: add a filter
-   pill for the featured set — and **rename it**: cards currently badge the raw internal
+   **(d) is fast-tracked as the next site task** *(owner ask 2026-08-23)*.
+   **Prerequisite**: fix featured matching first — municípios 32/37 but Europa only 29/56,
+   because the Europa quadro uses long "name — definition" strings the containment matcher
+   won't reach (dash-split the quadro names before matching, then re-resolve); a featured
+   pill over a half-matched Europa set would look broken. Then add the filter
+   pill — and **rename it**: cards currently badge the raw internal
    value "★ quadro_resumo", which no visitor can decode. Proposed user-facing label:
    PT "Destaques" / EN "Highlights" (these are the indicators PORDATA itself curates into
    its summary tables — the badge and the pill should both say so in the UI language;
