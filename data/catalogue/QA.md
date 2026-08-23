@@ -1,6 +1,6 @@
 # Catalogue QA
 
-Records: 2081 (2080 ok, 1 errored)
+Records: 2196 (2195 ok, 1 errored)
 
 ## Field coverage (% non-empty)
 
@@ -8,8 +8,8 @@ Records: 2081 (2080 ok, 1 errored)
 |---|---|---|---|---|---|---|
 | europa | 638 | 99% | 99% | 100% | 100% | 100% |
 | municipios | 504 | 99% | 99% | 100% | 100% | 100% |
-| portugal | 938 | 100% | 100% | 100% | 100% | 100% |
-| ALL | 2080 | 99% | 99% | 100% | 100% | 100% |
+| portugal | 1053 | 100% | 100% | 100% | 100% | 100% |
+| ALL | 2195 | 99% | 99% | 100% | 100% | 100% |
 
 ## Findings
 
