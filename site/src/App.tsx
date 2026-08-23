@@ -26,10 +26,12 @@ import { cn } from "@/lib/utils";
 const CHUNK = Math.min(60,
   Math.max(10, Math.ceil(window.innerHeight / 150) * 2));
 
+// Newest-first is the default; the pill highlights when deviating.
+// (No "relevance" option until roadmap 9 lands a real blended ranking.)
 const SORT_KEYS: Record<SortMode, string> = {
-  relevance: "sortRelevance", az: "sortAz", za: "sortZa",
-  new: "sortNew", old: "sortOld",
+  new: "sortNew", old: "sortOld", az: "sortAz", za: "sortZa",
 };
+const DEFAULT_SORT: SortMode = "new";
 
 function chipClass(on: boolean): string {
   return cn(
@@ -60,7 +62,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
   const [active, setActive] = useState<ReadonlySet<string>>(new Set());
-  const [sortMode, setSortMode] = useState<SortMode>("relevance");
+  const [sortMode, setSortMode] = useState<SortMode>(DEFAULT_SORT);
 
   const t = (key: string, params?: Record<string, string>) =>
     translate(lang, key, params);
@@ -199,7 +201,7 @@ export default function App() {
       <div className="no-scrollbar mb-1.5 mt-3.5 flex flex-nowrap gap-2 overflow-x-auto pb-0.5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className={cn(chipClass(sortMode !== "relevance"),
+            <button className={cn(chipClass(sortMode !== DEFAULT_SORT),
                 "inline-flex items-center gap-1.5")}>
               <ArrowUpDown className="size-[.8rem]" />
               {t(SORT_KEYS[sortMode])}

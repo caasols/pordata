@@ -69,7 +69,11 @@ export function tokenScore(tok: string, r: PreparedRow): number {
   return best;
 }
 
-export type SortMode = "relevance" | "az" | "za" | "new" | "old";
+// "relevance" (fuzzy-score order) was pulled from the UI 2026-08-23 —
+// the score ordering was not useful for browsing; it returns as a real
+// blended ranking per roadmap item 9. Match scores still gate which
+// rows count as hits.
+export type SortMode = "az" | "za" | "new" | "old";
 
 export type Hit = [number, PreparedRow];
 
@@ -88,23 +92,20 @@ export function searchAndSort(rows: PreparedRow[], query: string,
     }
     if (score) hits.push([score, r]);
   }
-  hits.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
-  if (sortMode !== "relevance") {
-    const nameOf = (h: Hit) => primaryName(h[1]) || "";
-    const cmpName = (a: Hit, b: Hit) =>
-      nameOf(a).localeCompare(nameOf(b), lang);
-    const dateOf = (h: Hit) => h[1].ultima_atualizacao || "";
-    if (sortMode === "az") hits.sort(cmpName);
-    else if (sortMode === "za") hits.sort((a, b) => cmpName(b, a));
-    else if (sortMode === "new")   // empty dates compare lowest -> last
-      hits.sort((a, b) =>
-        dateOf(b).localeCompare(dateOf(a)) || cmpName(a, b));
-    else if (sortMode === "old")   // undated entries go last, not first
-      hits.sort((a, b) => {
-        const da = dateOf(a), db = dateOf(b);
-        if (!da || !db) return !da && !db ? cmpName(a, b) : (da ? -1 : 1);
-        return da.localeCompare(db) || cmpName(a, b);
-      });
-  }
+  const nameOf = (h: Hit) => primaryName(h[1]) || "";
+  const cmpName = (a: Hit, b: Hit) =>
+    nameOf(a).localeCompare(nameOf(b), lang);
+  const dateOf = (h: Hit) => h[1].ultima_atualizacao || "";
+  if (sortMode === "az") hits.sort(cmpName);
+  else if (sortMode === "za") hits.sort((a, b) => cmpName(b, a));
+  else if (sortMode === "new")   // empty dates compare lowest -> last
+    hits.sort((a, b) =>
+      dateOf(b).localeCompare(dateOf(a)) || cmpName(a, b));
+  else if (sortMode === "old")   // undated entries go last, not first
+    hits.sort((a, b) => {
+      const da = dateOf(a), db = dateOf(b);
+      if (!da || !db) return !da && !db ? cmpName(a, b) : (da ? -1 : 1);
+      return da.localeCompare(db) || cmpName(a, b);
+    });
   return hits;
 }
