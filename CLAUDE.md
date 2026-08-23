@@ -66,6 +66,16 @@ completeness without curation is a regression) and **17** (rename — "pordata m
 the thing the project is outgrowing, and it borrows FFMS's mark; do it before Phase D
 publishes a package name).
 
+**Open threads from the card pass:** **18** translate the unit vocabulary (148 distinct
+strings, top 50 cover 88% — a lookup table, shippable any time), **19** one re-harvest for
+period, geographic granularity and the missing units, **20** raise the coverage line past
+78.4% (discharged mostly by 19). The unit gap has a measured cause worth remembering: unit
+coverage is 100% for europa and municipios and **0% for portugal**, because the chart-caption
+markers fall outside the excerpt the harvester stores around `Fontes` on that layout. A
+catalogue-wide QA threshold passed that 100/100/0 split without complaint — **coverage
+thresholds for fields parsed out of page markup should be per-area**, since the areas are
+separate templates.
+
 ## How it runs
 
 Seven workflows on `main`, the first two a detector→worker pair:
