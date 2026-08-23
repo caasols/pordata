@@ -15,6 +15,7 @@ const ROWS: Row[] = [
   { id: 2, area: "europa", name: "Índice de Gini",
     name_en: "Gini index", description: "Desigualdade de rendimento",
     fontes: ["Eurostat"], ultima_atualizacao: "2025-05-05",
+    featured: ["quadro_resumo"],
     url: "https://www.pordata.pt/europa/indice+de+gini-2",
     harvested_at: "2026-08-22" },
   { id: 3, area: "municipios", name: "Médicos", name_en: "Doctors",
@@ -170,6 +171,55 @@ describe("App", () => {
     render(<App />);
     await screen.findByText("Birth rate");
     expect(screen.queryByRole("button", { name: "Clear filters" })).toBeNull();
+  });
+
+  it("badges the summary set with an attributed label, not the raw value",
+     async () => {
+    render(<App />);
+    await screen.findByText("Birth rate");
+    expect(screen.getByText("PORDATA summary")).toBeInTheDocument();
+    expect(screen.queryByText(/quadro_resumo/)).not.toBeInTheDocument();
+  });
+
+  it("summary pill filters to PORDATA's per-location set and toggles off",
+     async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    const pill = screen.getByRole("button", { name: "Summary" });
+    expect(pill).toHaveAttribute("aria-pressed", "false");
+    await user.click(pill);
+    await waitFor(() =>
+      expect(screen.queryByText("Birth rate")).not.toBeInTheDocument());
+    expect(screen.getByText("Gini index")).toBeInTheDocument();
+    expect(screen.getByText("1 indicator")).toBeInTheDocument();
+    expect(pill).toHaveAttribute("aria-pressed", "true");
+    await user.click(pill);
+    expect(await screen.findByText("Birth rate")).toBeInTheDocument();
+  });
+
+  it("summary ANDs with the area pills rather than replacing them",
+     async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.click(screen.getByRole("button", { name: "Summary" }));
+    await user.click(screen.getByRole("button", { name: "Portugal" }));
+    // portugal has no summary rows in the fixture -> empty, not "all"
+    expect(await screen.findByText("No indicators match this search."))
+      .toBeInTheDocument();
+  });
+
+  it("clear-filters also releases the summary pill", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.click(screen.getByRole("button", { name: "Summary" }));
+    await user.click(screen.getByRole("button", { name: "Portugal" }));
+    await user.click(await screen.findByRole("button", { name: "Clear filters" }));
+    expect(await screen.findByText("Birth rate")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Summary" }))
+      .toHaveAttribute("aria-pressed", "false");
   });
 
   it("footer carries the studio credit and build state", async () => {

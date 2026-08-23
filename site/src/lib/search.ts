@@ -78,11 +78,15 @@ export type Hit = [number, PreparedRow];
 
 export function searchAndSort(rows: PreparedRow[], query: string,
     activeAreas: ReadonlySet<string>, sortMode: SortMode,
-    primaryName: (r: PreparedRow) => string, lang: string): Hit[] {
+    primaryName: (r: PreparedRow) => string, lang: string,
+    summaryOnly = false): Hit[] {
   const terms = norm(query).split(/\s+/).filter(Boolean);
   const hits: Hit[] = [];
   for (const r of rows) {
+    // areas are one axis (OR within it, all when none picked); the
+    // summary filter is a separate axis and ANDs with them
     if (activeAreas.size && !activeAreas.has(r.area)) continue;
+    if (summaryOnly && !r.featured?.length) continue;
     let score = 1;
     for (const term of terms) {
       const s = tokenScore(term, r);

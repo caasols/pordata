@@ -110,8 +110,9 @@ describe("searchAndSort", () => {
     row({ id: 4, name: "Empregados",
           ultima_atualizacao: "2025-05-05" }),
   ]);
-  const run = (q: string, areas: Set<string>, mode: SortMode) =>
-    searchAndSort(rows, q, areas, mode, (r) => r.name, "pt")
+  const run = (q: string, areas: Set<string>, mode: SortMode,
+               summaryOnly = false) =>
+    searchAndSort(rows, q, areas, mode, (r) => r.name, "pt", summaryOnly)
       .map((h) => h[1].id);
 
   it("empty query returns everything", () => {
@@ -135,5 +136,25 @@ describe("searchAndSort", () => {
   });
   it("oldest first: date asc, ties by name, undated still last", () => {
     expect(run("", new Set(), "old")).toEqual([4, 2, 1, 3, 5]);
+  });
+  it("summary filter keeps only flagged rows and ANDs with areas", () => {
+    const flagged = prepare([
+      row({ id: 7, name: "Com resumo", featured: ["quadro_resumo"] }),
+      row({ id: 8, name: "Sem resumo" }),
+      row({ id: 9, area: "europa", name: "Europa com resumo",
+            featured: ["quadro_resumo"] }),
+    ]);
+    const pick = (areas: Set<string>, summary: boolean) =>
+      searchAndSort(flagged, "", areas, "az", (r) => r.name, "pt", summary)
+        .map((h) => h[1].id);
+    expect(pick(new Set(), false)).toEqual([7, 9, 8]);  // A-Z by name
+    expect(pick(new Set(), true)).toEqual([7, 9]);
+    expect(pick(new Set(["europa"]), true)).toEqual([9]);
+    expect(pick(new Set(["municipios"]), true)).toEqual([]);
+  });
+  it("an empty featured array does not count as flagged", () => {
+    const edge = prepare([row({ id: 1, name: "A", featured: [] })]);
+    expect(searchAndSort(edge, "", new Set(), "az", (r) => r.name, "pt", true))
+      .toEqual([]);
   });
 });

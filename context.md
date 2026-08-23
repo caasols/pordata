@@ -329,17 +329,14 @@ Only open work. History lives in "What has been built" and git. Item numbers are
 **Execution order (2026-08-23, after the audit).** Ids are stable and never reused — a
 retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 
-1. **12 — featured pill + rename.** Small, ready, and the only visible feature whose
-   precondition is now proven rather than assumed.
-2. **10 — card design pass** with Claude Design. Runs after 12 so the design sees every badge
-   it must lay out, and it owns badge presentation for item 8's labels too.
-3. **6a — silent data corruption.** Three parse-time assertions. Cheap, and they protect the
-   artefact everything else depends on; the gate catches degradation but not a wrong value
-   that looks well-formed.
-4. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
+1. **10 — card design pass** with Claude Design. Next up: the card now carries the summary
+   badge as well, and item 8's labels will add more chips to it, so design it once.
+2. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
    largest item on the board and the gateway to Phase D; blocked only on a laptop.
-5. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-6. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
+3. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+4. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
+
+*Done 2026-08-23: **12** (summary pill + rename) and **6a** (parse-time shape assertions).*
 
 Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
 
@@ -493,21 +490,16 @@ browser check — dead for humans too, so it is retired rather than retried.*
    shadcn tokens. Coordinates with item 8 (labels add more chips to the same card —
    design them together, not twice).
 
-12. **Featured pill + rename** *(promoted out of item 8d, 2026-08-23 — it is next up and was
-   unreadable inside that item)*. Two halves, both small:
-   - **Rename.** Cards badge the raw internal value `★ quadro_resumo`, which no visitor can
-     decode. Proposed: PT **"Destaques"** / EN **"Highlights"** — these are the indicators
-     PORDATA itself curates into its summary tables — with ES "Destacados", FR "Essentiels",
-     DE "Highlights", IT "In evidenza" prepared. Badge and pill say the same thing in the UI
-     language. *Owner confirms the wording; it is a one-line change either way, so it does
-     not block the build.*
-   - **Pill.** A fourth filter chip in the existing swipeable row, opt-in like the areas.
-   **Precondition met and machine-checked:** the matcher was rebuilt high-precision and
-   injective after the audit proved it was flagging wrong indicators, and the QA gate enforces
-   `featured_collisions = 0` and `featured_rows >= 40`, so the pill cannot ship over a broken
-   mapping. 43 rows carry the badge today; the tail is owner curation (item 1), and the honest
-   framing is that the badge marks *confidently matched* quadro indicators, not the full
-   quadro.
+12. **Summary pill + rename** — *done 2026-08-23.* Owner picked **"Resumo" / "Summary"**
+   after establishing what the quadro-resumo actually is: not an aggregation across
+   municipalities but PORDATA's **per-location overview** — one page per município (308) and
+   per country (28), each showing the same fixed set (37 / 56) filled in for that place. So
+   the badge means "PORDATA shows this indicator in every location's summary", which is
+   Discovery's own question — *what should I look at first?* — answered by PORDATA.
+   Shipped: a `Resumo` filter pill as a separate axis (ANDs with the area pills), the card
+   badge changed from the raw internal `★ quadro_resumo` to an attributed, localized
+   **"Resumo PORDATA"** with a tooltip naming the source, six languages, `aria-pressed`, and
+   clear-filters releasing it. 43 badged rows; ANDed with Europa, 26.
 
 ## Verification
 

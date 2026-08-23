@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpDown, Check, ChevronDown, Moon, Sun } from "lucide-react";
+import { ArrowUpDown, Check, ChevronDown, Moon, Star, Sun } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -62,6 +62,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
   const [active, setActive] = useState<ReadonlySet<string>>(new Set());
+  const [summaryOnly, setSummaryOnly] = useState(false);
   const [sortMode, setSortMode] = useState<SortMode>(DEFAULT_SORT);
 
   const t = (key: string, params?: Record<string, string>) =>
@@ -101,8 +102,8 @@ export default function App() {
   const hits: Hit[] = useMemo(() => {
     if (!rows) return [];
     return searchAndSort(rows, debounced, active, sortMode,
-      (r) => displayNames(r, lang)[0], lang);
-  }, [rows, debounced, active, sortMode, lang]);
+      (r) => displayNames(r, lang)[0], lang, summaryOnly);
+  }, [rows, debounced, active, sortMode, lang, summaryOnly]);
 
   // Infinite scroll: a sentinel below the list grows `shown` as it
   // nears the viewport; recreating the observer on each append makes it
@@ -237,6 +238,18 @@ export default function App() {
             {AREA_LABELS[key][lang] || key}
           </button>
         ))}
+        {/* a different axis from the areas: PORDATA's own per-location
+            summary set, ANDed with whatever areas are picked */}
+        <button
+          aria-pressed={summaryOnly}
+          title={t("summaryTip")}
+          className={cn(chipClass(summaryOnly),
+            "inline-flex items-center gap-1.5")}
+          onClick={() => setSummaryOnly((v) => !v)}
+        >
+          <Star className="size-3.5" />
+          {t("summaryFilter")}
+        </button>
       </div>
 
       <div className="mx-0.5 my-3 text-sm text-muted-foreground"
@@ -249,10 +262,12 @@ export default function App() {
         {!failed && rows !== null && hits.length === 0 && (
           <Card className="my-2.5 px-4 py-6 text-center">
             <p className="text-sm text-muted-foreground">{t("empty")}</p>
-            {(query || active.size > 0) && (
+            {(query || active.size > 0 || summaryOnly) && (
               <Button
                 className="mt-3"
-                onClick={() => { setQuery(""); setActive(new Set()); }}
+                onClick={() => {
+                  setQuery(""); setActive(new Set()); setSummaryOnly(false);
+                }}
               >
                 {t("clearFilters")}
               </Button>
@@ -280,9 +295,12 @@ export default function App() {
                 {r.removed && (
                   <Badge variant="destructive">{t("removed")}</Badge>
                 )}
-                {(r.featured || []).map((f) => (
-                  <Badge key={f}>★ {f}</Badge>
-                ))}
+                {r.featured?.length ? (
+                  <Badge title={t("summaryTip")}>
+                    <Star className="mr-1 size-3" />
+                    {t("summaryBadge")}
+                  </Badge>
+                ) : null}
                 {r.fontes && r.fontes.length > 0 && (
                   <Badge variant="outline">
                     {t("sources")}: {r.fontes.join(", ")}
