@@ -43,6 +43,12 @@ AREA_LABELS = {"portugal": "Portugal", "municipios": "Municípios",
 GROUP_AREAS = {"quadro_resumo_municipios": "municipios",
                "quadro_resumo_europa": "europa"}
 
+# /en tree area segment -> PT catalogue area. Page ids are only unique
+# within an area (id 6 is cinema+recintos in municipios and a population
+# series in portugal), so every id-keyed lookup must carry the area.
+EN_AREAS = {"portugal": "portugal", "municipalities": "municipios",
+            "europe": "europa"}
+
 
 NAME_STOPWORDS = {"de", "da", "do", "das", "dos", "e", "em", "no", "na",
                   "nos", "nas", "por", "para", "a", "o", "os", "as", "com",
@@ -70,14 +76,14 @@ def content_tokens(s: str) -> set[str]:
     return tokens
 
 
-def resolve_featured(records: dict) -> tuple[dict[int, list[str]], dict]:
-    """Match quadro-resumo indicator names to catalogue ids (the quadro
-    pages carry names but no ids). Exact normalized match first, then
-    best token-overlap >= 0.6 within the group's area."""
+def resolve_featured(records: dict) -> tuple[dict[tuple, list[str]], dict]:
+    """Match quadro-resumo indicator names to catalogue (area, id) keys
+    (the quadro pages carry names but no ids). Exact normalized match
+    first, then best token-overlap >= 0.7 within the group's area."""
     if not FEATURED_FILE.exists():
         return {}, {}
     data = json.loads(FEATURED_FILE.read_text(encoding="utf-8"))
-    flags: dict[int, list[str]] = {}
+    flags: dict[tuple, list[str]] = {}
     stats: dict = {}
     for group, area in GROUP_AREAS.items():
         names = data.get(group, {}).get("indicator_names", [])
@@ -110,29 +116,32 @@ def resolve_featured(records: dict) -> tuple[dict[int, list[str]], dict]:
                 unmatched.append(name)
             else:
                 matched += 1
-                flags.setdefault(rid, [])
-                if "quadro_resumo" not in flags[rid]:
-                    flags[rid].append("quadro_resumo")
+                key = (area, rid)
+                flags.setdefault(key, [])
+                if "quadro_resumo" not in flags[key]:
+                    flags[key].append("quadro_resumo")
         stats[group] = {"names": len(names), "matched": matched,
                         "unmatched": unmatched}
     return flags, stats
 
 
-def build_en_names(sitemap_text: str) -> dict[int, str]:
-    """id -> English name, derived from the /en tree's slugs in the same
-    sitemap snapshot (EN pages share page ids with their PT originals, so
-    this costs zero requests). Slugs are lowercase ASCII; we titlecase the
-    first letter only."""
-    en_names: dict[int, str] = {}
+def build_en_names(sitemap_text: str) -> dict[tuple, str]:
+    """(area, id) -> English name, derived from the /en tree's slugs in
+    the same sitemap snapshot (EN pages share page ids with their PT
+    originals, so this costs zero requests). Keyed by area as well as id
+    because ids repeat across areas. Slugs are lowercase ASCII; we
+    titlecase the first letter only."""
+    en_names: dict[tuple, str] = {}
     for url in sitemap_text.split():
         m = re.match(
             r"https://www\.pordata\.pt/en/"
-            r"(?:portugal|municipalities|europe)/([^/]+)-(\d+)$", url)
+            r"(portugal|municipalities|europe)/([^/]+)-(\d+)$", url)
         if not m or "summary+table" in url:
             continue
-        name = re.sub(r"\s+", " ", m.group(1).replace("+", " ")).strip()
+        name = re.sub(r"\s+", " ", m.group(2).replace("+", " ")).strip()
         if name:
-            en_names[int(m.group(2))] = name[:1].upper() + name[1:]
+            en_names[(EN_AREAS[m.group(1)], int(m.group(3)))] = \
+                name[:1].upper() + name[1:]
     return en_names
 
 
@@ -171,7 +180,7 @@ def main() -> None:
             "id": rec["id"],
             "area": rec["area"],
             "name": rec.get("name") or name_from_slug(rec.get("slug", "")),
-            "name_en": en_names.get(rec["id"], ""),
+            "name_en": en_names.get((rec["area"], rec["id"]), ""),
             "description": rec.get("description", ""),
             "fontes": split_fontes(rec.get("fontes", "")),
             "ultima_atualizacao": rec.get("ultima_atualizacao", ""),
@@ -180,8 +189,8 @@ def main() -> None:
         }
         if url not in current:
             row["removed"] = True
-        if rec["id"] in featured_flags:
-            row["featured"] = featured_flags[rec["id"]]
+        if (rec["area"], rec["id"]) in featured_flags:
+            row["featured"] = featured_flags[(rec["area"], rec["id"])]
         rows.append(row)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -212,7 +221,7 @@ def main() -> None:
             if "error" in rec:
                 continue
             raw_pt = rec.get("name", "")
-            name_en = en_names.get(rec["id"], "")
+            name_en = en_names.get((rec["area"], rec["id"]), "")
             status = ("ok" if raw_pt and name_en
                       else "missing_en" if raw_pt
                       else "missing_pt" if name_en
@@ -226,11 +235,12 @@ def main() -> None:
     by_area = {}
     for r in rows:
         by_area[r["area"]] = by_area.get(r["area"], 0) + 1
+    live = sum(1 for r in rows if not r.get("removed"))
     stats = {
         "indicators": len(rows),
         "by_area": by_area,
         "targets": len(current),
-        "complete": len(rows) >= len(current),
+        "complete": live >= len(current),
         "built_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
     }
     stats["names"] = name_status_counts

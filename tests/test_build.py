@@ -38,7 +38,7 @@ class SplitFontesTest(unittest.TestCase):
 
 
 class EnNamesTest(unittest.TestCase):
-    def test_maps_ids_excludes_summary_tables(self):
+    def test_maps_area_ids_excludes_summary_tables(self):
         text = "\n".join([
             f"{PT}/en/portugal/birth+rate-99",
             f"{PT}/en/municipalities/summary+table/abrantes-828209",
@@ -47,10 +47,22 @@ class EnNamesTest(unittest.TestCase):
             f"{PT}/portugal/taxa+de+natalidade-99",
         ])
         names = b.build_en_names(text)
-        self.assertEqual(names[99], "Birth rate")
-        self.assertEqual(names[300], "Gini index")
-        self.assertNotIn(828209, names)
-        self.assertNotIn(1, names)  # theme pages are not indicators
+        self.assertEqual(names[("portugal", 99)], "Birth rate")
+        self.assertEqual(names[("europa", 300)], "Gini index")
+        self.assertNotIn(("municipios", 828209), names)
+        # theme pages are not indicators
+        self.assertNotIn(("portugal", 1), names)
+
+    def test_same_id_in_two_areas_kept_apart(self):
+        # ids repeat across areas; each must keep its own EN name
+        text = "\n".join([
+            f"{PT}/en/portugal/annual+average+resident+population-6",
+            f"{PT}/en/municipalities/cinema+facilities-6",
+        ])
+        names = b.build_en_names(text)
+        self.assertEqual(names[("portugal", 6)],
+                         "Annual average resident population")
+        self.assertEqual(names[("municipios", 6)], "Cinema facilities")
 
 
 class ResolveFeaturedTest(RepoCase):
@@ -72,7 +84,7 @@ class ResolveFeaturedTest(RepoCase):
         self.write_featured(["Taxa de poupança das famílias",
                              "Índice de Gini (%)"])
         flags, stats = b.resolve_featured(self.make_records())
-        self.assertEqual(sorted(flags), [300, 301])
+        self.assertEqual(sorted(flags), [("europa", 300), ("europa", 301)])
         self.assertEqual(stats["quadro_resumo_europa"]["matched"], 2)
 
     def test_ambiguous_short_name_unmatched(self):
@@ -99,6 +111,8 @@ class BuildEndToEndTest(RepoCase):
         self.write_records([
             record("portugal/taxa+de+natalidade-99", 99, "portugal",
                    "Taxa de natalidade"),
+            record("municipios/medicos+por+habitante-200", 200, "municipios",
+                   "Médicos por habitante"),
             gone,
             {"url": f"{PT}/europa/falhado-888", "error": "timeout",
              "harvested_at": "2026-08-22"},
@@ -106,16 +120,20 @@ class BuildEndToEndTest(RepoCase):
         b.main()
         rows = json.loads(pathlib.Path("docs/data/catalogue.json").read_text(
             encoding="utf-8"))
-        by_id = {r["id"]: r for r in rows}
-        self.assertEqual(len(rows), 2)          # error record excluded
-        self.assertNotIn(888, by_id)
-        self.assertTrue(by_id[777]["removed"])  # tombstoned, not deleted
-        self.assertNotIn("removed", by_id[99])
-        self.assertEqual(by_id[99]["name_en"], "Birth rate")
+        by_id = {(r["area"], r["id"]): r for r in rows}
+        self.assertEqual(len(rows), 3)          # error record excluded
+        self.assertNotIn(("europa", 888), by_id)
+        # tombstoned, not deleted
+        self.assertTrue(by_id[("portugal", 777)]["removed"])
+        self.assertNotIn("removed", by_id[("portugal", 99)])
+        self.assertEqual(by_id[("portugal", 99)]["name_en"], "Birth rate")
+        self.assertEqual(by_id[("municipios", 200)]["name_en"],
+                         "Doctors per inhabitant")
         stats = json.loads(pathlib.Path("docs/data/stats.json").read_text(
             encoding="utf-8"))
-        self.assertEqual(stats["indicators"], 2)
+        self.assertEqual(stats["indicators"], 3)
         self.assertEqual(stats["targets"], 3)
+        # tombstones don't count towards completeness (gini-300 unharvested)
         self.assertFalse(stats["complete"])
         csv_text = pathlib.Path("docs/data/catalogue.csv").read_text(
             encoding="utf-8")
@@ -127,7 +145,7 @@ class BuildEndToEndTest(RepoCase):
         # 777 is absent from the /en sitemap fixture -> flagged
         self.assertIn("777,portugal,Indicador extinto,,missing_en", names_map)
         self.assertEqual(stats["names"],
-                         {"ok": 1, "missing_en": 1})
+                         {"ok": 2, "missing_en": 1})
 
 
 if __name__ == "__main__":
