@@ -4,7 +4,7 @@ Making Portuguese public statistics consumable. PORDATA holds 2,268 curated indi
 UI with no API; this project built the machine-readable layer on top: a self-maintaining
 catalogue of that curation (metadata only, never data values) with a public search site.
 
-**Status:** shipped and live. The search site — fuzzy, six UI languages, PT/EN indicator
+**Status:** shipped and live. The search site — fuzzy, PT/EN UI (four more prepared), PT/EN indicator
 names — is at [caasols.github.io/pordata](https://caasols.github.io/pordata/), rebuilt
 automatically by the harvest pipeline. Public repo, MIT (code) / CC BY 4.0 (metadata).
 

@@ -91,9 +91,13 @@ export function searchAndSort(rows: PreparedRow[], query: string,
     }
     if (score) hits.push([score, r]);
   }
-  const nameOf = (h: Hit) => primaryName(h[1]) || "";
+  // Precomputed sort keys + one collator: comparators run ~n log n
+  // times per keystroke, so no name derivation or collator construction
+  // inside them.
+  const collator = new Intl.Collator(lang);
+  const names = new Map(hits.map((h) => [h[1], primaryName(h[1]) || ""]));
   const cmpName = (a: Hit, b: Hit) =>
-    nameOf(a).localeCompare(nameOf(b), lang);
+    collator.compare(names.get(a[1])!, names.get(b[1])!);
   const dateOf = (h: Hit) => h[1].ultima_atualizacao || "";
   if (sortMode === "az") hits.sort(cmpName);
   else if (sortMode === "za") hits.sort((a, b) => cmpName(b, a));

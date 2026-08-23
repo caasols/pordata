@@ -42,12 +42,12 @@ function chipClass(on: boolean): string {
   );
 }
 
-function displayNames(r: PreparedRow, lang: string): [string, string] {
+export function displayNames(r: PreparedRow, lang: string): [string, string] {
   const primary = lang === "pt" ? (r.name || r.name_en)
                                 : (r.name_en || r.name);
   const alt = primary === r.name ? r.name_en
             : (r.name && r.name !== primary ? r.name : "");
-  return [primary, alt];
+  return [primary, alt === primary ? "" : alt];
 }
 
 interface Stats { built_at: string; complete: boolean }
@@ -140,8 +140,10 @@ export default function App() {
   };
 
   const meta = rows === null ? "" :
-    t("results", { n: hits.length.toLocaleString() }) +
-    (shown < hits.length ? t("showing", { m: String(shown) }) : "");
+    (hits.length === 1 ? t("resultsOne")
+      : t("results", { n: hits.length.toLocaleString(lang) })) +
+    (shown < hits.length
+      ? t("showing", { m: shown.toLocaleString(lang) }) : "");
 
   return (
     <main className="mx-auto max-w-3xl px-4 pb-16 pt-7">
@@ -180,13 +182,14 @@ export default function App() {
         </div>
       </div>
 
-      <p
-        className="mb-5 mt-2 text-sm text-muted-foreground [&_a]:text-foreground [&_a]:underline-offset-[3px] [&_b]:font-semibold [&_b]:text-foreground"
-        dangerouslySetInnerHTML={{
-          __html: t("intro",
-            { n: (rows?.length ?? 0).toLocaleString() }),
-        }}
-      />
+      {rows !== null && (
+        <p
+          className="mb-5 mt-2 text-sm text-muted-foreground [&_a]:text-foreground [&_a]:underline-offset-[3px] [&_b]:font-semibold [&_b]:text-foreground"
+          dangerouslySetInnerHTML={{
+            __html: t("intro", { n: rows.length.toLocaleString(lang) }),
+          }}
+        />
+      )}
 
       <Input
         type="search"
@@ -222,6 +225,7 @@ export default function App() {
         {Object.keys(AREA_LABELS).map((key) => (
           <button
             key={key}
+            aria-pressed={active.has(key)}
             className={chipClass(active.has(key))}
             onClick={() => toggleArea(key)}
           >

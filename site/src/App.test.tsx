@@ -2,7 +2,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import App from "./App";
+import App, { displayNames } from "./App";
+import { prepare } from "./lib/search";
 import type { Row } from "./lib/search";
 
 const ROWS: Row[] = [
@@ -61,18 +62,21 @@ describe("App", () => {
     await waitFor(() =>
       expect(screen.queryByText("Birth rate")).not.toBeInTheDocument());
     expect(screen.getByText("Gini index")).toBeInTheDocument();
-    expect(screen.getByText("1 indicators")).toBeInTheDocument();
+    expect(screen.getByText("1 indicator")).toBeInTheDocument();
   });
 
   it("area chips filter opt-in and toggle off", async () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByText("Birth rate");
-    await user.click(screen.getByRole("button", { name: "Europe" }));
+    const chip = screen.getByRole("button", { name: "Europe" });
+    expect(chip).toHaveAttribute("aria-pressed", "false");
+    await user.click(chip);
     await waitFor(() =>
       expect(screen.queryByText("Birth rate")).not.toBeInTheDocument());
     expect(screen.getByText("Gini index")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Europe" }));
+    expect(chip).toHaveAttribute("aria-pressed", "true");
+    await user.click(chip);
     expect(await screen.findByText("Birth rate")).toBeInTheDocument();
   });
 
@@ -123,10 +127,38 @@ describe("App", () => {
     expect(localStorage.getItem("lang")).toBe("pt");
   });
 
+  it("shows no intro count while the catalogue is loading", () => {
+    vi.stubGlobal("fetch", vi.fn(() => new Promise(() => {})));
+    render(<App />);
+    expect(document.querySelector("main p")).toBeNull();
+  });
+
   it("footer carries the studio credit and build state", async () => {
     render(<App />);
     await screen.findByText("Birth rate");
     expect(screen.getByText("Benevolus")).toBeInTheDocument();
     expect(screen.getByText(/2026-08-23 09:00 UTC/)).toBeInTheDocument();
+  });
+});
+
+describe("displayNames", () => {
+  const mk = (name: string, name_en: string) =>
+    prepare([{ id: 9, area: "portugal", name, name_en, description: "",
+      fontes: [], ultima_atualizacao: "", url: "u",
+      harvested_at: "" }])[0];
+
+  it("PT shows PT first with EN below; EN the reverse", () => {
+    expect(displayNames(mk("Taxa", "Rate"), "pt")).toEqual(["Taxa", "Rate"]);
+    expect(displayNames(mk("Taxa", "Rate"), "en")).toEqual(["Rate", "Taxa"]);
+  });
+  it("falls back across languages when one name is missing", () => {
+    expect(displayNames(mk("", "Rate"), "pt")).toEqual(["Rate", ""]);
+    expect(displayNames(mk("Taxa", ""), "en")).toEqual(["Taxa", ""]);
+  });
+  it("never repeats an identical name as the alt line", () => {
+    expect(displayNames(mk("Portugal 2030", "Portugal 2030"), "pt"))
+      .toEqual(["Portugal 2030", ""]);
+    expect(displayNames(mk("Portugal 2030", "Portugal 2030"), "en"))
+      .toEqual(["Portugal 2030", ""]);
   });
 });

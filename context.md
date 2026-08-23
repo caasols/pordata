@@ -69,8 +69,9 @@ The pipeline, end to end, all live on `main`:
   `npm run build` in `site/` writes the static bundle into `docs/`, committed, ~106 KB
   gzipped; `site.yml` build-checks every push touching `site/`; never hand-edit
   `docs/index.html`/`docs/assets/`). Features: ranked fuzzy matching (substring > prefix >
-  bounded edit distance), key-based i18n in six languages (PT/EN/ES/FR/DE/IT) with all 24 EU
-  languages listed (rest greyed), `name_en` on every row derived free from the `/en` sitemap
+  bounded edit distance), key-based i18n with strings prepared in six languages
+  (PT/EN selectable per decision — content exists in PT/EN only; roadmap 7), all 24 EU
+  languages listed greyed, `name_en` on every row derived free from the `/en` sitemap
   slugs, opt-in area filter pills in one swipeable row, a sort pill (newest/oldest/A→Z/Z→A,
   newest default), infinite scroll in device-sized chunks, featured and
   "descontinuado" badges, light/dark theme, PORDATA credited prominently, every hit linking
@@ -85,7 +86,7 @@ The pipeline, end to end, all live on `main`:
 - **Quality — Python**: 46 unit tests (85% line coverage, `--fail-under=80` CI gate) plus
   full mutation testing on every push (mutmut, ~1,670 mutants in ~1 min; baseline 946 killed
   / 505 survived / 217 uncovered). Network fetchers are validated by their live runs instead.
-- **Quality — site** (2026-08-23): 40 vitest tests (search/i18n logic + app behavior via
+- **Quality — site** (2026-08-23): 44 vitest tests (search/i18n logic + app behavior via
   Testing Library with mocked data; 93% line coverage, 80% gate) plus StrykerJS mutation
   testing over `site/src/lib` (vitest runner; copy/language tables marked no-mutate —
   content, not logic). Survivor hunt same day took the kill rate 69%→91% (killed a dead

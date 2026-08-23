@@ -26,7 +26,8 @@ No PORDATA data values are redistributed — metadata only, values stay at the s
 ## What's here
 
 - **The search site** (`site/` → built into `docs/`): React + Vite + Tailwind with
-  shadcn-style components — ranked fuzzy search, six UI languages (PT/EN/ES/FR/DE/IT),
+  shadcn-style components — ranked fuzzy search, UI in Portuguese and English
+  (four more languages prepared, pending indicator-content translation),
   indicator names in Portuguese and English, area filters, sorting, infinite scroll,
   light/dark theme. Served as a fully static build from GitHub Pages.
 - **A self-maintaining pipeline** (GitHub Actions): a daily sitemap watcher that opens an
