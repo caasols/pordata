@@ -5,6 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>pordata map — catálogo de indicadores</title>
 <meta name="description" content="Catálogo pesquisável dos indicadores da PORDATA. Apenas metadados; os valores estão na PORDATA e nas fontes oficiais.">
+<link rel="canonical" href="https://caasols.github.io/pordata/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://caasols.github.io/pordata/">
+<meta property="og:title" content="pordata map — catálogo de indicadores">
+<meta property="og:description" content="Catálogo pesquisável dos indicadores da PORDATA. Apenas metadados; os valores estão na PORDATA e nas fontes oficiais.">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pordata map — catálogo de indicadores">
+<meta name="twitter:description" content="Catálogo pesquisável dos indicadores da PORDATA. Apenas metadados.">
+<!-- The whole point of this project is machine discoverability, so the
+     deliverable describes itself: a DataCatalog whose distributions are
+     the same JSON/CSV the site fetches at runtime. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DataCatalog",
+  "name": "pordata map",
+  "alternateName": "PORDATA indicator catalogue (metadata)",
+  "url": "https://caasols.github.io/pordata/",
+  "description": "Machine-readable, searchable index of every PORDATA indicator: metadata only, each entry linking to its PORDATA page and naming its official sources. No data values are redistributed.",
+  "inLanguage": ["pt", "en"],
+  "isBasedOn": "https://www.pordata.pt",
+  "creator": {"@type": "Organization", "name": "Benevolus", "url": "https://benevol.us"},
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "codeRepository": "https://github.com/caasols/pordata",
+  "distribution": [
+    {"@type": "DataDownload", "encodingFormat": "application/json",
+     "contentUrl": "https://caasols.github.io/pordata/data/catalogue.json"},
+    {"@type": "DataDownload", "encodingFormat": "text/csv",
+     "contentUrl": "https://caasols.github.io/pordata/data/catalogue.csv"}
+  ],
+  "publisher": {"@type": "Organization", "name": "Fundação Francisco Manuel dos Santos",
+                "url": "https://www.pordata.pt"}
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,8 +53,8 @@
       document.documentElement.classList.add("dark");
   } catch (e) {}
 </script>
-  <script type="module" crossorigin src="./assets/index-Eznl4LMB.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C0CNpFRD.css">
+  <script type="module" crossorigin src="./assets/index-CnRm5TO_.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-f8mcvDGy.css">
 </head>
 <body>
   <div id="root"></div>

@@ -133,6 +133,45 @@ describe("App", () => {
     expect(document.querySelector("main p")).toBeNull();
   });
 
+  it("controls expose accessible names, not just placeholders", async () => {
+    render(<App />);
+    await screen.findByText("Birth rate");
+    expect(screen.getByRole("searchbox", { name: "Search indicators" }))
+      .toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Language" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Light/dark theme" }))
+      .toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /^Sort: / })).toBeInTheDocument();
+  });
+
+  it("announces the result count to assistive tech", async () => {
+    render(<App />);
+    await screen.findByText("Birth rate");
+    const status = screen.getByRole("status");
+    expect(status).toHaveTextContent("3 indicators");
+    expect(status).toHaveAttribute("aria-live", "polite");
+  });
+
+  it("empty results show a message and a working clear-filters action",
+     async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.type(screen.getByRole("searchbox"), "zzzzzznothing");
+    expect(await screen.findByText("No indicators match this search."))
+      .toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Clear filters" }));
+    expect(await screen.findByText("Birth rate")).toBeInTheDocument();
+    expect(screen.queryByText("No indicators match this search."))
+      .not.toBeInTheDocument();
+  });
+
+  it("clear-filters is offered only when something is filtering", async () => {
+    render(<App />);
+    await screen.findByText("Birth rate");
+    expect(screen.queryByRole("button", { name: "Clear filters" })).toBeNull();
+  });
+
   it("footer carries the studio credit and build state", async () => {
     render(<App />);
     await screen.findByText("Birth rate");

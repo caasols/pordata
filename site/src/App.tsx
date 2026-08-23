@@ -154,7 +154,7 @@ export default function App() {
         <div className="flex flex-shrink-0 items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button aria-label="Language">
+              <Button aria-label={t("langLabel")}>
                 {lang.toUpperCase()}
                 <ChevronDown className="size-3.5 text-muted-foreground" />
               </Button>
@@ -174,7 +174,7 @@ export default function App() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button size="icon" aria-label="Light/dark theme"
+          <Button size="icon" aria-label={t("themeLabel")}
                   className="text-muted-foreground" onClick={toggleTheme}>
             {dark ? <Sun className="size-4" />
                   : <Moon className="size-4" />}
@@ -191,20 +191,25 @@ export default function App() {
         />
       )}
 
-      <Input
-        type="search"
-        autoComplete="off"
-        autoFocus
-        className="h-11"
-        placeholder={t("placeholder")}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <search>
+        <Input
+          type="search"
+          autoComplete="off"
+          autoFocus
+          className="h-11"
+          aria-label={t("searchLabel")}
+          placeholder={t("placeholder")}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </search>
 
       <div className="no-scrollbar mb-1.5 mt-3.5 flex flex-nowrap gap-2 overflow-x-auto pb-0.5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className={cn(chipClass(sortMode !== DEFAULT_SORT),
+            <button
+              aria-label={`${t("sortLabel")}: ${t(SORT_KEYS[sortMode])}`}
+              className={cn(chipClass(sortMode !== DEFAULT_SORT),
                 "inline-flex items-center gap-1.5")}>
               <ArrowUpDown className="size-3.5" />
               {t(SORT_KEYS[sortMode])}
@@ -234,12 +239,26 @@ export default function App() {
         ))}
       </div>
 
-      <div className="mx-0.5 my-3 text-sm text-muted-foreground">
+      <div className="mx-0.5 my-3 text-sm text-muted-foreground"
+           role="status" aria-live="polite">
         {meta}
       </div>
 
       <div>
         {failed && <div>{t("loadfail")}</div>}
+        {!failed && rows !== null && hits.length === 0 && (
+          <Card className="my-2.5 px-4 py-6 text-center">
+            <p className="text-sm text-muted-foreground">{t("empty")}</p>
+            {(query || active.size > 0) && (
+              <Button
+                className="mt-3"
+                onClick={() => { setQuery(""); setActive(new Set()); }}
+              >
+                {t("clearFilters")}
+              </Button>
+            )}
+          </Card>
+        )}
         {hits.slice(0, shown).map(([, r]) => {
           const [primary, alt] = displayNames(r, lang);
           return (
