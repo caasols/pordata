@@ -37,11 +37,20 @@ an attributed "Resumo PORDATA" — the quadro-resumo is PORDATA's per-location o
 same 37/56 indicators on every município's and country's page).
 
 Next up per the roadmap in `context.md` (execution order in its header): the card design pass
-with Claude Design (roadmap 10) — the card just gained the summary badge and item 8's labels
-will add more chips to it, so design it once — then the PORDATA→upstream **crosswalk** (gated
-on the INE cache — owner unblock) and the rest of the label-filter design (roadmap 8); Phase D
-(MCP server) gated on owner go. FFMS was emailed
-2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
+(roadmap 10) — the card just gained the summary badge and item 8's labels will add more chips
+to it, so design it once — then the PORDATA→upstream **crosswalk** (gated on the INE cache —
+owner unblock) and the rest of the label-filter design (roadmap 8); Phase D (MCP server) gated
+on owner go. FFMS was emailed 2026-08-21, reply pending; ledger attempts remain the owner's
+evidence-gathering task.
+
+**Direction set 2026-08-23 (owner):** the project does not stop at a catalogue of pointers. Go
+to the sources, pull and archive the series, and build the UI PORDATA does not have — charts
+people can work with. This stays inside decision 1: what gets redistributed is INE's, Eurostat's
+and BPstat's data under *their* terms, never PORDATA's rendering of it; PORDATA's contribution
+remains the curation. New roadmap items **13** (read and record the three upstream licences —
+owner, laptop, gates 14), **14** (the series archive, gated on the crosswalk) and **15**
+(per-indicator detail pages with charts). Knock-on: with an internal click target the result
+card becomes a routing decision, so roadmap 10 is a **subtractive** pass.
 
 ## How it runs
 

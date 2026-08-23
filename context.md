@@ -275,6 +275,14 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
    unnecessary. A catalogue of facts *about* PORDATA's holdings is a different legal object from a
    copy of its content. Cost if wrong: if FFMS objects even to metadata harvesting, the catalogue
    plan needs their cooperation instead, which is why they were emailed first.
+   **Widened 2026-08-23 (owner).** "Serve values from upstream" means *fetch and archive from
+   upstream*, not merely link out to it. Reusing an INE, Eurostat or BPstat series under that
+   body's own terms is a different legal object from copying PORDATA's rendering of it;
+   PORDATA's contribution stays what the central insight says it is — the curation. The binding
+   constraint therefore moves from PORDATA's terms to each upstream's, which is why item 13
+   (read and record those three licences) gates item 14 (the archive). The goal is not to
+   mirror PORDATA but to replace what it does with the numbers: its UI cannot show a series
+   properly, and stages 3 and 4 of the framing above are unreachable without holding values.
 2. **Problem first, solution later.** Why: the owner's explicit call at the start; produced the
    framing above before any code. Superseded in practice by decision 6, with the ledger kept as
    the evidence base and acceptance tests.
@@ -340,19 +348,24 @@ retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 1. **10 — card design pass** with Claude Design. Next up: the card now carries the summary
    badge as well, and item 8's labels will add more chips to it, so design it once.
 2. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
-   largest item on the board and the gateway to Phase D; blocked only on a laptop.
-3. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-4. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
+   largest item on the board and the gateway to everything below it; blocked only on a laptop.
+   **13** rides along in the same laptop session — it is reading, not building, and it gates 14.
+3. **14 → 15 — the series archive, then per-indicator detail pages.** The direction set by the
+   owner 2026-08-23: pull from the sources, archive, and build the UI PORDATA does not have.
+   Both are hard-gated on 2; 14 is additionally gated on 13.
+4. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+5. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
 
 *Done 2026-08-23: **12** (summary pill + rename) and **6a** (parse-time shape assertions).*
 
 Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
 
 **Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
-crosswalk — the roadmap's biggest strategic lever), the item 12 name call
-("Destaques"/"Highlights" proposed), the ~20-record spot-check, curating
+crosswalk — the roadmap's biggest strategic lever), the three upstream licence texts (item 13,
+same laptop session), the ~20-record spot-check, curating
 `data/catalogue/FEATURED-UNMATCHED.md` (item 1), and ledger attempts (3). *Done: the id-1221
-browser check — dead for humans too, so it is retired rather than retried.*
+browser check — dead for humans too, so it is retired rather than retried; and the item 12 name
+call ("Resumo"/"Summary").*
 
 1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
    upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
@@ -496,7 +509,13 @@ browser check — dead for humans too, so it is retired rather than retried.*
    (long municipal names, tag-heavy featured rows, tombstoned rows) before touching
    `App.tsx`. Owner picks the winner on the canvas; then implement with the existing
    shadcn tokens. Coordinates with item 8 (labels add more chips to the same card —
-   design them together, not twice).
+   design them together, not twice) and with item 15: once the click target is an internal
+   detail page rather than pordata.pt, the card is a routing decision — *is this the row I
+   meant?* — not a summary, so the pass should be subtractive. Measured 2026-08-23 and
+   settling the description question: **96.3% of descriptions are exactly PORDATA's SEO
+   template** ("Conheça as estatísticas atualizadas de «título»… Saiba mais!"), 1.6% are free
+   of marketing verbs and 0.5% are definitional — so on ~99% of cards the description restates
+   the title inside a call to action.
 
 12. **Summary pill + rename** — *done 2026-08-23.* Owner picked **"Resumo" / "Summary"**
    after establishing what the quadro-resumo actually is: not an aggregation across
@@ -508,6 +527,53 @@ browser check — dead for humans too, so it is retired rather than retried.*
    badge changed from the raw internal `★ quadro_resumo` to an attributed, localized
    **"Resumo PORDATA"** with a tooltip naming the source, six languages, `aria-pressed`, and
    clear-filters releasing it. 43 badged rows; ANDed with Europa, 26.
+
+13. **Upstream reuse terms — read and record** *(owner, laptop, ~30 min; gates item 14)*. Before
+   a single upstream value is archived, read and record the actual reuse licence of each source
+   the archive would draw on: **Eurostat** (Commission reuse policy), **INE** (Statistics
+   Portugal's terms of use) and **BPstat** (Banco de Portugal). For each, record in this file:
+   the licence name, its URL, the exact attribution string it requires, and whether it permits
+   redistribution of derived/reformatted series (not just display). *Not yet checked from this
+   sandbox — it has no route to any of the three, and decision 7 exists because an upstream was
+   once asserted from memory.* Expected outcome is three source-citation regimes rather than
+   three blockers, but "expected" is not "recorded". Prevention: the archive job should refuse
+   to write a series whose source has no recorded licence entry.
+
+14. **Series archive — pull the numbers from the sources** *(gated on 2 + 13)*. The turn from a
+   catalogue of pointers into a data layer. For each crosswalked indicator, fetch the series
+   from its upstream API, normalise to one long-format schema (indicator, geography, period,
+   value, unit, flag), and archive it on the same git-scraping cadence the harvest already
+   runs. Three things to settle before building, each answerable from a pilot rather than in
+   the abstract:
+   - **Size.** A municipal indicator is ~308 geographies x ~65 years x breakdowns; across
+     ~2,200 indicators that plausibly spans tens of MB to several GB. Measure it on ~10 real
+     series across the three sources *first* — the answer decides whether this lives next to
+     `catalogue.json` in git or needs different storage entirely.
+   - **Vintages, not just latest.** Archiving on a schedule yields revision history for free,
+     and INE's 2021-2024 restatement is exactly the case decision 5 was written for. Neither
+     PORDATA nor INE lets anyone see what changed between releases; keeping vintages is the
+     cheapest genuinely new thing on this roadmap.
+   - **Honesty about coverage.** Uncrosswalked indicators keep `crosswalk: null` and simply
+     have no series. The site must render that state as a first-class case, never as an error.
+   Preconditions in QA thresholds, not prose: a per-source fetch-success floor, a schema
+   conformance check, and a size budget that trips before the repo does.
+
+15. **Per-indicator detail pages with charts** *(owner direction 2026-08-23; gated on 14 for
+   the charts)*. Replace the click-out to pordata.pt with a page this project owns: the
+   indicator's full metadata, its upstream attribution per decision 5 (source, vintage,
+   revision caveat rendered *with* the series, not in a footer), and a chart the user can
+   actually work with — pick geographies, pick a window, compare. This is stages 3
+   (Combination) and 4 (Interpretation) of the framing, which no amount of catalogue work
+   reaches. Two decisions to take when it starts:
+   - **Routing on GitHub Pages.** Hash routing is cheap but unshareable and invisible to
+     crawlers; pre-rendering ~2,200 static pages at build time costs build minutes and buys a
+     real canonical URL plus per-indicator JSON-LD. Lean pre-render — discoverability is the
+     project's stated purpose.
+   - **A metadata-only version can ship before 14.** A detail page with no chart still beats
+     bouncing to a page from the year 2000, and it de-risks the routing decision early.
+   Knock-on to item 10: once the click target is internal, the card is a routing decision, not
+   a summary, so it should get *smaller*. A sparkline is the one element that would later earn
+   a place on it — gated on 14, so design the card without it and leave the slot.
 
 ## Verification
 
