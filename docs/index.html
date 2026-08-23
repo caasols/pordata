@@ -413,7 +413,11 @@
   // ---- rendering -----------------------------------------------------
   // Area chips are opt-in filters: none selected means show everything.
   const active = new Set();
-  const MAX = 60;
+  // Render chunk sized to the device: roughly two viewports of cards
+  // (~150px each) per append, so a phone paints ~12 while a desktop
+  // paints ~16-30; the 800px sentinel margin hides the seams.
+  const CHUNK = Math.min(60,
+    Math.max(10, Math.ceil(window.innerHeight / 150) * 2));
 
   function displayNames(r) {
     const primary = lang === "pt" ? (r.name || r.name_en)
@@ -443,7 +447,7 @@
       </div>`;
   }
 
-  // Infinite scroll: hits render MAX at a time; a sentinel below the
+  // Infinite scroll: hits render CHUNK at a time; a sentinel below the
   // list appends the next chunk as it comes near the viewport.
   let hits = [], shown = 0;
 
@@ -455,7 +459,7 @@
 
   function showMore() {
     if (shown >= hits.length) return;
-    const next = hits.slice(shown, shown + MAX);
+    const next = hits.slice(shown, shown + CHUNK);
     shown += next.length;
     $("out").insertAdjacentHTML("beforeend",
       next.map(([, r]) => cardHTML(r)).join(""));

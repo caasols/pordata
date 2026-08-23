@@ -292,6 +292,16 @@ Only open work. History lives in "What has been built" and git.
    progressively by translating the `STRINGS` block (ES/FR/DE/IT UI strings already exist
    in the file, greyed pending the content-language decision) and adding the code to
    `AVAILABLE`.
+8. **Label system for filtering** *(owner ask 2026-08-23; design first)*. Richer filters
+   beyond the three area pills, as clickable labels on cards plus a filter row. Candidate
+   label sources, by value: **(a) PORDATA's own theme taxonomy** — the strongest, it *is* the
+   curation — via the 260 `subtema` pages in the sitemap (a one-off ~1.7 h harvest at the
+   polite pace would map indicators to temas/subtemas; check first whether subtema pages are
+   server-rendered lists like the quadros were); **(b) source entity** from `fontes`, already
+   harvested — 223 raw strings that need normalising to ~30 organisations (INE, Eurostat,
+   OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
+   stale >5y); **(d) status** (featured, descontinuado — already badges, not yet filters).
+   Start with (b)+(c) (zero new requests), design (a)'s harvest, then the UI.
 
 ## Verification
 
