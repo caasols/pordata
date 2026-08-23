@@ -5,13 +5,24 @@ name: spikes
 # analyses under data/spikes/; raw responses go to a workflow artifact
 # only, so no PORDATA/INE page content lands in the repo.
 #
-# Dispatch-only: these probes are finished research, and their
-# conclusions are recorded in context.md. A push trigger re-ran them on
-# any edit to the scripts - even a comment - burning polite requests on
-# questions already answered (2026-08-23 audit).
+# Dispatch-only, and one probe per run. These are one-off questions: a
+# push trigger used to re-run them on any edit to the scripts - even a
+# comment - burning polite requests on questions already answered
+# (2026-08-23 audit). Running every probe on every dispatch is the same
+# waste in a different shape, so the probe is chosen explicitly.
 
 on:
   workflow_dispatch:
+    inputs:
+      probe:
+        description: "Which probe to run (each costs polite requests)"
+        required: true
+        default: a3
+        type: choice
+        options:
+          - a1
+          - a2
+          - a3
 
 permissions:
   contents: write
@@ -27,10 +38,16 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Spike A1: PORDATA indicator page probe"
+        if: inputs.probe == 'a1'
         run: python3 scripts/spike_pordata_probe.py
 
       - name: "Spike A2: INE catalogue enumerability"
+        if: inputs.probe == 'a2'
         run: python3 scripts/spike_ine_catalogue.py
+
+      - name: "Spike A3: period, geography and unit in the page HTML"
+        if: inputs.probe == 'a3'
+        run: python3 scripts/spike_coverage_fields.py
 
       - name: Upload raw responses as artifact
         uses: actions/upload-artifact@v4
@@ -47,6 +64,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No report changes."
           else
-            git commit -m "data: spike reports (A1 pordata probe, A2 ine catalogue)"
+            git commit -m "data: spike report (${{ inputs.probe }})"
             git push
           fi
