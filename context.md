@@ -259,9 +259,11 @@ Only open work. History lives in "What has been built" and git.
      fuzzy search remains the instant baseline; the query-embedding model (~25–30 MB
      quantized) lazy-loads in the background via transformers.js, is cached by the browser
      per device (one-time download, ~50–200 ms local inference thereafter), and silently
-     upgrades results to hybrid ranking when ready. Respect the `Save-Data` header (skip
-     auto-load on metered connections) and keep the model optional — the page must remain
-     fully useful without it.
+     upgrades results to hybrid ranking when ready. Two caveats weighed and accepted by
+     the owner (2026-08-23) with their mitigations: metered-data cost → respect the
+     `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
+     useful without it; low-end phone memory during inference → that is why the model
+     must stay in the small-quantized class, not a larger one.
 7. **Quality follow-ups**: drive the mutation kill rate up from 65% and turn it into a CI gate;
    deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
 8. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
