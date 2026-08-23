@@ -34,6 +34,7 @@ else:  # executed directly, e.g. python3 scripts/build_catalogue.py
     import pordata_lib as lib
 
 FEATURED_FILE = pathlib.Path("data/catalogue/featured.json")
+UNMATCHED_FILE = pathlib.Path("data/catalogue/FEATURED-UNMATCHED.md")
 OUT_DIR = pathlib.Path("docs/data")
 
 AREA_LABELS = {"portugal": "Portugal", "municipios": "Municípios",
@@ -77,13 +78,56 @@ def content_tokens(s: str) -> set[str]:
     return tokens
 
 
+# Quadro names that carry an inline definition after a dash, and the
+# negation words that must agree between a quadro name and its match
+# ("Alunos do ensino NÃO superior" must never match "ensino superior").
+DEFINITION_DASH = re.compile(r"\s+[—–-]\s+")
+NEGATIONS = {"nao", "sem"}
+
+# Tokens that flip an indicator's meaning. A candidate carrying one the
+# quadro name does not is a different indicator, however well its other
+# tokens overlap: each of these was an observed mis-match before the
+# 2026-08-23 audit ("antes"->"após transferências sociais", "feminina"
+# ->"Homens", plain "Taxa de desemprego"->"de longa duração",
+# "Casamentos"->"Casamentos dissolvidos por morte").
+CONTRAST = {"ante", "apo", "homen", "mulhere", "feminina", "masculina",
+            "longa", "densidade", "concentracao", "dissolvido", "morte",
+            "dependencia", "credito", "desigualdade"}
+
+# Beyond an exact name match we accept a candidate only when it contains
+# EVERY quadro token (containment 1.0) and adds at most this many of its
+# own. Matching a human curation is a curation problem: precision here,
+# `overrides` in featured.json for the rest. Loosening this re-introduces
+# the wrong-indicator-under-a-curated-badge failure.
+MAX_EXTRA_TOKENS = 2
+
+
+def split_definition(name: str) -> str:
+    """Quadro-resumo names often append a definition after a dash
+    ('Índice de envelhecimento — número de idosos…'); the catalogue
+    carries only the head."""
+    return DEFINITION_DASH.split(name, maxsplit=1)[0].strip()
+
+
 def resolve_featured(records: dict) -> tuple[dict[tuple, list[str]], dict]:
     """Match quadro-resumo indicator names to catalogue (area, id) keys
-    (the quadro pages carry names but no ids). Exact normalized match
-    first, then best token-overlap >= 0.7 within the group's area."""
+    (the quadro pages carry names but no ids).
+
+    Three passes per group, each **injective** — a catalogue entry can
+    satisfy at most one quadro name, so near-identical names (the five
+    school levels, 'antes'/'após transferências sociais') can no longer
+    collapse onto one id and mis-flag four of them:
+      1. owner overrides from featured.json (`overrides`), for names the
+         matcher cannot reach;
+      2. exact normalized match, on the full name then the dash-split head;
+      3. token containment >= FUZZY_FLOOR, assigned globally best-first,
+         with negation words required to agree and the candidate carrying
+         the fewest extra tokens preferred.
+    """
     if not FEATURED_FILE.exists():
         return {}, {}
     data = json.loads(FEATURED_FILE.read_text(encoding="utf-8"))
+    overrides = data.get("overrides", {})
     flags: dict[tuple, list[str]] = {}
     stats: dict = {}
     for group, area in GROUP_AREAS.items():
@@ -93,37 +137,109 @@ def resolve_featured(records: dict) -> tuple[dict[tuple, list[str]], dict]:
         pool = [(norm_name(r["name"]), content_tokens(r["name"]), r["id"])
                 for r in records.values()
                 if "error" not in r and r["area"] == area and r.get("name")]
-        exact = {}
+        exact: dict[str, int] = {}
         for n, _, rid in pool:
             exact.setdefault(n, rid)
-        matched, unmatched = 0, []
+
+        assigned: dict[str, int] = {}
+        taken: set[int] = set()
+
+        for name, rid in overrides.get(group, {}).items():
+            if name in names and rid not in taken:
+                assigned[name], _ = rid, taken.add(rid)
+
         for name in names:
-            n = norm_name(name)
-            rid = exact.get(n)
+            if name in assigned:
+                continue
+            for form in (norm_name(name), norm_name(split_definition(name))):
+                rid = exact.get(form)
+                if rid is not None and rid not in taken:
+                    assigned[name], _ = rid, taken.add(rid)
+                    break
+
+        scored = []
+        for name in names:
+            if name in assigned:
+                continue
+            tokens = content_tokens(split_definition(name))
+            if not tokens:
+                continue
+            for _, cand_tokens, pid in pool:
+                if not tokens <= cand_tokens:      # containment must be 1.0
+                    continue
+                extra = cand_tokens - tokens
+                if len(extra) > MAX_EXTRA_TOKENS or extra & CONTRAST:
+                    continue
+                if (cand_tokens & NEGATIONS) != (tokens & NEGATIONS):
+                    continue
+                scored.append((-len(extra), name, pid))
+        # fewest extra tokens first, then a stable name order, so the
+        # assignment is deterministic and each id is claimed once
+        for _, name, pid in sorted(scored, key=lambda c: (c[0], c[1]),
+                                   reverse=True):
+            if name in assigned or pid in taken:
+                continue
+            assigned[name], _ = pid, taken.add(pid)
+
+        for name in names:
+            rid = assigned.get(name)
             if rid is None:
-                tokens = content_tokens(name)
-                best, best_score, best_extra = None, 0.0, 10**9
-                if len(tokens) >= 2:
-                    for _, pt, pid in pool:
-                        # containment: quadro names are shortened subsets
-                        score = len(tokens & pt) / len(tokens)
-                        extra = len(pt - tokens)
-                        if score > best_score or \
-                                (score == best_score and extra < best_extra):
-                            best, best_score, best_extra = pid, score, extra
-                if best_score >= 0.7:
-                    rid = best
-            if rid is None:
-                unmatched.append(name)
-            else:
-                matched += 1
-                key = (area, rid)
-                flags.setdefault(key, [])
-                if "quadro_resumo" not in flags[key]:
-                    flags[key].append("quadro_resumo")
-        stats[group] = {"names": len(names), "matched": matched,
-                        "unmatched": unmatched}
+                continue
+            key = (area, rid)
+            flags.setdefault(key, [])
+            if "quadro_resumo" not in flags[key]:
+                flags[key].append("quadro_resumo")
+        stats[group] = {
+            "names": len(names),
+            "matched": len(assigned),
+            # distinct rows is what the site actually shows; it equalled
+            # matched only by accident before injectivity was enforced
+            "distinct_rows": len(taken),
+            "unmatched": [n for n in names if n not in assigned],
+        }
     return flags, stats
+
+
+def write_unmatched_worksheet(records: dict, stats: dict) -> None:
+    """Quadro names the matcher deliberately would not guess at, each
+    with its nearest catalogue candidates and a paste-ready snippet for
+    featured.json's `overrides`. Matching a human curation needs a human
+    for the tail; this makes that a copy-paste job, not research."""
+    if not stats:
+        return
+    lines = ["# Featured (quadro-resumo) names still unmatched", "",
+             "The matcher only accepts exact names and containment "
+             "matches with at most "
+             f"{MAX_EXTRA_TOKENS} extra tokens (audit ②: looser rules "
+             "flagged the wrong indicator under a curated badge). The "
+             "rest are listed here with candidates.", "",
+             "Some have no counterpart at all — several quadro rows are "
+             "derived aggregates PORDATA publishes only inside the "
+             "quadro, and a few share one catalogue page. Those stay "
+             "unmatched by design; leave them.", "",
+             "To pin one, add it to `data/catalogue/featured.json`:", "",
+             "```json", '"overrides": {"<group>": {"<quadro name>": <id>}}',
+             "```", ""]
+    for group, area in GROUP_AREAS.items():
+        st = stats.get(group)
+        if not st or not st["unmatched"]:
+            continue
+        pool = [(content_tokens(r["name"]), r["id"], r["name"])
+                for r in records.values()
+                if "error" not in r and r["area"] == area and r.get("name")]
+        lines += [f"## {group} — {len(st['unmatched'])} of {st['names']} "
+                  f"unmatched", ""]
+        for name in st["unmatched"]:
+            tokens = content_tokens(split_definition(name))
+            ranked = sorted(
+                ((len(tokens & ct) / len(tokens) if tokens else 0,
+                  -len(ct - tokens), rid, nm) for ct, rid, nm in pool),
+                key=lambda c: (c[0], c[1]), reverse=True)[:3]
+            lines.append(f"- **{name}**")
+            for score, neg_extra, rid, nm in ranked:
+                lines.append(f"  - `{rid}` {score:.0%} (+{-neg_extra}) {nm}")
+        lines.append("")
+    UNMATCHED_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def build_en_names(sitemap_text: str) -> dict[tuple, str]:
@@ -185,6 +301,7 @@ def main() -> None:
     records = lib.load_records()
     current = set(lib.targets())
     featured_flags, featured_stats = resolve_featured(records)
+    write_unmatched_worksheet(records, featured_stats)
     en_names = build_en_names(lib.URLS_FILE.read_text(encoding="utf-8"))
 
     rows = []
@@ -268,6 +385,10 @@ def main() -> None:
     if featured_stats:
         stats["featured"] = {
             g: {"names": s["names"], "matched": s["matched"],
+                # distinct_rows is what the site shows; before injectivity
+                # it silently exceeded the flagged-row count (audit ②)
+                "distinct_rows": s["distinct_rows"],
+                "collisions": s["matched"] - s["distinct_rows"],
                 "unmatched": len(s["unmatched"])}
             for g, s in featured_stats.items()}
         for g, s in featured_stats.items():

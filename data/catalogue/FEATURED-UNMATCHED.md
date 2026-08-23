@@ -1,0 +1,218 @@
+# Featured (quadro-resumo) names still unmatched
+
+The matcher only accepts exact names and containment matches with at most 2 extra tokens (audit ②: looser rules flagged the wrong indicator under a curated badge). The rest are listed here with candidates.
+
+Some have no counterpart at all — several quadro rows are derived aggregates PORDATA publishes only inside the quadro, and a few share one catalogue page. Those stay unmatched by design; leave them.
+
+To pin one, add it to `data/catalogue/featured.json`:
+
+```json
+"overrides": {"<group>": {"<quadro name>": <id>}}
+```
+
+## quadro_resumo_municipios — 20 of 37 unmatched
+
+- **Superfície em km 2**
+  - `42` 50% (+1) Superfície ardida
+  - `57` 50% (+1) Superfície por Territórios
+  - `947` 50% (+2) Superfície ardida (percentagem)
+- **Idosos por 100 jovens**
+  - `461` 33% (+2) Índice de dependência de idosos
+  - `460` 33% (+2) Índice de dependência de jovens
+  - `761` 33% (+4) Dormidas nos alojamentos turísticos por 100 habitantes
+- **Nascimentos**
+  - `842` 100% (+6) Idade média da mãe ao nascimento de um filho
+  - `843` 100% (+6) Idade média da mãe ao nascimento do primeiro filho
+  - `904` 100% (+6) Nascimentos, mortes e sobrevivência a 1 ano de empresas não financeiras
+- **Saldo natural**
+  - `376` 100% (+3) Saldos populacionais anuais: total, natural e migratório
+  - `463` 100% (+5) Contributo dos saldos natural e migratório para a variação populacional anual (%)
+  - `31` 50% (+2) Consumo de gás natural
+- **Edifícios novos concluídos para habitação familiar**
+  - `102` 80% (+2) Edifícios concluídos para habitação familiar: total e por tipo de obra
+  - `88` 60% (+1) Edifícios de habitação familiar clássica
+  - `107` 60% (+3) Edifícios licenciados para habitação familiar: total e por tipo de obra
+- **Estabelecimentos do ensino pré-escolar**
+  - `213` 100% (+3) Estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino
+  - `215` 100% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário privado: por nível de ensino
+  - `214` 100% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário público: por nível de ensino
+- **Estabelecimentos do 1.º ciclo do ensino básico**
+  - `213` 75% (+3) Estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino
+  - `215` 75% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário privado: por nível de ensino
+  - `214` 75% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário público: por nível de ensino
+- **Estabelecimentos do 2.º ciclo do ensino básico**
+  - `213` 75% (+3) Estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino
+  - `215` 75% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário privado: por nível de ensino
+  - `214` 75% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário público: por nível de ensino
+- **Estabelecimentos do 3.º ciclo do ensino básico**
+  - `213` 75% (+3) Estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino
+  - `215` 75% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário privado: por nível de ensino
+  - `214` 75% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário público: por nível de ensino
+- **Estabelecimentos do ensino secundário**
+  - `213` 100% (+3) Estabelecimentos nos ensinos pré-escolar, básico e secundário: por nível de ensino
+  - `215` 100% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário privado: por nível de ensino
+  - `214` 100% (+4) Estabelecimentos nos ensinos pré-escolar, básico e secundário público: por nível de ensino
+- **Alunos do ensino não superior**
+  - `305` 75% (+2) Alunos matriculados no ensino superior: total e por sexo
+  - `301` 75% (+2) Alunos matriculados no ensino superior: total e por subsistema de ensino
+  - `302` 75% (+2) Alunos matriculados no ensino superior: total e por tipo de ensino
+- **Pessoal ao serviço nas quatro maiores empresas do município (%) — Empresas não financeiras**
+  - `991` 86% (+3) Concentração de pessoal ao serviço das quatro maiores empresas não financeiras (%)
+  - `915` 57% (+3) Empresas não financeiras: total e por escalão de pessoal ao serviço
+  - `353` 57% (+5) Pessoal ao serviço nas empresas não financeiras: total e por setor de atividade económica
+- **Volume de negócios das quatro maiores empresas do município (%) — Empresas não financeiras**
+  - `924` 83% (+6) Concentração do volume de negócios e do valor acrescentado bruto das quatro maiores empresas não financeiras (%)
+  - `589` 50% (+5) Volume de negócios das empresas não financeiras: total e por setor de atividade económica
+  - `991` 50% (+6) Concentração de pessoal ao serviço das quatro maiores empresas não financeiras (%)
+- **Bancos, Caixas Económicas**
+  - `368` 100% (+4) Estabelecimentos de bancos, caixas económicas e caixas de crédito agrícola mútuo
+  - `385` 100% (+6) Crédito concedido a clientes por bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de crédito
+  - `377` 100% (+6) Depósitos de clientes nos bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de cliente
+- **Caixas de Crédito Agrícola Mútuo**
+  - `368` 100% (+3) Estabelecimentos de bancos, caixas económicas e caixas de crédito agrícola mútuo
+  - `385` 100% (+5) Crédito concedido a clientes por bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de crédito
+  - `377` 100% (+5) Depósitos de clientes nos bancos, caixas económicas e caixas de crédito agrícola mútuo: total e por tipo de cliente
+- **Beneficiários do Rendimento Social de Inserção (RSI)**
+  - `513` 80% (+4) Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social: total e por sexo
+  - `515` 80% (+5) Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social: total e por grupo etário
+  - `715` 80% (+8) Beneficiários do Rendimento Mínimo Garantido e Rendimento Social de Inserção da Segurança Social no total da população residente com 15 e mais anos (%)
+- **Desempregados inscritos nos centros de emprego em % da população residente — com 15 a 64 anos**
+  - `592` 100% (+5) Desempregados inscritos nos centros de emprego e de formação profissional no total da população residente com 15 a 64 anos (%)
+  - `220` 67% (+2) Desempregados inscritos nos centros de emprego e de formação profissional
+  - `227` 67% (+5) Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por sexo
+- **Consumo de energia elétrica por habitante (kWh)**
+  - `435` 80% (+1) Consumo de energia elétrica por habitante: total e por tipo de consumo
+  - `25` 60% (+1) Consumo de energia elétrica: total e por tipo de consumo
+  - `18` 60% (+2) Consumidores de energia elétrica: total e por tipo de consumo
+- **Resíduos urbanos recolhidos seletivamente por habitante (kg)**
+  - `439` 83% (+0) Resíduos urbanos recolhidos seletivamente por habitante
+  - `438` 67% (+0) Resíduos urbanos recolhidos por habitante
+  - `65` 33% (+2) Resíduos urbanos: total e por tipo de recolha
+- **Despesas dos municípios em ambiente per capita**
+  - `434` 100% (+4) Despesas dos municípios em ambiente <em>per capita</em>: por domínios de gestão e proteção ambiental
+  - `794` 60% (+0) Despesas dos municípios em ambiente em % do total de despesas
+  - `12` 60% (+3) Despesas dos municípios em ambiente: total e por domínios de gestão e proteção do ambiente
+
+## quadro_resumo_europa — 30 of 56 unmatched
+
+- **Jovens (%) — indivíduos entre os 0 e os 14 anos**
+  - `1928` 100% (+2) Índice de dependência de jovens
+  - `3569` 100% (+8) Taxa de jovens não empregados que não estão em educação ou formação: total e por sexo
+  - `1290` 0% (+2) Aquisições de nacionalidade
+- **Indivíduos em idade activa por idoso — indivíduos entre os 15 e os 64 anos por cada indivíduo com 65 ou mais anos**
+  - `1818` 75% (+2) Número de indivíduos em idade ativa por idoso
+  - `1929` 25% (+2) Índice de dependência de idosos
+  - `1755` 25% (+2) População ativa no total da população em idade ativa (%)
+- **Idade média de maternidade**
+  - `2408` 67% (+5) Idade média da mãe ao nascimento de um filho
+  - `3468` 67% (+5) Idade média da mãe ao nascimento do primeiro filho
+  - `3158` 33% (+2) Dimensão média das empresas: total
+- **Nascimentos fora do casamento (%)**
+  - `1800` 67% (+1) Nados-vivos fora do casamento (%)
+  - `1247` 67% (+1) Nados-vivos: total, no casamento e fora do casamento
+  - `1264` 33% (+3) Evolução do número de Casamentos por países
+- **Famílias (milhares)**
+  - `2692` 50% (+2) Taxa de poupança das famílias
+  - `2967` 50% (+5) Consumo das famílias no território económico: total e por durabilidade (Euro)
+  - `3551` 50% (+5) Consumo de energia final das famílias <em>per capita</em>
+- **Dimensão média das famílias**
+  - `3158` 67% (+1) Dimensão média das empresas: total
+  - `3659` 67% (+2) Dimensão média das explorações agrícolas
+  - `1613` 67% (+3) Dimensão média dos agregados domésticos privados
+- **Taxa de abandono precoce de educação e formação (%)**
+  - `3569` 60% (+6) Taxa de jovens não empregados que não estão em educação ou formação: total e por sexo
+  - `1350` 40% (+2) Taxa de abandono escolar: total e por sexo
+  - `1565` 20% (+1) Taxa de divórcio
+- **População, 25-34 anos, com ensino superior (%)**
+  - `3401` 80% (+5) População, entre os 30 e os 34 anos, com o ensino superior (ISCED 5-8) (%)
+  - `3554` 80% (+6) População, entre os 25 e os 34 anos, com o ensino superior (ISCED 5-8): total e por sexo (%)
+  - `3490` 80% (+6) População com o ensino superior (ISCED 5-8) em % da população entre os 25 e os 64 anos: total e sexo
+- **População feminina empregada a tempo parcial (%)**
+  - `1603` 80% (+1) População empregada: total e a tempo completo e parcial
+  - `1604` 80% (+2) População empregada a tempo completo e parcial ? Homens
+  - `1611` 80% (+2) População empregada a tempo completo e parcial ? Mulheres
+- **Trabalhadores por conta outrem sem o ensino secundário (%) — ISCED 0-2 no máximo**
+  - `2466` 50% (+3) Trabalhadores por conta de outrem em alojamentos turísticos coletivos
+  - `2470` 50% (+5) Trabalhadores por conta de outrem em % da população empregada em alojamentos turísticos coletivos
+  - `1617` 50% (+5) Trabalhadores por conta de outrem: total e por nível de escolaridade completo mais elevado
+- **Taxa de desemprego (%) — número de desempregados entre os 15 e os 74 anos por cada 100 activos do mesmo grupo etário**
+  - `2264` 100% (+3) Taxa de desemprego de longa duração: total e por sexo
+  - `1775` 100% (+5) Taxa de desemprego, dos 15 aos 74 anos: total e por sexo
+  - `1798` 100% (+6) Taxa de desemprego, dos 15 aos 64 anos, por grupo etário
+- **Taxa de desemprego da população com o ensino superior (%) — número de desempregados entre os 15 e os 74 anos com o ISCED 5-6 por cada 100 activos do mesmo grupo etário e nível de escolaridade**
+  - `3401` 60% (+6) População, entre os 30 e os 34 anos, com o ensino superior (ISCED 5-8) (%)
+  - `3554` 60% (+7) População, entre os 25 e os 34 anos, com o ensino superior (ISCED 5-8): total e por sexo (%)
+  - `3490` 60% (+7) População com o ensino superior (ISCED 5-8) em % da população entre os 25 e os 64 anos: total e sexo
+- **Taxa de desemprego da população entre os 20 e os 24 anos (%) — número de desempregados entre os 20 e os 24 anos por cada 100 activos do mesmo grupo etário**
+  - `2119` 57% (+6) Desigualdades entre taxas de desemprego, dos 15 aos 74 anos: por nível de escolaridade
+  - `1775` 43% (+4) Taxa de desemprego, dos 15 aos 74 anos: total e por sexo
+  - `3396` 43% (+4) Taxa de emprego, dos 20 aos 64 anos, por sexo
+- **Desempregados há mais de 1 ano em % do total de desempregados**
+  - `1616` 50% (+4) Agregados domésticos unipessoais: total e com 65 e mais anos
+  - `2425` 50% (+4) Pensionistas no total da população residente com 15 e mais anos (%)
+  - `1594` 50% (+4) População inativa com 15 e mais anos: total e por sexo
+- **Inactivos por 100 activos**
+  - `3354` 33% (+3) Condenados por 100 mil habitantes
+  - `1698` 33% (+3) Dentistas por 100 mil habitantes
+  - `1925` 33% (+3) Fisioterapeutas por 100 mil habitantes
+- **Despesas em investigação e desenvolvimento (I&D) em % do PIB**
+  - `1740` 100% (+3) Despesas em atividades de investigação e desenvolvimento (I&D) do setor empresas em % do PIB
+  - `1674` 100% (+3) Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB: por setor de execução
+  - `1690` 75% (+3) Despesas em atividades de investigação e desenvolvimento (I&D): total e por setor de execução (%)
+- **Despesas em I&D do sector empresas em % do total de despesas em I&D**
+  - `1740` 67% (+5) Despesas em atividades de investigação e desenvolvimento (I&D) do setor empresas em % do PIB
+  - `1696` 67% (+5) Despesas em atividades de investigação e desenvolvimento (I&D): total e do setor empresas (Euro)
+  - `2969` 33% (+1) Número total de Empresas
+- **Pessoal em I&D — ETI - equivalente a tempo integral**
+  - `3154` 100% (+3) Pessoal ao serviço nas empresas: total
+  - `1287` 100% (+4) Enfermeiros e pessoal auxiliar de cuidados de saúde
+  - `3303` 100% (+4) Pessoal ao serviço nas polícias: total e por sexo
+- **Pessoal em I&D no sector das empresas (%)**
+  - `3154` 67% (+2) Pessoal ao serviço nas empresas: total
+  - `3224` 67% (+5) Pessoal total (ETI) em atividades de investigação e desenvolvimento (I&D): total e do setor empresas
+  - `3155` 67% (+6) Pessoal ao serviço nas empresas: por alguns setores de atividade económica
+- **Pessoal em I&D em % da população activa**
+  - `3575` 67% (+7) Pessoal em atividades de investigação e desenvolvimento (I&D): equivalente a tempo integral em % da população ativa
+  - `1951` 33% (+1) População residente
+  - `2435` 33% (+2) Pensionistas em % da população ativa
+- **Agregados domésticos privados com ligação à Internet (%)**
+  - `1494` 100% (+5) Agregados domésticos privados com computador, com ligação à Internet em casa e com ligação à Internet através de banda larga (%)
+  - `1629` 60% (+2) Agregados domésticos privados por tipo de composição do agregado (%)
+  - `1615` 60% (+2) Agregados domésticos privados: total e por número de crianças
+- **Empresas com website (%) — empresas com 10 ou mais pessoas ao serviço**
+  - `1495` 100% (+9) Empresas com 10 e mais pessoas ao serviço com <em>website</em> ou <em>homepage</em> em % do total de empresas: por escalão de pessoal ao serviço
+  - `1500` 100% (+11) Empresas com 10 e mais pessoas ao serviço com <em>website</em> ou <em>homepage</em> em % do total de empresas: por alguns setores de atividade económica
+  - `2969` 50% (+1) Número total de Empresas
+- **Total Impostos sobre o rendimento**
+  - `1967` 100% (+3) Administrações Públicas: impostos sobre o rendimento (Euro)
+  - `3640` 33% (+2) Impostos ambientais em % do PIB
+  - `3639` 33% (+2) Impostos ambientais: total e por categoria de imposto
+- **Remessas de imigrantes em % PIB**
+  - `2430` 100% (+2) Remessas de emigrantes, imigrantes e saldo em % do PIB
+  - `2429` 67% (+3) Remessas de emigrantes, imigrantes e saldo (Euro)
+  - `3526` 67% (+3) Remessas de imigrantes: total, UE e extra-UE (Euro)
+- **Saldo da balança comercial em % do PIB**
+  - `1766` 75% (+0) Balança comercial em % do PIB
+  - `1553` 75% (+1) Balança comercial: saldo (Euro)
+  - `2665` 75% (+1) Balança corrente: saldos em % do PIB
+- **Área de cultivo biológico (%)**
+  - `1888` 33% (+2) Área ardida por incêndio
+  - `3537` 33% (+2) Área em agricultura biológica (%)
+  - `3626` 33% (+3) Área florestal na superfície total do país (%)
+- **Taxa de risco de pobreza antes de transferências sociais (%)**
+  - `1940` 100% (+1) Taxa de risco de pobreza: antes e após transferências sociais
+  - `2171` 83% (+2) Taxa de risco de pobreza após transferências sociais: total e por sexo
+  - `2417` 83% (+3) Taxa de risco de pobreza após transferências sociais: por nível de escolaridade
+- **População que viajou (%)**
+  - `2448` 100% (+3) População residente que viajou em turismo: total e por sexo
+  - `2527` 100% (+4) População residente que viajou em turismo em % da população residente: total e por destino da viagem
+  - `2815` 100% (+4) População residente que viajou em turismo em % da população residente: total e por grupo etário
+- **Dormidas da população não residente em alojamentos turísticos colectivos (%)**
+  - `2442` 43% (+3) Dormidas de turistas em alojamentos turísticos coletivos: total e por tipo de alojamento
+  - `2443` 43% (+3) Dormidas de turistas em alojamentos turísticos coletivos: total e por tipo de turista
+  - `2533` 43% (+4) Dormidas de turistas em alojamentos turísticos coletivos: total e por tipo de turista (percentagem)
+- **Residentes que viajaram para o estrangeiro em % da população que viajou**
+  - `3807` 60% (+1) População residente: total, nacionais e estrangeiros
+  - `2448` 60% (+2) População residente que viajou em turismo: total e por sexo
+  - `2527` 60% (+3) População residente que viajou em turismo em % da população residente: total e por destino da viagem
+

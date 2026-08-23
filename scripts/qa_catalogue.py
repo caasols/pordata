@@ -28,6 +28,7 @@ else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
 
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
 PUBLISHED = pathlib.Path("docs/data/catalogue.json")
+STATS = pathlib.Path("docs/data/stats.json")
 
 # Machine-checked floors. Every metric a feature or roadmap item depends
 # on belongs here, never in prose (decision 7b). Values sit just under
@@ -42,6 +43,13 @@ THRESHOLDS = {
     "date_iso_ratio_min": 1.0,         # of non-empty ultima_atualizacao
     "duplicate_area_id_max": 0,        # (area, id) is the catalogue key
     "published_rows_ratio_min": 0.98,  # published vs ok records
+    # Featured (quadro-resumo) matching, the precondition roadmap 8d's
+    # pill depends on. Collisions must be zero — before injectivity one
+    # catalogue id could be claimed by five quadro names, mis-flagging
+    # four. The row floor sits just under the measured 43 so a matcher
+    # regression trips instead of quietly shrinking the badge set.
+    "featured_collisions_max": 0,
+    "featured_rows_min": 40,
 }
 
 
@@ -157,6 +165,11 @@ def main(strict: bool = False) -> None:
                   f"- featured flagged rows: "
                   f"{sum(1 for r in published if r.get('featured'))}"]
 
+    featured_stats = {}
+    if STATS.exists():
+        featured_stats = json.loads(
+            STATS.read_text(encoding="utf-8")).get("featured", {})
+
     dates = [r["ultima_atualizacao"] for r in ok if r.get("ultima_atualizacao")]
     metrics = {
         "jsonl_skipped_lines": lib.SKIPPED_LINES,
@@ -172,6 +185,11 @@ def main(strict: bool = False) -> None:
         "published_rows_ratio": (len(published) / len(ok)
                                  if published and ok else 1.0),
     }
+    if featured_stats:
+        metrics["featured_collisions"] = sum(
+            g.get("collisions", 0) for g in featured_stats.values())
+        metrics["featured_rows"] = sum(
+            g.get("distinct_rows", 0) for g in featured_stats.values())
     breaches = gate(metrics)
     lines += ["", "## Gate", "",
               "Thresholds are machine-checked (decision 7b); `--strict` "

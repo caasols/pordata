@@ -36,7 +36,7 @@ Records: 2196 (2195 ok, 1 errored)
 - rows: 2195 (2195 live, 0 tombstoned)
 - name_en present: 100%
 - fontes non-empty: 100%
-- featured flagged rows: 52
+- featured flagged rows: 43
 
 ## Gate
 
@@ -50,5 +50,7 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - date_iso_ratio: 1
 - duplicate_area_id: 0
 - published_rows_ratio: 1
+- featured_collisions: 0
+- featured_rows: 43
 
 - all thresholds pass
