@@ -30,7 +30,7 @@ in `data/audits/`) drove that work plus a high-precision rewrite of the featured
 site's accessibility and SEO layer, and these doc corrections.
 
 Next up per the roadmap in `context.md` (execution order in its header): the featured filter
-pill + rename (roadmap 8d), the card design pass with Claude Design (roadmap 10), then the
+pill + rename (roadmap 12), the card design pass with Claude Design (roadmap 10), then the
 PORDATA→upstream **crosswalk** (gated on the INE cache — owner unblock) and the rest of the
 label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was emailed
 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.

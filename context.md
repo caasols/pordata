@@ -326,16 +326,26 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
 (referenced from code and docs), **not** priority order.
 
-**Execution order (post-audit, 2026-08-23):** ① 8d featured pill + rename — its matcher
-precondition is now met and machine-checked (`featured_collisions`=0, `featured_rows`>=40 in
-the QA gate) → ② 10 card design pass, which owns all badge presentation so the card is
-designed once → ③ 8b/c labels, then 9. Items 4 (calendar), 5 (gated on 2), 6 (background)
-unchanged. The audit's remaining medium/low findings live in
-`data/audits/2026-08-23-mega-audit.md` and are folded into items 6 and 11.
+**Execution order (2026-08-23, after the audit).** Ids are stable and never reused — a
+retired id stays retired (11), and a promoted one keeps its own (12). Priority:
+
+1. **12 — featured pill + rename.** Small, ready, and the only visible feature whose
+   precondition is now proven rather than assumed.
+2. **10 — card design pass** with Claude Design. Runs after 12 so the design sees every badge
+   it must lay out, and it owns badge presentation for item 8's labels too.
+3. **6a — silent data corruption.** Three parse-time assertions. Cheap, and they protect the
+   artefact everything else depends on; the gate catches degradation but not a wrong value
+   that looks well-formed.
+4. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
+   largest item on the board and the gateway to Phase D; blocked only on a laptop.
+5. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+6. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
+
+Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
 
 **Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
 crosswalk — the roadmap's biggest strategic lever), the 8d name call
-("Destaques"/"Highlights" proposed), the ~20-record spot-check, curating
+("Destaques"/"Highlights" proposed, item 12), the ~20-record spot-check, curating
 `data/catalogue/FEATURED-UNMATCHED.md` (item 1), and ledger attempts (3). *Done: the id-1221
 browser check — dead for humans too, so it is retired rather than retried.*
 
@@ -348,7 +358,7 @@ browser check — dead for humans too, so it is retired rather than retried.*
    snippet. Several have no counterpart at all (derived aggregates PORDATA publishes only
    inside the quadro; a few quadro rows share one catalogue page), so a perfect score is not
    the goal and the QA floor is set accordingly.
-2. **INE catalogue snapshot, then the crosswalk (3e)** — the gateway to Extraction and Phase D.
+2. **INE catalogue snapshot, then the crosswalk** — the gateway to Extraction and Phase D.
    Three fetch attempts failed from Actions runners (403, timeout ×2, 2026-08-22/23): INE
    likely blocks cloud IP ranges persistently, not temporarily. Fallback shipped: the owner
    downloads `xml_indic.jsp?opc=2` from their own connection and commits it as
@@ -384,10 +394,10 @@ browser check — dead for humans too, so it is retired rather than retried.*
    crosswalk is confident, each answer carrying source/vintage/caveats per decision 5.
    `@openar/mcp` is the shape precedent.
    **Semantic search design (decided 2026-08-23):** embeddings, no vector database — at
-   2,196 entries brute-force cosine is ~1 ms anywhere. Pipeline step embeds each
+   ~2,200 entries brute-force cosine is ~1 ms anywhere. Pipeline step embeds each
    indicator's PT+EN names (+description) with a small **multilingual** model
    (multilingual-E5-small class, quantized) and ships the vectors as a static file next to
-   `catalogue.json` (~2,196 × 384 dims int8 < 1 MB), refreshed by the harvest loop.
+   `catalogue.json` (~2,200 × 384 dims int8 < 1 MB), refreshed by the harvest loop.
    Multilingual embeddings mean queries in any EU language match the PT/EN catalogue —
    search works in the selector's greyed languages before their UIs are translated.
    Consumers:
@@ -402,17 +412,40 @@ browser check — dead for humans too, so it is retired rather than retried.*
      `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
      useful without it; low-end phone memory during inference → that is why the model
      must stay in the small-quantized class, not a larger one.
-6. **Quality follow-ups.** Python mutation kill rate is ~65% (mutmut) and ungated; the site's
-   is 91% with a hard `break: 85`. Bring Python up and gate it the same way. Also open from the
-   2026-08-23 audit (full list in `data/audits/`): the harvest commit step is skipped on
-   crash/timeout so in-run checkpoints protect nothing in Actions; `sitemap.yml` commits the
-   snapshot before opening its issue, so a failed `gh issue create` loses the notification for
+6. **Hardening backlog** *(absorbs the old item 11; sources: the 2026-08-23 `/mega-audit`,
+   full report in `data/audits/`)*. Ordered by what breaks if ignored, not by effort.
+
+   **(a) Silent data corruption** — the pipeline can still publish wrong values without
+   tripping the gate: the fontes boundary vocabulary is circular, so new PORDATA UI text
+   passes harvest, QA and build straight into published sources; the `ultima_atualizacao`
+   fallback regex can publish arbitrary page text if PORDATA drops its on-page ISO dates, and
+   the site's default sort trusts that field; indicator-name extraction assumes today's
+   `<title>` template. Each needs a shape assertion at parse time, not a report afterwards.
+
+   **(b) Failures nobody hears** — the harvest commit step is skipped on crash/timeout, so
+   in-run checkpoints protect nothing in Actions; `sitemap.yml` commits its snapshot before
+   opening the issue, so a failed `gh issue create` loses the add/remove notification for
    good; nothing verifies the committed `docs/` bundle matches `site/` source, and the Pages
-   deployment itself is unmonitored; staleness uses a strict `>` on date-only lastmod, so a
-   same-day PORDATA update is missed for ever; `tests.yml` swallows mutation failures with
-   `|| true`. *(Done 2026-08-23: `spikes.yml` is dispatch-only — a push trigger re-ran
-   finished research probes on any edit to their scripts.)* Deferred: harvesting the `/en` tree (~2,196 pages) if EN descriptions become
-   worth having.
+   deployment itself is unmonitored; `tests.yml` swallows mutation failures with `|| true`.
+
+   **(c) Correctness of the freshness loop** — staleness uses a strict `>` on a date-only
+   lastmod, so a same-day PORDATA update is missed for ever.
+
+   **(d) Test strength** — Python mutation kill rate is ~65% (mutmut) and ungated; the site's
+   is 91% behind a hard `break: 85`. Bring Python up and gate it the same way.
+
+   **(e) Code hygiene** — `diff_sitemap.py` re-implements `pordata_lib`'s parsing instead of
+   importing it (the lib exists to prevent exactly that drift); `build_catalogue.AREA_LABELS`
+   duplicates a vocabulary it never uses; records missing required keys still crash with a
+   raw `KeyError`.
+
+   **(f) Payload budget** — every visitor downloads the whole catalogue (1.27 MB raw / 137 KB
+   gzipped) before the first search. Benign today, unbounded once the crosswalk widens each
+   row: set a budget before that lands, then split or stream if it breaks.
+
+   *Done 2026-08-23:* `spikes.yml` made dispatch-only — a push trigger was re-running finished
+   research probes on any edit to their scripts.
+   *Deferred:* harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
 7. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
    (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
    `missing_pt` (harvest found no name — the 3 known empties), `missing_en` (no `/en`
@@ -424,25 +457,19 @@ browser check — dead for humans too, so it is retired rather than retried.*
    `AVAILABLE`.
 8. **Label system for filtering** *(owner ask 2026-08-23; design first)*. Richer filters
    beyond the three area pills, as clickable labels on cards plus a filter row. Candidate
-   label sources, by value: **(a) PORDATA's own theme taxonomy** — the strongest, it *is* the
-   curation — via the 260 `subtema` pages in the sitemap (a one-off ~1.7 h harvest at the
-   polite pace would map indicators to temas/subtemas; check first whether subtema pages are
-   server-rendered lists like the quadros were); **(b) source entity** from `fontes`, already
-   harvested — **165 distinct source strings** (measured 2026-08-23; an earlier 223 was wrong)
-   that need normalising to ~30 organisations (INE, Eurostat, OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
-   stale >5y); **(d) status** (featured, descontinuado — already badges, not yet filters).
-   **(d) is the next site task** *(owner ask 2026-08-23)*. **Its precondition is now met**:
-   the matcher was rebuilt high-precision and injective after the audit proved it was flagging
-   wrong indicators, and the QA gate enforces `featured_collisions = 0` and
-   `featured_rows >= 40`, so the pill can no longer ship over a broken mapping. 43 rows carry
-   the badge today; the tail is owner curation (item 1). Add the filter
-   pill — and **rename it**: cards currently badge the raw internal
-   value "★ quadro_resumo", which no visitor can decode. Proposed user-facing label:
-   PT "Destaques" / EN "Highlights" (these are the indicators PORDATA itself curates into
-   its summary tables — the badge and the pill should both say so in the UI language;
-   ES "Destacados", FR "Essentiels", DE "Highlights", IT "In evidenza" prepared). Owner
-   confirms the final name before it ships. Then the rest: (b)+(c) (zero new requests),
-   design (a)'s harvest, then the full label UI.
+   label sources, by value:
+   - **(a) PORDATA's own theme taxonomy** — the strongest, it *is* the curation — via the 260
+     `subtema` pages in the sitemap. A one-off ~1.7 h harvest at the polite pace would map
+     indicators to temas/subtemas; check first whether subtema pages are server-rendered
+     lists, as the quadros turned out to be.
+   - **(b) source entity** from `fontes`, already harvested: 165 distinct source strings
+     (measured 2026-08-23) to normalise to ~30 organisations (INE, Eurostat, OCDE, DGEEC…).
+   - **(c) recency** buckets from `ultima_atualizacao` (updated this year / stale >5y).
+   - **(d) status** — featured and descontinuado. Split out as **item 12**, which ships first.
+
+   Order: 12, then (b)+(c) — both zero new requests — then design (a)'s harvest, then the
+   full label UI. Design it with item 10, not twice: labels add chips to the same card.
+
 9. **Relevance / recommended sorting** *(owner ask 2026-08-23)*. The fuzzy-score
    "relevance" option was **removed from the sort pill** the same day (owner call: not
    producing a useful order); the pill now offers newest/oldest/A→Z/Z→A with
@@ -464,21 +491,21 @@ browser check — dead for humans too, so it is retired rather than retried.*
    shadcn tokens. Coordinates with item 8 (labels add more chips to the same card —
    design them together, not twice).
 
-11. **Audit backlog** *(from `/mega-audit`, 2026-08-23 — full report in
-   `data/audits/2026-08-23-mega-audit.md`)*. 57 verified findings; the seven high-severity
-   ones and the accessibility/SEO/licensing gaps were fixed the same day. Still open, in
-   rough value order: the fontes boundary vocabulary is circular (new PORDATA UI text passes
-   harvest, QA and build straight into published sources); the `ultima_atualizacao` fallback
-   regex can publish arbitrary page text if PORDATA drops on-page ISO dates, and the site
-   sorts on it; indicator-name extraction assumes today's `<title>` template; `diff_sitemap.py`
-   re-implements `pordata_lib`'s parsing instead of importing it, and
-   `build_catalogue.AREA_LABELS` duplicates a vocabulary it never uses; records missing
-   required keys still crash the pipeline with a raw `KeyError`. Also: the catalogue payload
-   (1.27 MB raw / 137 KB gzipped) is downloaded whole before the first search — benign now,
-   unbounded later, so it needs a budget before the crosswalk widens each row. And the audit
-   instrument itself is a finding: `/mega-audit` never names `ledger/`, `outreach/`, `LICENSE`,
-   accessibility, SEO or supply chain — every blind spot the completeness critic found traces
-   back to it.
+12. **Featured pill + rename** *(promoted out of item 8d, 2026-08-23 — it is next up and was
+   unreadable inside that item)*. Two halves, both small:
+   - **Rename.** Cards badge the raw internal value `★ quadro_resumo`, which no visitor can
+     decode. Proposed: PT **"Destaques"** / EN **"Highlights"** — these are the indicators
+     PORDATA itself curates into its summary tables — with ES "Destacados", FR "Essentiels",
+     DE "Highlights", IT "In evidenza" prepared. Badge and pill say the same thing in the UI
+     language. *Owner confirms the wording; it is a one-line change either way, so it does
+     not block the build.*
+   - **Pill.** A fourth filter chip in the existing swipeable row, opt-in like the areas.
+   **Precondition met and machine-checked:** the matcher was rebuilt high-precision and
+   injective after the audit proved it was flagging wrong indicators, and the QA gate enforces
+   `featured_collisions = 0` and `featured_rows >= 40`, so the pill cannot ship over a broken
+   mapping. 43 rows carry the badge today; the tail is owner curation (item 1), and the honest
+   framing is that the badge marks *confidently matched* quadro indicators, not the full
+   quadro.
 
 ## Verification
 

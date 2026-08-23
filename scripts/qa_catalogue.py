@@ -43,7 +43,7 @@ THRESHOLDS = {
     "date_iso_ratio_min": 1.0,         # of non-empty ultima_atualizacao
     "duplicate_area_id_max": 0,        # (area, id) is the catalogue key
     "published_rows_ratio_min": 0.98,  # published vs ok records
-    # Featured (quadro-resumo) matching, the precondition roadmap 8d's
+    # Featured (quadro-resumo) matching, the precondition roadmap 12's
     # pill depends on. Collisions must be zero — before injectivity one
     # catalogue id could be claimed by five quadro names, mis-flagging
     # four. The row floor sits just under the measured 43 so a matcher
