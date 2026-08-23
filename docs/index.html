@@ -87,25 +87,37 @@
 
   /* ---- header ---- */
   .top { display: flex; align-items: center; justify-content: space-between;
-         flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
-  h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+         flex-wrap: nowrap; gap: 10px; margin-bottom: 6px; }
+  h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em;
+       margin: 0; min-width: 0; }
   h1 a { text-decoration: none; }
-  .controls { display: flex; align-items: center; gap: 8px; }
+  .controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-  /* lang picker: shadcn tabs */
-  .lang {
-    display: inline-flex; align-items: center; gap: 2px;
-    background: var(--muted); border-radius: var(--radius); padding: 3px;
+  /* lang picker: shadcn select (collapsed shows current language only) */
+  .langWrap { position: relative; }
+  #langBtn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 2.1rem; padding: 0 10px; border: 1px solid var(--border);
+    border-radius: calc(var(--radius) - 2px); background: transparent;
+    color: var(--foreground); cursor: pointer;
+    font: inherit; font-size: .8rem; font-weight: 500;
   }
-  .lang span {
-    cursor: pointer; padding: 3px 9px; font-size: .8rem; font-weight: 500;
-    color: var(--muted-foreground);
+  #langBtn:hover { background: var(--accent); color: var(--accent-foreground); }
+  #langBtn svg { width: .85rem; height: .85rem; color: var(--muted-foreground); }
+  #langMenu {
+    position: absolute; right: 0; top: calc(100% + 6px); z-index: 50;
+    min-width: 10.5rem; padding: 4px;
+    background: var(--popover); color: var(--popover-foreground);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  }
+  .langItem {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; padding: 6px 10px; font-size: .85rem; cursor: pointer;
     border-radius: calc(var(--radius) - 4px); user-select: none;
   }
-  .lang span.on {
-    background: var(--background); color: var(--foreground);
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.06);
-  }
+  .langItem:hover { background: var(--accent); color: var(--accent-foreground); }
+  .langItem svg { width: .9rem; height: .9rem; }
 
   /* theme toggle: shadcn ghost icon button */
   #themeBtn {
@@ -195,7 +207,14 @@
   <div class="top">
     <h1><a href="./">pordata map</a></h1>
     <div class="controls">
-      <div class="lang" id="lang"></div>
+      <div class="langWrap" id="langWrap">
+        <button id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="langLabel"></span>
+          <!-- lucide "chevron-down" -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="langMenu" role="listbox" hidden></div>
+      </div>
       <button id="themeBtn" aria-label="Light/dark theme">
         <!-- lucide "sun" / "moon" (ISC), shown per theme via CSS -->
         <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
@@ -436,17 +455,43 @@
     $("foot").innerHTML = t("foot") + (stats
       ? `<div>${t("updatedAt")}${stats.built_at}${stats.complete ? "" : t("building")}</div>`
       : "");
-    $("lang").innerHTML = Object.keys(STRINGS).map(l =>
-      `<span class="${l === lang ? "on" : ""}" data-l="${l}">${l.toUpperCase()}</span>`
-    ).join("");
-    for (const el of $("lang").children) {
+    renderLangUI();
+  }
+
+  // ---- language dropdown (shadcn select) ----
+  const LANG_NAMES = { pt: "Português", en: "English", es: "Español",
+                       fr: "Français", de: "Deutsch", it: "Italiano" };
+  const CHECK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  const langBtn = $("langBtn"), langMenu = $("langMenu");
+
+  function renderLangUI() {
+    $("langLabel").textContent = lang.toUpperCase();
+    langMenu.innerHTML = Object.keys(STRINGS).map(l => `
+      <div class="langItem" role="option" data-l="${l}"
+           aria-selected="${l === lang}">
+        <span>${LANG_NAMES[l] || l.toUpperCase()}</span>
+        ${l === lang ? CHECK_SVG : ""}
+      </div>`).join("");
+    for (const el of langMenu.children) {
       el.onclick = () => {
         lang = el.dataset.l;
         try { localStorage.setItem("lang", lang); } catch (e) {}
+        toggleLangMenu(false);
         applyLang(); buildAreaChips(); render();
       };
     }
   }
+  function toggleLangMenu(open) {
+    langMenu.hidden = !open;
+    langBtn.setAttribute("aria-expanded", String(open));
+  }
+  langBtn.onclick = (e) => { e.stopPropagation(); toggleLangMenu(langMenu.hidden); };
+  document.addEventListener("click", (e) => {
+    if (!langMenu.hidden && !e.target.closest("#langWrap")) toggleLangMenu(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") toggleLangMenu(false);
+  });
 
   function buildAreaChips() {
     const box = $("areas");
