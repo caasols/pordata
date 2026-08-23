@@ -12,6 +12,11 @@ result is cached in the repo:
 
 A 403 or short payload exits non-zero with a clear message: retry later
 (not harder), per the spike A2 caveat.
+
+Offline fallback: if data/ine/raw.xml exists (the owner fetched the URL
+from a non-cloud connection, e.g. a phone, and committed it), it is
+processed instead of fetching and then deleted — the gzipped copy is the
+durable cache.
 """
 
 import csv
@@ -24,20 +29,29 @@ import urllib.request
 USER_AGENT = "pordata-map research (github.com/caasols/pordata; single catalogue fetch)"
 URL = "https://www.ine.pt/ine/xml_indic.jsp?opc=2&lang=PT"
 OUT_DIR = pathlib.Path("data/ine")
+RAW_FILE = OUT_DIR / "raw.xml"
 
 
 def main() -> None:
-    req = urllib.request.Request(URL, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=600) as resp:
-            body = resp.read()
-            status = resp.status
-    except Exception as exc:
-        sys.exit(f"INE fetch failed ({exc}); bot protection likely — retry "
-                 "on another day, not immediately.")
-    if status != 200 or len(body) < 1_000_000:
-        sys.exit(f"Unexpected response: HTTP {status}, {len(body)} bytes — "
-                 "probably blocked; retry later.")
+    if RAW_FILE.exists():
+        body = RAW_FILE.read_bytes()
+        print(f"processing committed {RAW_FILE} ({len(body):,} bytes), "
+              "no fetch")
+        if len(body) < 1_000_000:
+            sys.exit(f"{RAW_FILE} is only {len(body)} bytes — that is not "
+                     "the full catalogue; re-download and re-upload it.")
+    else:
+        req = urllib.request.Request(URL, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=600) as resp:
+                body = resp.read()
+                status = resp.status
+        except Exception as exc:
+            sys.exit(f"INE fetch failed ({exc}); bot protection likely — "
+                     "retry on another day, not immediately.")
+        if status != 200 or len(body) < 1_000_000:
+            sys.exit(f"Unexpected response: HTTP {status}, {len(body)} bytes "
+                     "— probably blocked; retry later.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUT_DIR / "catalogue.xml.gz").write_bytes(gzip.compress(body, 9))
@@ -79,6 +93,8 @@ def main() -> None:
               for t, n in sorted(themes.items(), key=lambda kv: -kv[1])]
     (OUT_DIR / "SUMMARY.md").write_text("\n".join(lines) + "\n",
                                         encoding="utf-8")
+    if RAW_FILE.exists():
+        RAW_FILE.unlink()  # the gzipped copy is the durable cache
     print(f"cached {len(rows)} indicators, {len(body):,} bytes raw")
 
 

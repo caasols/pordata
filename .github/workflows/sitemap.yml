@@ -14,7 +14,13 @@ name: sitemap watch
 on:
   workflow_dispatch:
   schedule:
+    # Measured from a year of sitemap lastmods: PORDATA publishes on
+    # weekdays only (zero Saturdays, ~weekly-noise Sundays), in batches
+    # spread across Mon-Fri. Morning run catches yesterday's changes;
+    # the weekday late-afternoon run (17:30 Lisbon in summer) catches
+    # same-day publishes within hours.
     - cron: "17 6 * * *"
+    - cron: "30 16 * * 1-5"
   push:
     paths:
       - ".github/workflows/sitemap.yml"

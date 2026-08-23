@@ -106,6 +106,13 @@ earlier 504), 260 subtema and 48 tema taxonomy pages, and 29 retratos. Portugal 
 666 indicator pages (was 1,054 / 638). The per-municipality quadros resumo are further evidence
 for the central insight: hand-built joins, one per concelho.
 
+**Publication cadence** (measured 2026-08-23 over 12 months of indicator lastmods): PORDATA
+publishes on **weekdays only** — zero Saturday lastmods, ~19 Sunday ones (noise) against
+300–470 per weekday — in batches of 2–70 pages, most weekdays having some activity. lastmod is
+date-only (no time of day). This sized the watcher schedule: daily morning run plus a weekday
+late-afternoon run (`30 16 * * 1-5`, ~17:30 Lisbon) to catch same-day publishes; more frequent
+polling cannot help while the granularity is a day.
+
 | Fact | Value | How established |
 |---|---|---|
 | Public API | None | No developer or API route in the sitemap; not listed as having an API in either community aggregator |
@@ -237,7 +244,11 @@ Only open work. History lives in "What has been built" and git.
    uses long "name — definition" strings the containment matcher won't reach; likely needs a
    dash-split before matching).
 2. **INE catalogue snapshot, then the crosswalk (3e)** — the gateway to Extraction and Phase D.
-   Re-dispatch `ine-catalogue.yml` after a cool-down; cache `data/ine/indicators.csv`. Then
+   Three fetch attempts failed from Actions runners (403, timeout ×2, 2026-08-22/23): INE
+   likely blocks cloud IP ranges persistently, not temporarily. Fallback shipped: the owner
+   downloads `xml_indic.jsp?opc=2` from their own connection and commits it as
+   `data/ine/raw.xml`; `fetch_ine_catalogue.py` then processes the committed file offline
+   (and deletes it — the gzip is the cache). Then cache `data/ine/indicators.csv`. Then
    match each catalogue entry to its upstream series: name-match against INE's catalogue for
    INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary. Store
    match + confidence; unmatched entries stay honest with `crosswalk: null`.
