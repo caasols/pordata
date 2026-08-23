@@ -245,6 +245,23 @@ Only open work. History lives in "What has been built" and git.
    pointers, not numbers, so nothing can be hallucinated. Values from upstream only where the
    crosswalk is confident, each answer carrying source/vintage/caveats per decision 5.
    `@openar/mcp` is the shape precedent.
+   **Semantic search design (decided 2026-08-23):** embeddings, no vector database — at
+   2,196 entries brute-force cosine is ~1 ms anywhere. Pipeline step embeds each
+   indicator's PT+EN names (+description) with a small **multilingual** model
+   (multilingual-E5-small class, quantized) and ships the vectors as a static file next to
+   `catalogue.json` (~2,196 × 384 dims int8 < 1 MB), refreshed by the harvest loop.
+   Multilingual embeddings mean queries in any EU language match the PT/EN catalogue —
+   search works in the selector's greyed languages before their UIs are translated.
+   Consumers:
+   - **MCP server**: embeds queries locally, hybrid keyword+vector ranking. Embeddings only
+     *find* entries, so decision 3's no-hallucination line holds.
+   - **Site, as progressive enhancement** (owner's call over the initial MCP-only lean):
+     fuzzy search remains the instant baseline; the query-embedding model (~25–30 MB
+     quantized) lazy-loads in the background via transformers.js, is cached by the browser
+     per device (one-time download, ~50–200 ms local inference thereafter), and silently
+     upgrades results to hybrid ranking when ready. Respect the `Save-Data` header (skip
+     auto-load on metered connections) and keep the model optional — the page must remain
+     fully useful without it.
 7. **Quality follow-ups**: drive the mutation kill rate up from 65% and turn it into a CI gate;
    deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
 8. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
