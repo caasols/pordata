@@ -222,25 +222,28 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 
 Only open work. History lives in "What has been built" and git.
 
-1. **Finish the initial harvest** *(self-completing overnight 2026-08-22→23)*: the 17:45 UTC
-   chunk lands ~1,500 records; the 01:45 run completes 2,196/2,196. Then the same cron becomes
-   pure maintenance (freshness re-fetches, new/removed indicators). Verify at the 10:00 UTC
-   check-in.
-2. **QA repair pass (3d remainder)**: fix the ~10 pre-parser-fix `fontes` records offline from
-   `marker_windows`, fix 2 empty names, spot-check ~20 records against live pages. Re-dispatch
-   `featured-sets.yml` once so municipal matching runs against the full pool (was 7/37 on an
-   11%-harvested pool; Europa 29/56 — investigate the unmatched names while at it).
-3. **INE catalogue snapshot, then the crosswalk (3e)** — the gateway to Extraction and Phase D.
+1. **Close out the initial harvest — one page left** *(2,195/2,196 as of 2026-08-23 08:15 UTC)*:
+   `portugal/…despesas…ambiente…(1995 2013)-1221` returns HTTP 500 from PORDATA itself (twice).
+   Every harvest cron retries it; if it stays 500 for a few days, tombstone it and consider
+   reporting the broken sitemap-listed page to FFMS. The 3d repair ran 2026-08-23 (512 stored
+   `fontes` trimmed; QA is down to the 3 empty-name slugs, tracked in item 7). Same pass fixed
+   a live bug: **page ids are only unique per area** (205 repeats across areas) — EN names and
+   featured flags are now keyed by `(area, id)`; 205 wrong `name_en` and 14 phantom featured
+   flags corrected. Remaining: spot-check ~20 records against live pages (owner, browser);
+   investigate featured unmatched names — municípios 32/37, Europa 29/56 (the Europa quadro
+   uses long "name — definition" strings the containment matcher won't reach; likely needs a
+   dash-split before matching).
+2. **INE catalogue snapshot, then the crosswalk (3e)** — the gateway to Extraction and Phase D.
    Re-dispatch `ine-catalogue.yml` after a cool-down; cache `data/ine/indicators.csv`. Then
    match each catalogue entry to its upstream series: name-match against INE's catalogue for
    INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary. Store
    match + confidence; unmatched entries stay honest with `crosswalk: null`.
-4. **Attempt the ledger questions** (owner, browser, spare moments): 100 questions in
+3. **Attempt the ledger questions** (owner, browser, spare moments): 100 questions in
    `ledger/questions.csv` per `ledger/README.md`. The evidence base for what to build next and
    the acceptance tests for everything built so far.
-5. **FFMS follow-up** if no reply by ~2026-09-04 (email sent 2026-08-21; see `outreach/`). Any
-   reply may redirect items 3 and 6.
-6. **Phase D: MCP server over the catalogue** *(gated on owner go + crosswalk)*. Discovery
+4. **FFMS follow-up** if no reply by ~2026-09-04 (email sent 2026-08-21; see `outreach/`). Any
+   reply may redirect items 2 and 5.
+5. **Phase D: MCP server over the catalogue** *(gated on owner go + crosswalk)*. Discovery
    tools first — search the catalogue, return metadata + PORDATA link + upstream source:
    pointers, not numbers, so nothing can be hallucinated. Values from upstream only where the
    crosswalk is confident, each answer carrying source/vintage/caveats per decision 5.
@@ -264,11 +267,11 @@ Only open work. History lives in "What has been built" and git.
      `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
      useful without it; low-end phone memory during inference → that is why the model
      must stay in the small-quantized class, not a larger one.
-7. **Quality follow-ups**: drive the mutation kill rate up from 65% and turn it into a CI gate;
+6. **Quality follow-ups**: drive the mutation kill rate up from 65% and turn it into a CI gate;
    deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
-8. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
+7. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
    (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
-   `missing_pt` (harvest found no name — the 2 known empties), `missing_en` (no `/en`
+   `missing_pt` (harvest found no name — the 3 known empties), `missing_en` (no `/en`
    sitemap slug for the id), counts in `stats.json` under `names`. After the harvest
    completes: review flagged rows and repair. Separately, the site's language selector now
    lists all 24 EU official languages with only PT/EN selectable; enable others

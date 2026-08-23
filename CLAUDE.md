@@ -18,12 +18,13 @@ automatically by the harvest pipeline. Public repo, MIT (code) / CC BY 4.0 (meta
 
 ## Current focus
 
-The initial harvest self-completes overnight 2026-08-22→23 (cron chunks; 2,196 target pages),
-after which the same cron is pure maintenance. Next up per the roadmap in `context.md`: QA
-repair pass, featured re-match, the INE catalogue cache and the PORDATA→upstream **crosswalk**
-(the gateway to serving values and to Phase D, an MCP server — both gated on owner go). FFMS
-was emailed 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering
-task.
+Harvest complete at 2,195/2,196 (2026-08-23): one page (id 1221) 500s on PORDATA's side and is
+auto-retried each cron run; the cron is now pure maintenance. The 3d QA repair ran (512 stored
+fontes trimmed) alongside a live-bug fix: page ids repeat across areas, so EN names and
+featured flags are keyed by `(area, id)`. Next up per the roadmap in `context.md`: the INE
+catalogue cache and the PORDATA→upstream **crosswalk** (the gateway to serving values and to
+Phase D, an MCP server — both gated on owner go). FFMS was emailed 2026-08-21, reply pending;
+ledger attempts remain the owner's evidence-gathering task.
 
 ## How it runs
 
