@@ -252,3 +252,50 @@ class ShapeAssertionTest(RepoCase):
     def test_gate_trips_on_parse_warnings(self):
         self.assertIn("parse_warnings",
                       " ".join(qa.gate({"parse_warnings": 4})))
+
+
+class PerAreaGateTest(RepoCase):
+    """The three areas are three PORDATA templates. A catalogue-wide mean
+    cannot express "each template still works", which is why `unit_ratio`
+    sat at 0.52, cleared its 0.47 floor, and hid a 100/100/0 split."""
+
+    HEALTHY = {
+        "unit_ratio": 0.52,
+        "unit_ratio_by_area": {"portugal": 0.0, "europa": 1.0,
+                               "municipios": 1.0},
+        "breakdown_ratio": 0.545,
+        "breakdown_ratio_by_area": {"portugal": 0.55, "europa": 0.49,
+                                    "municipios": 0.60},
+    }
+
+    def test_measured_state_passes(self):
+        self.assertEqual(qa.gate(dict(self.HEALTHY)), [])
+
+    def test_one_template_breaking_is_caught_and_named(self):
+        # the regression the mean was blind to: europa drops from 100% to
+        # 60% while the catalogue-wide figure does not move at all
+        broken = dict(self.HEALTHY, unit_ratio=0.52)
+        broken["unit_ratio_by_area"] = {"portugal": 0.0, "europa": 0.60,
+                                        "municipios": 1.0}
+        breaches = qa.gate(broken)
+        self.assertEqual(len(breaches), 1)
+        self.assertIn("unit_ratio[europa]", breaches[0])
+
+    def test_an_area_disappearing_is_a_breach_not_a_pass(self):
+        gone = dict(self.HEALTHY)
+        gone["unit_ratio_by_area"] = {"portugal": 0.0, "europa": 1.0}
+        self.assertIn("municipios", " ".join(qa.gate(gone)))
+
+    def test_portugal_unit_floor_is_zero_by_record_not_by_accident(self):
+        # roadmap 19: the caption falls outside the stored excerpt there.
+        # The floor is 0.0 so the *other* areas can still be gated; it is
+        # a recorded gap, and this test exists so raising it is deliberate.
+        self.assertEqual(
+            qa.PER_AREA_THRESHOLDS["unit_ratio"]["portugal"], 0.0)
+        for area in ("europa", "municipios"):
+            self.assertGreater(
+                qa.PER_AREA_THRESHOLDS["unit_ratio"][area], 0.9)
+
+    def test_missing_by_area_metric_is_skipped_not_crashed(self):
+        # the published catalogue may be absent (fresh clone, no build)
+        self.assertEqual(qa.gate({"unit_ratio": 0.52}), [])

@@ -72,6 +72,27 @@ THRESHOLDS = {
     "unit_contamination_max": 0,
 }
 
+# Coverage floors *per area*, for fields parsed out of page markup.
+#
+# The three areas are three PORDATA templates, so a catalogue-wide mean
+# hides a template breaking: `unit_ratio` sat at 0.52 catalogue-wide and
+# passed its 0.47 floor without complaint while the split was actually
+# 100% / 100% / 0%. A mean cannot express "each template still works",
+# which is the thing worth gating.
+#
+# Floors are per-area baselines, not aspirations: each sits just under
+# what that area measures today, so a template change trips the area it
+# broke and names it. **portugal's `unit_ratio` floor of 0.0 records a
+# known gap, not an acceptable state** — the chart caption falls outside
+# the excerpt the harvester stores there (roadmap 19). Raise it to match
+# the others once 19 lands; until then a floor of 0.0 at least stops the
+# other two areas regressing silently, which is what happened before.
+PER_AREA_THRESHOLDS = {
+    "unit_ratio": {"portugal": 0.0, "europa": 0.95, "municipios": 0.95},
+    "breakdown_ratio": {"portugal": 0.50, "europa": 0.44,
+                        "municipios": 0.55},
+}
+
 
 # UI fragments and long digit runs must never reach the unit field; the
 # extractor searches marker slices individually so neither can splice in,
@@ -94,7 +115,8 @@ def recoverable_from_windows(rec: dict, field: str) -> bool:
 
 
 def gate(metrics: dict) -> list[str]:
-    """Compare measured metrics against THRESHOLDS; return breaches."""
+    """Compare measured metrics against THRESHOLDS and, for markup-parsed
+    fields, against PER_AREA_THRESHOLDS; return breaches."""
     breaches = []
     for key, limit in THRESHOLDS.items():
         metric = key.rsplit("_", 1)[0]
@@ -105,6 +127,17 @@ def gate(metrics: dict) -> list[str]:
             breaches.append(f"{metric}: {value} > allowed {limit}")
         elif key.endswith("_min") and value < limit:
             breaches.append(f"{metric}: {value:.4g} < required {limit}")
+    for metric, floors in PER_AREA_THRESHOLDS.items():
+        measured = metrics.get(f"{metric}_by_area")
+        if not measured:
+            continue
+        for area, floor in floors.items():
+            value = measured.get(area)
+            if value is None:
+                breaches.append(f"{metric}[{area}]: area missing entirely")
+            elif value < floor:
+                breaches.append(
+                    f"{metric}[{area}]: {value:.4g} < required {floor}")
     return breaches
 
 
@@ -237,6 +270,12 @@ def main(strict: bool = False) -> None:
     if published:
         metrics["breakdown_ratio"] = coverage(published, "breakdown")
         metrics["unit_ratio"] = coverage(published, "unit")
+        for metric, field in (("breakdown_ratio", "breakdown"),
+                              ("unit_ratio", "unit")):
+            metrics[f"{metric}_by_area"] = {
+                area: coverage([r for r in published if r["area"] == area],
+                               field)
+                for area in sorted({r["area"] for r in published})}
         metrics["separator_repairs"] = sum(
             1 for r in published if "–" in r.get("name", ""))
         metrics["unit_contamination"] = sum(
@@ -251,8 +290,14 @@ def main(strict: bool = False) -> None:
     lines += ["", "## Gate", "",
               "Thresholds are machine-checked (decision 7b); `--strict` "
               "exits non-zero on breach so a bad harvest never publishes.", ""]
-    lines += [f"- {k}: {v:.4g}" if isinstance(v, float) else f"- {k}: {v}"
-              for k, v in metrics.items()]
+    for k, v in metrics.items():
+        if isinstance(v, dict):
+            inner = ", ".join(f"{a} {r * 100:.0f}%" for a, r in sorted(v.items()))
+            lines.append(f"- {k}: {inner}")
+        elif isinstance(v, float):
+            lines.append(f"- {k}: {v:.4g}")
+        else:
+            lines.append(f"- {k}: {v}")
     lines += [""] + ([f"- **BREACH** {b}" for b in breaches]
                      if breaches else ["- all thresholds pass"])
 
