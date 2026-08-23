@@ -235,6 +235,7 @@
   <div class="chips" id="areas"></div>
   <div id="meta"></div>
   <div id="out"></div>
+  <div id="sentinel"></div>
 
   <footer id="foot"></footer>
 </main>
@@ -422,26 +423,9 @@
     return [primary, alt];
   }
 
-  function render() {
-    const terms = norm($("q").value).split(/\s+/).filter(Boolean);
-    const hits = [];
-    for (const r of rows) {
-      if (active.size && !active.has(r.area)) continue;
-      let score = 1;
-      for (const term of terms) {
-        const s = tokenScore(term, r);
-        if (!s) { score = 0; break; }
-        score += s;
-      }
-      if (score) hits.push([score, r]);
-    }
-    hits.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
-    $("meta").textContent =
-      t("results", {n: hits.length.toLocaleString()}) +
-      (hits.length > MAX ? t("showing", {m: MAX}) : "");
-    $("out").innerHTML = hits.slice(0, MAX).map(([, r]) => {
-      const [primary, alt] = displayNames(r);
-      return `
+  function cardHTML(r) {
+    const [primary, alt] = displayNames(r);
+    return `
       <div class="card">
         <a class="name" href="${r.url}" rel="noopener">${primary || r.url}</a>
         ${alt ? `<div class="alt">${alt}</div>` : ""}
@@ -457,7 +441,53 @@
         ${(lang === "pt" && r.description)
           ? `<p class="desc">${r.description}</p>` : ""}
       </div>`;
-    }).join("");
+  }
+
+  // Infinite scroll: hits render MAX at a time; a sentinel below the
+  // list appends the next chunk as it comes near the viewport.
+  let hits = [], shown = 0;
+
+  function updateMeta() {
+    $("meta").textContent =
+      t("results", {n: hits.length.toLocaleString()}) +
+      (shown < hits.length ? t("showing", {m: shown}) : "");
+  }
+
+  function showMore() {
+    if (shown >= hits.length) return;
+    const next = hits.slice(shown, shown + MAX);
+    shown += next.length;
+    $("out").insertAdjacentHTML("beforeend",
+      next.map(([, r]) => cardHTML(r)).join(""));
+    updateMeta();
+    // re-arm so the observer re-evaluates the sentinel's new position
+    watcher.unobserve($("sentinel"));
+    watcher.observe($("sentinel"));
+  }
+
+  const watcher = new IntersectionObserver(
+    (entries) => { if (entries.some(e => e.isIntersecting)) showMore(); },
+    { rootMargin: "800px" });
+  watcher.observe(document.getElementById("sentinel"));
+
+  function render() {
+    const terms = norm($("q").value).split(/\s+/).filter(Boolean);
+    hits = [];
+    for (const r of rows) {
+      if (active.size && !active.has(r.area)) continue;
+      let score = 1;
+      for (const term of terms) {
+        const s = tokenScore(term, r);
+        if (!s) { score = 0; break; }
+        score += s;
+      }
+      if (score) hits.push([score, r]);
+    }
+    hits.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
+    shown = 0;
+    $("out").innerHTML = "";
+    showMore();
+    updateMeta();
   }
 
   function applyLang() {
