@@ -345,18 +345,22 @@ Only open work. History lives in "What has been built" and git. Item numbers are
 **Execution order (2026-08-23, after the audit).** Ids are stable and never reused — a
 retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 
-1. **10 — card design pass** with Claude Design. Next up: the card now carries the summary
-   badge as well, and item 8's labels will add more chips to it, so design it once.
+1. **17 — name the project**, and **10a — the period spike**. Both are cheap and both get
+   more expensive with delay: 17 before Phase D publishes a package name or FFMS replies,
+   10a before anyone commits to a 12-hour re-harvest that may fetch nothing new.
 2. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
    largest item on the board and the gateway to everything below it; blocked only on a laptop.
    **13** rides along in the same laptop session — it is reading, not building, and it gates 14.
 3. **14 → 15 — the series archive, then per-indicator detail pages.** The direction set by the
    owner 2026-08-23: pull from the sources, archive, and build the UI PORDATA does not have.
    Both are hard-gated on 2; 14 is additionally gated on 13.
-4. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-5. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
+4. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is
+   what turns the project from a mirror of PORDATA into something more complete than it.
+5. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+6. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
 
-*Done 2026-08-23: **12** (summary pill + rename) and **6a** (parse-time shape assertions).*
+*Done 2026-08-23: **12** (summary pill + rename), **6a** (parse-time shape assertions) and
+**10** (the card design pass — coverage line, unit, month freshness, reserved chart slot).*
 
 Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
 
@@ -499,23 +503,56 @@ call ("Resumo"/"Summary").*
    the Phase D embeddings for semantic closeness. The `sortRelevance` i18n strings remain
    in `site/src/lib/i18n.ts` for its return. Design after the label system, since labels
    and ranking share the same signal inventory.
-10. **Card design review — information hierarchy** *(owner ask 2026-08-23)*. The result
-   card is currently a stain of undifferentiated text: title, EN alt, area badge,
-   featured/status badges, sources, update date and description all compete, and the eye
-   has nowhere to land. Run a proper design pass **with Claude Design** (the canvas
-   editor): establish a reading order — what a scanner needs first (title), second
-   (freshness? area?), what can collapse or truncate (long fontes lists, description),
-   what earns color vs. muted — and mock 2–3 card variants side by side on real data
-   (long municipal names, tag-heavy featured rows, tombstoned rows) before touching
-   `App.tsx`. Owner picks the winner on the canvas; then implement with the existing
-   shadcn tokens. Coordinates with item 8 (labels add more chips to the same card —
-   design them together, not twice) and with item 15: once the click target is an internal
-   detail page rather than pordata.pt, the card is a routing decision — *is this the row I
-   meant?* — not a summary, so the pass should be subtractive. Measured 2026-08-23 and
-   settling the description question: **96.3% of descriptions are exactly PORDATA's SEO
-   template** ("Conheça as estatísticas atualizadas de «título»… Saiba mais!"), 1.6% are free
-   of marketing verbs and 0.5% are definitional — so on ~99% of cards the description restates
-   the title inside a call to action.
+10. **Card design review — information hierarchy** — *done 2026-08-23.* The card stopped
+   being a summary and became a **routing decision**: it answers *is this the row I meant?*,
+   not *what is this indicator?* Owner picked the data-forward variant with a coverage line
+   ("C+") from a specimen page rendering nine real awkward rows — the 178-character title,
+   the 194-character source list, a bare title with no cue — in the app's own tokens.
+
+   Shipped: PORDATA's description **dropped** (measured: 96.3% of descriptions are exactly
+   the SEO template "Conheça as estatísticas atualizadas de «título»… Saiba mais!", 1.6% free
+   of marketing verbs, 0.5% definitional — so on ~99% of cards it restated the title inside a
+   call to action); the English alt name dropped from the card but **kept for search and
+   sort**; a `Badge` now means *a facet you can filter on* and nothing else, which is what
+   keeps the card from becoming a wall of pills when item 8's labels land; sources and
+   freshness demoted to labelled micro-columns; freshness at month precision; long source
+   lists collapsed to first entity + count; the whole card one tap target with a visible focus
+   ring; and a **reserved, inert, muted chart slot** — no values exist until item 14, and
+   PORDATA's are never redistributed, so it is an empty slot rather than a fake curve. The
+   click still leaves for pordata.pt until item 15 lands.
+
+   **The coverage line, and where it came from.** The descriptive half was already in the
+   catalogue, welded to the title with a colon at equal weight — that *was* the hierarchy bug.
+   `split_breakdown` demotes that tail on **1,196 rows (54.5%)** and **refuses** when the tail
+   is the indicator itself ("Administrações Públicas: dívida bruta em % do PIB" keeps its
+   colon). `extract_unit` reads the chart caption already captured in `marker_windows` —
+   **1,138 rows (51.8%)** — which is what rescues a title with no cue at all ("Águas marinhas
+   afetadas pela eutrofização" gains "Proporção - %"). Together **78.4%** of rows carry a real
+   coverage line, and the card renders correctly without one. Windows are searched slice by
+   slice, never joined: joining spliced two truncated fragments into a plausible-but-corrupt
+   unit. All four derived metrics are QA thresholds (`breakdown_ratio`, `unit_ratio`,
+   `separator_repairs`, `unit_contamination`), because a derived field degrades silently.
+
+   **An upstream defect found on the way:** PORDATA serves a literal `?` where an en dash
+   belongs in **37 names** ("… a tempo completo e parcial ? Homens"). Our decoding is clean —
+   é ç ã all intact — and their own slug drops the character (`…parcial+++homens-1604`), so it
+   is theirs. Repaired at build time, anchored mid-string so "Onde existem mais Vilas?" (id 53,
+   a real question) is untouched. This is the **second concrete upstream bug** for the FFMS
+   follow-up (item 4), next to the dead page 1221.
+
+   **10a. Spike: is the period even in the HTML?** *(needs Actions — this sandbox cannot
+   reach pordata.pt)* The two coverage facts still missing are the **period** (first and last
+   year: only 1.9% of titles state it) and the **geographic granularity**. Both live in the
+   page's data table, and the harvested pages contain `A carregar conteúdo…`, so the table may
+   be client-rendered and absent from the HTML entirely. Re-fetch a handful of pages, dump the
+   full HTML, and *measure* before committing to anything. If the period is there, a full
+   re-harvest (~12 h at the polite pace) turns the line into
+   `1960–2024 · 308 municípios · total e por sexo`, which is the line actually wanted. If it is
+   not, the period comes from upstream with item 14 instead, and this spike saves 12 hours.
+
+   *Known gap:* `unit` renders in Portuguese in every language ("Indivíduo", "Proporção - %"),
+   as `fontes` already does. The breakdown line correctly hides outside PT. Folded into item 7.
+
 
 12. **Summary pill + rename** — *done 2026-08-23.* Owner picked **"Resumo" / "Summary"**
    after establishing what the quadro-resumo actually is: not an aggregation across
@@ -574,6 +611,55 @@ call ("Resumo"/"Summary").*
    Knock-on to item 10: once the click target is internal, the card is a routing decision, not
    a summary, so it should get *smaller*. A sparkline is the one element that would later earn
    a place on it — gated on 14, so design the card without it and leave the slot.
+
+16. **Coverage gap: what INE and Eurostat have that PORDATA does not** *(owner ask
+   2026-08-23; gated on 2)*. The goal stated plainly: **be more complete than PORDATA**.
+   PORDATA curates ~2,196 indicators out of upstream catalogues that hold far more, and the
+   crosswalk (item 2) is what makes the comparison computable — once each PORDATA indicator
+   is matched to its upstream series, the *complement* is the gap.
+
+   **The trap this item must not fall into.** The central insight of this project is that the
+   scarce asset is the curation, not the numbers. Eurostat alone publishes thousands of
+   datasets; dumping the complement into the catalogue would produce something with INE's
+   coverage and INE's usability, which is the problem, not the fix. So the deliverable is
+   **not** an enumeration — it is a *selection*, and every addition must arrive with what
+   makes PORDATA's entries usable: a human-meaningful name in Portuguese, a theme, and a
+   stated reason for being there. Completeness without curation is a regression.
+
+   Method, in order: (a) hold INE's catalogue (item 2) and fetch Eurostat's table of contents;
+   (b) subtract what the crosswalk already matched; (c) rank what is left by evidence of
+   demand, not by volume. Ranking signals available without inventing any: the ledger's 100
+   real questions (item 3) and which of them nothing in the catalogue answers; themes where
+   PORDATA is visibly thin against INE's own tree; and series the quadro-resumo implies people
+   want per-location but PORDATA only publishes nationally. (d) Propose a shortlist for the
+   owner to accept or reject one by one — the accept/reject record then *becomes* the curation
+   rule, which is the only honest way to acquire one.
+
+   Preconditions: item 2 (INE cache and crosswalk) — without it the complement cannot be
+   computed at all, only guessed. Eurostat's TOC needs network, so it runs via Actions.
+
+17. **Name the project properly** *(owner ask 2026-08-23: "pordata map is a shitty name")*.
+   Three reasons it is worth real effort, beyond taste:
+   - **It will soon be wrong.** Items 14–16 take the project from *a map of PORDATA* to *a
+     data layer that holds upstream series and deliberately exceeds PORDATA's coverage*. A
+     name that describes the thing it is outgrowing misdescribes it within one milestone.
+   - **It borrows someone else's mark.** PORDATA is FFMS's brand. *Verify, do not assume*
+     (decision 7): check whether it is a registered trademark in PT/EU before deciding how
+     much distance the new name needs. Either way, a name built on theirs implies an
+     endorsement that does not exist, and the outreach in `outreach/` is still unanswered.
+   - **It gets harder to change, fast.** Phase D publishes an MCP package; a published package
+     name is close to permanent, and the FFMS reply may arrive at any time. Do this **before**
+     either.
+
+   Deliverable: a shortlist with availability actually checked (GitHub org/repo, npm/PyPI if
+   Phase D ships, domain, and a plain search for collisions in the PT data space), owner
+   picks. Then a rename plan that **enumerates what breaks** rather than discovering it later:
+   the Pages URL is `caasols.github.io/pordata`, so renaming the repo moves the live site —
+   GitHub redirects repository URLs but the published site path changes, which invalidates
+   every link already shared, the canonical tag, the JSON-LD `url`, the OG/Twitter meta and
+   the sitemap. Decide up front whether a custom domain absorbs that once and for all.
+   Constraint on candidates: the name must survive the scope change — it should describe
+   *Portuguese public statistics made reachable*, not *a wrapper around PORDATA*.
 
 ## Verification
 

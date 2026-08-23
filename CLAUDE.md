@@ -31,10 +31,21 @@ any threshold breaks. A `/mega-audit` on 2026-08-23 (57 verified findings, repor
 `data/audits/`) drove all of that, plus a high-precision rewrite of the featured matcher, the
 site's accessibility and SEO layer, and a sweep of doc corrections.
 
-Shipped since: **roadmap 6a** (parse-time shape assertions for date, fontes and title) and
-**roadmap 12** (the Resumo/Summary filter pill, and the raw `quadro_resumo` badge replaced by
-an attributed "Resumo PORDATA" — the quadro-resumo is PORDATA's per-location overview, the
-same 37/56 indicators on every município's and country's page).
+Shipped since: **roadmap 6a** (parse-time shape assertions), **roadmap 12** (the
+Resumo/Summary filter pill and the attributed badge — the quadro-resumo is PORDATA's
+per-location overview, the same 37/56 indicators on every município's and country's page) and
+**roadmap 10** (the card design pass).
+
+The card is now a **routing decision**, not a summary. PORDATA's description is gone (96.3% of
+them are exactly its SEO template); a `Badge` means *a facet you can filter on* and nothing
+else; sources and freshness are labelled micro-columns; the chart slot is reserved but inert
+until item 14. The coverage line was already in the catalogue, welded to the title with a
+colon: `split_breakdown` demotes that tail on 54.5% of rows and **refuses** when the tail is
+the indicator itself, and `extract_unit` recovers a unit on 51.8% from `marker_windows` —
+78.4% of rows carry a coverage line, and the card renders fine without one. Also repaired an
+upstream defect: PORDATA serves a literal `?` where an en dash belongs in 37 names (ours
+decodes clean; their own slug drops the character), now the second concrete bug for the FFMS
+follow-up.
 
 Next up per the roadmap in `context.md` (execution order in its header): the card design pass
 (roadmap 10) — the card just gained the summary badge and item 8's labels will add more chips
@@ -45,12 +56,15 @@ evidence-gathering task.
 
 **Direction set 2026-08-23 (owner):** the project does not stop at a catalogue of pointers. Go
 to the sources, pull and archive the series, and build the UI PORDATA does not have — charts
-people can work with. This stays inside decision 1: what gets redistributed is INE's, Eurostat's
-and BPstat's data under *their* terms, never PORDATA's rendering of it; PORDATA's contribution
-remains the curation. New roadmap items **13** (read and record the three upstream licences —
-owner, laptop, gates 14), **14** (the series archive, gated on the crosswalk) and **15**
-(per-indicator detail pages with charts). Knock-on: with an internal click target the result
-card becomes a routing decision, so roadmap 10 is a **subtractive** pass.
+people can work with — and aim to end up **more complete than PORDATA**. This stays inside
+decision 1: what gets redistributed is INE's, Eurostat's and BPstat's data under *their*
+terms, never PORDATA's rendering of it; PORDATA's contribution remains the curation. Roadmap
+items **13** (read and record the three upstream licences — owner, laptop, gates 14), **14**
+(the series archive, gated on the crosswalk), **15** (per-indicator detail pages with charts),
+**16** (the coverage gap against INE and Eurostat — a *selection*, never an enumeration:
+completeness without curation is a regression) and **17** (rename — "pordata map" describes
+the thing the project is outgrowing, and it borrows FFMS's mark; do it before Phase D
+publishes a package name).
 
 ## How it runs
 
