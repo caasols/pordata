@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-22
+updated: 2026-08-23
 ---
 
 # pordata: context
@@ -34,13 +34,22 @@ server (Phase D). See Roadmap.
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `graphify-out/` | Derived code graph, gitignored |
 
-## What has been built (2026-08-21 → 2026-08-22)
+## What has been built (2026-08-21 → 2026-08-23)
 
 The pipeline, end to end, all live on `main`:
 
-- **Sitemap watcher** (`sitemap.yml`, daily 06:17 UTC): fetches PORDATA's sitemap, diffs URLs
-  and `<lastmod>` against the committed snapshot, writes `data/CHANGELOG.md`, opens a GitHub
-  issue when indicator pages are added or removed. Landing-page lastmod churn is filtered out.
+- **Sitemap watcher** (`sitemap.yml`, daily 09:07 UTC + weekdays 18:23 UTC — bracketing the
+  Lisbon working day per the measured publication cadence): fetches PORDATA's sitemap, diffs
+  URLs and `<lastmod>` against the committed snapshot, writes `data/CHANGELOG.md`, opens a
+  GitHub issue when indicator pages are added or removed, and dispatches the harvester when
+  the fresh snapshot leaves pending work (main only — the push trigger also runs on feature
+  branches). Landing-page lastmod churn is filtered out.
+- **Initial harvest complete** (2026-08-23): 2,195/2,196 pages; the one hold-out
+  (`portugal/…despesas…ambiente…-1221`) 500s on PORDATA's own server and is auto-retried by
+  every run — tombstone if it stays dead. Same day: the 3d QA repair (512 stored `fontes`
+  trimmed of pre-fix UI text) and a live-bug fix — **page ids repeat across areas**, so EN
+  names and featured flags are keyed by `(area, id)` (205 wrong `name_en` and 14 phantom
+  featured flags corrected).
 - **Catalogue harvester** (`harvest.yml`): 2,196 indicator pages (quadro+resumo excluded),
   one request per 20 s, resumable 4.5 h chunks, metadata only — name, description,
   Fontes/Entidades, última atualização, JSON-LD, marker excerpts for offline re-parsing.
@@ -49,37 +58,45 @@ The pipeline, end to end, all live on `main`:
   time, never deleted. Since 2026-08-23 it is the worker in a **detector→worker pair** (owner
   ask): the sitemap watcher dispatches it whenever the fresh snapshot leaves pending work, so
   changes are harvested minutes after detection; the harvester keeps one nightly cron
-  (01:45 UTC) purely as a safety net for missed dispatches. During the initial harvest the
-  cron ran 3×/day launching back-to-back chunks.
+  (01:45 UTC) purely as a safety net for missed dispatches, and a run that changes no records
+  skips the rebuild so no-op retries commit nothing. During the initial harvest the cron ran
+  3×/day launching back-to-back chunks.
 - **Published catalogue + search site** (Phase C, live): `build_catalogue.py` renders
   `pages.jsonl` into `docs/data/catalogue.json` / `.csv` / `stats.json`; `docs/index.html` is
   a zero-dependency search page — ranked fuzzy matching (substring > prefix > bounded edit
   distance), key-based i18n in six languages (PT/EN/ES/FR/DE/IT), `name_en` on every row
   derived free from the `/en` sitemap slugs (EN pages share ids with PT), featured and
   "descontinuado" badges, PORDATA credited prominently, every hit linking to its PORDATA
-  page. Rebuilt and redeployed automatically after every harvest chunk. Repo made public and
-  Pages enabled 2026-08-22.
+  page. Area pills are opt-in filters (none selected = show all); results load with infinite
+  scroll in device-sized chunks (~two viewports of cards per append, IntersectionObserver
+  sentinel). Rebuilt and redeployed automatically after every harvest chunk. Repo made public
+  and Pages enabled 2026-08-22.
 - **Featured sets** (3c): quadro-resumo rows are OutSystems postbacks with no ids, but names
   are server-rendered; `fetch_featured_sets.py` extracts them (subtitle-aware) and the build
   matches them to catalogue entries by token containment. Confirmed: the municipal quadro set
   is exactly 37 indicators, identical across concelhos; Europa's is 56. Retratos pages are
   e-book publications with no indicator list — no signal there.
-- **Quality**: 40 unit tests (85% line coverage, `--fail-under=80` CI gate) plus full
+- **Quality**: 45 unit tests (85% line coverage, `--fail-under=80` CI gate) plus full
   mutation testing on every push (~1,670 mutants in ~1 min; baseline 946 killed / 505
   survived / 217 uncovered). Network fetchers are validated by their live runs instead.
 - **Question Ledger**: 100 questions drafted blind, stratification-audited against the real
   slug list (every theme backed; the control question correctly unanswerable).
 - **Spikes** (Phase A, both decisive): PORDATA indicator metadata is server-rendered (plain
   HTTP suffices); INE's full catalogue is enumerable (`xml_indic.jsp?opc=2`, ~21 MB XML with
-  themes; per-indicator metadata and data via JSON, no auth) — but INE's bot protection 403s
-  repeat pulls from cloud IPs, so the catalogue must be fetched rarely and cached.
+  themes; per-indicator metadata and data via JSON, no auth) — but INE's bot protection
+  blocks Actions runners persistently (403, timeout ×2 over two days), so the offline
+  `data/ine/raw.xml` upload path exists and the fetch is deferred (roadmap 2).
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 
 Operational lessons recorded the hard way: GitHub schedules only fire from the default
-branch; a queued run in a concurrency group is replaced by the next queued run; checkouts
-default to the trigger-time sha, so data-writing workflows must check out the branch ref at
-run time (fixed 2026-08-22 after one duplicated chunk).
+branch, and are delayed or skipped at the top of the hour (use odd minutes); a queued run in
+a concurrency group is replaced by the next queued run; checkouts default to the trigger-time
+sha, so data-writing workflows must check out the branch ref at run time (fixed 2026-08-22
+after one duplicated chunk); a paths-filtered push trigger fires on every branch, so steps
+that dispatch workflows or commit data must be gated to main (fixed 2026-08-23 after a
+feature-branch harvest diverged the branch); an unconditional rebuild step turns no-op runs
+into daily timestamp-only commits (build is now gated on records changing).
 
 ## What PORDATA is
 

@@ -18,22 +18,24 @@ automatically by the harvest pipeline. Public repo, MIT (code) / CC BY 4.0 (meta
 
 ## Current focus
 
-Harvest complete at 2,195/2,196 (2026-08-23): one page (id 1221) 500s on PORDATA's side and is
-auto-retried each cron run; the cron is now pure maintenance. The 3d QA repair ran (512 stored
-fontes trimmed) alongside a live-bug fix: page ids repeat across areas, so EN names and
-featured flags are keyed by `(area, id)`. Next up per the roadmap in `context.md`: the INE
-catalogue cache and the PORDATA→upstream **crosswalk** (the gateway to serving values and to
-Phase D, an MCP server — both gated on owner go). FFMS was emailed 2026-08-21, reply pending;
-ledger attempts remain the owner's evidence-gathering task.
+Harvest complete at 2,195/2,196 (2026-08-23); the one hold-out (id 1221) 500s on PORDATA's
+side and is auto-retried. The pipeline is now event-driven: the sitemap watcher dispatches the
+harvester only when there is pending work (detector→worker, plus a nightly safety-net cron).
+Same day: 3d QA repair (512 fontes), the `(area, id)` keying fix (ids repeat across areas),
+and site UX — opt-in area filters, infinite scroll in device-sized chunks. INE catalogue fetch
+is blocked from cloud IPs and deferred (offline `data/ine/raw.xml` upload path ready). Next up
+per the roadmap in `context.md`: the PORDATA→upstream **crosswalk** (gated on the INE cache)
+and the label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was
+emailed 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
 
 ## How it runs
 
-Everything is GitHub Actions on `main`, as a detector→worker pair: `sitemap.yml` (daily
-watcher; opens issues on add/remove and dispatches the harvest when the fresh snapshot leaves
-pending work), `harvest.yml` (the worker; fetch-missing + re-fetch-stale + retry-errors, then
-rebuilds `docs/`; nightly cron only as a safety net for missed dispatches), `tests.yml` (unit
-+ coverage gate + mutation on every scripts/tests push), `featured-sets.yml` and
-`ine-catalogue.yml` (manual). Data-writing workflows check out the
+Everything is GitHub Actions on `main`, as a detector→worker pair: `sitemap.yml` (daily 09:07
+UTC + weekdays 18:23 UTC, bracketing the Lisbon working day; opens issues on add/remove and
+dispatches the harvest when the fresh snapshot leaves pending work), `harvest.yml` (the
+worker; fetch-missing + re-fetch-stale + retry-errors, then rebuilds `docs/` only when
+records changed; nightly 01:45 UTC cron as a safety net), `tests.yml` (unit + coverage gate +
+mutation on every scripts/tests push), `featured-sets.yml` and `ine-catalogue.yml` (manual). Data-writing workflows check out the
 branch head at run time — never the trigger-time sha. This sandbox cannot reach pordata.pt or
 ine.pt; anything needing their network runs via Actions.
 
