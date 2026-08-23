@@ -35,7 +35,7 @@ const DEFAULT_SORT: SortMode = "new";
 
 function chipClass(on: boolean): string {
   return cn(
-    "flex-none cursor-pointer select-none whitespace-nowrap rounded-full border px-3 py-1 text-[.82rem] font-medium",
+    "flex-none cursor-pointer select-none whitespace-nowrap rounded-full border px-3 py-1 text-sm font-medium outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30",
     on
       ? "border-primary bg-primary text-primary-foreground"
       : "border-border bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground",
@@ -146,7 +146,7 @@ export default function App() {
   return (
     <main className="mx-auto max-w-3xl px-4 pb-16 pt-7">
       <div className="mb-1.5 flex flex-nowrap items-center justify-between gap-2.5">
-        <h1 className="min-w-0 text-[1.45rem] font-bold tracking-[-0.02em]">
+        <h1 className="min-w-0 text-2xl font-bold tracking-tight">
           <a href="./" className="no-underline">pordata map</a>
         </h1>
         <div className="flex flex-shrink-0 items-center gap-2">
@@ -154,7 +154,7 @@ export default function App() {
             <DropdownMenuTrigger asChild>
               <Button aria-label="Language">
                 {lang.toUpperCase()}
-                <ChevronDown className="size-[.85rem] text-muted-foreground" />
+                <ChevronDown className="size-3.5 text-muted-foreground" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="max-h-[60vh]">
@@ -167,21 +167,21 @@ export default function App() {
                   onSelect={() => setLanguage(l)}
                 >
                   <span>{l.toUpperCase()}</span>
-                  {l === lang && <Check className="size-[.9rem]" />}
+                  {l === lang && <Check className="size-3.5" />}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
           <Button size="icon" aria-label="Light/dark theme"
                   className="text-muted-foreground" onClick={toggleTheme}>
-            {dark ? <Sun className="size-[1.05rem]" />
-                  : <Moon className="size-[1.05rem]" />}
+            {dark ? <Sun className="size-4" />
+                  : <Moon className="size-4" />}
           </Button>
         </div>
       </div>
 
       <p
-        className="mb-5 mt-2 text-[.92rem] text-muted-foreground [&_a]:text-foreground [&_a]:underline-offset-[3px] [&_b]:font-semibold [&_b]:text-foreground"
+        className="mb-5 mt-2 text-sm text-muted-foreground [&_a]:text-foreground [&_a]:underline-offset-[3px] [&_b]:font-semibold [&_b]:text-foreground"
         dangerouslySetInnerHTML={{
           __html: t("intro",
             { n: (rows?.length ?? 0).toLocaleString() }),
@@ -203,7 +203,7 @@ export default function App() {
           <DropdownMenuTrigger asChild>
             <button className={cn(chipClass(sortMode !== DEFAULT_SORT),
                 "inline-flex items-center gap-1.5")}>
-              <ArrowUpDown className="size-[.8rem]" />
+              <ArrowUpDown className="size-3.5" />
               {t(SORT_KEYS[sortMode])}
             </button>
           </DropdownMenuTrigger>
@@ -211,11 +211,10 @@ export default function App() {
             {(Object.keys(SORT_KEYS) as SortMode[]).map((mode) => (
               <DropdownMenuItem
                 key={mode}
-                aria-selected={mode === sortMode}
                 onSelect={() => setSortMode(mode)}
               >
                 {t(SORT_KEYS[mode])}
-                {mode === sortMode && <Check className="size-[.9rem]" />}
+                {mode === sortMode && <Check className="size-3.5" />}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -231,7 +230,7 @@ export default function App() {
         ))}
       </div>
 
-      <div className="mx-0.5 my-3 text-[.82rem] text-muted-foreground">
+      <div className="mx-0.5 my-3 text-sm text-muted-foreground">
         {meta}
       </div>
 
@@ -244,12 +243,12 @@ export default function App() {
               <a
                 href={r.url}
                 rel="noopener"
-                className="text-[.98rem] font-semibold text-primary no-underline underline-offset-[3px] hover:underline"
+                className="text-base font-semibold text-primary no-underline underline-offset-[3px] hover:underline"
               >
                 {primary || r.url}
               </a>
               {alt && (
-                <div className="mt-0.5 text-[.84rem] text-muted-foreground">
+                <div className="mt-0.5 text-sm text-muted-foreground">
                   {alt}
                 </div>
               )}
@@ -273,7 +272,7 @@ export default function App() {
                 )}
               </div>
               {lang === "pt" && r.description && (
-                <p className="mt-2 text-[.88rem] text-muted-foreground">
+                <p className="mt-2 text-sm text-muted-foreground">
                   {r.description}
                 </p>
               )}
@@ -283,7 +282,7 @@ export default function App() {
       </div>
       <div ref={sentinelRef} />
 
-      <footer className="mt-11 border-t border-border pt-4 text-[.82rem] text-muted-foreground [&_a]:text-foreground [&_a]:underline-offset-[3px]">
+      <footer className="mt-11 border-t border-border pt-4 text-sm text-muted-foreground [&_a]:text-foreground [&_a]:underline-offset-[3px]">
         <span dangerouslySetInnerHTML={{ __html: t("foot") }} />
         {stats && (
           <div className="mt-1.5">

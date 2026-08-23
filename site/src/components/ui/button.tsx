@@ -14,8 +14,8 @@ const buttonVariants = cva(
           "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
       },
       size: {
-        sm: "h-[2.1rem] px-2.5 text-[.8rem]",
-        icon: "h-[2.1rem] w-[2.1rem]",
+        sm: "h-8 px-2.5 text-sm",
+        icon: "h-8 w-8",
       },
     },
     defaultVariants: { variant: "outline", size: "sm" },

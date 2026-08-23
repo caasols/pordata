@@ -13,7 +13,7 @@ function DropdownMenuContent({ className, sideOffset = 6, ...props }:
       <DropdownMenuPrimitive.Content
         sideOffset={sideOffset}
         className={cn(
-          "z-50 min-w-[5.5rem] overflow-y-auto rounded-lg border border-border bg-popover p-1 text-popover-foreground shadow-[0_4px_16px_rgb(0_0_0/0.12)]",
+          "z-50 min-w-[5.5rem] overflow-y-auto rounded-lg border border-border bg-popover p-1 text-popover-foreground shadow-md",
           "max-h-[var(--radix-dropdown-menu-content-available-height)]",
           className,
         )}
@@ -28,7 +28,7 @@ function DropdownMenuItem({ className, ...props }:
   return (
     <DropdownMenuPrimitive.Item
       className={cn(
-        "flex cursor-pointer select-none items-center justify-between gap-2.5 rounded-sm px-2.5 py-1.5 text-[.85rem] outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
+        "flex cursor-pointer select-none items-center justify-between gap-2.5 rounded-sm px-2.5 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
         className,
       )}
       {...props}
