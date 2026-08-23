@@ -197,8 +197,21 @@ def main() -> None:
             with urllib.request.urlopen(req, timeout=120) as resp:
                 record = parse(url, resp.status, resp.read())
         except Exception as exc:
-            record = {"url": url, "error": str(exc)[:200],
-                      "harvested_at": time.strftime("%Y-%m-%d", time.gmtime())}
+            # A failed re-fetch must never erase a good record: the build
+            # skips error records, so overwriting would silently drop a
+            # live indicator from the published catalogue over one
+            # transient 500. Only pages with no good record so far become
+            # error records; the rest keep their data and carry a marker
+            # (plan() still re-fetches them, since they stay stale).
+            now = time.strftime("%Y-%m-%d", time.gmtime())
+            prev = records.get(url)
+            if prev and "error" not in prev:
+                prev["refetch_error"] = str(exc)[:200]
+                prev["refetch_failed_at"] = now
+                record = prev
+            else:
+                record = {"url": url, "error": str(exc)[:200],
+                          "harvested_at": now}
         records[url] = record
         harvested += 1
         if harvested % 25 == 0:

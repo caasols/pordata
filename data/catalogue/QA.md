@@ -6,14 +6,13 @@ Records: 2196 (2195 ok, 1 errored)
 
 | area | n | name | description | fontes | ultima_atualizacao | json_ld |
 |---|---|---|---|---|---|---|
-| europa | 638 | 99% | 99% | 100% | 100% | 100% |
-| municipios | 504 | 99% | 99% | 100% | 100% | 100% |
+| europa | 638 | 100% | 100% | 100% | 100% | 100% |
+| municipios | 504 | 100% | 100% | 100% | 100% | 100% |
 | portugal | 1053 | 100% | 100% | 100% | 100% | 100% |
-| ALL | 2195 | 99% | 99% | 100% | 100% | 100% |
+| ALL | 2195 | 100% | 100% | 100% | 100% | 100% |
 
 ## Findings
 
-- duplicate ids: [5, 6, 8, 9, 10, 11, 12, 16, 25, 28, 30, 31, 32, 34, 35, 37, 38, 40, 41, 42]
 - empty name: 3
   - `financiamento+da+uniao+europeia+aos+paises+em+desenvolvimento-3597`
   - `taxa+de+atividade+total+e+por+grupo+etario-3828`
@@ -31,3 +30,25 @@ Records: 2196 (2195 ok, 1 errored)
 ## Error records (will be retried next run)
 
 - `portugal/despesas+das+administracoes+publicas+em+ambiente+em+percentagem+do+tota`: HTTP Error 500: Internal Server Error
+
+## Published layer (docs/data/catalogue.json)
+
+- rows: 2195 (2195 live, 0 tombstoned)
+- name_en present: 100%
+- fontes non-empty: 100%
+- featured flagged rows: 52
+
+## Gate
+
+Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breach so a bad harvest never publishes.
+
+- jsonl_skipped_lines: 0
+- ok_records_ratio: 0.9995
+- name_coverage: 0.9986
+- description_coverage: 0.9986
+- fontes_coverage: 1
+- date_iso_ratio: 1
+- duplicate_area_id: 0
+- published_rows_ratio: 1
+
+- all thresholds pass

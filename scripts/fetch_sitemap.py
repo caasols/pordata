@@ -17,10 +17,17 @@ sandbox cannot; a laptop or a GitHub Actions runner can).
 """
 
 import collections
+import os
 import pathlib
 import re
 import sys
 import urllib.request
+
+if __package__:
+    from . import pordata_lib as lib
+else:  # executed directly
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import pordata_lib as lib
 
 SITEMAP_URL = "https://www.pordata.pt/PordataSitemap.aspx"
 USER_AGENT = (
@@ -29,6 +36,26 @@ USER_AGENT = (
 )
 URLS_FILE = pathlib.Path("data/sitemap-urls.txt")
 LASTMOD_FILE = pathlib.Path("data/sitemap-lastmod.tsv")
+
+# A snapshot that loses more than this fraction of indicator targets is
+# refused: PORDATA switching to a <sitemapindex> (or any format change
+# the parser mis-reads) would otherwise write a near-empty snapshot,
+# and the build would tombstone the whole catalogue as "descontinuado"
+# automatically. Set ALLOW_MASS_REMOVAL=1 to accept a genuine one.
+MIN_TARGET_RATIO = 0.95
+
+
+def count_targets(urls: list[str]) -> list[str]:
+    """Indicator targets among a fresh URL list, by the same definition
+    the harvester uses (lib.targets reads a file; this reads memory)."""
+    picked = []
+    for u in urls:
+        path = u.split("pordata.pt/", 1)[-1]
+        area = path.split("/", 1)[0]
+        if area in lib.AREA_PREFIXES and "/en/" not in u \
+                and "quadro+resumo" not in u and re.search(r"-\d+$", u):
+            picked.append(u)
+    return picked
 
 
 def main() -> None:
@@ -50,6 +77,22 @@ def main() -> None:
 
     URLS_FILE.parent.mkdir(exist_ok=True)
     urls = sorted(entries)
+
+    # Corpus floor: compare indicator targets, not raw URL count, so the
+    # check tracks what the catalogue is actually built from.
+    new_targets = len(count_targets(urls))
+    if URLS_FILE.exists() and not os.environ.get("ALLOW_MASS_REMOVAL"):
+        old_targets = len(lib.targets(URLS_FILE))
+        if old_targets and new_targets < old_targets * MIN_TARGET_RATIO:
+            sys.exit(
+                f"Refusing to overwrite the snapshot: indicator targets "
+                f"fell {old_targets} -> {new_targets} "
+                f"({new_targets / old_targets:.1%} of baseline, floor "
+                f"{MIN_TARGET_RATIO:.0%}). Either the sitemap format "
+                f"changed or PORDATA removed a large share of pages. "
+                f"Inspect, then re-run with ALLOW_MASS_REMOVAL=1 to accept."
+            )
+
     URLS_FILE.write_text("\n".join(urls) + "\n", encoding="utf-8")
     LASTMOD_FILE.write_text(
         "".join(f"{u}\t{entries[u]}\n" for u in urls), encoding="utf-8"

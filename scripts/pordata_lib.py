@@ -6,6 +6,7 @@ build all import from here so the definition cannot drift.
 """
 
 import json
+import os
 import pathlib
 import re
 
@@ -55,24 +56,44 @@ def lastmods(tsv_file: pathlib.Path = LASTMOD_FILE) -> dict[str, str]:
     return entries
 
 
+# Set by load_records: lines that could not be parsed into a record.
+# Non-zero means the JSONL is corrupt and the catalogue built from it is
+# incomplete — qa_catalogue.py gates on this rather than letting a
+# truncated file publish a silently shrunken catalogue.
+SKIPPED_LINES = 0
+
+
 def load_records(pages_file: pathlib.Path = PAGES_FILE) -> dict[str, dict]:
     """url -> record, keeping the LAST occurrence of each url so that
-    re-harvested (stale) pages override their older lines."""
+    re-harvested (stale) pages override their older lines. Unparseable
+    lines are skipped but counted in SKIPPED_LINES, never silently."""
+    global SKIPPED_LINES
     records: dict[str, dict] = {}
+    SKIPPED_LINES = 0
     if not pages_file.exists():
         return records
     for line in pages_file.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
         try:
             rec = json.loads(line)
             records[rec["url"]] = rec
-        except (ValueError, KeyError):
-            continue
+        except (ValueError, KeyError, TypeError):
+            # TypeError: a valid-JSON non-object line (null, 42, "x")
+            SKIPPED_LINES += 1
+    if SKIPPED_LINES:
+        print(f"WARNING: {SKIPPED_LINES} unparseable line(s) in "
+              f"{pages_file}; records built from it are incomplete")
     return records
 
 
 def write_records(records: dict[str, dict],
                   pages_file: pathlib.Path = PAGES_FILE) -> None:
-    """Rewrite the JSONL deduplicated, in stable url order."""
-    with pages_file.open("w", encoding="utf-8") as fh:
+    """Rewrite the JSONL deduplicated, in stable url order. Atomic: a
+    crash mid-write leaves the previous file intact rather than a
+    truncated one."""
+    tmp = pages_file.with_suffix(pages_file.suffix + ".tmp")
+    with tmp.open("w", encoding="utf-8") as fh:
         for url in sorted(records):
             fh.write(json.dumps(records[url], ensure_ascii=False) + "\n")
+    os.replace(tmp, pages_file)

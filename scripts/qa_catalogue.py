@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
-"""3d: QA pass over the harvested catalogue. Offline — reads
-data/catalogue/pages.jsonl, writes data/catalogue/QA.md. Never fetches.
+"""QA pass over the harvested catalogue. Offline — reads
+data/catalogue/pages.jsonl (and the published docs/data/catalogue.json
+when present), writes data/catalogue/QA.md. Never fetches.
 
-Checks: field coverage per area, error records, duplicate ids, suspicious
-fields (empty name, over-long fontes, non-ISO dates), and how many weak
-fields are recoverable offline from the stored marker_windows excerpts.
+Checks: field coverage per area, error records, duplicate (area, id)
+keys, suspicious fields (empty name, over-captured fontes, non-ISO
+dates), how many weak fields are recoverable offline from the stored
+marker_windows excerpts, and the published layer the site actually
+serves.
+
+**This is a gate, not just a report** (decision 7b): with --strict it
+exits non-zero when a threshold in THRESHOLDS is breached, so a PORDATA
+parser regression fails the harvest job instead of publishing silently.
 """
 
+import json
 import os
 import pathlib
 import re
@@ -19,6 +27,22 @@ else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
     import pordata_lib as lib
 
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
+PUBLISHED = pathlib.Path("docs/data/catalogue.json")
+
+# Machine-checked floors. Every metric a feature or roadmap item depends
+# on belongs here, never in prose (decision 7b). Values sit just under
+# the measured state so real regressions trip them and normal drift does
+# not; raise them as the pipeline improves.
+THRESHOLDS = {
+    "jsonl_skipped_lines_max": 0,      # corrupt JSONL must never publish
+    "ok_records_ratio_min": 0.98,      # of sitemap targets
+    "name_coverage_min": 0.98,
+    "description_coverage_min": 0.95,
+    "fontes_coverage_min": 0.95,
+    "date_iso_ratio_min": 1.0,         # of non-empty ultima_atualizacao
+    "duplicate_area_id_max": 0,        # (area, id) is the catalogue key
+    "published_rows_ratio_min": 0.98,  # published vs ok records
+}
 
 
 def recoverable_from_windows(rec: dict, field: str) -> bool:
@@ -31,12 +55,38 @@ def recoverable_from_windows(rec: dict, field: str) -> bool:
     return False
 
 
-def main() -> None:
+def gate(metrics: dict) -> list[str]:
+    """Compare measured metrics against THRESHOLDS; return breaches."""
+    breaches = []
+    for key, limit in THRESHOLDS.items():
+        metric = key.rsplit("_", 1)[0]
+        value = metrics.get(metric)
+        if value is None:
+            continue
+        if key.endswith("_max") and value > limit:
+            breaches.append(f"{metric}: {value} > allowed {limit}")
+        elif key.endswith("_min") and value < limit:
+            breaches.append(f"{metric}: {value:.4g} < required {limit}")
+    return breaches
+
+
+def main_strict() -> None:
+    """main() with the gate armed; --strict on the CLI does the same."""
+    main(strict=True)
+
+
+def main(strict: bool = False) -> None:
+    strict = strict or "--strict" in sys.argv
     records = lib.load_records()
     ok = [r for r in records.values() if "error" not in r]
     errors = [r for r in records.values() if "error" in r]
-    areas = sorted({r["area"] for r in ok})
+    targets = lib.targets() if lib.URLS_FILE.exists() else []
+    areas = sorted({r["area"] for r in ok if r.get("area")})
     fields = ["name", "description", "fontes", "ultima_atualizacao", "json_ld"]
+
+    def coverage(subset, field):
+        return (sum(1 for r in subset if r.get(field)) / len(subset)
+                if subset else 0.0)
 
     lines = ["# Catalogue QA", "",
              f"Records: {len(records)} ({len(ok)} ok, {len(errors)} errored)",
@@ -46,12 +96,14 @@ def main() -> None:
     for area in areas + ["ALL"]:
         subset = ok if area == "ALL" else [r for r in ok if r["area"] == area]
         row = [area, str(len(subset))]
-        for f in fields:
-            row.append(f"{sum(1 for r in subset if r.get(f)) * 100 // max(len(subset), 1)}%")
+        row += [f"{coverage(subset, f) * 100:.0f}%" for f in fields]
         lines.append("| " + " | ".join(row) + " |")
 
-    ids = [r["id"] for r in ok]
-    dup_ids = sorted({i for i in ids if ids.count(i) > 1})
+    # (area, id) is the catalogue key — ids repeat across areas by design,
+    # so only a repeat *within* an area is a real collision.
+    keys = [(r.get("area"), r.get("id")) for r in ok]
+    dup_keys = sorted({k for k in keys if keys.count(k) > 1 and k[1] is not None},
+                      key=lambda k: (str(k[0]), str(k[1])))
     weak = {
         "empty name": [r for r in ok if not r.get("name")],
         "empty fontes": [r for r in ok if not r.get("fontes")],
@@ -67,16 +119,18 @@ def main() -> None:
         "name/description carries inline HTML (stripped at build)":
             [r for r in ok if re.search(r"<[^>]+>", (r.get("name") or "")
                                         + (r.get("description") or ""))],
+        "re-fetch failed; serving the previous good record":
+            [r for r in ok if r.get("refetch_error")],
     }
     lines += ["", "## Findings", ""]
-    if dup_ids:
-        lines.append(f"- duplicate ids: {dup_ids[:20]}")
+    if dup_keys:
+        lines.append(f"- duplicate (area, id) keys: {dup_keys[:20]}")
     for label, recs in weak.items():
         if not recs:
             continue
         lines.append(f"- {label}: {len(recs)}")
         for r in recs[:8]:
-            lines.append(f"  - `{r['slug'][:70]}`")
+            lines.append(f"  - `{str(r.get('slug', r.get('url', '')))[:70]}`")
     for field in ("fontes", "ultima_atualizacao"):
         missing = [r for r in ok if not r.get(field)]
         rec_ok = sum(1 for r in missing if recoverable_from_windows(r, field))
@@ -87,12 +141,57 @@ def main() -> None:
         lines += ["", "## Error records (will be retried next run)", ""]
         lines += [f"- `{r['url'].split('pordata.pt/')[-1][:80]}`: {r['error'][:80]}"
                   for r in errors[:15]]
-    if not (dup_ids or errors or any(weak.values())):
+    if not (dup_keys or errors or any(weak.values())):
         lines.append("- no findings; catalogue looks clean")
+
+    # ---- published layer: what the site actually serves ----------------
+    published = []
+    if PUBLISHED.exists():
+        published = json.loads(PUBLISHED.read_text(encoding="utf-8"))
+        live = [r for r in published if not r.get("removed")]
+        lines += ["", "## Published layer (docs/data/catalogue.json)", "",
+                  f"- rows: {len(published)} ({len(live)} live, "
+                  f"{len(published) - len(live)} tombstoned)",
+                  f"- name_en present: {coverage(published, 'name_en') * 100:.0f}%",
+                  f"- fontes non-empty: {coverage(published, 'fontes') * 100:.0f}%",
+                  f"- featured flagged rows: "
+                  f"{sum(1 for r in published if r.get('featured'))}"]
+
+    dates = [r["ultima_atualizacao"] for r in ok if r.get("ultima_atualizacao")]
+    metrics = {
+        "jsonl_skipped_lines": lib.SKIPPED_LINES,
+        "ok_records_ratio": len(ok) / len(targets) if targets else 1.0,
+        "name_coverage": coverage(ok, "name"),
+        "description_coverage": coverage(ok, "description"),
+        "fontes_coverage": coverage(ok, "fontes"),
+        "date_iso_ratio": (sum(
+            1 for d in dates
+            if re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", d)) / len(dates)
+            if dates else 1.0),
+        "duplicate_area_id": len(dup_keys),
+        "published_rows_ratio": (len(published) / len(ok)
+                                 if published and ok else 1.0),
+    }
+    breaches = gate(metrics)
+    lines += ["", "## Gate", "",
+              "Thresholds are machine-checked (decision 7b); `--strict` "
+              "exits non-zero on breach so a bad harvest never publishes.", ""]
+    lines += [f"- {k}: {v:.4g}" if isinstance(v, float) else f"- {k}: {v}"
+              for k, v in metrics.items()]
+    lines += [""] + ([f"- **BREACH** {b}" for b in breaches]
+                     if breaches else ["- all thresholds pass"])
 
     QA_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"QA written: {len(ok)} ok, {len(errors)} errors, "
           f"{sum(len(v) for v in weak.values())} weak-field findings")
+    if breaches:
+        print("QA GATE BREACHED:")
+        for b in breaches:
+            print(f"  - {b}")
+        if strict:
+            sys.exit(1)
+    else:
+        print("QA gate: all thresholds pass")
 
 
 if __name__ == "__main__":

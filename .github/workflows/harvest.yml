@@ -20,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  issues: write  # QA-gate breach opens an issue
 
 concurrency:
   group: catalogue-harvest
@@ -44,14 +45,32 @@ jobs:
       # Rebuild only when the harvest changed records; otherwise a no-op
       # run (e.g. a failed retry of the same error) would still commit a
       # stats.json built_at bump and redeploy Pages for nothing.
-      - name: Build catalogue and QA
+      # QA runs --strict: a threshold breach (parser regression, corrupt
+      # JSONL, mass record loss) must NOT reach the published site.
+      - name: Build catalogue and QA gate
+        id: qa
+        continue-on-error: true
         run: |
           if git diff --quiet data/catalogue/; then
             echo "No records changed; skipping rebuild."
-          else
-            python3 scripts/build_catalogue.py
-            python3 scripts/qa_catalogue.py
+            echo "status=skipped" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          python3 scripts/build_catalogue.py
+          if python3 scripts/qa_catalogue.py --strict; then
+            echo "status=pass" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=fail" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+      # The harvest itself is still worth keeping (raw records + the QA
+      # report explaining the breach); only the publish is withheld.
+      - name: Withhold publish on QA breach
+        if: steps.qa.outputs.status == 'fail'
+        run: |
+          echo "QA gate breached - reverting docs/ so nothing bad publishes."
+          git checkout -- docs/data || true
 
       - name: Commit progress
         run: |
@@ -65,3 +84,16 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push
           fi
+
+      - name: Open an issue on QA breach
+        if: steps.qa.outputs.status == 'fail'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "QA gate breached - publish withheld ($(date -u +%Y-%m-%d))" \
+            --body "$(printf 'The harvest QA gate failed, so `docs/` was NOT published; the raw harvest and the QA report were still committed.\n\nSee `data/catalogue/QA.md` (Gate section) and run %s/actions/runs/%s.\n' "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}")"
+
+      - name: Fail the job when the QA gate breached
+        if: steps.qa.outputs.status == 'fail'
+        run: exit 1
