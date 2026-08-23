@@ -82,12 +82,18 @@ export function shortSources(fontes: string[] | undefined): string {
   return fontes.length > 1 ? `${first} +${fontes.length - 1}` : first;
 }
 
+// One fixed grid cell. It is rendered even with no value to report: the
+// three columns must start at the same x on every card, and the unit is
+// absent on 48% of rows, so an omitted cell would slide the sources
+// column left and break the alignment down a scrolling list.
 function Meta({ label, value }: { label: string; value: string }) {
+  if (!value) return <div aria-hidden="true" />;
   return (
-    <div className="min-w-[4.5rem]">
+    <div className="min-w-0">
       <span className="block text-[9.5px] uppercase tracking-[0.1em]
         text-muted-foreground/75">{label}</span>
-      <span className="block text-xs tabular-nums">{value}</span>
+      <span className="block line-clamp-2 text-xs tabular-nums"
+        title={value}>{value}</span>
     </div>
   );
 }
@@ -364,15 +370,11 @@ export default function App() {
                       </Badge>
                     ) : null}
                   </div>
-                  <div className="flex flex-wrap gap-x-4 gap-y-2">
-                    {r.ultima_atualizacao && (
-                      <Meta label={t("updated")}
-                        value={monthYear(r.ultima_atualizacao, lang)} />
-                    )}
-                    {r.unit && <Meta label={t("unit")} value={r.unit} />}
-                    {sources && (
-                      <Meta label={t("sources")} value={sources} />
-                    )}
+                  <div className="grid grid-cols-3 gap-x-3">
+                    <Meta label={t("updated")}
+                      value={monthYear(r.ultima_atualizacao, lang)} />
+                    <Meta label={t("unit")} value={r.unit || ""} />
+                    <Meta label={t("sources")} value={sources} />
                   </div>
                   <ChartSlot label={t("chartSoon")} />
                 </div>

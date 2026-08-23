@@ -206,6 +206,23 @@ describe("App", () => {
     expect(screen.queryByRole("button", { name: "Clear filters" })).toBeNull();
   });
 
+  it("keeps the meta columns aligned whether or not there is a unit",
+     async () => {
+    const { container } = render(<App />);
+    await screen.findByText("Birth rate");
+    const grids = container.querySelectorAll("div.grid-cols-3");
+    expect(grids).toHaveLength(3);          // one meta row per card
+    // Every card reserves all three cells, so ATUAL./UNIDADE/FONTES start
+    // at the same x down the list. Two of the three fixtures have no unit.
+    grids.forEach((g) => expect(g.children).toHaveLength(3));
+    const reserved = [...grids].filter(
+      (g) => g.children[1].getAttribute("aria-hidden") === "true"
+        && !g.children[1].textContent);
+    expect(reserved).toHaveLength(2);
+    // the card that does have one still renders it
+    expect(screen.getByText("Taxa - \u2030")).toBeInTheDocument();
+  });
+
   it("badges the summary set with a plain label, not the raw value",
      async () => {
     render(<App />);
