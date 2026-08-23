@@ -57,5 +57,10 @@ A graphify graph exists under `graphify-out/` (derived, gitignored; rebuild with
 ```bash
 python3 -m unittest discover -s tests
 python3 scripts/build_catalogue.py
+cd site && npm ci && npm run build   # UI: typecheck + build into docs/
 python3 ~/.claude/skills/cartographer/scripts/audit.py . --style-lint
 ```
+
+The site is a React + Vite + Tailwind app in `site/` (shadcn-style components, TypeScript);
+`npm run build` writes the deployable bundle into `docs/` (committed — Pages serves it).
+Never hand-edit `docs/index.html` or `docs/assets/`; edit `site/src/` and rebuild.

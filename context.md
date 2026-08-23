@@ -29,7 +29,8 @@ server (Phase D). See Roadmap.
 | `tests/` | 40 unittest cases, 85% coverage; mutation-tested via mutmut (`setup.cfg`) |
 | `.github/workflows/` | sitemap watch (daily), catalogue harvest (3×/day), tests+mutation (per push), featured sets + INE snapshot (dispatch) |
 | `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA, spike reports |
-| `docs/` | The GitHub Pages site: `index.html` (search UI) + `data/` (catalogue.json/csv/stats — the static "API") |
+| `site/` | The search UI source: React + Vite + Tailwind + shadcn-style components (TypeScript). `npm run build` → `docs/` |
+| `docs/` | The GitHub Pages site: built UI bundle (from `site/`, committed) + `data/` (catalogue.json/csv/stats — the static "API") |
 | `ledger/` | Question Ledger: 100 demand-side questions plus protocol |
 | `outreach/` | Record of external contacts. Holds the FFMS email as sent |
 | `graphify-out/` | Derived code graph, gitignored |
@@ -62,14 +63,19 @@ The pipeline, end to end, all live on `main`:
   skips the rebuild so no-op retries commit nothing. During the initial harvest the cron ran
   3×/day launching back-to-back chunks.
 - **Published catalogue + search site** (Phase C, live): `build_catalogue.py` renders
-  `pages.jsonl` into `docs/data/catalogue.json` / `.csv` / `stats.json`; `docs/index.html` is
-  a zero-dependency search page — ranked fuzzy matching (substring > prefix > bounded edit
-  distance), key-based i18n in six languages (PT/EN/ES/FR/DE/IT), `name_en` on every row
-  derived free from the `/en` sitemap slugs (EN pages share ids with PT), featured and
-  "descontinuado" badges, PORDATA credited prominently, every hit linking to its PORDATA
-  page. Area pills are opt-in filters (none selected = show all); results load with infinite
-  scroll in device-sized chunks (~two viewports of cards per append, IntersectionObserver
-  sentinel). Rebuilt and redeployed automatically after every harvest chunk. Repo made public
+  `pages.jsonl` into `docs/data/catalogue.json` / `.csv` / `stats.json`. The UI is a
+  **React + Vite + Tailwind app in `site/`** (migrated from the original single-file page
+  2026-08-23, owner call — real shadcn-style components on Radix primitives, TypeScript;
+  `npm run build` in `site/` writes the static bundle into `docs/`, committed, ~106 KB
+  gzipped; `site.yml` build-checks every push touching `site/`; never hand-edit
+  `docs/index.html`/`docs/assets/`). Features: ranked fuzzy matching (substring > prefix >
+  bounded edit distance), key-based i18n in six languages (PT/EN/ES/FR/DE/IT) with all 24 EU
+  languages listed (rest greyed), `name_en` on every row derived free from the `/en` sitemap
+  slugs, opt-in area filter pills in one swipeable row, a sort pill (relevance, name A→Z/Z→A,
+  update date newest/oldest), infinite scroll in device-sized chunks, featured and
+  "descontinuado" badges, light/dark theme, PORDATA credited prominently, every hit linking
+  to its PORDATA page. Data redeploys automatically after every harvest chunk (the app
+  fetches `docs/data/*.json` at runtime, so data changes need no rebuild). Repo made public
   and Pages enabled 2026-08-22.
 - **Featured sets** (3c): quadro-resumo rows are OutSystems postbacks with no ids, but names
   are server-rendered; `fetch_featured_sets.py` extracts them (subtitle-aware) and the build

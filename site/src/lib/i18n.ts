@@ -1,0 +1,124 @@
+// Key-based i18n: add a language by adding one STRINGS block (and its
+// label in AREA_LABELS), then whitelist it in AVAILABLE. {n} / {m} are
+// placeholders. Indicator names exist in PT and EN only (that is what
+// PORDATA publishes); other UI languages show the EN name first and the
+// PT original underneath.
+
+type Strings = Record<string, string>;
+
+export const STRINGS: Record<string, Strings> = {
+  pt: {
+    intro: 'Catálogo pesquisável dos <b>{n}</b> indicadores da {pordata} (Fundação Francisco Manuel dos Santos). Este índice contém apenas <b>metadados</b> — os valores estão nas páginas da PORDATA e nas fontes oficiais (INE, Eurostat, Banco de Portugal).',
+    placeholder: 'ex.: envelhecimento, salário médio, rendas…',
+    results: '{n} indicadores', showing: ' (a mostrar {m})',
+    removed: 'descontinuado', sources: 'Fontes', updated: 'atual.',
+    loadfail: 'Não foi possível carregar o catálogo.',
+    sortRelevance: 'Relevância', sortAz: 'Nome A→Z', sortZa: 'Nome Z→A',
+    sortNew: 'Mais recentes', sortOld: 'Mais antigos',
+    building: ' (colheita em curso)', updatedAt: 'Atualizado: ',
+    foot: 'Dados e curadoria: {pordata}, Fundação Francisco Manuel dos Santos, e respetivas fontes. Índice construído a partir das páginas públicas de indicadores; sem redistribuição de valores. Código e metadados: {repo} · {json} · {csv}',
+  },
+  en: {
+    intro: "Searchable catalogue of the <b>{n}</b> indicators of {pordata} (Francisco Manuel dos Santos Foundation). This index holds <b>metadata only</b> — the values live on PORDATA's pages and at the official sources (INE, Eurostat, Banco de Portugal).",
+    placeholder: 'e.g.: ageing, average wage, rents…',
+    results: '{n} indicators', showing: ' (showing {m})',
+    removed: 'discontinued', sources: 'Sources', updated: 'upd.',
+    loadfail: 'Could not load the catalogue.',
+    sortRelevance: 'Relevance', sortAz: 'Name A→Z', sortZa: 'Name Z→A',
+    sortNew: 'Newest first', sortOld: 'Oldest first',
+    building: ' (harvest in progress)', updatedAt: 'Updated: ',
+    foot: 'Data and curation: {pordata}, Francisco Manuel dos Santos Foundation, and their sources. Built from the public indicator pages; no data values are redistributed. Code and metadata: {repo} · {json} · {csv}',
+  },
+  es: {
+    intro: 'Catálogo consultable de los <b>{n}</b> indicadores de {pordata} (Fundación Francisco Manuel dos Santos). Este índice contiene solo <b>metadatos</b>: los valores están en las páginas de PORDATA y en las fuentes oficiales (INE, Eurostat, Banco de Portugal). Los nombres de los indicadores existen en portugués e inglés.',
+    placeholder: 'p. ej.: envejecimiento, salario medio, alquileres…',
+    results: '{n} indicadores', showing: ' (mostrando {m})',
+    removed: 'descatalogado', sources: 'Fuentes', updated: 'act.',
+    loadfail: 'No se pudo cargar el catálogo.',
+    sortRelevance: 'Relevancia', sortAz: 'Nombre A→Z', sortZa: 'Nombre Z→A',
+    sortNew: 'Más recientes', sortOld: 'Más antiguos',
+    building: ' (recolección en curso)', updatedAt: 'Actualizado: ',
+    foot: 'Datos y curaduría: {pordata}, Fundación Francisco Manuel dos Santos, y sus fuentes. Construido a partir de las páginas públicas de indicadores; sin redistribución de valores. Código y metadatos: {repo} · {json} · {csv}',
+  },
+  fr: {
+    intro: "Catalogue interrogeable des <b>{n}</b> indicateurs de {pordata} (Fondation Francisco Manuel dos Santos). Cet index ne contient que des <b>métadonnées</b> — les valeurs se trouvent sur les pages de PORDATA et auprès des sources officielles (INE, Eurostat, Banco de Portugal). Les noms des indicateurs existent en portugais et en anglais.",
+    placeholder: 'ex. : vieillissement, salaire moyen, loyers…',
+    results: '{n} indicateurs', showing: ' (affichage de {m})',
+    removed: 'discontinué', sources: 'Sources', updated: 'màj',
+    loadfail: 'Impossible de charger le catalogue.',
+    sortRelevance: 'Pertinence', sortAz: 'Nom A→Z', sortZa: 'Nom Z→A',
+    sortNew: 'Plus récents', sortOld: 'Plus anciens',
+    building: ' (collecte en cours)', updatedAt: 'Mis à jour : ',
+    foot: "Données et curation : {pordata}, Fondation Francisco Manuel dos Santos, et leurs sources. Construit à partir des pages publiques des indicateurs ; aucune valeur n'est redistribuée. Code et métadonnées : {repo} · {json} · {csv}",
+  },
+  de: {
+    intro: 'Durchsuchbarer Katalog der <b>{n}</b> Indikatoren von {pordata} (Stiftung Francisco Manuel dos Santos). Dieser Index enthält nur <b>Metadaten</b> — die Werte stehen auf den PORDATA-Seiten und bei den amtlichen Quellen (INE, Eurostat, Banco de Portugal). Die Indikatornamen liegen auf Portugiesisch und Englisch vor.',
+    placeholder: 'z. B.: Alterung, Durchschnittslohn, Mieten…',
+    results: '{n} Indikatoren', showing: ' (zeige {m})',
+    removed: 'eingestellt', sources: 'Quellen', updated: 'Stand',
+    loadfail: 'Der Katalog konnte nicht geladen werden.',
+    sortRelevance: 'Relevanz', sortAz: 'Name A→Z', sortZa: 'Name Z→A',
+    sortNew: 'Neueste zuerst', sortOld: 'Älteste zuerst',
+    building: ' (Erhebung läuft)', updatedAt: 'Aktualisiert: ',
+    foot: 'Daten und Kuratierung: {pordata}, Stiftung Francisco Manuel dos Santos, und ihre Quellen. Erstellt aus den öffentlichen Indikatorseiten; keine Weiterverbreitung von Werten. Code und Metadaten: {repo} · {json} · {csv}',
+  },
+  it: {
+    intro: 'Catalogo consultabile dei <b>{n}</b> indicatori di {pordata} (Fondazione Francisco Manuel dos Santos). Questo indice contiene solo <b>metadati</b>: i valori si trovano sulle pagine di PORDATA e presso le fonti ufficiali (INE, Eurostat, Banco de Portugal). I nomi degli indicatori esistono in portoghese e inglese.',
+    placeholder: 'es.: invecchiamento, salario medio, affitti…',
+    results: '{n} indicatori', showing: ' (mostrando {m})',
+    removed: 'dismesso', sources: 'Fonti', updated: 'agg.',
+    loadfail: 'Impossibile caricare il catalogo.',
+    sortRelevance: 'Rilevanza', sortAz: 'Nome A→Z', sortZa: 'Nome Z→A',
+    sortNew: 'Più recenti', sortOld: 'Più vecchi',
+    building: ' (raccolta in corso)', updatedAt: 'Aggiornato: ',
+    foot: 'Dati e cura: {pordata}, Fondazione Francisco Manuel dos Santos, e le rispettive fonti. Costruito dalle pagine pubbliche degli indicatori; nessuna ridistribuzione di valori. Codice e metadati: {repo} · {json} · {csv}',
+  },
+};
+
+export const AREA_LABELS: Record<string, Record<string, string>> = {
+  portugal: { pt: 'Portugal', en: 'Portugal', es: 'Portugal',
+              fr: 'Portugal', de: 'Portugal', it: 'Portogallo' },
+  municipios: { pt: 'Municípios', en: 'Municipalities', es: 'Municipios',
+                fr: 'Municipalités', de: 'Gemeinden', it: 'Comuni' },
+  europa: { pt: 'Europa', en: 'Europe', es: 'Europa',
+            fr: 'Europe', de: 'Europa', it: 'Europa' },
+};
+
+const LINKS: Record<string, string> = {
+  pordata: '<a href="https://www.pordata.pt" rel="noopener">PORDATA</a>',
+  repo: '<a href="https://github.com/caasols/pordata" rel="noopener">github.com/caasols/pordata</a>',
+  json: '<a href="data/catalogue.json">catalogue.json</a>',
+  csv: '<a href="data/catalogue.csv">catalogue.csv</a>',
+};
+
+export function translate(lang: string, key: string,
+                          params?: Record<string, string>): string {
+  let s = (STRINGS[lang] || STRINGS.pt)[key] || STRINGS.pt[key] || key;
+  for (const [k, v] of Object.entries({ ...LINKS, ...(params || {}) }))
+    s = s.split("{" + k + "}").join(v);
+  return s;
+}
+
+// All EU official languages, native names. Selectable today: content
+// (indicator names) exists in PT and EN only; the rest are greyed out
+// until their UI strings and content story are ready.
+export const ALL_LANGS: Array<[string, string]> = [
+  ["pt", "Português"], ["en", "English"], ["bg", "Български"],
+  ["cs", "Čeština"], ["da", "Dansk"], ["de", "Deutsch"],
+  ["el", "Ελληνικά"], ["es", "Español"], ["et", "Eesti"],
+  ["fi", "Suomi"], ["fr", "Français"], ["ga", "Gaeilge"],
+  ["hr", "Hrvatski"], ["hu", "Magyar"], ["it", "Italiano"],
+  ["lt", "Lietuvių"], ["lv", "Latviešu"], ["mt", "Malti"],
+  ["nl", "Nederlands"], ["pl", "Polski"], ["ro", "Română"],
+  ["sk", "Slovenčina"], ["sl", "Slovenščina"], ["sv", "Svenska"],
+];
+
+export const AVAILABLE = new Set(["pt", "en"]);
+
+export function initialLang(): string {
+  let lang: string | null = null;
+  try { lang = localStorage.getItem("lang"); } catch { /* private mode */ }
+  if (lang && AVAILABLE.has(lang)) return lang;
+  const nav = (navigator.language || "pt").slice(0, 2).toLowerCase();
+  return AVAILABLE.has(nav) ? nav : "en";
+}

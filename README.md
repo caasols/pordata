@@ -25,8 +25,10 @@ No PORDATA data values are redistributed — metadata only, values stay at the s
 
 ## What's here
 
-- **The search site** (`docs/`): zero-dependency static page — ranked fuzzy search, six UI
-  languages (PT/EN/ES/FR/DE/IT), indicator names in Portuguese and English, light/dark theme.
+- **The search site** (`site/` → built into `docs/`): React + Vite + Tailwind with
+  shadcn-style components — ranked fuzzy search, six UI languages (PT/EN/ES/FR/DE/IT),
+  indicator names in Portuguese and English, area filters, sorting, infinite scroll,
+  light/dark theme. Served as a fully static build from GitHub Pages.
 - **A self-maintaining pipeline** (GitHub Actions): a daily sitemap watcher that opens an
   issue when PORDATA adds or removes indicators, and a polite harvester (one request per 20 s,
   metadata only) that keeps the catalogue fresh — new pages fetched, updated pages
