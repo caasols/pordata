@@ -3,7 +3,13 @@
 Sent by Carlos from his personal mail, 2026-08-21 at 10:16, to FFMS. Verbatim copy of the sent
 text, provided by Carlos after sending.
 
-**Backlog item 1 in `context.md`. Status and any reply are tracked there, not here.**
+**Status and any reply are tracked in `context.md`, not here.**
+
+> **Correction (2026-08-23, mega-audit):** the sent text says "cerca de 2 268 indicadores".
+> The real indicator corpus is **2,196**; the larger figure counted 29 Retratos, 17 ODS, 15
+> comunicação and 11 publicações, which are publications rather than indicators. The email
+> below is left verbatim — it is a record of what was sent — but the follow-up (roadmap 4)
+> should use the corrected number.
 
 ---
 

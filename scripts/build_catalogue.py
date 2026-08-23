@@ -287,7 +287,7 @@ def name_from_slug(slug: str) -> str:
 
 def split_fontes(fontes: str) -> list[str]:
     # defensive re-trim: records harvested before the parser fix may still
-    # carry trailing UI text; the JSONL is repaired in the 3d QA pass
+    # carry trailing UI text; repair_pages.py cleans the stored JSONL
     parts = re.split(r"[|,;]", lib.clean_fontes(fontes))
     seen, out = set(), []
     for p in (p.strip() for p in parts):
@@ -299,7 +299,7 @@ def split_fontes(fontes: str) -> list[str]:
 
 def main() -> None:
     records = lib.load_records()
-    current = set(lib.targets())
+    current = set(lib.targets()) - lib.abandoned()
     featured_flags, featured_stats = resolve_featured(records)
     write_unmatched_worksheet(records, featured_stats)
     en_names = build_en_names(lib.URLS_FILE.read_text(encoding="utf-8"))

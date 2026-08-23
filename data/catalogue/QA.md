@@ -1,6 +1,6 @@
 # Catalogue QA
 
-Records: 2196 (2195 ok, 1 errored)
+Records: 2196 (2195 ok, 0 errored)
 
 ## Field coverage (% non-empty)
 
@@ -27,7 +27,9 @@ Records: 2196 (2195 ok, 1 errored)
   - `empresas+com+10+e+mais+pessoas+ao+servico+com+website+ou+homepage+em+p`
   - `pegada+material+per+capita-3745`
 
-## Error records (will be retried next run)
+## Abandoned (listed by PORDATA, not served)
+
+Skipped by the harvest plan and tombstoned at build time; see `data/catalogue/abandoned.txt`.
 
 - `portugal/despesas+das+administracoes+publicas+em+ambiente+em+percentagem+do+tota`: HTTP Error 500: Internal Server Error
 

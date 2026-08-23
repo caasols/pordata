@@ -87,7 +87,11 @@ def main(strict: bool = False) -> None:
     strict = strict or "--strict" in sys.argv
     records = lib.load_records()
     ok = [r for r in records.values() if "error" not in r]
-    errors = [r for r in records.values() if "error" in r]
+    dead = lib.abandoned()
+    errors = [r for r in records.values()
+              if "error" in r and r["url"] not in dead]
+    retired = [r for r in records.values()
+               if "error" in r and r["url"] in dead]
     targets = lib.targets() if lib.URLS_FILE.exists() else []
     areas = sorted({r["area"] for r in ok if r.get("area")})
     fields = ["name", "description", "fontes", "ultima_atualizacao", "json_ld"]
@@ -115,7 +119,7 @@ def main(strict: bool = False) -> None:
     weak = {
         "empty name": [r for r in ok if not r.get("name")],
         "empty fontes": [r for r in ok if not r.get("fontes")],
-        "fontes contains UI boundary text (over-capture; repair in 3d pass)":
+        "fontes contains UI boundary text (over-capture; run repair_pages.py)":
             [r for r in ok
              if r.get("fontes") and lib.clean_fontes(r["fontes"]) != r["fontes"]],
         "ultima_atualizacao not ISO date":
@@ -145,6 +149,12 @@ def main(strict: bool = False) -> None:
         if missing:
             lines.append(f"- empty {field}: {len(missing)}, of which "
                          f"{rec_ok} look recoverable from marker_windows")
+    if retired:
+        lines += ["", "## Abandoned (listed by PORDATA, not served)", "",
+                  "Skipped by the harvest plan and tombstoned at build "
+                  "time; see `data/catalogue/abandoned.txt`.", ""]
+        lines += [f"- `{r['url'].split('pordata.pt/')[-1][:80]}`: "
+                  f"{r['error'][:60]}" for r in retired]
     if errors:
         lines += ["", "## Error records (will be retried next run)", ""]
         lines += [f"- `{r['url'].split('pordata.pt/')[-1][:80]}`: {r['error'][:80]}"

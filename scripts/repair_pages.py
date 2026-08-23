@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3d: offline repair pass over data/catalogue/pages.jsonl.
+"""Offline repair pass over data/catalogue/pages.jsonl.
 
 Records harvested before the fontes-boundary fixes still store trailing
 UI text ("Carregue aqui…", the municipal toolbar words) in their fontes

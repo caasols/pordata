@@ -13,6 +13,7 @@ import re
 URLS_FILE = pathlib.Path("data/sitemap-urls.txt")
 LASTMOD_FILE = pathlib.Path("data/sitemap-lastmod.tsv")
 PAGES_FILE = pathlib.Path("data/catalogue/pages.jsonl")
+ABANDONED_FILE = pathlib.Path("data/catalogue/abandoned.txt")
 
 AREA_PREFIXES = ("portugal", "municipios", "europa")
 
@@ -42,6 +43,17 @@ def targets(urls_file: pathlib.Path = URLS_FILE) -> list[str]:
                 and "quadro+resumo" not in u and re.search(r"-\d+$", u):
             picked.append(u)
     return picked
+
+
+def abandoned(file: pathlib.Path = ABANDONED_FILE) -> set[str]:
+    """URLs PORDATA still lists but no longer serves. Retrying them for
+    ever is dishonest bookkeeping: they are skipped by the harvest plan
+    and tombstoned at build time, exactly like a page that left the
+    sitemap. One URL per line; '#' comments carry the evidence."""
+    if not file.exists():
+        return set()
+    return {ln.strip() for ln in file.read_text(encoding="utf-8").splitlines()
+            if ln.strip() and not ln.startswith("#")}
 
 
 def lastmods(tsv_file: pathlib.Path = LASTMOD_FILE) -> dict[str, str]:

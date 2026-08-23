@@ -1,0 +1,30 @@
+Catalogue metadata licence
+==========================
+
+The code in this repository is MIT-licensed; see LICENSE.
+
+The catalogue metadata — everything under `docs/data/` and
+`data/catalogue/` — is offered under the Creative Commons Attribution
+4.0 International Licence (CC BY 4.0):
+
+    https://creativecommons.org/licenses/by/4.0/
+
+Attribution
+-----------
+
+Reuse it freely, with attribution to **PORDATA / Fundação Francisco
+Manuel dos Santos**, the curators of the underlying indicators, and a
+link back to https://www.pordata.pt.
+
+Scope
+-----
+
+These files contain metadata only: indicator names, descriptions, the
+sources PORDATA credits, update dates and links. **No PORDATA data
+values are contained in or redistributed by this repository** — the
+values stay on PORDATA's pages and at the official sources (INE,
+Eurostat, Banco de Portugal).
+
+The metadata is derived from PORDATA's public indicator pages. This
+project is not affiliated with or endorsed by the Fundação Francisco
+Manuel dos Santos.

@@ -1,6 +1,6 @@
 # pordata map
 
-Making Portuguese public statistics consumable. PORDATA holds 2,268 curated indicators behind a
+Making Portuguese public statistics consumable. PORDATA holds 2,196 curated indicator pages behind a
 UI with no API; this project built the machine-readable layer on top: a self-maintaining
 catalogue of that curation (metadata only, never data values) with a public search site.
 
@@ -18,28 +18,39 @@ automatically by the harvest pipeline. Public repo, MIT (code) / CC BY 4.0 (meta
 
 ## Current focus
 
-Harvest complete at 2,195/2,196 (2026-08-23); the one hold-out (id 1221) 500s on PORDATA's
-side and is auto-retried. The pipeline is now event-driven: the sitemap watcher dispatches the
-harvester only when there is pending work (detector→worker, plus a nightly safety-net cron).
-Same day: 3d QA repair (512 fontes), the `(area, id)` keying fix (ids repeat across areas),
-and site UX — opt-in area filters, infinite scroll in device-sized chunks. INE catalogue fetch
-is blocked from cloud IPs and deferred (offline `data/ine/raw.xml` upload path ready). Next up
-per the roadmap in `context.md` (execution order in its header): the Europa featured-matcher
-fix, then the featured filter pill + rename (roadmap 8d), then the card design pass with
-Claude Design (roadmap 10), then the PORDATA→upstream **crosswalk** (gated on the INE cache
-— owner unblock) and the rest of the label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was
-emailed 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
+**Harvest complete: 2,195/2,195 reachable pages.** The 2,196th (id 1221) is dead upstream —
+verified in a normal browser, not bot-blocking — so it lives in `data/catalogue/abandoned.txt`,
+skipped and tombstoned rather than retried for ever.
+
+The pipeline is event-driven (detector→worker: the sitemap watcher dispatches the harvester
+only when there is pending work, plus a nightly safety net) and now **gated**: `qa_catalogue.py
+--strict` blocks the publish when data quality regresses, and `fetch_sitemap.py` refuses a
+snapshot that loses >5% of targets. A `/mega-audit` on 2026-08-23 (57 verified findings, report
+in `data/audits/`) drove that work plus a high-precision rewrite of the featured matcher, the
+site's accessibility and SEO layer, and these doc corrections.
+
+Next up per the roadmap in `context.md` (execution order in its header): the featured filter
+pill + rename (roadmap 8d), the card design pass with Claude Design (roadmap 10), then the
+PORDATA→upstream **crosswalk** (gated on the INE cache — owner unblock) and the rest of the
+label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was emailed
+2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
 
 ## How it runs
 
-Everything is GitHub Actions on `main`, as a detector→worker pair: `sitemap.yml` (daily 09:07
-UTC + weekdays 18:23 UTC, bracketing the Lisbon working day; opens issues on add/remove and
-dispatches the harvest when the fresh snapshot leaves pending work), `harvest.yml` (the
-worker; fetch-missing + re-fetch-stale + retry-errors, then rebuilds `docs/` only when
-records changed; nightly 01:45 UTC cron as a safety net), `tests.yml` (unit + coverage gate +
-mutation on every scripts/tests push), `featured-sets.yml` and `ine-catalogue.yml` (manual). Data-writing workflows check out the
-branch head at run time — never the trigger-time sha. This sandbox cannot reach pordata.pt or
-ine.pt; anything needing their network runs via Actions.
+Seven workflows on `main`, the first two a detector→worker pair:
+
+| workflow | when | what |
+|---|---|---|
+| `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
+| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, commit |
+| `tests.yml` | push to scripts/tests | unittest + coverage gate + mutmut |
+| `site.yml` | push to site/ | typecheck, build, vitest + coverage gate, StrykerJS (break 85) |
+| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes |
+
+Data-writing workflows check out the branch head at run time — never the trigger-time sha. A
+QA-gate breach reverts `docs/`, opens an issue and fails the job, so a degraded harvest never
+publishes. This sandbox cannot reach pordata.pt or ine.pt; anything needing their network runs
+via Actions.
 
 ## Sibling project
 

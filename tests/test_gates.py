@@ -91,6 +91,46 @@ class RefetchPreservationTest(RepoCase):
         self.assertIn("error", rec)
 
 
+class AbandonedUrlTest(RepoCase):
+    """A URL PORDATA lists but never serves must stop being retried and
+    stop making the catalogue look incomplete (roadmap 1 planned this
+    with no code path behind it until the audit said so)."""
+
+    URL = f"{PT}/portugal/taxa+de+natalidade-99"
+
+    def mark_abandoned(self):
+        pathlib.Path("data/catalogue/abandoned.txt").write_text(
+            f"# dead upstream\n{self.URL}\n", encoding="utf-8")
+
+    def test_abandoned_urls_are_not_planned_for_harvest(self):
+        self.write_records([])
+        targets = lib.targets()
+        self.assertIn(self.URL, harvest.plan(targets, {})["missing"])
+        self.mark_abandoned()
+        self.assertNotIn(self.URL, harvest.plan(targets, {})["missing"])
+
+    def test_abandoned_url_does_not_block_completeness(self):
+        build = load_script("build_catalogue")
+        self.write_records([
+            record("municipios/medicos+por+habitante-200", 200,
+                   "municipios", "Médicos"),
+            record("europa/indice+de+gini-300", 300, "europa", "Gini"),
+        ])
+        self.mark_abandoned()
+        build.main()
+        stats = json.loads(
+            pathlib.Path("docs/data/stats.json").read_text(encoding="utf-8"))
+        self.assertTrue(stats["complete"])
+
+    def test_comments_and_blanks_are_ignored(self):
+        pathlib.Path("data/catalogue/abandoned.txt").write_text(
+            "# a comment\n\n" + self.URL + "\n", encoding="utf-8")
+        self.assertEqual(lib.abandoned(), {self.URL})
+
+    def test_missing_file_means_nothing_abandoned(self):
+        self.assertEqual(lib.abandoned(), set())
+
+
 class SitemapFloorTest(RepoCase):
     def test_target_count_matches_the_harvester_definition(self):
         urls = lib.URLS_FILE.read_text(encoding="utf-8").split()

@@ -1,6 +1,6 @@
 name: featured sets
 
-# 3c: capture PORDATA's editorial featured-indicator selections from two
+# Capture PORDATA's editorial featured-indicator selections from two
 # quadro+resumo pages and two Retratos (4 requests, 20s apart), then
 # rebuild the published catalogue with the flags. Manual dispatch.
 

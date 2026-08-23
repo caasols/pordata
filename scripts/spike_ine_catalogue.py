@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Spike A2: does INE expose an enumerable indicator catalogue?
 
-Backlog item 3. INE has a JSON API for fetching a series given a code you
+INE has a JSON API for fetching a series given a code you
 already know; the open question is whether the *catalogue* (the list of
 all indicators with codes and names) is fetchable, which would hand us
 much of the PORDATA-to-INE crosswalk for free.

@@ -24,11 +24,11 @@ server (Phase D). See Roadmap.
 | `CLAUDE.md` | The map. Ranked pointers, current focus |
 | `context.md` | This file. All project state: findings, decisions, roadmap |
 | `README.md` | Human front door: overview, site link, licensing. Carries no state |
-| `LICENSE` | MIT (code). Catalogue metadata is CC BY 4.0 with PORDATA/FFMS attribution, per README |
+| `LICENSE` / `LICENSE-DATA` | MIT for the code; CC BY 4.0 for the catalogue metadata, with PORDATA/FFMS attribution |
 | `scripts/` | Python package: sitemap watcher, harvester, catalogue build, QA, featured sets, spikes |
-| `tests/` | 46 unittest cases, 85% coverage; mutation-tested via mutmut (`setup.cfg`); site tests live in `site/src/**/*.test.*` |
-| `.github/workflows/` | sitemap watch (detector, 1-2×/day, dispatches harvest), catalogue harvest (worker + nightly safety net), tests+mutation for Python and site (per push), featured sets + INE snapshot (dispatch) |
-| `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA, spike reports |
+| `tests/` | 74 unittest cases, coverage-gated; mutation-tested via mutmut (`setup.cfg`). Site tests live in `site/src/**/*.test.*` (48 vitest) |
+| `.github/workflows/` | Seven: sitemap watch (detector), catalogue harvest (worker, QA-gated), tests.yml and site.yml (per push), featured-sets / ine-catalogue / spikes (manual). Table in `CLAUDE.md` |
+| `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA (gated), `catalogue/abandoned.txt`, spike reports, `audits/` |
 | `site/` | The search UI source: React + Vite + Tailwind + shadcn-style components (TypeScript). `npm run build` → `docs/` |
 | `docs/` | The GitHub Pages site: built UI bundle (from `site/`, committed) + `data/` (catalogue.json/csv/stats — the static "API") |
 | `ledger/` | Question Ledger: 100 demand-side questions plus protocol |
@@ -46,12 +46,15 @@ The pipeline, end to end, all live on `main`:
   GitHub issue when indicator pages are added or removed, and dispatches the harvester when
   the fresh snapshot leaves pending work (main only — the push trigger also runs on feature
   branches). Landing-page lastmod churn is filtered out.
-- **Initial harvest complete** (2026-08-23): 2,195/2,196 pages; the one hold-out
-  (`portugal/…despesas…ambiente…-1221`) 500s on PORDATA's own server and is auto-retried by
-  every run — tombstone if it stays dead. Same day: the 3d QA repair (512 stored `fontes`
-  trimmed of pre-fix UI text) and a live-bug fix — **page ids repeat across areas**, so EN
-  names and featured flags are keyed by `(area, id)` (205 wrong `name_en` and 14 phantom
-  featured flags corrected).
+- **Initial harvest complete** (2026-08-23): **2,195 / 2,195 reachable** target pages. The
+  2,196th (`portugal/…despesas…ambiente…-1221`) returns HTTP 500 on every attempt and is dead
+  in a normal browser too (owner-verified), so it is listed in `data/catalogue/abandoned.txt`:
+  skipped by the harvest plan and tombstoned at build time instead of retried for ever. Its
+  series is discontinued (1995-2013), still cited in the wild (Gulbenkian, 2022), and its
+  upstream lives on as Eurostat `gov_10a_exp` (COFOG GF05) — the first acceptance case for the
+  crosswalk. Same day: the fontes repair pass (512 stored `fontes` trimmed of pre-fix UI text) and a
+  live-bug fix — **page ids repeat across areas**, so EN names and featured flags are keyed by
+  `(area, id)` (205 wrong `name_en` and 14 phantom featured flags corrected).
 - **Catalogue harvester** (`harvest.yml`): 2,196 indicator pages (quadro+resumo excluded),
   one request per 20 s, resumable 4.5 h chunks, metadata only — name, description,
   Fontes/Entidades, última atualização, JSON-LD, marker excerpts for offline re-parsing.
@@ -84,15 +87,27 @@ The pipeline, end to end, all live on `main`:
   dedupe, `aria-pressed` on filter pills, a "0 indicators" loading flash, sort-comparator
   perf (precomputed keys + one collator) — and the build now strips PORDATA's inline HTML
   from published names (`<em>`, with `<sub>`/`<sup>` digits converted to Unicode: CO₂, km²).
-- **Featured sets** (3c): quadro-resumo rows are OutSystems postbacks with no ids, but names
-  are server-rendered; `fetch_featured_sets.py` extracts them (subtitle-aware) and the build
-  matches them to catalogue entries by token containment. Confirmed: the municipal quadro set
-  is exactly 37 indicators, identical across concelhos; Europa's is 56. Retratos pages are
-  e-book publications with no indicator list — no signal there.
-- **Quality — Python**: 46 unit tests (85% line coverage, `--fail-under=80` CI gate) plus
-  full mutation testing on every push (mutmut, ~1,670 mutants in ~1 min; baseline 946 killed
-  / 505 survived / 217 uncovered). Network fetchers are validated by their live runs instead.
-- **Quality — site** (2026-08-23): 44 vitest tests (search/i18n logic + app behavior via
+- **Featured sets**: quadro-resumo rows are OutSystems postbacks with no ids, but names are
+  server-rendered; `fetch_featured_sets.py` extracts them (subtitle-aware) and the build maps
+  them to catalogue entries. Confirmed: the municipal quadro set is exactly 37 indicators,
+  identical across concelhos; Europa's is 56. Retratos pages are e-book publications with no
+  indicator list — no signal there. The 2026-08-23 audit proved the original token-containment
+  matcher **flagged the wrong indicator** under a curated badge (negations inverted, absolute
+  vs %-of-total, one id claimed by five names). It is now **injective and high-precision** —
+  overrides, then exact match on the name or its dash-split head, then containment 1.0 with at
+  most two extra tokens and a CONTRAST vocabulary blocking meaning-flipping extras. 43 rows
+  carry the badge, all high-confidence, where 52 included ~10 wrong. Mapping a human curation
+  needs a human for the tail: `data/catalogue/FEATURED-UNMATCHED.md` is regenerated each build
+  with candidates and paste-ready `overrides` snippets.
+- **Quality — Python**: 74 unit tests (line coverage gated at 80%) plus full mutation testing
+  on every push (mutmut; kill rate ~65%, roadmap 6). Network fetchers are validated by their
+  live runs instead. Exact counts are measured by the suites, not quoted here (decision 7).
+- **Quality — data**: since the 2026-08-23 audit the pipeline is **gated, not just reported**:
+  `qa_catalogue.py --strict` checks nine thresholds (record ratio, per-field coverage, ISO
+  dates, duplicate `(area, id)`, corrupt JSONL lines, featured collisions and row floor) and
+  fails the harvest before `docs/` is published, reverting the build and opening an issue;
+  `fetch_sitemap.py` refuses a snapshot that loses more than 5% of indicator targets.
+- **Quality — site** (2026-08-23): 48 vitest tests (search/i18n logic + app behavior via
   Testing Library with mocked data; 93% line coverage, 80% gate) plus StrykerJS mutation
   testing over `site/src/lib` (vitest runner; copy/language tables marked no-mutate —
   content, not logic). Survivor hunt same day took the kill rate 69%→91% (killed a dead
@@ -137,10 +152,15 @@ Re-measured 2026-08-21 from the first committed sitemap snapshot (`data/sitemap-
 2026-08), so update tracking is high-signal, not churn. The 1,483 blank-lastmod pages are the
 whole `/en` tree in the sample plus structural pages: 308 `municipios/quadro+resumo/<concelho>`
 summary tables (one per municipality — these, not new indicators, explain the apparent +308
-municipal jump against 2026-08-18; municipal indicators with lastmod number 506, matching the
-earlier 504), 260 subtema and 48 tema taxonomy pages, and 29 retratos. Portugal 1,055 and Europe
-666 indicator pages (was 1,054 / 638). The per-municipality quadros resumo are further evidence
-for the central insight: hand-built joins, one per concelho.
+municipal jump against 2026-08-18), 260 subtema and 48 tema taxonomy pages, and 29 retratos.
+The per-municipality quadros resumo are further evidence for the central insight: hand-built
+joins, one per concelho.
+
+Corrected 2026-08-23 (mega-audit): an earlier version of this paragraph counted quadro+resumo
+summary tables as indicator pages and so inflated the per-area figures. Measured from the
+current snapshot, the indicator corpus is **2,196** — Portugal 1,054, Europa 638, municípios
+504 — out of 2,536 PT pages under those three areas, the difference being 337 quadro+resumo
+tables (308 municipal, 28 europa, 1 portugal).
 
 **Publication cadence** (measured 2026-08-23 over 12 months of indicator lastmods): PORDATA
 publishes on **weekdays only** — zero Saturday lastmods, ~19 Sunday ones (noise) against
@@ -154,7 +174,7 @@ polling cannot help while the granularity is a day.
 | Public API | None | No developer or API route in the sitemap; not listed as having an API in either community aggregator |
 | Total URLs in sitemap | 5,907 | `PordataSitemap.aspx`, 846 KB |
 | Portuguese-language URLs | 2,940 | Excluding the `/en` tree |
-| Indicator pages (PT) | 2,268 | 1,054 Portugal, 638 Europe, 504 municipal, plus 29 Retratos, 17 ODS, 15 comunicação, 11 publicações |
+| Indicator pages (PT) | **2,196** | 1,054 Portugal, 638 Europe, 504 municipal — the pipeline's corpus. An earlier 2,268 figure added 29 Retratos, 17 ODS, 15 comunicação and 11 publicações, which are publications, not indicators; it reached the FFMS email before being corrected (2026-08-23 audit) |
 | English duplicates | 2,967 URLs | Under `/en`; EN pages share numeric ids with their PT originals |
 | Platform | OutSystems | `OSFillParent` and `OSInline` classes in the markup; quadro-resumo rows are `__doPostBack` calls |
 | Query tool | Server-side postbacks | `/db/ambiente+de+consulta/nova+consulta` holds no JSON, XHR or REST endpoint. Only jQuery and DataTables |
@@ -176,7 +196,7 @@ Every indicator page names its upstream source, and those sources publish openly
 INE, Eurostat, Banco de Portugal, various ministries. The numbers are already free and already
 machine-readable elsewhere.
 
-What only PORDATA has is the map: 2,268 human-meaningful indicator definitions, organised by
+What only PORDATA has is the map: 2,196 human-meaningful indicator definitions, organised by
 theme, harmonised across 65 years and 308 municipalities, each attributed to its source. That
 curation is what makes a question answerable, and no upstream API provides it.
 
@@ -188,12 +208,12 @@ of a need users cannot meet themselves.
 
 Four failure modes, all four live simultaneously:
 
-1. **Discovery.** With 2,268 indicators under a statistical taxonomy, you cannot tell whether what
+1. **Discovery.** With 2,196 indicators under a statistical taxonomy, you cannot tell whether what
    you want exists. You must already know the thing is called "Índice de envelhecimento" to ask
    "is my town getting older?". *Addressed by the live catalogue + search site.*
 2. **Extraction.** Once found, getting numbers out is manual and per-indicator, one spreadsheet at
    a time, laid out for eyes rather than machines, with no API and exports disallowed by
-   `robots.txt`. *Partially addressed: the catalogue points to sources; the crosswalk (roadmap 3)
+   `robots.txt`. *Partially addressed: the catalogue points to sources; the crosswalk (roadmap 2)
    is what makes values programmatically reachable.*
 3. **Combination.** Nothing joins. Two indicators, or two geographies, or an indicator against a
    time window means downloading separately and aligning by hand. *Open.*
@@ -217,7 +237,7 @@ through all four beats a deep fix to any one.**
 | dados.gov.pt | National open-data portal, CKAN-style | Yes, API key for writes only |
 | api.ptdata.org | Community aggregator: geography, weather, public contracts, civil protection, transport, health, aviation, fiscal, plus a few macro indicators | Yes, `/v1/*` |
 | api.openar.pt | Parliamentary data. Different domain, but the best available model of the shape PORDATA lacks. MIT, no auth, OpenAPI spec, ETags, incremental sync | Yes |
-| PORDATA | 2,268 curated indicators | **No** (this project's catalogue is the machine-readable index of it) |
+| PORDATA | 2,196 curated indicator pages | **No** (this project's catalogue is the machine-readable index of it) |
 
 `api.ptdata.org` is broad but its economic coverage is a handful of macro series; it carries
 neither INE's statistical database nor PORDATA's indicator catalogue. Nobody has built the layer
@@ -281,23 +301,27 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
 (referenced from code and docs), **not** priority order.
 
-**Execution order (reprioritized 2026-08-23):** ① fix the Europa featured matcher
-(dash-split; prerequisite — the 8d pill would otherwise ship missing half of Europa's set)
-→ ② 8d featured pill + rename (owner confirms the name) → ③ 10 card design pass, which
-owns all badge presentation so the card is designed once → ④ 8b/c labels, then 9. Items 4
-(calendar), 5 (gated on 2), 6 (background) unchanged.
+**Execution order (post-audit, 2026-08-23):** ① 8d featured pill + rename — its matcher
+precondition is now met and machine-checked (`featured_collisions`=0, `featured_rows`>=40 in
+the QA gate) → ② 10 card design pass, which owns all badge presentation so the card is
+designed once → ③ 8b/c labels, then 9. Items 4 (calendar), 5 (gated on 2), 6 (background)
+unchanged. The audit's remaining medium/low findings live in
+`data/audits/2026-08-23-mega-audit.md` and are folded into items 6 and 11.
 
 **Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
 crosswalk — the roadmap's biggest strategic lever), the 8d name call
 ("Destaques"/"Highlights" proposed), the id-1221 browser check, the ~20-record spot-check,
 and ledger attempts (3).
 
-1. **Close out the initial harvest — one page left** *(2,195/2,196)*:
-   `portugal/…despesas…ambiente…(1995 2013)-1221` returns HTTP 500 from PORDATA itself on
-   every retry (5+ by 2026-08-23). The pipeline keeps retrying automatically; if it stays 500
-   for a few days, tombstone it and consider reporting the broken sitemap-listed page to
-   FFMS. Also remaining: spot-check ~20 records against live pages (owner, browser). The
-   featured-matching investigation moved to item 8d as its prerequisite.
+1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
+   upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
+   cited in a 2022 Gulbenkian publication, so it is a genuine PORDATA bug worth including in
+   the FFMS follow-up, item 4). Remaining: spot-check ~20 records against live pages (owner,
+   browser), and curate `data/catalogue/FEATURED-UNMATCHED.md` — 50 quadro names the matcher
+   deliberately refuses to guess, each listed with candidates and a paste-ready `overrides`
+   snippet. Several have no counterpart at all (derived aggregates PORDATA publishes only
+   inside the quadro; a few quadro rows share one catalogue page), so a perfect score is not
+   the goal and the QA floor is set accordingly.
 2. **INE catalogue snapshot, then the crosswalk (3e)** — the gateway to Extraction and Phase D.
    Three fetch attempts failed from Actions runners (403, timeout ×2, 2026-08-22/23): INE
    likely blocks cloud IP ranges persistently, not temporarily. Fallback shipped: the owner
@@ -336,9 +360,15 @@ and ledger attempts (3).
      `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
      useful without it; low-end phone memory during inference → that is why the model
      must stay in the small-quantized class, not a larger one.
-6. **Quality follow-ups**: drive the mutation kill rates up and turn them into CI gates —
-   Python (mutmut) from 65%, site (StrykerJS over `site/src/lib`, added 2026-08-23) from 69%, most survivors in `search.ts` comparator tie-breaks and `tokenScore` boundary
-   constants; deferred — harvesting the `/en` tree (~2,196 pages) if EN descriptions become
+6. **Quality follow-ups.** Python mutation kill rate is ~65% (mutmut) and ungated; the site's
+   is 91% with a hard `break: 85`. Bring Python up and gate it the same way. Also open from the
+   2026-08-23 audit (full list in `data/audits/`): the harvest commit step is skipped on
+   crash/timeout so in-run checkpoints protect nothing in Actions; `sitemap.yml` commits the
+   snapshot before opening its issue, so a failed `gh issue create` loses the notification for
+   good; nothing verifies the committed `docs/` bundle matches `site/` source, and the Pages
+   deployment itself is unmonitored; staleness uses a strict `>` on date-only lastmod, so a
+   same-day PORDATA update is missed for ever; `tests.yml` swallows mutation failures with
+   `|| true`. Deferred: harvesting the `/en` tree (~2,196 pages) if EN descriptions become
    worth having.
 7. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
    (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
@@ -355,14 +385,14 @@ and ledger attempts (3).
    curation — via the 260 `subtema` pages in the sitemap (a one-off ~1.7 h harvest at the
    polite pace would map indicators to temas/subtemas; check first whether subtema pages are
    server-rendered lists like the quadros were); **(b) source entity** from `fontes`, already
-   harvested — 223 raw strings that need normalising to ~30 organisations (INE, Eurostat,
-   OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
+   harvested — **165 distinct source strings** (measured 2026-08-23; an earlier 223 was wrong)
+   that need normalising to ~30 organisations (INE, Eurostat, OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
    stale >5y); **(d) status** (featured, descontinuado — already badges, not yet filters).
-   **(d) is fast-tracked as the next site task** *(owner ask 2026-08-23)*.
-   **Prerequisite**: fix featured matching first — municípios 32/37 but Europa only 29/56,
-   because the Europa quadro uses long "name — definition" strings the containment matcher
-   won't reach (dash-split the quadro names before matching, then re-resolve); a featured
-   pill over a half-matched Europa set would look broken. Then add the filter
+   **(d) is the next site task** *(owner ask 2026-08-23)*. **Its precondition is now met**:
+   the matcher was rebuilt high-precision and injective after the audit proved it was flagging
+   wrong indicators, and the QA gate enforces `featured_collisions = 0` and
+   `featured_rows >= 40`, so the pill can no longer ship over a broken mapping. 43 rows carry
+   the badge today; the tail is owner curation (item 1). Add the filter
    pill — and **rename it**: cards currently badge the raw internal
    value "★ quadro_resumo", which no visitor can decode. Proposed user-facing label:
    PT "Destaques" / EN "Highlights" (these are the indicators PORDATA itself curates into
@@ -390,6 +420,22 @@ and ledger attempts (3).
    `App.tsx`. Owner picks the winner on the canvas; then implement with the existing
    shadcn tokens. Coordinates with item 8 (labels add more chips to the same card —
    design them together, not twice).
+
+11. **Audit backlog** *(from `/mega-audit`, 2026-08-23 — full report in
+   `data/audits/2026-08-23-mega-audit.md`)*. 57 verified findings; the seven high-severity
+   ones and the accessibility/SEO/licensing gaps were fixed the same day. Still open, in
+   rough value order: the fontes boundary vocabulary is circular (new PORDATA UI text passes
+   harvest, QA and build straight into published sources); the `ultima_atualizacao` fallback
+   regex can publish arbitrary page text if PORDATA drops on-page ISO dates, and the site
+   sorts on it; indicator-name extraction assumes today's `<title>` template; `diff_sitemap.py`
+   re-implements `pordata_lib`'s parsing instead of importing it, and
+   `build_catalogue.AREA_LABELS` duplicates a vocabulary it never uses; records missing
+   required keys still crash the pipeline with a raw `KeyError`. Also: the catalogue payload
+   (1.27 MB raw / 137 KB gzipped) is downloaded whole before the first search — benign now,
+   unbounded later, so it needs a budget before the crosswalk widens each row. And the audit
+   instrument itself is a finding: `/mega-audit` never names `ledger/`, `outreach/`, `LICENSE`,
+   accessibility, SEO or supply chain — every blind spot the completeness critic found traces
+   back to it.
 
 ## Verification
 

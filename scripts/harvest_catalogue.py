@@ -130,8 +130,11 @@ def parse(url: str, status: int, body: bytes) -> dict:
 
 def plan(all_targets: list[str], records: dict[str, dict]) -> dict[str, list[str]]:
     mods = lib.lastmods()
+    dead = lib.abandoned()
     missing, errored, stale = [], [], []
     for u in all_targets:
+        if u in dead:
+            continue
         rec = records.get(u)
         if rec is None:
             missing.append(u)
@@ -145,6 +148,7 @@ def plan(all_targets: list[str], records: dict[str, dict]) -> dict[str, list[str
 
 def write_report(all_targets: list[str], todo_plan: dict) -> None:
     records = lib.load_records()
+    dead = lib.abandoned()
     ok = [r for r in records.values() if "error" not in r]
     n = len(ok)
 
@@ -156,10 +160,13 @@ def write_report(all_targets: list[str], todo_plan: dict) -> None:
         by_area[r.get("area", "?")] = by_area.get(r.get("area", "?"), 0) + 1
     lines = [
         "# Catalogue harvest progress", "",
-        f"- harvested: **{n} / {len(all_targets)}** target pages "
+        f"- harvested: **{n} / {len(all_targets) - len(dead)}** reachable "
+        f"target pages "
         f"({', '.join(f'{a}: {c}' for a, c in sorted(by_area.items()))})",
         f"- pending: {len(todo_plan['missing'])} missing, "
         f"{len(todo_plan['errored'])} errored, {len(todo_plan['stale'])} stale",
+        f"- abandoned: {len(dead)} listed by PORDATA but not served "
+        f"(see `data/catalogue/abandoned.txt`)",
         f"- field coverage: name {pct('name')}, description "
         f"{pct('description')}, fontes {pct('fontes')}, "
         f"ultima_atualizacao {pct('ultima_atualizacao')}, "

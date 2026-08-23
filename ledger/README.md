@@ -35,8 +35,10 @@ a result.
 Spread at drafting time: 13 themes; 66 national, 16 municipal, 18 European; nine personas;
 predicted kinds 54 lookup / 34 combo / 12 interp.
 
-**Audited 2026-08-21** against the real indicator slugs in `data/sitemap-urls.txt` (2,533
-indicator pages across `/portugal`, `/municipios`, `/europa`), by keyword match per theme. Every
+**Audited 2026-08-21** against the real slugs in `data/sitemap-urls.txt` — 2,533 PT pages
+under `/portugal`, `/municipios` and `/europa`, which includes the 337 quadro+resumo summary
+tables; the indicator corpus itself is 2,196 (corrected 2026-08-23 by the mega-audit). Keyword
+match per theme. Every
 theme has real indicator backing — from 52 matching slugs (digital) to 323 (demografia), with
 política notably rich at 161 (including municipal election results per election year). The
 control question Q098 (registered pets), drafted as likely-unanswerable, matches zero slugs, as

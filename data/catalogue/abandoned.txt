@@ -1,0 +1,11 @@
+# URLs PORDATA still lists in its sitemap but no longer serves.
+# Skipped by the harvest plan and tombstoned at build time, so the
+# catalogue stops claiming to be incomplete over a page that is dead
+# upstream. Remove a line to resume harvesting it.
+#
+# 1221: HTTP 500 on every retry since 2026-08-22 (5+ attempts). Verified
+# dead in a normal browser too (owner, 2026-08-23), so it is PORDATA's
+# bug, not bot-blocking. The series is discontinued (1995-2013); it is
+# still cited in the wild, e.g. Gulbenkian "Governar a Próxima Geração"
+# (2022), and its upstream lives on as Eurostat gov_10a_exp (COFOG GF05).
+https://www.pordata.pt/portugal/despesas+das+administracoes+publicas+em+ambiente+em+percentagem+do+total+das+despesas+(1995+2013)-1221

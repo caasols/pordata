@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3c: extract PORDATA's featured-indicator sets from quadro+resumo pages.
+"""Extract PORDATA's featured-indicator sets from quadro+resumo pages.
 
 Fetches two municipios/quadro+resumo pages (to confirm the set is
 identical across municipalities) and one europa quadro. Quadro rows are
