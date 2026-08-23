@@ -333,7 +333,14 @@ Only open work. History lives in "What has been built" and git.
    harvested — 223 raw strings that need normalising to ~30 organisations (INE, Eurostat,
    OCDE, DGEEC…); **(c) recency** buckets from `ultima_atualizacao` (updated this year /
    stale >5y); **(d) status** (featured, descontinuado — already badges, not yet filters).
-   Start with (b)+(c) (zero new requests), design (a)'s harvest, then the UI.
+   **(d) is fast-tracked as the next site task** *(owner ask 2026-08-23)*: add a filter
+   pill for the featured set — and **rename it**: cards currently badge the raw internal
+   value "★ quadro_resumo", which no visitor can decode. Proposed user-facing label:
+   PT "Destaques" / EN "Highlights" (these are the indicators PORDATA itself curates into
+   its summary tables — the badge and the pill should both say so in the UI language;
+   ES "Destacados", FR "Essentiels", DE "Highlights", IT "In evidenza" prepared). Owner
+   confirms the final name before it ships. Then the rest: (b)+(c) (zero new requests),
+   design (a)'s harvest, then the full label UI.
 9. **Relevance / recommended sorting** *(owner ask 2026-08-23)*. The fuzzy-score
    "relevance" option was **removed from the sort pill** the same day (owner call: not
    producing a useful order); the pill now offers newest/oldest/A→Z/Z→A with

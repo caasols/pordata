@@ -147,6 +147,20 @@ def build_en_names(sitemap_text: str) -> dict[tuple, str]:
     return en_names
 
 
+SUP_DIGITS = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+SUB_DIGITS = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+
+
+def strip_markup(s: str) -> str:
+    """PORDATA titles carry inline HTML (<em>per capita</em>,
+    CO<sub>2</sub>, km<sup>2</sup>). Digits in sub/sup become their
+    Unicode forms; every other tag is dropped."""
+    s = re.sub(r"<sup>(\d+)</sup>", lambda m: m.group(1).translate(SUP_DIGITS), s)
+    s = re.sub(r"<sub>(\d+)</sub>", lambda m: m.group(1).translate(SUB_DIGITS), s)
+    s = re.sub(r"<[^>]+>", "", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
 def name_from_slug(slug: str) -> str:
     """Readable fallback name for records whose <title> parse came up
     empty: the PT slug minus the id, pluses as spaces."""
@@ -181,9 +195,10 @@ def main() -> None:
         row = {
             "id": rec["id"],
             "area": rec["area"],
-            "name": rec.get("name") or name_from_slug(rec.get("slug", "")),
+            "name": strip_markup(rec.get("name", ""))
+                or name_from_slug(rec.get("slug", "")),
             "name_en": en_names.get((rec["area"], rec["id"]), ""),
-            "description": rec.get("description", ""),
+            "description": strip_markup(rec.get("description", "")),
             "fontes": split_fontes(rec.get("fontes", "")),
             "ultima_atualizacao": rec.get("ultima_atualizacao", ""),
             "url": rec["url"],
@@ -222,7 +237,7 @@ def main() -> None:
             rec = records[url]
             if "error" in rec:
                 continue
-            raw_pt = rec.get("name", "")
+            raw_pt = strip_markup(rec.get("name", ""))
             name_en = en_names.get((rec["area"], rec["id"]), "")
             status = ("ok" if raw_pt and name_en
                       else "missing_en" if raw_pt

@@ -23,6 +23,22 @@ class NormTest(unittest.TestCase):
         self.assertEqual(b.content_tokens("Pessoal em I&D"), {"pessoal"})
 
 
+class StripMarkupTest(unittest.TestCase):
+    def test_em_tags_dropped(self):
+        self.assertEqual(b.strip_markup("PIB <em>per capita</em> (UE27=100)"),
+                         "PIB per capita (UE27=100)")
+
+    def test_sub_sup_become_unicode(self):
+        self.assertEqual(b.strip_markup("Emissão de CO<sub>2</sub> por km"),
+                         "Emissão de CO₂ por km")
+        self.assertEqual(b.strip_markup("Área em km<sup>2</sup>"),
+                         "Área em km²")
+
+    def test_plain_text_untouched(self):
+        self.assertEqual(b.strip_markup("Taxa de natalidade"),
+                         "Taxa de natalidade")
+
+
 class NameFromSlugTest(unittest.TestCase):
     def test_slug_becomes_readable_fallback(self):
         self.assertEqual(

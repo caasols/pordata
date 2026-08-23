@@ -62,6 +62,11 @@ def main() -> None:
             [r for r in ok if r.get("ultima_atualizacao")
              and not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}",
                                   r["ultima_atualizacao"])],
+        # informational: raw records may carry PORDATA's inline HTML
+        # (<em>, <sub>, <sup>); the build strips it before publishing
+        "name/description carries inline HTML (stripped at build)":
+            [r for r in ok if re.search(r"<[^>]+>", (r.get("name") or "")
+                                        + (r.get("description") or ""))],
     }
     lines += ["", "## Findings", ""]
     if dup_ids:

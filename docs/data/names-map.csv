@@ -11,7 +11,7 @@ id,area,name_pt,name_en,status
 1325,europa,Acidentes de trabalho mortais: total e por sexo,Fatal accidents at work total and by sex,ok
 3043,europa,Evolução de Acidentes de viação por países,Road accidents,ok
 2724,europa,Acidentes ferroviários: total e por tipo de acidente,Railway accidents total and by type of accident,ok
-3590,europa,Administrações Públicas: despesa em tribunais <em>per capita</em>,General government total expenditure on law courts per capita,ok
+3590,europa,Administrações Públicas: despesa em tribunais per capita,General government total expenditure on law courts per capita,ok
 1547,europa,"Administrações Públicas: despesas, receitas e défice/excedente público (Euro)",General government expenditure revenue and net lending net borrowing (euro),ok
 1762,europa,"Administrações Públicas: despesas, receitas e défice/excedente público, em % do PIB",General government expenditure revenue and net lending net borrowing as percentage of gdp,ok
 1968,europa,Administrações Públicas: despesas por categoria (Euro),General government expenditure by category (euro),ok
@@ -51,7 +51,7 @@ id,area,name_pt,name_en,status
 1356,europa,Anos de escolaridade esperados (ISCED 02-8) (1998-2012),School expectancy (isced 02 8) (1998 2012),ok
 3654,europa,Anos de vida saudável à nascença: total e por sexo,Healthy life years at birth total and by sex,ok
 1590,europa,Anos de vida saudável aos 65 anos: por sexo,Healthy life years at 65 by sex,ok
-3602,europa,Apoio do governo à investigação e desenvolvimento (I&D) na agricultura <em>per capita</em>,Government support to agricultural research and development (r d) per capita,ok
+3602,europa,Apoio do governo à investigação e desenvolvimento (I&D) na agricultura per capita,Government support to agricultural research and development (r d) per capita,ok
 3536,europa,Apoio do governo à investigação e desenvolvimento (I&D) na agricultura,Government support to agricultural research and development (r d),ok
 3358,europa,Aquisições de nacionalidade por 100 mil habitantes,Citizenship acquisitions per 100 thousand inhabitants,ok
 1290,europa,Aquisições de nacionalidade,Citizenship acquisitions,ok
@@ -88,7 +88,7 @@ id,area,name_pt,name_en,status
 2967,europa,Consumo das famílias no território económico: total e por durabilidade (Euro),Consumption by households in the economic territory total and by durability (euro),ok
 3545,europa,Consumo de antibióticos,Consumption of antibiotics,ok
 1473,europa,Consumo de energia elétrica: total e por tipo de setor consumidor,Electrical energy consumption total and by type of consumer sector,ok
-3551,europa,Consumo de energia final das famílias <em>per capita</em>,Final energy consumption in households per capita,ok
+3551,europa,Consumo de energia final das famílias per capita,Final energy consumption in households per capita,ok
 1476,europa,Consumo de energia final: por tipo de produto energético,Final energy consumption by type of energy product,ok
 1397,europa,Consumo de energia final: total e por tipo de setor consumidor,Final energy consumption total and by type of consumer sector,ok
 3546,europa,Consumo de energia primária e de energia final,Primary final energy consumption,ok
@@ -131,7 +131,7 @@ id,area,name_pt,name_en,status
 1402,europa,"Despesas da proteção social: total e por tipo, a preços constantes (base=2010)",Social protection expenditure total and by type constant prices,ok
 1580,europa,"Despesas da proteção social: total e por tipo, por habitante (Euro)",Social protection expenditure total and by type per inhabitant (euro),ok
 1728,europa,Despesas de consumo final das famílias: por tipo de bens e serviços (%),Final consumption expenditure by households by goods and services type (percentage),ok
-1519,europa,Despesas de consumo final das famílias: total e  por tipo de bens e serviços (Euro),Final consumption expenditure by households total and by goods and services type (euro),ok
+1519,europa,Despesas de consumo final das famílias: total e por tipo de bens e serviços (Euro),Final consumption expenditure by households total and by goods and services type (euro),ok
 1740,europa,Despesas em atividades de investigação e desenvolvimento (I&D) do setor empresas em % do PIB,Expenditure in research and development activities (r d) of enterprises sector as a percentage of gdp,ok
 1674,europa,Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB: por setor de execução,Expenditure in research and development activities (r d) as a percentage of gdp by sector of performance,ok
 1696,europa,Despesas em atividades de investigação e desenvolvimento (I&D): total e do setor empresas (Euro),Expenditure in research and development activities (r d) total and of enterprises sector (euro),ok
@@ -173,10 +173,10 @@ id,area,name_pt,name_en,status
 1320,europa,Doutoramentos (ISCED 8): total e por área de educação,Phds (isced 8) total and by field of education,ok
 1315,europa,Doutoramentos (ISCED 8): total e por sexo,Phds (isced 8) total and by sex,ok
 3651,europa,Embarcações de pesca por países,Fishing vessels,ok
-3611,europa,Emissão média de CO<sub>2</sub> por km dos automóveis novos de passageiros,Average co2 emissions per km from new passenger cars,ok
+3611,europa,Emissão média de CO₂ por km dos automóveis novos de passageiros,Average co2 emissions per km from new passenger cars,ok
 3539,europa,Emissões de amoníaco pela agricultura,Ammonia emissions from agriculture,ok
 3476,europa,Emissões de gases com efeito de estufa - Metas Europa 2020,Emissions of greenhouse gases europe 2020 targets,ok
-3360,europa,Emissões de gases com efeito de estufa <em>per capita</em>,Emissions of greenhouse gases per capita,ok
+3360,europa,Emissões de gases com efeito de estufa per capita,Emissions of greenhouse gases per capita,ok
 1481,europa,Emissões de gases com efeito de estufa: total e por alguns setores de emissões de gases,Emissions of greenhouse gases total and by some source sectors of air emissions,ok
 3746,europa,"Emissões líquidas de gases de efeito estufa do setor do Uso do Solo, Alterações de Uso do Solo e Florestas (LULUCF)",Net greenhouse gas emissions of the land use land use change and forestry (lulucf) sector,ok
 3616,europa,Emissões líquidas de gases de efeito estufa,Net greenhouse gas emissions,ok
@@ -186,8 +186,8 @@ id,area,name_pt,name_en,status
 3661,europa,Emprego no setor das pescas e aquicultura,Employment in fisheries and aquaculture,ok
 1498,europa,Empresas com 10 e mais pessoas ao serviço com ligação à Internet % do total de empresas: por alguns setores de atividade económica,Enterprises with 10 or more personnel employed having access to the internet as a percentage of total of enterprises by some sectors of economic activity,ok
 1496,europa,Empresas com 10 e mais pessoas ao serviço com ligação à Internet % do total de empresas: por escalão de pessoal ao serviço,Enterprises with 10 or more personnel employed having access to the internet as a percentage of total of enterprises by band of personnel employed,ok
-1500,europa,Empresas com 10 e mais pessoas ao serviço com <em>website</em> ou <em>homepage</em> em % do total de empresas: por alguns setores de atividade económica,Enterprises with 10 or more personnel employed with website or homepage on the internet as a percentage of total of enterprises by some sectors of economic activity,ok
-1495,europa,Empresas com 10 e mais pessoas ao serviço com <em>website</em> ou <em>homepage</em> em % do total de empresas: por escalão de pessoal ao serviço,Enterprises with 10 or more personnel employed with website or homepage on the internet as a percentage of total of enterprises by band of personnel employed,ok
+1500,europa,Empresas com 10 e mais pessoas ao serviço com website ou homepage em % do total de empresas: por alguns setores de atividade económica,Enterprises with 10 or more personnel employed with website or homepage on the internet as a percentage of total of enterprises by some sectors of economic activity,ok
+1495,europa,Empresas com 10 e mais pessoas ao serviço com website ou homepage em % do total de empresas: por escalão de pessoal ao serviço,Enterprises with 10 or more personnel employed with website or homepage on the internet as a percentage of total of enterprises by band of personnel employed,ok
 1499,europa,Empresas com 10 e mais pessoas ao serviço que utilizam computador em % do total de empresas: por alguns setores de atividade económica (2003-2015),Enterprises with 10 or more personnel employed using computers as a percentage of total of enterprises by some sectors of economic activity (2003 2015),ok
 1497,europa,Empresas com 10 e mais pessoas ao serviço que utilizam computador em % do total de empresas: por escalão de pessoal ao serviço (2003-2015),Enterprises with 10 or more personnel employed using computers as a percentage of total of enterprises by band of personnel employed (2013 2015),ok
 3211,europa,Empresas médias em % do total de empresas: por alguns setores de atividade económica,Medium enterprises as a percentage of all enterprises by some sectors of economic activity,ok
@@ -333,7 +333,7 @@ id,area,name_pt,name_en,status
 1439,europa,Pedidos de patentes à Organização Europeia de Patentes (EPO),Patent applications to the european patent office (epo),ok
 1430,europa,Pedidos de patentes ao Instituto Europeu de Patentes (EPO): por domínio tecnológico,Patent applications to the european patent office (epo) by technological field (1980 2013),ok
 3576,europa,Pedidos de patentes ao Instituto Europeu de Patentes (IEP) por milhão de habitantes,Patent applications to the european patent office (epo) per million inhabitants,ok
-3745,europa,Pegada material <em>per capita</em>,Material footprint per capita,ok
+3745,europa,Pegada material per capita,Material footprint per capita,ok
 3652,europa,Peixe capturado - toneladas de pescado,Captured fish,ok
 3653,europa,Peixe produzido em aquicultura,Fish produced in aquaculture,ok
 2419,europa,Pensionistas de invalidez: total e por sexo,Disability pensioners total and by sex,ok
@@ -351,7 +351,7 @@ id,area,name_pt,name_en,status
 3210,europa,Pequenas empresas em % do total de empresas: por alguns setores de atividade económica,Small enterprises as a percentage of all enterprises by some sectors of economic activity,ok
 3207,europa,Pequenas empresas: por alguns setores de atividade económica,Small enterprises by some sectors of economic activity,ok
 3593,europa,Perceção de independência do sistema judicial,Perceived independence of the justice system,ok
-3620,europa,Perdas económicas relacionadas com o clima <em>per capita</em>,Climate related economic losses per capita,ok
+3620,europa,Perdas económicas relacionadas com o clima per capita,Climate related economic losses per capita,ok
 3619,europa,Perdas económicas relacionadas com o clima (Euro),Climate related economic losses (euro),ok
 3309,europa,Pessoal ao serviço em estabelecimentos prisionais para adultos: total e por sexo,Personnel in adult prison total and by sex,ok
 3310,europa,Pessoal ao serviço em estabelecimentos prisionais para menores: total e por sexo,Personnel in juvenile prison total and by sex,ok
@@ -370,10 +370,10 @@ id,area,name_pt,name_en,status
 1423,europa,Pessoal total (ETI) em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Total personnel (fte) involved in research and development activities (r d) total and by sector of performance,ok
 1425,europa,Pessoal total e investigadores (ETI) em atividades de investigação e desenvolvimento (I&D): total e do sexo feminino,R d personnel and researchers (fte) involved in research and development activities (r d) total and females,ok
 1691,europa,Pessoal total e investigadores em atividades de investigação e desenvolvimento (I&D): equivalente a tempo integral por mil ativos,Total personnel and researchers involved in research and development activities (r d) full time equivalent per thousand active persons,ok
-3579,europa,PIB <em>per capita</em> (PPC),Gdp per capita (pps),ok
-3523,europa,PIB <em>per capita</em> (UE27=100),Gdp per capita (eu27 100),ok
+3579,europa,PIB per capita (PPC),Gdp per capita (pps),ok
+3523,europa,PIB per capita (UE27=100),Gdp per capita (eu27 100),ok
 2683,europa,PIB por componentes (Euro),Gdp by components (euro),ok
-3567,europa,PIB real <em>per capita</em> (Euro),Real gdp per capita(euro),ok
+3567,europa,PIB real per capita (Euro),Real gdp per capita(euro),ok
 3554,europa,"População, entre os 25 e os 34 anos, com o ensino superior (ISCED 5-8): total e por sexo (%)",Population aged 25 to 34 having tertiary education (isced 5 8) total and by sex (percentage),ok
 3401,europa,"População, entre os 30 e os 34 anos, com o ensino superior (ISCED 5-8) (%)",Population aged 30 to 34 having tertiary education (isced 5 8) (percentage),ok
 3532,europa,População a viver em agregados com intensidade laboral muito reduzida,Population aged 0 to 65 years living in households with very low work intensity,ok
@@ -476,7 +476,7 @@ id,area,name_pt,name_en,status
 3494,europa,Produção bruta de eletricidade: total e por alguns tipos de fonte energética,Gross electricity generation total and by some types of energy source,ok
 3698,europa,Produção das principais culturas agrícolas,Main crop production,ok
 3423,europa,Produção de resíduos municipais,Municipal waste generation,ok
-3613,europa,Produção de resíduos (excluindo os principais resíduos minerais) por perigosidade <em>per capita</em>,Generation of waste by hazardousness per capita,ok
+3613,europa,Produção de resíduos (excluindo os principais resíduos minerais) por perigosidade per capita,Generation of waste by hazardousness per capita,ok
 1382,europa,"Produção de resíduos: total, da atividade económica e dos agregados domésticos",Waste generation total of economic activity and households,ok
 1735,europa,Produção nacional de energia em % da produção total de energia da UE27: por tipo de produto energético,National production of energy as a percentage of the total of energy production of the eu27 by type of energy product,ok
 1367,europa,Produção primária de energia: total e por alguns tipos de produto energético,Primary production of energy total and by some types of energy products,ok
@@ -757,7 +757,7 @@ id,area,name_pt,name_en,status
 796,municipios,Despesas das Câmaras Municipais em cultura e desporto em % do total de despesas,Town council expenditure on culture and sports as a percentage of total expenditure,ok
 799,municipios,Despesas dos Corpos de Bombeiros,Fire brigade expenditure,ok
 794,municipios,Despesas dos municípios em ambiente em % do total de despesas,Municipalities environmental expenditure as a percentage of total expenditure,ok
-434,municipios,Despesas dos municípios em ambiente <em>per capita</em>: por domínios de gestão e proteção ambiental,Municipalities expenditure on environment per capita by environmental management and protection domains,ok
+434,municipios,Despesas dos municípios em ambiente per capita: por domínios de gestão e proteção ambiental,Municipalities expenditure on environment per capita by environmental management and protection domains,ok
 12,municipios,Despesas dos municípios em ambiente: total e por domínios de gestão e proteção do ambiente,Municipalities environmental expenditure total and by environmental management and protection domains,ok
 946,municipios,Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB: por setor de execução,Expenditure in research and development activities (r d) as a percentage of gdp by sector of performance,ok
 876,municipios,Despesas em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Expenditure in research and development activities (r d) total and by sector of performance,ok
@@ -843,7 +843,7 @@ id,area,name_pt,name_en,status
 460,municipios,Índice de dependência de jovens,Young age dependency ratio,ok
 459,municipios,Índice de dependência total,Total dependency rate,ok
 379,municipios,Índice de envelhecimento dos docentes do ensino superior,Ageing index of teaching staff in higher education,ok
-337,municipios,"Índice de envelhecimento dos docentes em exercício  nos ensinos pré-escolar, básico e secundário: por nível de ensino",Ageing index of teaching staff in pre school primary lower secondary and upper secondary education by level of education,ok
+337,municipios,"Índice de envelhecimento dos docentes em exercício nos ensinos pré-escolar, básico e secundário: por nível de ensino",Ageing index of teaching staff in pre school primary lower secondary and upper secondary education by level of education,ok
 458,municipios,Índice de envelhecimento,Ageing index,ok
 791,municipios,Índice de hierarquia de gestão dos resíduos urbanos,Urban waste management hierarchy index,ok
 457,municipios,Índice de longevidade,Longevity index,ok
@@ -875,7 +875,7 @@ id,area,name_pt,name_en,status
 39,municipios,Bombeiros- profissionais e voluntários,Firemen,ok
 462,municipios,Número de indivíduos em idade ativa por idoso,Number of people of active age per aged person,ok
 511,municipios,Número de sociedades constituídas por número de sociedades dissolvidas: total e por setor de atividade económica principal,Number of corporations constituted by number of corporations dissolved total and by main sector of economic activity,ok
-422,municipios,Número médio de alojamentos familiares clássicos por km<sup>2</sup>,Average number of conventional dwellings per km2,ok
+422,municipios,Número médio de alojamentos familiares clássicos por km²,Average number of conventional dwellings per km2,ok
 185,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino,Average number of students by computer with internet connection in private primary lower secondary and upper secondary education total and by level of education,ok
 186,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário público: total e por nível de ensino,Average number of students by computer with internet connection in public primary lower secondary and upper secondary education total and by level of education,ok
 189,municipios,Número médio de alunos por computador com ligação à Internet no ensino básico e secundário: total e por nível de ensino,Average number of students by computer with internet connection in primary lower secondary and upper secondary education total and by level of education,ok
@@ -906,8 +906,8 @@ id,area,name_pt,name_en,status
 444,municipios,Pessoal ao serviço nos hospitais: total e por tipo de pessoal ao serviço,Personnel employed in hospitals total and by type of personnel employed,ok
 875,municipios,Pessoal total (ETI) em atividades de investigação e desenvolvimento (I&D): total e por setor de execução,Total personnel (fte) involved in research and development activities (r d) total and by sector of performance,ok
 877,municipios,Pessoal total e investigadores em atividades de investigação e desenvolvimento (I&D): equivalente a tempo integral por 1000 ativos,Total personnel and researchers involved in research and development activities (r d) full time equivalent per 1 000 active persons,ok
-896,municipios,PIB <em>per capita</em>,Gdp per capita,ok
-118,municipios,Poder de compra <em>per capita</em>,Purchasing power per capita,ok
+896,municipios,PIB per capita,Gdp per capita,ok
+118,municipios,Poder de compra per capita,Purchasing power per capita,ok
 855,municipios,População ativa por inativa,Active population per inactive population,ok
 854,municipios,População ativa por pensionista de velhice da Segurança Social e reformado/aposentado da Caixa Geral de Aposentações,Active population per social security old age pensioner and public administration retirement fund retiree,ok
 807,municipios,População ativa: total e por grupo etário,Labour force total and by age group,ok
@@ -939,7 +939,7 @@ id,area,name_pt,name_en,status
 803,municipios,População residente do sexo masculino com idade entre 16 e 89 anos: total e por nível de escolaridade completo mais elevado,Resident male population aged between 16 and 89 total and by highest level of educational qualifications obtained,ok
 465,municipios,População residente do sexo masculino: total e por grandes grupos etários,Resident male population total and by major age groups,ok
 464,municipios,População residente do sexo masculino: total e por grupo etário,Resident male population total and by age group,ok
-891,municipios,População residente que viajou em turismo: total e por condição perante o trabalho  (%),Resident population who went on tourism total and by work situation (percentage),ok
+891,municipios,População residente que viajou em turismo: total e por condição perante o trabalho (%),Resident population who went on tourism total and by work situation (percentage),ok
 890,municipios,População residente que viajou em turismo: total e por grupo etário,Resident population who went on tourism total and by age group,ok
 892,municipios,População residente que viajou em turismo: total e por nível de instrução (%),Resident population who went on tourism total and by level of schooling (percentage),ok
 889,municipios,População residente que viajou em turismo: total e por sexo,Resident population who went on tourism total and by sex,ok
@@ -1048,7 +1048,7 @@ id,area,name_pt,name_en,status
 956,municipios,Valor da produção agrícola: total e por tipo,Value of the agricultural production total and by type,ok
 955,municipios,Valor da produção vegetal: total e por tipo de bens,Value of the crop output total and by goods,ok
 393,municipios,Valor dos bens importados e exportados pelas empresas,Value of of goods imported and exported by enterprises,ok
-1000,municipios,Valor mediano de avaliação bancária por m<sup>2</sup>: total e por tipo de construção,Median value of bank evaluation per m2 total and by type of construction,ok
+1000,municipios,Valor mediano de avaliação bancária por m²: total e por tipo de construção,Median value of bank evaluation per m2 total and by type of construction,ok
 929,municipios,Valores processados em levantamentos e pagamentos de serviços nas caixas automáticas multibanco,Amounts of withdrawals and payments of services using atms,ok
 34,municipios,Venda de combustíveis para consumo,Fuel sales for consumption,ok
 53,municipios,Onde existem mais Vilas?,Small towns,ok
@@ -1304,11 +1304,11 @@ id,area,name_pt,name_en,status
 2948,portugal,Compras efetuadas em terminais de pagamento automático: número e montantes,Purchases made with automatic payment terminals number and amounts,ok
 1198,portugal,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: por subsistema e nível de ensino ? Continente,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education by sub system and level of education – mainland,ok
 1197,portugal,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: total e por nível de ensino ? Continente,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education total and by level of education – mainland,ok
-1120,portugal,Computadores com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino  ? Continente,Computers with internet connection in private primary lower secondary and upper secondary education total and by level of education – mainland,ok
-1119,portugal,Computadores com ligação à Internet no ensino básico e secundário público: total e por nível de ensino  ? Continente,Computers with internet connection in public primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1120,portugal,Computadores com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino ? Continente,Computers with internet connection in private primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1119,portugal,Computadores com ligação à Internet no ensino básico e secundário público: total e por nível de ensino ? Continente,Computers with internet connection in public primary lower secondary and upper secondary education total and by level of education – mainland,ok
 1113,portugal,Computadores com ligação à Internet no ensino básico e secundário: total e por nível de ensino ? Continente,Computers with internet connection in primary lower secondary and upper secondary education total and by level of education – mainland,ok
-1115,portugal,Computadores no ensino básico e secundário privado: total e por nível de ensino  ? Continente,Computers in private primary lower secondary and upper secondary education total and by level of education – mainland,ok
-1114,portugal,Computadores no ensino básico e secundário público: total e por nível de ensino  ? Continente,Computers in public primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1115,portugal,Computadores no ensino básico e secundário privado: total e por nível de ensino ? Continente,Computers in private primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1114,portugal,Computadores no ensino básico e secundário público: total e por nível de ensino ? Continente,Computers in public primary lower secondary and upper secondary education total and by level of education – mainland,ok
 1112,portugal,Computadores no ensino básico e secundário: total e por nível de ensino ? Continente,Computers in primary lower secondary and upper secondary education total and by level of education – mainland,ok
 3469,portugal,Condenados no total de arguidos (%): total e por sexo,Convicted persons in total of indicted persons(percentage) total and by sex,ok
 634,portugal,Condenados por mil habitantes,Convicted persons per thousand inhabitants,ok
@@ -1318,8 +1318,8 @@ id,area,name_pt,name_en,status
 268,portugal,Condenados: total e por tipo de crime (1984-),Convicted persons total and by type of crime (1984 ),ok
 1123,portugal,Consumidores de eletricidade: total e por tipo de consumo,Electricity consumers total and by type of consumption,ok
 2825,portugal,"Consumo das famílias no território económico: total, duradouro e não duradouro",Consumption by households in the economic territory total durable and non durable,ok
-1226,portugal,Consumo de água distribuída pela rede pública <em>per capita</em> (1991-2009),Consumption of water distributed by public water supply per capita (1991 2009),ok
-1230,portugal,Consumo de energia elétrica <em>per capita</em>: total e por tipo de consumo,Electricity consumption per capita total and by type of consumption,ok
+1226,portugal,Consumo de água distribuída pela rede pública per capita (1991-2009),Consumption of water distributed by public water supply per capita (1991 2009),ok
+1230,portugal,Consumo de energia elétrica per capita: total e por tipo de consumo,Electricity consumption per capita total and by type of consumption,ok
 1231,portugal,Consumo de energia elétrica por consumidor: total e por tipo de consumo,Electricity consumption by consumer total and by type of consumption,ok
 3341,portugal,Consumo de energia elétrica por superfície agrícola utilizada,Consumption of electrical energy per utilized agricultural area,ok
 1125,portugal,Consumo de energia elétrica: total e por setor de atividade económica,Electricity consumption total and by sector of economic activity,ok
@@ -1359,7 +1359,7 @@ id,area,name_pt,name_en,status
 2168,portugal,Desigualdade na distribuição do rendimento (S80/S20),Inequality of income distribution (s80 s20),ok
 1110,portugal,Despesa consolidada das Administrações Públicas: total e por domínios de gestão e proteção do ambiente,Consolidated expenditure of public administration total and by environmental management and protection domains,ok
 610,portugal,Despesa corrente em cuidados de saúde em % do PIB,Current expenditure on healthcare as a percentage of gdp,ok
-609,portugal,Despesa corrente em cuidados de saúde <em>per capita</em>,Current expenditure on healthcare per capita,ok
+609,portugal,Despesa corrente em cuidados de saúde per capita,Current expenditure on healthcare per capita,ok
 2959,portugal,Despesa corrente em cuidados de saúde: total e por tipo de agente financiador,Current expenditure on healthcare total and by type of funding agent,ok
 2958,portugal,Despesa corrente em cuidados de saúde: total e por tipo de prestador,Current expenditure on healthcare total and by type of provider,ok
 3010,portugal,Despesa corrente em cuidados de saúde,Current expenditure on healthcare,ok
@@ -1379,13 +1379,13 @@ id,area,name_pt,name_en,status
 866,portugal,Despesas das Administrações Públicas em educação,General government expenditure on education,ok
 2793,portugal,"Despesas das Administrações Públicas em % do PIB: total, correntes e de capital",General government expenditure as percentage of gdp total current and capital,ok
 855,portugal,Despesas das Administrações Públicas em saúde em % do PIB,General government expenditure on health as percentage of gdp,ok
-856,portugal,Despesas das Administrações Públicas em saúde <em>per capita</em>,General government expenditure on health per capita,ok
+856,portugal,Despesas das Administrações Públicas em saúde per capita,General government expenditure on health per capita,ok
 854,portugal,Despesas das Administrações Públicas em saúde,General government expenditure on health,ok
 2790,portugal,"Despesas das Administrações Públicas: total, correntes e de capital",General government expenditure total current and capital,ok
 2791,portugal,Despesas das Administrações Públicas: total e por classificação económica,General government expenditure total and by economic classification,ok
 3699,portugal,Despesas das Administrações Públicas: total e por funções,General government expenditure total and by functions,ok
 1132,portugal,Despesas dos Corpos de Bombeiros,Fire brigade expenditure,ok
-1225,portugal,Despesas dos municípios em ambiente <em>per capita</em>: por domínios de gestão e proteção ambiental,Municipalities expenditure on environment per capita by environmental management and protection domains,ok
+1225,portugal,Despesas dos municípios em ambiente per capita: por domínios de gestão e proteção ambiental,Municipalities expenditure on environment per capita by environmental management and protection domains,ok
 1108,portugal,Despesas dos municípios: total e por domínios de gestão e proteção do ambiente,Municipalities expenditure total and by environmental management and protection domains,ok
 1133,portugal,Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB: por setor de execução,Expenditure in research and development activities (r d) as a percentage of gdp by sector of performance,ok
 779,portugal,Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB,Expenditure in research and development activities (r d) as a percentage of gdp,ok
@@ -1607,7 +1607,7 @@ id,area,name_pt,name_en,status
 416,portugal,Indicadores de fecundidade: Índice sintético de fecundidade e taxa bruta de reprodução,Fertility indicators total fertility rate and gross reproduction rate,ok
 2578,portugal,Índice de bem-estar em Portugal,Well being index,ok
 1013,portugal,"Índice de envelhecimento dos docentes do ensino superior: total, por subsistema e por tipo de ensino",Ageing index of teaching staff in higher education total by sub system and by type of education,ok
-944,portugal,"Índice de envelhecimento dos docentes em exercício  nos ensinos pré-escolar, básico e secundário: por nível de ensino - Continente",Ageing index of teaching staff in pre school primary lower secondary and upper secondary education by level of education mainland portugal,ok
+944,portugal,"Índice de envelhecimento dos docentes em exercício nos ensinos pré-escolar, básico e secundário: por nível de ensino - Continente",Ageing index of teaching staff in pre school primary lower secondary and upper secondary education by level of education mainland portugal,ok
 3372,portugal,Indicadores de envelhecimento do sexo feminino,Ageing female indicators,ok
 3373,portugal,Indicadores de envelhecimento do sexo masculino,Ageing male indicators,ok
 526,portugal,Dados sobre o índice de envelhecimento em Portugal,Ageing indicators,ok
@@ -1770,7 +1770,7 @@ id,area,name_pt,name_en,status
 2283,portugal,PIB na ótica da despesa em Portugal,Gdp in terms of expenditure,ok
 2280,portugal,Produto Interno Bruto na ótica da produção,Gdp in terms of production,ok
 2282,portugal,PIB na ótica do rendimento,Gdp in terms of income,ok
-2297,portugal,PIB <em>per capita</em>,Gdp per capita,ok
+2297,portugal,PIB per capita,Gdp per capita,ok
 252,portugal,"Polícia Judiciária: processos entrados, findos e pendentes",Criminal investigation department initiated terminated proceedings and proceedings pending,ok
 2589,portugal,População ativa do sexo feminino: total e por nível de escolaridade completo,Female labour force total and by highest level of education completed,ok
 2588,portugal,População ativa do sexo masculino: total e por nível de escolaridade completo,Male labour force total and by highest level of education completed,ok
@@ -1847,13 +1847,13 @@ id,area,name_pt,name_en,status
 3250,portugal,População estrangeira que adquiriu nacionalidade portuguesa: total e por sexo,Foreign population that acquired portuguese nationality total and by sex,ok
 2619,portugal,População residente que viajou em turismo em % da população residente: total e por destino da viagem,Resident population who went on tourism as percentage of resident population total and by destination of trip,ok
 2814,portugal,População residente que viajou em turismo em % da população residente: total e por grupo etário,Resident population who went on tourism as percentage of resident population total and by age group,ok
-2617,portugal,População residente que viajou em turismo: total e por condição perante o trabalho  (%),Resident population who went on tourism total and by work situation (percentage),ok
+2617,portugal,População residente que viajou em turismo: total e por condição perante o trabalho (%),Resident population who went on tourism total and by work situation (percentage),ok
 2616,portugal,População residente que viajou em turismo: total e por destino da viagem,Resident population who went on tourism total and by destination of trip,ok
 2561,portugal,População residente que viajou em turismo: total e por grupo etário,Resident population who went on tourism total and by age group,ok
 2618,portugal,População residente que viajou em turismo: total e por nível de instrução (%),Resident population who went on tourism total and by level of schooling (percentage),ok
 2560,portugal,População residente que viajou em turismo: total e por sexo,Resident population who went on tourism total and by sex,ok
 3018,portugal,População residente: total e por grandes grupos etários (%),Resident population total and by major age groups (percentage),ok
-513,portugal,População residente em Portugal: total e  grupos etários,Resident population total and by major age groups,ok
+513,portugal,População residente em Portugal: total e grupos etários,Resident population total and by major age groups,ok
 2374,portugal,Posição de investimento internacional: ativos e passivos financeiros face ao estrangeiro em % do PIB,International investment position financial assets and liabilities abroad as a percentage of gdp,ok
 2373,portugal,Posição de investimento internacional: ativos e passivos financeiros face ao estrangeiro,International investment position financial assets and liabilities abroad,ok
 1200,portugal,Postos/acessos telefónicos por mil habitantes,Telephone accesses stations per thousand inhabitants,ok
@@ -1871,7 +1871,7 @@ id,area,name_pt,name_en,status
 2229,portugal,Praticantes desportivos federados: total e por sexo,Associated sportspersons total and by sex,ok
 2227,portugal,Dados sobre jogadores federados em Portugal,Associated sportspersons total and by all sport federations,ok
 1338,portugal,Precipitação do mês com maior precipitação,Rainfall in month of heaviest rainfall,ok
-1070,portugal,Dados sobre a precipitação  total em Portugal,Total rainfall,ok
+1070,portugal,Dados sobre a precipitação total em Portugal,Total rainfall,ok
 1265,portugal,Preços dos combustíveis líquidos e gasosos em Portugal,Average price of liquid and gas fuel sold to the public – mainland portugal,ok
 2194,portugal,Presidentes da Câmara: total e por partido político ou coligação,Mayors total and by political party or coalition,ok
 104,portugal,"Prestações de desemprego da Segurança Social: despesa total, subsídio de desemprego e subsídio social de desemprego",Social security unemployment benefit total benefits unemployment benefit and supplementary unemployment benefit,ok
@@ -2015,7 +2015,7 @@ id,area,name_pt,name_en,status
 159,portugal,SNS: urgências nos hospitais em Portugal,Nhs appointments admissions and emergencies in hospitals mainland portugal,ok
 3409,portugal,"SNS: consultas, internamentos e urgências nos hospitais por mil habitantes - Continente",Nhs appointments admissions and emergencies in hospitals per thousand inhabitants mainland portugal,ok
 330,portugal,SNS: despesa total e com pessoal ao serviço - Continente,Nhs total expenditure and on personnel employed mainland portugal,ok
-830,portugal,SNS: despesa total <em>per capita</em> - Continente,Nhs total expenditure per capita mainland portugal,ok
+830,portugal,SNS: despesa total per capita - Continente,Nhs total expenditure per capita mainland portugal,ok
 327,portugal,SNS: encargos com medicamentos - Continente,Nhs spending on medicines mainland portugal,ok
 158,portugal,Dados sobre os hospitais em Portugal,Nhs hospitals mainland portugal,ok
 160,portugal,SNS: partos em estabelecimentos de saúde - Continente,Nhs childbirths in health establishments mainland portugal,ok
@@ -2064,7 +2064,7 @@ id,area,name_pt,name_en,status
 618,portugal,Taxa de fecundidade geral em Portugal,General fertility rate,ok
 415,portugal,Taxa de fecundidade por grupo etário,Fertility rate by age group,ok
 790,portugal,Taxa de inatividade: total e por sexo (%),Inactivity rate total and by sex (percentage),ok
-2315,portugal,Evolução da  inflação em Portugal,Inflation rate (growth rate consumer price index) total and individual consumption by purpose,ok
+2315,portugal,Evolução da inflação em Portugal,Inflation rate (growth rate consumer price index) total and individual consumption by purpose,ok
 2360,portugal,Taxa de intensidade da pobreza,Relative median at risk of poverty gap,ok
 2920,portugal,Taxa de investimento das empresas não financeiras: total e por dimensão,Investment rate in non financial enterprises total and by dimension,ok
 2919,portugal,Taxa de investimento das empresas não financeiras: total e por setor de atividade,Investment rate in non financial enterprises total and by sector of economic activity,ok
@@ -2114,7 +2114,7 @@ id,area,name_pt,name_en,status
 1386,portugal,Trabalhadores por conta de outrem: total e por nível de escolaridade completo,Employees total and by highest level of education completed,ok
 844,portugal,Trabalhadores por conta de outrem em Portugal,Employees total and by contract type,ok
 1719,portugal,Trabalhadores por conta própria como empregadores: total e por nível de escolaridade completo,Employers total and by highest level of education completed,ok
-1387,portugal,Trabalhadores  Independentes em Portugal,Self employed persons with or without workers total and by highest level of education completed,ok
+1387,portugal,Trabalhadores Independentes em Portugal,Self employed persons with or without workers total and by highest level of education completed,ok
 3198,portugal,"Tráfego de passageiros, carga e correio nos principais aeroportos: total, nacional e internacional",Passenger freight and mail traffic at major airports total national and international,ok
 3248,portugal,Tráfego de passageiros nos aeroportos em Portugal,Passenger traffic at major airports lisbon oporto and faro,ok
 3240,portugal,"Tráfego de passageiros nos principais aeroportos: total, embarcados, desembarcados e em trânsito direto",Passenger traffic at major airports total embarked disembarked and in direct transit,ok
