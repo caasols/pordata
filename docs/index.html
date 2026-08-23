@@ -410,7 +410,8 @@
   }
 
   // ---- rendering -----------------------------------------------------
-  const active = new Set(Object.keys(AREA_LABELS));
+  // Area chips are opt-in filters: none selected means show everything.
+  const active = new Set();
   const MAX = 60;
 
   function displayNames(r) {
@@ -425,7 +426,7 @@
     const terms = norm($("q").value).split(/\s+/).filter(Boolean);
     const hits = [];
     for (const r of rows) {
-      if (!active.has(r.area)) continue;
+      if (active.size && !active.has(r.area)) continue;
       let score = 1;
       for (const term of terms) {
         const s = tokenScore(term, r);
@@ -528,7 +529,6 @@
       el.className = "chip" + (active.has(key) ? " on" : "");
       el.textContent = AREA_LABELS[key][lang] || key;
       el.onclick = () => {
-        if (active.has(key) && active.size === 1) return;
         active.has(key) ? active.delete(key) : active.add(key);
         el.classList.toggle("on", active.has(key));
         render();
