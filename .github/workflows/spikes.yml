@@ -4,14 +4,14 @@ name: spikes
 # sandbox cannot reach pordata.pt or ine.pt). Commits the markdown
 # analyses under data/spikes/; raw responses go to a workflow artifact
 # only, so no PORDATA/INE page content lands in the repo.
+#
+# Dispatch-only: these probes are finished research, and their
+# conclusions are recorded in context.md. A push trigger re-ran them on
+# any edit to the scripts - even a comment - burning polite requests on
+# questions already answered (2026-08-23 audit).
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/spikes.yml"
-      - "scripts/spike_pordata_probe.py"
-      - "scripts/spike_ine_catalogue.py"
 
 permissions:
   contents: write

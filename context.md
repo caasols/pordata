@@ -372,7 +372,8 @@ and ledger attempts (3).
    good; nothing verifies the committed `docs/` bundle matches `site/` source, and the Pages
    deployment itself is unmonitored; staleness uses a strict `>` on date-only lastmod, so a
    same-day PORDATA update is missed for ever; `tests.yml` swallows mutation failures with
-   `|| true`. Deferred: harvesting the `/en` tree (~2,196 pages) if EN descriptions become
+   `|| true`. *(Done 2026-08-23: `spikes.yml` is dispatch-only — a push trigger re-ran
+   finished research probes on any edit to their scripts.)* Deferred: harvesting the `/en` tree (~2,196 pages) if EN descriptions become
    worth having.
 7. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
    (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
