@@ -70,15 +70,24 @@ completeness without curation is a regression) and **17** (rename — "pordata m
 the thing the project is outgrowing, and it borrows FFMS's mark; do it before Phase D
 publishes a package name).
 
-**Open threads from the card pass:** **18** translate the unit vocabulary (148 distinct
-strings, top 50 cover 88% — a lookup table, shippable any time), **19** one re-harvest for
-period, geographic granularity and the missing units, **20** raise the coverage line past
-78.4% (discharged mostly by 19). The unit gap has a measured cause worth remembering: unit
-coverage is 100% for europa and municipios and **0% for portugal**, because the chart-caption
-markers fall outside the excerpt the harvester stores around `Fontes` on that layout. A
-catalogue-wide QA threshold passed that 100/100/0 split without complaint — **coverage
-thresholds for fields parsed out of page markup should be per-area**, since the areas are
-separate templates.
+**Open threads from the card pass** — *most closed 2026-08-23 while the owner slept.*
+**18** (unit vocabulary) shipped: `site/src/lib/unit-terms.json` is the single source of truth
+for both the site and the QA gate, EN complete, unknown terms falling back to Portuguese
+rather than blank. **19's spike** ran (`data/spikes/a3-coverage-fields.md`) and settled the
+unit half outright — the chart caption is in **7 of 7** sampled pages including portugal, so
+its 0% was a missing *marker*, not a missing template. `"ampliado"` added to `MARKER_WORDS`
+fixes it at **zero extra requests**: units accrue as pages go stale. A forced ~12 h re-harvest
+would finish it in one pass — owner's call, not a prerequisite. **20** follows automatically:
+471 of the 475 uncovered rows are portugal, so coverage should reach ~99.8% — *re-measure
+before believing it*; `unit_ratio[portugal]` sits at a gate floor of 0.0 recording the gap.
+
+Two things worth carrying forward. A catalogue-wide QA threshold passed the 100/100/0 unit
+split without complaint, so **coverage thresholds for fields parsed out of page markup are now
+per-area** — the areas are separate templates and a mean cannot say "each still works". And a
+hypothesis of mine died usefully: `A carregar conteúdo…` led me to guess the data table was
+client-rendered; it appears **0 times** across all seven pages, which are server-rendered with
+12–18 tables. The period is in a `<table>` on portugal and europa but on **neither municipios
+page** — one more probe there before writing any extraction.
 
 ## How it runs
 

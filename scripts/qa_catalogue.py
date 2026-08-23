@@ -27,6 +27,10 @@ else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
     import pordata_lib as lib
 
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
+# The site renders units from this file; the gate below measures coverage
+# against the same one, so the vocabulary cannot drift from the check.
+UNIT_TERMS = pathlib.Path("site/src/lib/unit-terms.json")
+UNIT_SEPARATOR = " - "
 PUBLISHED = pathlib.Path("docs/data/catalogue.json")
 STATS = pathlib.Path("docs/data/stats.json")
 
@@ -70,6 +74,11 @@ THRESHOLDS = {
     # Nothing may reach the published unit field except a unit: no UI
     # text, no data values. Any hit is a parser regression.
     "unit_contamination_max": 0,
+    # Roadmap 18: the unit renders in Portuguese unless its parts are in
+    # the vocabulary. Falling back is safe, so this is a floor rather than
+    # a zero — but a floor means a PORDATA unit we have never seen shows
+    # up here instead of quietly appearing untranslated on the card.
+    "unit_translated_ratio_min": 0.99,
 }
 
 # Coverage floors *per area*, for fields parsed out of page markup.
@@ -102,6 +111,31 @@ PER_AREA_THRESHOLDS = {
 # which is what a leaked data value actually looks like.
 UNIT_CONTAMINATION = re.compile(
     r"ampliado|ver tabela|Carregue|Fontes|Última|\|\||\d{3}[ .\u00a0]\d{3}")
+
+
+def unit_translation_coverage(published: list, lang: str = "en") -> tuple:
+    """(ratio of unit-bearing rows fully translated, untranslated terms).
+
+    Units are compositional ("<measure> - <scale>"), so coverage is
+    measured per part: a row counts as translated only when every part of
+    its unit has an entry."""
+    if not UNIT_TERMS.exists():
+        return 1.0, {}
+    table = json.loads(UNIT_TERMS.read_text(encoding="utf-8")).get(lang, {})
+    rows = [r for r in published if r.get("unit")]
+    if not rows:
+        return 1.0, {}
+    missing, whole = {}, 0
+    for r in rows:
+        parts = [p.strip() for p in r["unit"].split(UNIT_SEPARATOR)
+                 if p.strip()]
+        gaps = [p for p in parts if p not in table]
+        if gaps:
+            for g in gaps:
+                missing[g] = missing.get(g, 0) + 1
+        else:
+            whole += 1
+    return whole / len(rows), missing
 
 
 def recoverable_from_windows(rec: dict, field: str) -> bool:
@@ -281,6 +315,14 @@ def main(strict: bool = False) -> None:
         metrics["unit_contamination"] = sum(
             1 for r in published
             if UNIT_CONTAMINATION.search(r.get("unit", "")))
+        ratio, missing_terms = unit_translation_coverage(published)
+        metrics["unit_translated_ratio"] = ratio
+        if missing_terms:
+            top = sorted(missing_terms.items(), key=lambda kv: -kv[1])[:10]
+            lines += ["", "### Unit terms with no translation", "",
+                      "Add to `site/src/lib/unit-terms.json` (roadmap 18); "
+                      "until then these render in Portuguese.", ""]
+            lines += [f"- `{term}` ({count} rows)" for term, count in top]
     if featured_stats:
         metrics["featured_collisions"] = sum(
             g.get("collisions", 0) for g in featured_stats.values())

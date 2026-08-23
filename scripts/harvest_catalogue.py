@@ -52,8 +52,16 @@ DELAY_SECONDS = int(os.environ.get("DELAY_SECONDS") or 20)
 MAX_SECONDS = int(os.environ.get("MAX_SECONDS") or 16200)
 MAX_PAGES = int(os.environ.get("MAX_PAGES") or 0)  # 0 = no page cap
 
+# "ampliado" anchors the chart caption, which is where the unit lives:
+# "…ver o gráfico ampliado <UNIT> ver tabela completa". Spike A3
+# (2026-08-23) confirmed the caption is present in all three area
+# templates including portugal, whose units were 0% only because no
+# marker reached it — "Unidade" never appears in the page text. Anchoring
+# ahead of the unit rather than behind it matters: the trailing window is
+# 220 chars and the leading one only 60, so "ver tabela completa" as the
+# marker would cut the unit off.
 MARKER_WORDS = ["Fontes", "Entidades", "ltima atualiza", "ltima actualiza",
-                "revis", "Unidade"]
+                "revis", "Unidade", "ampliado"]
 
 
 def strip_text(html: str) -> str:

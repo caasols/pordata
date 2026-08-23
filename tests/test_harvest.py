@@ -86,3 +86,37 @@ class ReportTest(RepoCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CaptionMarkerTest(RepoCase):
+    """Spike A3 (2026-08-23): the chart caption carrying the unit is in
+    all three area templates, but no marker reached it, so portugal units
+    were 0% while europa and municipios were 100%."""
+
+    CAPTION = ("Ver Gráfico Ranking Fontes/Entidades: IEFP/MTSSS-ME, "
+               "PORDATA Carregue aqui para ver o gráfico ampliado "
+               "{} ver tabela completa Fontes/Entidades: IEFP/MTSSS-ME, "
+               "PORDATA Última actualização: 2026-03-05")
+
+    def test_caption_is_captured_and_the_unit_survives_the_round_trip(self):
+        build = load_script("build_catalogue")
+        for unit in ("Indivíduo - Milhares", "Proporção - %", "Km²"):
+            windows = h.marker_windows(self.CAPTION.format(unit))
+            self.assertIn("ampliado", windows, unit)
+            self.assertEqual(
+                build.extract_unit({"marker_windows": windows}), unit)
+
+    def test_anchor_sits_ahead_of_the_unit_not_behind_it(self):
+        # the leading window is 60 chars and the trailing one 220, so
+        # anchoring on "ver tabela completa" would cut a long unit off
+        self.assertIn("ampliado", h.MARKER_WORDS)
+        long_unit = ("Agregado doméstico privado (até 2010); Alojamento "
+                     "(a partir de 2011) - Milhares")
+        windows = h.marker_windows(self.CAPTION.format(long_unit))
+        self.assertEqual(
+            load_script("build_catalogue").extract_unit(
+                {"marker_windows": windows}), long_unit)
+
+    def test_page_without_a_caption_yields_no_marker(self):
+        self.assertNotIn("ampliado", h.marker_windows(
+            "Fontes/Entidades: INE, PORDATA Última actualização: 2026-01-01"))

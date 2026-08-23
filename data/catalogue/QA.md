@@ -62,6 +62,7 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - unit_ratio_by_area: europa 100%, municipios 100%, portugal 0%
 - separator_repairs: 37
 - unit_contamination: 0
+- unit_translated_ratio: 1
 - featured_collisions: 0
 - featured_rows: 43
 

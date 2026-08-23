@@ -19,6 +19,7 @@ import {
   prepare, searchAndSort,
   type Hit, type PreparedRow, type Row, type SortMode,
 } from "@/lib/search";
+import { formatUnit } from "@/lib/units";
 import { cn } from "@/lib/utils";
 
 // Render chunk sized to the device: roughly two viewports of cards
@@ -380,7 +381,7 @@ export default function App() {
                     <Meta label={t("updated")} empty={t("notAvailable")}
                       value={monthYear(r.ultima_atualizacao, lang)} />
                     <Meta label={t("unit")} empty={t("notAvailable")}
-                      value={r.unit || ""} />
+                      value={formatUnit(r.unit || "", lang)} />
                     <Meta label={t("sources")} empty={t("notAvailable")}
                       value={sources} />
                   </div>

@@ -147,6 +147,7 @@ describe("App", () => {
     await user.click(screen.getByRole("button", { name: "Language" }));
     await user.click(await screen.findByRole("menuitem", { name: "Português" }));
     await screen.findByText("3 indicadores");
+    // PT keeps the Portuguese unit
     expect(screen.getByText("Taxa - \u2030")).toBeInTheDocument();
     // 2026-01-01 rendered as a month, not an ISO date
     expect(screen.queryByText("2026-01-01")).not.toBeInTheDocument();
@@ -220,8 +221,10 @@ describe("App", () => {
     const placeheld = [...grids].filter(
       (g) => g.children[1].textContent === "unitn/a");
     expect(placeheld).toHaveLength(2);
-    // the card that does have one still renders it
-    expect(screen.getByText("Taxa - \u2030")).toBeInTheDocument();
+    // the card that does have one renders it, translated: the fixture's
+    // "Taxa - \u2030" is Portuguese and the UI here is English
+    expect(screen.getByText("Rate - \u2030")).toBeInTheDocument();
+    expect(screen.queryByText("Taxa - \u2030")).not.toBeInTheDocument();
     expect(screen.getAllByText("n/a")).toHaveLength(2);
   });
 

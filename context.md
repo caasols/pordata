@@ -374,10 +374,10 @@ Only open work. History lives in "What has been built" and git. Item numbers are
 **Execution order (2026-08-23, after the audit).** Ids are stable and never reused — a
 retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 
-1. **17 — name the project**, and **19's spike** — measure whether the period is in the page
-   HTML before committing to a 12-hour re-harvest. Both are cheap and both get more expensive
-   with delay: 17 before Phase D publishes a package name or FFMS replies. **18** (translate
-   the unit vocabulary) can ship any time — no harvest, no decision. **20** waits on 19.
+1. **17 — name the project.** The one cheap thing left that gets more expensive with delay:
+   do it before Phase D publishes a package name or FFMS replies. *Done 2026-08-23: **18**,
+   and **19's spike** — which solved the unit half outright and cost nothing to fix.*
+   Remaining in 19: one probe against municipios, whose period is not in a table.
 2. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
    largest item on the board and the gateway to everything below it; blocked only on a laptop.
    **13** rides along in the same laptop session — it is reading, not building, and it gates 14.
@@ -693,75 +693,84 @@ call ("Resumo"/"Summary").*
    Constraint on candidates: the name must survive the scope change — it should describe
    *Portuguese public statistics made reachable*, not *a wrapper around PORDATA*.
 
-18. **Translate the unit vocabulary** *(gap found shipping item 10)*. `unit` renders in
-   Portuguese whatever language the UI is in — "Indivíduo", "Proporção - %", "Euro -
-   Milhões" — exactly as `fontes` already does. The breakdown line correctly hides outside PT;
-   the unit does not, so a non-PT visitor gets a Portuguese token in an otherwise English card.
+18. **Translate the unit vocabulary** — *done 2026-08-23.* The unit rendered in Portuguese
+   whatever language the UI was in. It was cheap for the reason measured when the item was
+   written: PORDATA writes units compositionally, so the 148 distinct strings are really
+   **108 measures × 14 scales**, and translating the parts covers the whole vocabulary plus
+   any combination PORDATA invents later.
 
-   Measured 2026-08-23, and it is why this is cheap: **148 distinct unit strings** across
-   1,138 rows, and they are heavily concentrated — the top 30 cover 82% of occurrences, the
-   top 50 cover 88%. So this is a lookup table, not a translation project: translate the top
-   ~50 by hand into the languages `AVAILABLE` actually offers, fall back to the PT string for
-   the tail, and grow the table as new units appear. The units are also compositional
-   ("<measure> - <scale>": Euro - Milhões, Taxa - ‰), so translating the two halves separately
-   covers more than 148 entries' worth of surface.
+   Shipped: `site/src/lib/unit-terms.json` as the **single source of truth** — the site renders
+   from it and `qa_catalogue.py` gates coverage against the same file, so the vocabulary and
+   its check cannot drift. `formatUnit()` splits on the separator, translates part by part and
+   **falls back to Portuguese for an unknown term, never to a blank**, which is the behaviour
+   from before the file existed. 100% of the current vocabulary is covered in EN.
 
-   Prevention: a check that every unit string in the published catalogue has an entry, so a
-   new PORDATA unit surfaces as a gap instead of silently rendering in Portuguese. Belongs
-   with **item 7** (the wider name/i18n review) but is separable and can ship first — it needs
-   no harvest and no decision, unlike the content-language question item 7 is waiting on.
+   The `pt` table holds **repairs, not translations**: the chart caption loses the superscript,
+   so `m 3` and `t CO 2 eq` were wrong in Portuguese too and now render as `m³` and `t CO₂ eq`.
+   Scope note: EN only, which is what `AVAILABLE` actually offers. ES/FR/DE/IT have no table
+   yet and fall back to repaired Portuguese — filling them belongs with item 7, when those UIs
+   are enabled; generating four languages of unverified statistical vocabulary that nobody can
+   select would be exactly the kind of unmeasured claim decision 7 exists to prevent.
+   Gate: `unit_translated_ratio_min` at 0.99 — a single new PORDATA unit is *reported* in
+   `QA.md` with its row count rather than blocking the publish, while a template change
+   producing many new units trips it.
 
-19. **Re-harvest for period, geography and the missing units** *(was 10a; needs Actions — this
-   sandbox reaches neither pordata.pt nor ine.pt)*. Two coverage facts are absent from what we
-   hold, and one is absent for a reason worth knowing before spending 12 hours.
 
-   **What is missing.** The **period** (first and last year) — only 1.9% of titles state it —
-   and the **geographic granularity** (the catalogue knows `portugal` / `municipios` /
-   `europa`, not "308 municípios"). Both live in the page's data table, and the harvested
-   pages contain `A carregar conteúdo…`, so the table may be **client-rendered and absent from
-   the HTML entirely**. That is the spike: re-fetch a handful of pages, dump the full HTML,
-   *measure*. If the period is not there it comes from upstream with item 14 instead, and the
-   spike saves the re-harvest.
+19. **Recover period, geography and the missing units** *(was 10a; spike **run**
+   2026-08-23, report in `data/spikes/a3-coverage-fields.md`, run 32670893125)*.
 
-   **The unit gap has a different and simpler cause.** Measured 2026-08-23:
+   **Spike verdict — the unit half is solved, and it is free.** Seven pages sampled
+   deliberately: three portugal rows *without* a unit as the case under test, four
+   europa/municipios rows *with* one as the control. The chart caption is present in **7 of
+   7**, portugal included. So portugal's 0% was never a missing template — no marker reached
+   it. `MARKER_WORDS` carried `"Unidade"`, a word that never appears in the page text, and not
+   the caption anchor.
 
-   | area | rows | breakdown | unit |
-   |---|---|---|---|
-   | europa | 638 | 49% | **100%** |
-   | municipios | 504 | 60% | **100%** |
-   | portugal | 1053 | 55% | **0%** |
+   *Shipped the same evening:* `"ampliado"` added to `MARKER_WORDS`, anchoring ahead of the
+   unit rather than behind it (the leading window is 60 chars and the trailing one 220, so
+   `"ver tabela completa"` as the marker would cut a long unit off). **This costs zero extra
+   requests** — every future fetch captures it, so portugal units accrue as pages go stale on
+   the normal cadence. A forced re-harvest (~12 h) would complete it in one pass instead of
+   over months; **owner's call**, and no longer a prerequisite for anything.
 
-   The chart-caption markers (`ampliado`, `ver tabela completa`) appear in **1 of 1,053**
-   portugal pages' stored `marker_windows`. The portugal layout puts the caption outside the
-   excerpt the harvester saves around `Fontes`, so the data was never captured rather than
-   captured wrong. Raw HTML is not stored (`bytes` is recorded, the body is not), so recovering
-   it needs a fetch — the same fetch the period needs. **Do them in one pass**: widen the
-   marker set, add a caption/period/geography marker, re-harvest at the polite pace (~12 h),
-   and this item discharges item 20 as a side effect.
+   **A hypothesis of mine that the spike killed.** I read `A carregar conteúdo…` in the stored
+   marker windows and inferred the data table might be client-rendered. It is not: that string
+   appears **0 times** in all seven pages, alongside 12–18 `<table>` elements and no
+   `/screenservices/`, no `OutSystems`, no `application/json`. The pages are server-rendered.
+   The 12-hour re-harvest was never at risk of fetching nothing.
 
-   Prevention, and a gap this exposed: `unit_ratio` is a **catalogue-wide** threshold, so a
-   clean 100 / 100 / 0 split by area passed a 47% floor without complaint. Coverage thresholds
-   for fields that come from page markup should be **per-area**, since the areas are separate
-   templates. Worth applying to `breakdown_ratio` and the roadmap 6a validators too.
+   **Period: genuinely partial, and the split is by area.** Years appear inside `<table>` on
+   **5 of 7** — all three portugal and both europa pages (1981–2025, 1991–2006, 2007–2023,
+   1989–2020, 2002–2024) — and on **neither municipios page**, though both carry years
+   elsewhere in the document (1991–2026, 2009–2026). So the period is harvestable for
+   portugal and europa by reading table headers, and municipios needs a different path;
+   its 358 KB / 289 KB pages and 19 `<option>` selects suggest the years sit in a control or
+   a script payload rather than a table. **Next step: one more probe against municipios
+   specifically**, before writing any extraction. Geography is not yet answered — the
+   `<option>` counts (2–3 on portugal, 19–31 elsewhere) are too small to be a município list.
 
-20. **Raise the coverage line past 78.4%** *(owner ask 2026-08-23)*. 475 rows (21.6%) carry
-   neither a breakdown nor a unit, so their card shows a title and vital stats and nothing
-   about what the row covers. Measured: **471 of the 475 are `portugal`** — 3 are europa, 1 is
-   municipios — so this is one cause, not a long tail, and item 19 is the fix. If the portugal
-   unit gap closes, the uncovered set falls to roughly **4 rows**.
 
-   Do not treat that as done until re-measured — item 19 may recover units without recovering
-   them for every row. What remains after 19 is genuine tail, and there are two further levers,
-   in order of value: (a) the **period**, which turns the line into
+20. **Raise the coverage line past 78.4%** *(owner ask 2026-08-23; unblocked by 19)*. 475 rows
+   (21.6%) carry neither a breakdown nor a unit, and **471 of the 475 are `portugal`** — 3 are
+   europa, 1 is municipios. Spike A3 established the cause and the fix landed the same evening
+   (item 19): the caption marker is in place, so the gap closes as pages are re-fetched.
+   Expected end state once every portugal page has been fetched again: uncovered falls from
+   475 to roughly **4 rows**, and the coverage line goes from 78.4% to ~99.8%.
+
+   **Do not treat that as done until re-measured.** The projection assumes portugal behaves
+   like europa and municipios, which the 7-page sample supports but does not prove across
+   1,053 pages. `breakdown_ratio` and `unit_ratio` are already gated per area, and
+   `unit_ratio[portugal]` sits at a floor of **0.0 recording this known gap** — raising it is
+   the signal that 20 is genuinely done, and a test asserts the 0.0 is deliberate so raising
+   it must be a decision rather than a drift.
+
+   What remains after that is real tail, with two further levers in order of value: (a) the
+   **period** from item 19, which turns the line into
    `1960–2024 · 308 municípios · total e por sexo` and applies to rows with no breakdown at
-   all; (b) the 158 rows whose colon tail the splitter deliberately refused — those are not a
-   defect (refusing is correct where the tail is the indicator), but some could carry a
-   *second* line derived differently rather than being demoted.
+   all; (b) the 158 rows whose colon tail the splitter deliberately refused — not a defect,
+   since refusing is correct where the tail is the indicator, but some could carry a second
+   line derived differently.
 
-   Precondition: **item 19 first, then re-measure**. Building anything else against 78.4%
-   before that number moves is work aimed at a figure that is about to change. Feature gate:
-   `breakdown_ratio` and `unit_ratio` already sit in the QA thresholds; raise both floors once
-   19 lands so the improvement cannot silently regress.
 
 ## Verification
 
