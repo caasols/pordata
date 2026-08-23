@@ -243,11 +243,9 @@ export default function App() {
         <button
           aria-pressed={summaryOnly}
           title={t("summaryTip")}
-          className={cn(chipClass(summaryOnly),
-            "inline-flex items-center gap-1.5")}
+          className={chipClass(summaryOnly)}
           onClick={() => setSummaryOnly((v) => !v)}
         >
-          <Star className="size-3.5" />
           {t("summaryFilter")}
         </button>
       </div>
