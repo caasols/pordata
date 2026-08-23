@@ -94,8 +94,6 @@ const LINKS: Record<string, string> = {
   csv: '<a href="data/catalogue.csv">catalogue.csv</a>',
 };
 
-// Stryker restore all
-
 export function translate(lang: string, key: string,
                           params?: Record<string, string>): string {
   let s = (STRINGS[lang] || STRINGS.pt)[key] || STRINGS.pt[key] || key;
@@ -117,6 +115,8 @@ export const ALL_LANGS: Array<[string, string]> = [
   ["nl", "Nederlands"], ["pl", "Polski"], ["ro", "Română"],
   ["sk", "Slovenčina"], ["sl", "Slovenščina"], ["sv", "Svenska"],
 ];
+
+// Stryker restore all
 
 export const AVAILABLE = new Set(["pt", "en"]);
 

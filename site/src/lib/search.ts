@@ -58,15 +58,14 @@ export function editDistance(a: string, b: string, max: number): number {
 export function tokenScore(tok: string, r: PreparedRow): number {
   if (r._hay.includes(tok)) return r._name.includes(tok) ? 3 : 2;
   if (tok.length < 3) return 0;
+  // (A word-prefix tier existed here historically, but a token that
+  // prefixes a word is always a substring of the haystack, so the
+  // substring check above already returned - it was dead code.)
   const maxEd = tok.length >= 8 ? 2 : (tok.length >= 5 ? 1 : 0);
-  let best = 0;
-  for (const w of r._words) {
-    if (w.startsWith(tok)) { best = Math.max(best, 1.5); continue; }
-    if (maxEd && editDistance(tok, w, maxEd) <= maxEd)
-      best = Math.max(best, 1);
-    if (best >= 1.5) break;
-  }
-  return best;
+  if (!maxEd) return 0;
+  for (const w of r._words)
+    if (editDistance(tok, w, maxEd) <= maxEd) return 1;
+  return 0;
 }
 
 // "relevance" (fuzzy-score order) was pulled from the UI 2026-08-23 —

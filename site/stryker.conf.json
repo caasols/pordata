@@ -12,9 +12,9 @@
     "progress"
   ],
   "thresholds": {
-    "high": 80,
-    "low": 60,
-    "break": null
+    "high": 90,
+    "low": 80,
+    "break": 85
   },
   "tempDirName": ".stryker-tmp"
 }

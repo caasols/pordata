@@ -39,7 +39,12 @@ describe("language tables", () => {
   it("lists all 24 EU languages, available ones included", () => {
     expect(ALL_LANGS).toHaveLength(24);
     const codes = new Set(ALL_LANGS.map(([l]) => l));
+    expect(codes.size).toBe(24); // codes unique
     for (const l of AVAILABLE) expect(codes.has(l)).toBe(true);
+    for (const [l, name] of ALL_LANGS) {
+      expect(l).toMatch(/^[a-z]{2}$/);
+      expect(name.length).toBeGreaterThan(1);
+    }
   });
 });
 

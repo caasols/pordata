@@ -85,10 +85,12 @@ The pipeline, end to end, all live on `main`:
 - **Quality — Python**: 46 unit tests (85% line coverage, `--fail-under=80` CI gate) plus
   full mutation testing on every push (mutmut, ~1,670 mutants in ~1 min; baseline 946 killed
   / 505 survived / 217 uncovered). Network fetchers are validated by their live runs instead.
-- **Quality — site** (2026-08-23): 36 vitest tests (search/i18n logic + app behavior via
+- **Quality — site** (2026-08-23): 40 vitest tests (search/i18n logic + app behavior via
   Testing Library with mocked data; 93% line coverage, 80% gate) plus StrykerJS mutation
-  testing over `site/src/lib` (vitest runner; UI copy tables marked no-mutate — content, not
-  logic). Both run in `site.yml` on every push touching `site/`.
+  testing over `site/src/lib` (vitest runner; copy/language tables marked no-mutate —
+  content, not logic). Survivor hunt same day took the kill rate 69%→91% (killed a dead
+  word-prefix scoring tier found by a surviving mutant) and set **break: 85 as a hard CI
+  gate**. Both run in `site.yml` on every push touching `site/`.
 - **Question Ledger**: 100 questions drafted blind, stratification-audited against the real
   slug list (every theme backed; the control question correctly unanswerable).
 - **Spikes** (Phase A, both decisive): PORDATA indicator metadata is server-rendered (plain
