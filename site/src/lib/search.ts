@@ -6,6 +6,12 @@ export interface Row {
   id: number;
   area: string;
   name: string;
+  // `name` stays the full PORDATA string (search and sort use it);
+  // `title` and `breakdown` are the same string split for display, and
+  // `breakdown` is "" whenever build_catalogue refused the split.
+  title?: string;
+  breakdown?: string;
+  unit?: string;
   name_en: string;
   description: string;
   fontes: string[];

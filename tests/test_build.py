@@ -171,3 +171,130 @@ class BuildEndToEndTest(RepoCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FixSeparatorTest(unittest.TestCase):
+    """PORDATA serves a literal '?' where an en dash belongs (37 names).
+    The repair must not touch a name that ends in a real question."""
+
+    def test_mid_string_question_mark_becomes_en_dash(self):
+        self.assertEqual(
+            b.fix_separator("População empregada a tempo parcial ? Homens"),
+            "População empregada a tempo parcial – Homens")
+
+    def test_repeated_separators_all_repaired(self):
+        self.assertEqual(b.fix_separator("A ? B ? C"), "A – B – C")
+
+    def test_trailing_question_is_a_real_question(self):
+        for name in ("Onde existem mais Vilas?",
+                     "Quantos somos?",
+                     "Onde vivem mais idosos ?"):
+            self.assertEqual(b.fix_separator(name), name)
+
+    def test_question_without_flanking_spaces_untouched(self):
+        self.assertEqual(b.fix_separator("E agora?Já sei"), "E agora?Já sei")
+
+    def test_clean_name_unchanged(self):
+        self.assertEqual(b.fix_separator("PIB per capita"), "PIB per capita")
+
+
+class SplitBreakdownTest(unittest.TestCase):
+    """The tail after a colon is demoted to the coverage line only when
+    it reads as a dimension list. Refusing is the safe outcome."""
+
+    def test_dimension_tail_is_split_out(self):
+        self.assertEqual(
+            b.split_breakdown("Docentes do ensino superior: total e por tipo"),
+            ("Docentes do ensino superior", "total e por tipo"))
+
+    def test_comma_form_is_split(self):
+        self.assertEqual(
+            b.split_breakdown("Eleitores: total, votantes e abstenção"),
+            ("Eleitores", "total, votantes e abstenção"))
+
+    def test_bare_por_form_is_split(self):
+        self.assertEqual(
+            b.split_breakdown("Acidentes: por tipo de acidente"),
+            ("Acidentes", "por tipo de acidente"))
+
+    def test_tail_that_is_the_indicator_is_refused(self):
+        # the regression this rule exists for: demoting "dívida bruta em
+        # % do PIB" would leave the card titled "Administrações Públicas"
+        for name in (
+                "Administrações Públicas: dívida bruta em % do PIB",
+                "Abortos: Interrupções voluntárias de gravidez",
+                "Cinema: receitas de bilheteira"):
+            self.assertEqual(b.split_breakdown(name), (name, ""))
+
+    def test_rate_phrasing_is_not_a_breakdown(self):
+        # "por cem mil" / "por mil habitantes" describe the measure, not
+        # a dimension the table is broken down by
+        name = "Acidentes: por cem mil habitantes"
+        self.assertEqual(b.split_breakdown(name), (name, ""))
+
+    def test_no_colon_or_many_colons_refused(self):
+        for name in ("PIB per capita",
+                     "Cinema: exibições: total e por país"):
+            self.assertEqual(b.split_breakdown(name), (name, ""))
+
+    def test_empty_head_refused(self):
+        self.assertEqual(b.split_breakdown(": total e por sexo"),
+                         (": total e por sexo", ""))
+
+
+class PlausibleUnitTest(unittest.TestCase):
+    def test_real_units_accepted(self):
+        for unit in ("Indivíduo", "Proporção - %", "Euro - Milhões", "Km²",
+                     "t (tonelada) - Milhares", "Taxa - ‰",
+                     "Euro (a partir de 1/1/1999) / ECU (até 31/12/1998) - Média",
+                     "Agregado doméstico privado (até 2010); Alojamento "
+                     "(a partir de 2011) - Milhares"):
+            self.assertTrue(b.plausible_unit(unit), unit)
+
+    def test_shape_failures_rejected(self):
+        cases = {
+            "empty": "",
+            "too long": "x" * 91,
+            "too many words": " ".join(["palavra"] * 13),
+            "mostly digits": "210 015 800 1 2 3",
+            "pipe": "Euro | Milhões",
+            "colon": "Fontes: Eurostat",
+            "newline": "Euro\nMilhões",
+        }
+        for why, value in cases.items():
+            self.assertFalse(b.plausible_unit(value), why)
+
+
+class ExtractUnitTest(unittest.TestCase):
+    CAPTION = ("Carregue aqui para ver o gráfico ampliado {} "
+               "ver tabela completa Fontes/Entidades: INE, PORDATA")
+
+    def test_unit_read_from_a_marker_slice(self):
+        rec = {"marker_windows": {"Fontes": [self.CAPTION.format("Indivíduo")]}}
+        self.assertEqual(b.extract_unit(rec), "Indivíduo")
+
+    def test_slices_are_never_concatenated(self):
+        # Joining the slices used to splice two truncated fragments into
+        # a plausible-looking but corrupt unit. Each slice is truncated
+        # here, so the honest answer is no unit at all.
+        rec = {"marker_windows": {"Fontes": [
+            "para ver o gráfico ampliado Euro (a partir de 1/1",
+            "tir de 1/1/1999) / ECU (até 31/12/1998) ver tabela completa"]}}
+        self.assertEqual(b.extract_unit(rec), "")
+
+    def test_run_on_into_the_next_slice_is_trimmed(self):
+        rec = {"marker_windows": {"Fontes": [
+            "ampliado Rácio - % ver tabela comple i para ver o gráfico "
+            "ampliado Rácio - % ver tabela completa"]}}
+        self.assertEqual(b.extract_unit(rec), "Rácio - %")
+
+    def test_string_window_supported(self):
+        rec = {"marker_windows": {"Fontes": self.CAPTION.format("Taxa - %")}}
+        self.assertEqual(b.extract_unit(rec), "Taxa - %")
+
+    def test_missing_or_implausible_gives_empty(self):
+        self.assertEqual(b.extract_unit({}), "")
+        self.assertEqual(b.extract_unit({"marker_windows": {}}), "")
+        rec = {"marker_windows": {"Fontes": [
+            self.CAPTION.format("Fontes: INE")]}}
+        self.assertEqual(b.extract_unit(rec), "")

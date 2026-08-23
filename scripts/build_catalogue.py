@@ -17,6 +17,7 @@ Offline; run after every harvest chunk. Error records are excluded from
 the published catalogue until their retry succeeds.
 """
 
+import collections
 import csv
 import json
 import os
@@ -297,6 +298,101 @@ def split_fontes(fontes: str) -> list[str]:
     return out
 
 
+# --- coverage fields -------------------------------------------------
+# What an indicator covers is not in the description field (96.3% of
+# those are PORDATA's SEO template). It is in two places we already
+# hold: welded onto the title after a colon, and in the chart caption
+# captured by the harvester's marker windows.
+
+# PORDATA serves a literal '?' where an en dash belongs, in 37 names
+# ("... a tempo completo e parcial ? Homens"). Their own slug drops the
+# character entirely (…parcial+++homens-1604), so this is upstream, not
+# a decoding fault on our side. Anchored between two non-spaces so a
+# genuine trailing question ("Onde existem mais Vilas?") is untouched.
+SEPARATOR_DEFECT = re.compile(r"(?<=\S) \? (?=\S)")
+
+
+def fix_separator(name: str) -> str:
+    return SEPARATOR_DEFECT.sub(" – ", name)
+
+
+# A colon tail is demoted to the coverage line only when it reads as a
+# dimension list. Deliberately narrow: "Administrações Públicas: dívida
+# bruta em % do PIB" must keep its colon, because there the tail *is*
+# the indicator and demoting it would misname the row. Same rule as the
+# featured matcher — right or absent.
+BREAKDOWN = re.compile(
+    r"^(total\s+e\s+por\b|total,\s|total\s+e\s+|"
+    r"por\s+(?!cem|mil|100|habitante)\w|homens\s+e\s+mulheres\b|"
+    r"\w+\s+e\s+\w+\s+por\b)", re.I)
+
+
+def split_breakdown(name: str) -> tuple[str, str]:
+    """(title, breakdown). breakdown is "" when the split is refused."""
+    if name.count(":") != 1:
+        return name, ""
+    head, tail = (part.strip() for part in name.split(":", 1))
+    if not head or not BREAKDOWN.match(tail):
+        return name, ""
+    return head, tail
+
+
+# The unit sits in the chart caption, between two PORDATA UI strings.
+UNIT_WINDOW = re.compile(r"ampliado\s+(.{1,100}?)\s+ver tabela completa")
+# The marker windows are stitched slices, so a window can be cut
+# mid-phrase ("ver tabela comple") and the capture then runs on into the
+# next slice. Cutting the capture back at our own anchor text recovers
+# the unit; this is trimming at a known marker, not guessing at content.
+UNIT_RUNON = re.compile(r"\s+(?:ver tabela|Carregue|\|\|)")
+MAX_UNIT_LEN = 90
+# 12, not 8: a real unit can be verbose — "Euro (a partir de 1/1/1999) /
+# ECU (até 31/12/1998) - Média" is 11 words and entirely legitimate.
+MAX_UNIT_WORDS = 12
+MAX_UNIT_DIGIT_RATIO = 0.35
+
+
+def plausible_unit(value: str) -> bool:
+    """Shape assertion, not a vocabulary check — the same reasoning as
+    the roadmap 6a validators. A unit is short, mostly letters and has
+    few words; a data value or a slab of UI text fails on shape whatever
+    words it happens to contain."""
+    if not value or len(value) > MAX_UNIT_LEN:
+        return False
+    if len(value.split()) > MAX_UNIT_WORDS:
+        return False
+    # ASCII digits only: str.isdigit() is True for '²', which would
+    # reject the perfectly good unit "Km²".
+    digits = sum(c in "0123456789" for c in value)
+    if digits / len(value) > MAX_UNIT_DIGIT_RATIO:
+        return False
+    return not any(c in value for c in "|:\n")
+
+
+def unit_slices(rec: dict):
+    """Each marker window is a list of disjoint excerpts. They are
+    searched one at a time and never concatenated: joining them lets a
+    match run across a boundary and splice two fragments into a
+    plausible-looking but corrupt unit ("Euro (a partir de 1/1 tir de
+    1/1/1999)"). Per-slice search makes that class impossible."""
+    for value in (rec.get("marker_windows") or {}).values():
+        if isinstance(value, str):
+            yield value
+        else:
+            for part in value:
+                yield str(part)
+
+
+def extract_unit(rec: dict) -> str:
+    found = collections.Counter()
+    for excerpt in unit_slices(rec):
+        for match in UNIT_WINDOW.finditer(excerpt):
+            unit = re.sub(r"\s+", " ", match.group(1)).strip()
+            unit = UNIT_RUNON.split(unit, 1)[0].strip()
+            if plausible_unit(unit):
+                found[unit] += 1
+    return found.most_common(1)[0][0] if found else ""
+
+
 def main() -> None:
     records = lib.load_records()
     current = set(lib.targets()) - lib.abandoned()
@@ -309,11 +405,19 @@ def main() -> None:
         rec = records[url]
         if "error" in rec:
             continue
+        name = fix_separator(strip_markup(rec.get("name", ""))
+                             or name_from_slug(rec.get("slug", "")))
+        title, breakdown = split_breakdown(name)
         row = {
             "id": rec["id"],
             "area": rec["area"],
-            "name": strip_markup(rec.get("name", ""))
-                or name_from_slug(rec.get("slug", "")),
+            # `name` stays the full string so search and sort are
+            # unchanged; `title` and `breakdown` are what the card
+            # renders. Derived fields are omitted when they carry
+            # nothing - `title` when it just repeats `name`, the others
+            # when empty - because every key ships to every visitor
+            # (roadmap 6f, payload budget).
+            "name": name,
             "name_en": en_names.get((rec["area"], rec["id"]), ""),
             "description": strip_markup(rec.get("description", "")),
             "fontes": split_fontes(rec.get("fontes", "")),
@@ -321,6 +425,13 @@ def main() -> None:
             "url": rec["url"],
             "harvested_at": rec.get("harvested_at", ""),
         }
+        if title != name:
+            row["title"] = title
+        if breakdown:
+            row["breakdown"] = breakdown
+        unit = extract_unit(rec)
+        if unit:
+            row["unit"] = unit
         if url not in current:
             row["removed"] = True
         if (rec["area"], rec["id"]) in featured_flags:

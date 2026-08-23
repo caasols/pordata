@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpDown, Check, ChevronDown, Moon, Star, Sun } from "lucide-react";
+import { ArrowUpDown, Check, ChevronDown, ChevronRight, Moon, Star,
+  Sun } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -48,6 +49,61 @@ export function displayNames(r: PreparedRow, lang: string): [string, string] {
   const alt = primary === r.name ? r.name_en
             : (r.name && r.name !== primary ? r.name : "");
   return [primary, alt === primary ? "" : alt];
+}
+
+// The card answers "is this the row I meant?", so it shows the title
+// split from its breakdown clause. `breakdown` is Portuguese prose from
+// PORDATA, so it rides with the PT name only - same rule the description
+// followed. `unit` is a short source token and shows in every language.
+export function cardParts(r: PreparedRow, lang: string):
+    { title: string; coverage: string } {
+  if (lang !== "pt" && r.name_en)
+    return { title: r.name_en, coverage: "" };
+  return { title: r.title || r.name, coverage: r.breakdown || "" };
+}
+
+// "abr 2026", not "2026-04-23": a statistical series is not revised to
+// the day, and the exact date is one click away.
+export function monthYear(iso: string, lang: string): string {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso || "";
+  const d = new Date(`${iso}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat(lang, {
+    month: "short", year: "numeric", timeZone: "UTC",
+  }).format(d);
+}
+
+// The first source plus a count. The full list belongs on the detail
+// page; "SGMAI - Base de Dados do Recenseamento Eleitoral (eleitores)"
+// and three more is 194 characters the card cannot spend.
+export function shortSources(fontes: string[] | undefined): string {
+  if (!fontes || !fontes.length) return "";
+  const first = fontes[0].split(" - ")[0].trim();
+  return fontes.length > 1 ? `${first} +${fontes.length - 1}` : first;
+}
+
+function Meta({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="min-w-[4.5rem]">
+      <span className="block text-[9.5px] uppercase tracking-[0.1em]
+        text-muted-foreground/75">{label}</span>
+      <span className="block text-xs tabular-nums">{value}</span>
+    </div>
+  );
+}
+
+// Reserved, deliberately inert. There are no values to plot until the
+// crosswalk lands (roadmap 14), and PORDATA's own numbers are never
+// redistributed, so this stays an empty slot rather than a fake curve.
+function ChartSlot({ label }: { label: string }) {
+  return (
+    <div aria-hidden="true"
+      className="mt-0.5 flex h-8 items-end rounded-sm border border-dashed
+        border-border/70 bg-muted/30 px-2 pb-1">
+      <span className="text-[9.5px] uppercase tracking-[0.08em]
+        text-muted-foreground/60">{label}</span>
+    </div>
+  );
 }
 
 interface Stats { built_at: string; complete: boolean }
@@ -273,48 +329,59 @@ export default function App() {
           </Card>
         )}
         {hits.slice(0, shown).map(([, r]) => {
-          const [primary, alt] = displayNames(r, lang);
+          const { title, coverage } = cardParts(r, lang);
+          const sources = shortSources(r.fontes);
           return (
-            <Card key={r.url} className="my-2.5 px-4 py-3.5 [overflow-wrap:anywhere]">
+            <Card key={r.url} className="my-2.5 [overflow-wrap:anywhere]">
+              {/* the whole card is the tap target; until the detail page
+                  exists (roadmap 15) it still opens PORDATA */}
               <a
                 href={r.url}
                 rel="noopener"
-                className="text-base font-semibold text-primary no-underline underline-offset-[3px] hover:underline"
+                title={t("openAt")}
+                className="flex items-center gap-2.5 rounded-lg px-4 py-3.5
+                  no-underline focus-visible:outline-none focus-visible:ring-2
+                  focus-visible:ring-ring"
               >
-                {primary || r.url}
-              </a>
-              {alt && (
-                <div className="mt-0.5 text-sm text-muted-foreground">
-                  {alt}
+                <div className="flex min-w-0 flex-1 flex-col gap-2">
+                  <h3 className="m-0 text-[15px] font-semibold leading-snug">
+                    {title || r.url}
+                  </h3>
+                  {coverage && (
+                    <p className="-mt-1.5 m-0 text-[12.5px] leading-tight
+                      text-muted-foreground">{coverage}</p>
+                  )}
+                  <div className="flex flex-wrap gap-1.5">
+                    <Badge>
+                      {(AREA_LABELS[r.area] || {})[lang] || r.area}
+                    </Badge>
+                    {r.removed && (
+                      <Badge variant="destructive">{t("removed")}</Badge>
+                    )}
+                    {r.featured?.length ? (
+                      <Badge title={t("summaryTip")}>
+                        <Star className="mr-1 size-3" />
+                        {t("summaryBadge")}
+                      </Badge>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-wrap gap-x-4 gap-y-2">
+                    {r.ultima_atualizacao && (
+                      <Meta label={t("updated")}
+                        value={monthYear(r.ultima_atualizacao, lang)} />
+                    )}
+                    {r.unit && <Meta label={t("unit")} value={r.unit} />}
+                    {sources && (
+                      <Meta label={t("sources")} value={sources} />
+                    )}
+                  </div>
+                  <ChartSlot label={t("chartSoon")} />
                 </div>
-              )}
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                <Badge>{(AREA_LABELS[r.area] || {})[lang] || r.area}</Badge>
-                {r.removed && (
-                  <Badge variant="destructive">{t("removed")}</Badge>
-                )}
-                {r.featured?.length ? (
-                  <Badge title={t("summaryTip")}>
-                    <Star className="mr-1 size-3" />
-                    {t("summaryBadge")}
-                  </Badge>
-                ) : null}
-                {r.fontes && r.fontes.length > 0 && (
-                  <Badge variant="outline">
-                    {t("sources")}: {r.fontes.join(", ")}
-                  </Badge>
-                )}
-                {r.ultima_atualizacao && (
-                  <Badge variant="outline">
-                    {t("updated")} {r.ultima_atualizacao}
-                  </Badge>
-                )}
-              </div>
-              {lang === "pt" && r.description && (
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {r.description}
-                </p>
-              )}
+                <ChevronRight
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-muted-foreground/50"
+                />
+              </a>
             </Card>
           );
         })}

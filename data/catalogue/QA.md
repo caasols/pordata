@@ -39,6 +39,9 @@ Skipped by the harvest plan and tombstoned at build time; see `data/catalogue/ab
 - name_en present: 100%
 - fontes non-empty: 100%
 - featured flagged rows: 43
+- breakdown line: 54%
+- unit: 52%
+- either (coverage line renders): 78%
 
 ## Gate
 
@@ -53,6 +56,10 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - duplicate_area_id: 0
 - parse_warnings: 0
 - published_rows_ratio: 1
+- breakdown_ratio: 0.5449
+- unit_ratio: 0.5185
+- separator_repairs: 37
+- unit_contamination: 0
 - featured_collisions: 0
 - featured_rows: 43
 

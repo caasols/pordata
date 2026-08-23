@@ -54,7 +54,33 @@ THRESHOLDS = {
     # shows up here first: fields are dropped rather than published, so
     # this trips before coverage does and names the cause.
     "parse_warnings_max": 0,
+    # Coverage line on the card (roadmap 10). Both fields are DERIVED, so
+    # they degrade silently if PORDATA changes how it writes titles or
+    # renders the chart caption — which is exactly why they are gated
+    # rather than trusted. Floors sit ~4 points under the measured 54.5%
+    # and 51.8%. The card is designed to render without them, so a breach
+    # is a "go look", not a broken site.
+    "breakdown_ratio_min": 0.50,
+    "unit_ratio_min": 0.47,
+    # The '?'-for-en-dash defect is PORDATA's, and build-time
+    # normalisation repairs it. A sharp rise means their encoding changed
+    # again; zero means the normaliser stopped firing. Measured: 37.
+    "separator_repairs_min": 20,
+    "separator_repairs_max": 200,
+    # Nothing may reach the published unit field except a unit: no UI
+    # text, no data values. Any hit is a parser regression.
+    "unit_contamination_max": 0,
 }
+
+
+# UI fragments and long digit runs must never reach the unit field; the
+# extractor searches marker slices individually so neither can splice in,
+# and this is the check that says so out loud.
+# A year ("base=2010", "a partir de 1/1/1999") is a legitimate part of a
+# unit, so the digit rule keys on thousands-grouping — "210 015 800" —
+# which is what a leaked data value actually looks like.
+UNIT_CONTAMINATION = re.compile(
+    r"ampliado|ver tabela|Carregue|Fontes|Última|\|\||\d{3}[ .\u00a0]\d{3}")
 
 
 def recoverable_from_windows(rec: dict, field: str) -> bool:
@@ -179,7 +205,13 @@ def main(strict: bool = False) -> None:
                   f"- name_en present: {coverage(published, 'name_en') * 100:.0f}%",
                   f"- fontes non-empty: {coverage(published, 'fontes') * 100:.0f}%",
                   f"- featured flagged rows: "
-                  f"{sum(1 for r in published if r.get('featured'))}"]
+                  f"{sum(1 for r in published if r.get('featured'))}",
+                  f"- breakdown line: "
+                  f"{coverage(published, 'breakdown') * 100:.0f}%",
+                  f"- unit: {coverage(published, 'unit') * 100:.0f}%",
+                  f"- either (coverage line renders): "
+                  f"{sum(1 for r in published if r.get('breakdown') or r.get('unit')) / len(published) * 100:.0f}%"
+                  if published else "- unit: n/a"]
 
     featured_stats = {}
     if STATS.exists():
@@ -202,6 +234,14 @@ def main(strict: bool = False) -> None:
         "published_rows_ratio": (len(published) / len(ok)
                                  if published and ok else 1.0),
     }
+    if published:
+        metrics["breakdown_ratio"] = coverage(published, "breakdown")
+        metrics["unit_ratio"] = coverage(published, "unit")
+        metrics["separator_repairs"] = sum(
+            1 for r in published if "–" in r.get("name", ""))
+        metrics["unit_contamination"] = sum(
+            1 for r in published
+            if UNIT_CONTAMINATION.search(r.get("unit", "")))
     if featured_stats:
         metrics["featured_collisions"] = sum(
             g.get("collisions", 0) for g in featured_stats.values())
