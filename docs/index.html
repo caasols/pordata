@@ -106,7 +106,7 @@
   #langBtn svg { width: .85rem; height: .85rem; color: var(--muted-foreground); }
   #langMenu {
     position: absolute; right: 0; top: calc(100% + 6px); z-index: 50;
-    min-width: 10.5rem; padding: 4px;
+    min-width: 5.5rem; padding: 4px;
     background: var(--popover); color: var(--popover-foreground);
     border: 1px solid var(--border); border-radius: var(--radius);
     box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
@@ -492,9 +492,9 @@
       const ok = AVAILABLE.has(l);
       return `
       <div class="langItem${ok ? "" : " disabled"}" role="option"
-           data-l="${l}" aria-selected="${l === lang}"
-           ${ok ? "" : 'aria-disabled="true"'}>
-        <span>${name}</span>
+           data-l="${l}" aria-selected="${l === lang}" title="${name}"
+           aria-label="${name}" ${ok ? "" : 'aria-disabled="true"'}>
+        <span>${l.toUpperCase()}</span>
         ${l === lang ? CHECK_SVG : ""}
       </div>`;
     }).join("");
