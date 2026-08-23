@@ -1,6 +1,6 @@
 # Catalogue QA
 
-Records: 1388 (1387 ok, 1 errored)
+Records: 2081 (2080 ok, 1 errored)
 
 ## Field coverage (% non-empty)
 
@@ -8,17 +8,17 @@ Records: 1388 (1387 ok, 1 errored)
 |---|---|---|---|---|---|---|
 | europa | 638 | 99% | 99% | 100% | 100% | 100% |
 | municipios | 504 | 99% | 99% | 100% | 100% | 100% |
-| portugal | 245 | 100% | 100% | 100% | 100% | 100% |
-| ALL | 1387 | 99% | 99% | 100% | 100% | 100% |
+| portugal | 938 | 100% | 100% | 100% | 100% | 100% |
+| ALL | 2080 | 99% | 99% | 100% | 100% | 100% |
 
 ## Findings
 
-- duplicate ids: [16, 56, 57, 58, 60, 99, 100, 108, 109, 112, 116, 117, 118, 245, 256, 267, 268, 313, 320, 326]
+- duplicate ids: [5, 6, 8, 9, 10, 11, 12, 16, 25, 28, 30, 31, 32, 34, 35, 37, 38, 40, 41, 42]
 - empty name: 3
   - `financiamento+da+uniao+europeia+aos+paises+em+desenvolvimento-3597`
   - `taxa+de+atividade+total+e+por+grupo+etario-3828`
   - `votos+validos+na+eleicao+para+a+assembleia+legislativa+da+regiao+auton`
-- fontes contains UI boundary text (over-capture; repair in 3d pass): 8
+- fontes contains UI boundary text (over-capture; repair in 3d pass): 512
   - `abastecimento+publico+de+agua-1415`
   - `abortos+interrupcoes+voluntarias+de+gravidez-3393`
   - `absolvidos-3308`
