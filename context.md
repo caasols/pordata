@@ -26,7 +26,7 @@ server (Phase D). See Roadmap.
 | `README.md` | Human front door: overview, site link, licensing. Carries no state |
 | `LICENSE` / `LICENSE-DATA` | MIT for the code; CC BY 4.0 for the catalogue metadata, with PORDATA/FFMS attribution |
 | `scripts/` | Python package: sitemap watcher, harvester, catalogue build, QA, featured sets, spikes |
-| `tests/` | 74 unittest cases, coverage-gated; mutation-tested via mutmut (`setup.cfg`). Site tests live in `site/src/**/*.test.*` (48 vitest) |
+| `tests/` | Python unittest suite, coverage-gated, mutation-tested via mutmut (`setup.cfg`). Site tests live in `site/src/**/*.test.*` (vitest + StrykerJS) |
 | `.github/workflows/` | Seven: sitemap watch (detector), catalogue harvest (worker, QA-gated), tests.yml and site.yml (per push), featured-sets / ine-catalogue / spikes (manual). Table in `CLAUDE.md` |
 | `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA (gated), `catalogue/abandoned.txt`, spike reports, `audits/` |
 | `site/` | The search UI source: React + Vite + Tailwind + shadcn-style components (TypeScript). `npm run build` → `docs/` |
@@ -75,9 +75,10 @@ The pipeline, end to end, all live on `main`:
   bounded edit distance), key-based i18n with strings prepared in six languages
   (PT/EN selectable per decision — content exists in PT/EN only; roadmap 7), all 24 EU
   languages listed greyed, `name_en` on every row derived free from the `/en` sitemap
-  slugs, opt-in area filter pills in one swipeable row, a sort pill (newest/oldest/A→Z/Z→A,
-  newest default), infinite scroll in device-sized chunks, featured and
-  "descontinuado" badges, light/dark theme, PORDATA credited prominently, every hit linking
+  slugs, opt-in area filter pills in one swipeable row plus a **Resumo/Summary** pill on its
+  own axis (PORDATA's per-location overview set; ANDs with the areas), a sort pill
+  (newest/oldest/A→Z/Z→A, newest default), infinite scroll in device-sized chunks, an
+  attributed "Resumo PORDATA" badge and a "descontinuado" badge, light/dark theme, PORDATA credited prominently, every hit linking
   to its PORDATA page. Data redeploys automatically after every harvest chunk (the app
   fetches `docs/data/*.json` at runtime, so data changes need no rebuild). Repo made public
   and Pages enabled 2026-08-22. A UI-consistency pass and a high-effort code audit
@@ -98,16 +99,17 @@ The pipeline, end to end, all live on `main`:
   carry the badge, all high-confidence, where 52 included ~10 wrong. Mapping a human curation
   needs a human for the tail: `data/catalogue/FEATURED-UNMATCHED.md` is regenerated each build
   with candidates and paste-ready `overrides` snippets.
-- **Quality — Python**: 74 unit tests (line coverage gated at 80%) plus full mutation testing
-  on every push (mutmut; kill rate ~65%, roadmap 6). Network fetchers are validated by their
-  live runs instead. Exact counts are measured by the suites, not quoted here (decision 7).
+- **Quality — Python**: unittest suite with line coverage gated at 80%, plus full mutation
+  testing on every push (mutmut; kill rate ~65%, roadmap 6d). Network fetchers are validated
+  by their live runs instead. Counts are measured by the suites, never quoted here — they
+  drifted three times in two days before this rule (decision 7).
 - **Quality — data**: since the 2026-08-23 audit the pipeline is **gated, not just reported**:
   `qa_catalogue.py --strict` checks nine thresholds (record ratio, per-field coverage, ISO
   dates, duplicate `(area, id)`, corrupt JSONL lines, featured collisions and row floor) and
   fails the harvest before `docs/` is published, reverting the build and opening an issue;
   `fetch_sitemap.py` refuses a snapshot that loses more than 5% of indicator targets.
-- **Quality — site** (2026-08-23): 48 vitest tests (search/i18n logic + app behavior via
-  Testing Library with mocked data; 93% line coverage, 80% gate) plus StrykerJS mutation
+- **Quality — site** (2026-08-23): vitest suite (search/i18n logic + app behavior via
+  Testing Library with mocked data; ~93% line coverage against an 80% gate) plus StrykerJS mutation
   testing over `site/src/lib` (vitest runner; copy/language tables marked no-mutate —
   content, not logic). Survivor hunt same day took the kill rate 69%→91% (killed a dead
   word-prefix scoring tier found by a surviving mutant) and set **break: 85 as a hard CI
@@ -134,6 +136,12 @@ The pipeline, end to end, all live on `main`:
   it never had. **⑤** the audit command itself, whose scope was the root of every blind spot.
   The lesson is recorded as decision 7: the quality machinery verified code, and nothing
   verified plans or claims against measured state.
+  Follow-through the same evening: **6a** added parse-time shape assertions for date, fontes
+  and title — the gate catches a field going empty, never a field filled with something
+  well-formed but wrong, so a value failing its shape is now dropped and the record carries
+  `parse_warnings` for the gate to trip on (verified against all 2,195 records, zero false
+  positives). **12** then shipped the Resumo/Summary pill and retired the raw
+  `quadro_resumo` badge, which the matcher rewrite had finally made safe to surface.
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 

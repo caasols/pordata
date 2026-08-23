@@ -23,16 +23,24 @@ verified in a normal browser, not bot-blocking — so it lives in `data/catalogu
 skipped and tombstoned rather than retried for ever.
 
 The pipeline is event-driven (detector→worker: the sitemap watcher dispatches the harvester
-only when there is pending work, plus a nightly safety net) and now **gated**: `qa_catalogue.py
---strict` blocks the publish when data quality regresses, and `fetch_sitemap.py` refuses a
-snapshot that loses >5% of targets. A `/mega-audit` on 2026-08-23 (57 verified findings, report
-in `data/audits/`) drove that work plus a high-precision rewrite of the featured matcher, the
-site's accessibility and SEO layer, and these doc corrections.
+only when there is pending work, plus a nightly safety net) and **gated at three layers**:
+`fetch_sitemap.py` refuses a snapshot that loses >5% of indicator targets, `parse()` drops
+field values that fail a shape assertion (and marks the record), and `qa_catalogue.py
+--strict` blocks the publish — reverting `docs/`, opening an issue and failing the job — when
+any threshold breaks. A `/mega-audit` on 2026-08-23 (57 verified findings, report in
+`data/audits/`) drove all of that, plus a high-precision rewrite of the featured matcher, the
+site's accessibility and SEO layer, and a sweep of doc corrections.
 
-Next up per the roadmap in `context.md` (execution order in its header): the featured filter
-pill + rename (roadmap 12), the card design pass with Claude Design (roadmap 10), then the
-PORDATA→upstream **crosswalk** (gated on the INE cache — owner unblock) and the rest of the
-label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was emailed
+Shipped since: **roadmap 6a** (parse-time shape assertions for date, fontes and title) and
+**roadmap 12** (the Resumo/Summary filter pill, and the raw `quadro_resumo` badge replaced by
+an attributed "Resumo PORDATA" — the quadro-resumo is PORDATA's per-location overview, the
+same 37/56 indicators on every município's and country's page).
+
+Next up per the roadmap in `context.md` (execution order in its header): the card design pass
+with Claude Design (roadmap 10) — the card just gained the summary badge and item 8's labels
+will add more chips to it, so design it once — then the PORDATA→upstream **crosswalk** (gated
+on the INE cache — owner unblock) and the rest of the label-filter design (roadmap 8); Phase D
+(MCP server) gated on owner go. FFMS was emailed
 2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
 
 ## How it runs
