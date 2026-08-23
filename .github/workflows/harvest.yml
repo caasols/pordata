@@ -41,10 +41,17 @@ jobs:
           MAX_PAGES: ${{ inputs.max_pages }}
         run: python3 scripts/harvest_catalogue.py
 
+      # Rebuild only when the harvest changed records; otherwise a no-op
+      # run (e.g. a failed retry of the same error) would still commit a
+      # stats.json built_at bump and redeploy Pages for nothing.
       - name: Build catalogue and QA
         run: |
-          python3 scripts/build_catalogue.py
-          python3 scripts/qa_catalogue.py
+          if git diff --quiet data/catalogue/; then
+            echo "No records changed; skipping rebuild."
+          else
+            python3 scripts/build_catalogue.py
+            python3 scripts/qa_catalogue.py
+          fi
 
       - name: Commit progress
         run: |
