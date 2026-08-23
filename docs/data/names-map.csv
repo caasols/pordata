@@ -693,7 +693,7 @@ id,area,name_pt,name_en,status
 927,municipios,Caixas Automáticas Multibanco,Atm machines,ok
 244,municipios,Camas nos hospitais,Beds in hospitals,ok
 747,municipios,Capacidade nos alojamentos turísticos: total e por tipo de alojamento,Lodging capacity in tourist accommodations total and by type of accommodations,ok
-535,municipios,Cartórios notariais: principais atos notariais celebrados por escritura pública por tipo de ato,Notary%27s office main notary deeds entered into by public deed by type of deed,ok
+535,municipios,Cartórios notariais: principais atos notariais celebrados por escritura pública por tipo de ato,Notary's office main notary deeds entered into by public deed by type of deed,ok
 91,municipios,Casamentos dissolvidos por morte,Dissolved marriages by death,ok
 93,municipios,Casamentos entre pessoas do sexo oposto: total e por forma de celebração,Marriages between people of the opposite sex total and by type of ceremony,ok
 354,municipios,Casamentos não católicos entre pessoas do sexo oposto (%),Non catholic marriages between people of the opposite sex (percentage),ok
@@ -858,20 +858,20 @@ id,area,name_pt,name_en,status
 928,municipios,"Levantamentos, pagamentos de serviços e consultas nas caixas automáticas multibanco",Withdrawals payment of services and balance requests from atms machines,ok
 240,municipios,Lotação dos centros de saúde (1993-2012),Capacity of primary health centres (1993 2012),ok
 441,municipios,Médicos: não especialistas e especialistas por algumas especialidades,Doctors non specialists and specialist by some specialist areas,ok
-901,municipios,Mortes de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 deaths total and by sector of economic activity,ok
+901,municipios,Mortes de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises' deaths total and by sector of economic activity,ok
 497,municipios,Mortos por 100 acidentes de viação com vítimas,Deaths by 100 road traffic accidents with victims,ok
 742,municipios,Evolução do número de Museus,Museums number,ok
 744,municipios,"Museus: total de visitantes, visitantes escolares e estrangeiros",Museums total visitors school and foreign visitors,ok
 936,municipios,N.º médio de pessoas ao serviço nas empresas não financeiras: total e por setor de atividade económica,Average no. of personnel employed by enterprise total and by sector of economic activity,ok
 108,municipios,Nados-vivos de mães residentes em Portugal: fora do casamento por coabitação dos pais,Live births of mothers resident in portugal outside marriage by cohabitation of parents,ok
 105,municipios,Nados-vivos de mães residentes em Portugal: total e fora do casamento,Live births of mothers resident in portugal total and outside marriage,ok
-104,municipios,Nados-vivos de mães residentes em Portugal: total e por grupo etário da mãe,Live births of mothers resident in portugal total and by mother%c2%b4s age group,ok
-718,municipios,Nados-vivos de mães residentes em Portugal: total e por nacionalidade da mãe,Live births of mothers resident in portugal total and by mother%27s nationality,ok
-719,municipios,Nados-vivos de mães residentes em Portugal: total e por nível de escolaridade completo mais elevado da mãe,Live births of mothers resident in portugal total and by mother%27s highest level of educational qualifications obtained,ok
+104,municipios,Nados-vivos de mães residentes em Portugal: total e por grupo etário da mãe,Live births of mothers resident in portugal total and by mother´s age group,ok
+718,municipios,Nados-vivos de mães residentes em Portugal: total e por nacionalidade da mãe,Live births of mothers resident in portugal total and by mother's nationality,ok
+719,municipios,Nados-vivos de mães residentes em Portugal: total e por nível de escolaridade completo mais elevado da mãe,Live births of mothers resident in portugal total and by mother's highest level of educational qualifications obtained,ok
 103,municipios,Nados-vivos de mães residentes em Portugal: total e por sexo,Live births of mothers resident in portugal total and by sex,ok
 370,municipios,"Nados-vivos fora do casamento, com coabitação e sem coabitação dos pais (%)",Live births outside of marriage with parents co habiting or not (percentage),ok
 904,municipios,"Nascimentos, mortes e sobrevivência a 1 ano de empresas não financeiras",Born dead and surviving of non financial enterprises,ok
-899,municipios,Nascimentos de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 births total and by sector of economic activity,ok
+899,municipios,Nascimentos de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises' births total and by sector of economic activity,ok
 39,municipios,Bombeiros- profissionais e voluntários,Firemen,ok
 462,municipios,Número de indivíduos em idade ativa por idoso,Number of people of active age per aged person,ok
 511,municipios,Número de sociedades constituídas por número de sociedades dissolvidas: total e por setor de atividade económica principal,Number of corporations constituted by number of corporations dissolved total and by main sector of economic activity,ok
@@ -995,7 +995,7 @@ id,area,name_pt,name_en,status
 446,municipios,SNS: pessoal ao serviço nos hospitais por tipo de pessoal ao serviço,Nhs personnel employed in hospitals by type of personnel employed,ok
 275,municipios,SNS: salas de operação nos hospitais,Nhs surgery rooms in hospitals,ok
 271,municipios,SNS: urgências nos hospitais,Nhs emergencies in hospitals,ok
-903,municipios,Sobrevivência a 1 ano de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 survival at 1 year total and by sector of economic activity,ok
+903,municipios,Sobrevivência a 1 ano de empresas não financeiras: total e por setor de atividade económica,Non financial enterprises' survival at 1 year total and by sector of economic activity,ok
 356,municipios,Sociedades constituídas por escritura pública: total e por setor de atividade económica principal,Corporations constituted by public deed total and by main sector of economic activity,ok
 364,municipios,Sociedades dissolvidas por escritura pública: total e por setor de atividade económica principal,Dissolved corporations by public deed total and by main sector of economic activity,ok
 399,municipios,Sociedades não financeiras: total e por setor de atividade económica,Non financial corporations total and by sector of economic activity,ok
@@ -1024,15 +1024,15 @@ id,area,name_pt,name_en,status
 861,municipios,Taxa de emprego: total e por sexo (%),Employment rate total and by sex (percentage),ok
 856,municipios,Taxa de inatividade: total e por sexo (%),Inactivity rate total and by sex (percentage),ok
 846,municipios,Taxa de Inflação (Taxa de Variação do Índice de Preços no Consumidor): total e por consumo individual por objetivo,Inflation rate (growth rate consumer price index) total and individual consumption by purpose,ok
-907,municipios,Taxa de mortalidade das empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 death rate total and by sector of economic activity,ok
+907,municipios,Taxa de mortalidade das empresas não financeiras: total e por setor de atividade económica,Non financial enterprises' death rate total and by sector of economic activity,ok
 371,municipios,Taxa de mortalidade infantil,Infant mortality rate,ok
 905,municipios,"Taxa de natalidade, mortalidade e sobrevivência das empresas não financeiras",Birth death and survival rates of non financial enterprises,ok
-906,municipios,Taxa de natalidade das empresas não financeiras: total e por setor de atividade económica,Non financial enterprises%27 birth rate total and by sector of economic activity,ok
+906,municipios,Taxa de natalidade das empresas não financeiras: total e por setor de atividade económica,Non financial enterprises' birth rate total and by sector of economic activity,ok
 360,municipios,Taxa de nupcialidade,Crude marriage rate,ok
 1003,municipios,Taxa de ocupação nos hospitais,Hospitals bed occupancy rate,ok
 996,municipios,Taxa de retenção e desistência no ensino básico: total e por ano de escolaridade,Retention and desistance rate in primary and lower secondary education total and by school years,ok
 997,municipios,"Taxa de retenção e desistência no ensino secundário: total, por modalidade de ensino e ano de escolaridade",Retention and desistance rate in upper secondary education total and by school years,ok
-938,municipios,Taxa de sobrevivência a 1 ano das empresas não financeiras: por setor de atividade económica,Non financial enterprises%27 survival rate at 1 year total and by sector of economic activity,ok
+938,municipios,Taxa de sobrevivência a 1 ano das empresas não financeiras: por setor de atividade económica,Non financial enterprises' survival rate at 1 year total and by sector of economic activity,ok
 1002,municipios,Taxa do Imposto Municipal sobre Imóveis,Municipal property tax,ok
 852,municipios,Trabalhadores da Administração Pública Local por mil habitantes,Employees in local government per thousand inhabitants,ok
 849,municipios,Trabalhadores da Administração Pública Local: total e por sexo,Employees in local government total and by sex,ok
@@ -1172,7 +1172,7 @@ id,area,name_pt,name_en,status
 505,portugal,"Agregados, Rendimento Bruto e IRS liquidado: Modelo 1",Households gross income and income tax paid category 1,ok
 506,portugal,"Agregados, Rendimento Bruto e IRS liquidado: Modelo 2",Households gross income and income tax paid category 2,ok
 504,portugal,"Agregados, Rendimento Bruto e IRS liquidado: Modelos 1+ 2",Households gross income and income tax paid categories 1 2,ok
-821,portugal,"Agregados domésticos privados, por grupo etário do representante da família",Private households by age group of the household%27s representative,ok
+821,portugal,"Agregados domésticos privados, por grupo etário do representante da família",Private households by age group of the household's representative,ok
 1158,portugal,"Agregados domésticos privados com computador, com ligação à Internet e com ligação à Internet através de banda larga (%)",Private households with a computer with internet access and with broadband internet access (percentage),ok
 20,portugal,Agregados domésticos privados monoparentais: total e por sexo,Single parent private households total and by sex,ok
 19,portugal,Agregados domésticos privados: total e por tipo de composição,Private households total and by household type,ok
@@ -1219,7 +1219,7 @@ id,area,name_pt,name_en,status
 1005,portugal,Alunos matriculados: por nível de ensino e sexo,Students enrolled by level of education and sex,ok
 1002,portugal,Alunos matriculados: total e por nível de ensino,Enrolled students total and by level of education,ok
 2231,portugal,Árbitros e Juízes desportivos federados: total e por algumas federações desportivas,Associated sports referees and judges total and by certain sport federations,ok
-1192,portugal,Incêndios rurais em Portugal Continental,Burnt area and rural fires %e2%80%93 mainland,ok
+1192,portugal,Incêndios rurais em Portugal Continental,Burnt area and rural fires – mainland,ok
 3748,portugal,Áreas Protegidas e Rede Natura 2000 (percentagem),Protected areas and natura 2000 network (percentage),ok
 3747,portugal,Áreas Protegidas e Rede Natura 2000,Protected areas and natura 2000 network,ok
 3470,portugal,Arguidos e condenados em processo-crime,Indicted and convicted persons in criminal proceedings,ok
@@ -1249,8 +1249,8 @@ id,area,name_pt,name_en,status
 117,portugal,Beneficiários ativos da Segurança Social subsidiados por alguns tipos de funções,Active beneficiaries from social security receiving benefit by benefit type,ok
 379,portugal,Beneficiários ativos da Segurança Social,Active beneficiaries from social security,ok
 2573,portugal,"Beneficiários ativos por pensão de velhice, invalidez e sobrevivência da Segurança Social",Active beneficiaries per social security survivors disability or old age pension,ok
-3782,portugal,Beneficiários da Ação Social Escolar no ensino não superior público ? Continente,School welfare measures beneficiaries in public non higher education %e2%80%93 mainland portugal,ok
-1176,portugal,Beneficiários da Ação Social Escolar no ensino não superior público por tipo de benefício ? Continente (1981-2019),School welfare measures beneficiaries in public non higher education by benefit type %e2%80%93 mainland portugal (1981 2019),ok
+3782,portugal,Beneficiários da Ação Social Escolar no ensino não superior público ? Continente,School welfare measures beneficiaries in public non higher education – mainland portugal,ok
+1176,portugal,Beneficiários da Ação Social Escolar no ensino não superior público por tipo de benefício ? Continente (1981-2019),School welfare measures beneficiaries in public non higher education by benefit type – mainland portugal (1981 2019),ok
 612,portugal,Beneficiários da ADSE,Adse beneficiaries,ok
 99,portugal,Beneficiários da Segurança Social das funções de sobrevivência e de velhice por tipo de pensão ou subsídio,Social security survivor and old age beneficiaries by type of pension or benefit,ok
 385,portugal,Beneficiários da Segurança Social do subsídio por doença: total e por grupo etário,Social security beneficiaries of sickness benefit total and by age group,ok
@@ -1280,9 +1280,9 @@ id,area,name_pt,name_en,status
 1177,portugal,Caixas Automáticas Multibanco,Atm machines,ok
 2570,portugal,Hóspedes nos parques de campismo: total e por país de residência do hóspede,Campers total and by country of residence,ok
 2563,portugal,Capacidade dos alojamentos turisticos: total e por tipo de estabelecimento,Lodging capacity in tourist accommodations total and by type of establishment,ok
-279,portugal,Cartórios notariais: principais atos notariais celebrados por escritura pública por tipo de ato,Notary%27s office main notary deeds entered into by public deed by type of deed,ok
-3395,portugal,Casamentos entre pessoas do sexo oposto: total e por estado civil anterior do cônjuge do sexo feminino,Marriages between people of the opposite sex total and by wife%c2%b4s previous marital status,ok
-3394,portugal,Casamentos entre pessoas do sexo oposto: total e por estado civil anterior do cônjuge do sexo masculino,Marriages between people of the opposite sex total and by husband%c2%b4s previous marital status,ok
+279,portugal,Cartórios notariais: principais atos notariais celebrados por escritura pública por tipo de ato,Notary's office main notary deeds entered into by public deed by type of deed,ok
+3395,portugal,Casamentos entre pessoas do sexo oposto: total e por estado civil anterior do cônjuge do sexo feminino,Marriages between people of the opposite sex total and by wife´s previous marital status,ok
+3394,portugal,Casamentos entre pessoas do sexo oposto: total e por estado civil anterior do cônjuge do sexo masculino,Marriages between people of the opposite sex total and by husband´s previous marital status,ok
 1933,portugal,Casamentos entre pessoas do sexo oposto: total e por forma de celebração,Marriages between people of the opposite sex total and by type of ceremony,ok
 420,portugal,Casamentos não católicos entre pessoas do sexo oposto (%),Non catholic marriages between people of the opposite sex (percentage),ok
 16,portugal,Dados sobre os casamentos em Portugal,Marriages,ok
@@ -1292,7 +1292,7 @@ id,area,name_pt,name_en,status
 1985,portugal,Cesarianas nos hospitais (%),Caesarean births in hospitals (percentage),ok
 862,portugal,Cinema: ecrãs por 100 mil habitantes,Cinema screens per 100 thousand inhabitants,ok
 593,portugal,Cinema: espectadores por mil habitantes,Cinema audience per thousand inhabitants,ok
-321,portugal,Cinema: exibições/sessões: total e por país de origem dos filmes,Screenings total and by film%27s country of origin,ok
+321,portugal,Cinema: exibições/sessões: total e por país de origem dos filmes,Screenings total and by film's country of origin,ok
 594,portugal,Cinema: número médio de espectadores por sessão,Cinema average audience per screening,ok
 399,portugal,Cinema: receitas de bilheteira,Cinema box office revenue,ok
 184,portugal,"Cinema: recintos, ecrãs, sessões e espectadores",Cinema facilities screens screenings and audiences,ok
@@ -1302,14 +1302,14 @@ id,area,name_pt,name_en,status
 2568,portugal,Colónias de férias: número e capacidade de alojamento,Holiday camps number and lodging capacity,ok
 2233,portugal,Comparticipação financeira: total e a algumas federações desportivas,Funding total and by certain sport federations,ok
 2948,portugal,Compras efetuadas em terminais de pagamento automático: número e montantes,Purchases made with automatic payment terminals number and amounts,ok
-1198,portugal,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: por subsistema e nível de ensino ? Continente,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education by sub system and level of education %e2%80%93 mainland,ok
-1197,portugal,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: total e por nível de ensino ? Continente,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
-1120,portugal,Computadores com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino  ? Continente,Computers with internet connection in private primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
-1119,portugal,Computadores com ligação à Internet no ensino básico e secundário público: total e por nível de ensino  ? Continente,Computers with internet connection in public primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
-1113,portugal,Computadores com ligação à Internet no ensino básico e secundário: total e por nível de ensino ? Continente,Computers with internet connection in primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
-1115,portugal,Computadores no ensino básico e secundário privado: total e por nível de ensino  ? Continente,Computers in private primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
-1114,portugal,Computadores no ensino básico e secundário público: total e por nível de ensino  ? Continente,Computers in public primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
-1112,portugal,Computadores no ensino básico e secundário: total e por nível de ensino ? Continente,Computers in primary lower secondary and upper secondary education total and by level of education %e2%80%93 mainland,ok
+1198,portugal,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: por subsistema e nível de ensino ? Continente,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education by sub system and level of education – mainland,ok
+1197,portugal,Computadores com ligação à Internet em % do total de computadores no ensino básico e secundário: total e por nível de ensino ? Continente,Computers with internet connection as a percentage of total computers in primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1120,portugal,Computadores com ligação à Internet no ensino básico e secundário privado: total e por nível de ensino  ? Continente,Computers with internet connection in private primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1119,portugal,Computadores com ligação à Internet no ensino básico e secundário público: total e por nível de ensino  ? Continente,Computers with internet connection in public primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1113,portugal,Computadores com ligação à Internet no ensino básico e secundário: total e por nível de ensino ? Continente,Computers with internet connection in primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1115,portugal,Computadores no ensino básico e secundário privado: total e por nível de ensino  ? Continente,Computers in private primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1114,portugal,Computadores no ensino básico e secundário público: total e por nível de ensino  ? Continente,Computers in public primary lower secondary and upper secondary education total and by level of education – mainland,ok
+1112,portugal,Computadores no ensino básico e secundário: total e por nível de ensino ? Continente,Computers in primary lower secondary and upper secondary education total and by level of education – mainland,ok
 3469,portugal,Condenados no total de arguidos (%): total e por sexo,Convicted persons in total of indicted persons(percentage) total and by sex,ok
 634,portugal,Condenados por mil habitantes,Convicted persons per thousand inhabitants,ok
 267,portugal,Condenados: total e por categoria de crime (1960-1983),Convicted persons total and by category of crime (1960 1983),ok
@@ -1352,7 +1352,7 @@ id,area,name_pt,name_en,status
 58,portugal,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por sexo,Unemployment registered at the public employment office (yearly average) total and by sex,ok
 59,portugal,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por tempo de inscrição,Unemployment registered at the public employment office (yearly average) total and by length of registration,ok
 57,portugal,Desempregados inscritos nos centros de emprego e de formação profissional (média anual): total e por tipo de desemprego,Unemployment registered at the public employment office (yearly average) total and by unemployment type,ok
-320,portugal,Desempregados inscritos nos centros de emprego e de formação profissional à procura de novo emprego (média anual): total e por grandes setores de atividade económica ? Continente,Unemployment registered at the public employment office seeking a new job (yearly average) total and by large sectors of economic activity %e2%80%93 mainland portugal,ok
+320,portugal,Desempregados inscritos nos centros de emprego e de formação profissional à procura de novo emprego (média anual): total e por grandes setores de atividade económica ? Continente,Unemployment registered at the public employment office seeking a new job (yearly average) total and by large sectors of economic activity – mainland portugal,ok
 56,portugal,Desemprego em Portugal: inscritos nos centros de emprego,Unemployment registered at the public employment office,ok
 1205,portugal,"Design: concessões da Via Nacional a residentes em Portugal, total e por tipo de requerente",Design concessions made via the portuguese process to residents in portugal total and by type of applicant,ok
 1211,portugal,"Design: pedidos, concessões e objetos da Via Nacional",Design applications concessions and objects made via the portuguese process,ok
@@ -1373,7 +1373,7 @@ id,area,name_pt,name_en,status
 2626,portugal,"Despesa média diária por turista: total, por motivo principal e por destino da viagem",Average daily expenditure per tourist total by main purpose and by destination of the trip,ok
 2625,portugal,"Despesa média por viagem: total, por motivo principal e por destino da viagem",Average expenditure per trip total by main purpose and by destination of the trip,ok
 660,portugal,Despesas com bolsas de ação social do ensino superior: total e por subsistema de ensino,Expenditure on social work grants in higher education total and by sub system of education,ok
-1078,portugal,Despesas da Ação Social Escolar no ensino não superior: total e por subsistema de ensino ? Continente,School welfare measures expenditure in non higher education total and by sub system of education %e2%80%93 mainland portugal,ok
+1078,portugal,Despesas da Ação Social Escolar no ensino não superior: total e por subsistema de ensino ? Continente,School welfare measures expenditure in non higher education total and by sub system of education – mainland portugal,ok
 1076,portugal,Despesas da Ação Social Escolar no ensino não superior: total e por tipo de benefício ? Continente (1993 - 2019),School welfare measures expenditure in non higher education total and by benefit type mainland portugal (1993 2019),ok
 867,portugal,Despesas das Administrações Públicas em educação em % do PIB,General government expenditure on education as percentage of gdp,ok
 866,portugal,Despesas das Administrações Públicas em educação,General government expenditure on education,ok
@@ -1412,7 +1412,7 @@ id,area,name_pt,name_en,status
 219,portugal,Diplomados no ensino superior: total e por nível de formação,Graduates in higher education total and by level of training,ok
 664,portugal,Diplomados no ensino superior: total e por sexo,Graduates in higher education total and by sex,ok
 429,portugal,Diplomados no ensino superior: total e por subsistema e tipo de ensino,Graduates in higher education total and by sub system and type of education,ok
-3706,portugal,Diplomados nos cursos de formação de professores,How many people graduate annually from master%27s degrees that give professional qualifications for teaching,ok
+3706,portugal,Diplomados nos cursos de formação de professores,How many people graduate annually from master's degrees that give professional qualifications for teaching,ok
 3421,portugal,Dirigentes de explorações agrícolas: total e por grupo etário,Managers of agricultural holdings total and by age group,ok
 3420,portugal,Dirigentes de explorações agrícolas: total e por sexo,Managers of agricultural holdings total and by sex,ok
 2232,portugal,Dirigentes: total e por algumas federações desportivas,Officials total and by certain sports federations,ok
@@ -1486,17 +1486,17 @@ id,area,name_pt,name_en,status
 3444,portugal,Empresas da Pesca e Aquicultura,Fishing and aquaculture enterprises,ok
 3690,portugal,Empresas e pessoal ao serviço da Silvicultura,Enterprises and persons employed in forestry,ok
 2965,portugal,Empresas individuais: total e por setor de atividade económica,Individual business total and by sector of economic activity,ok
-2877,portugal,Empresas mortas: total e por forma jurídica,Enterprises%27 deaths total and by legal form,ok
-2878,portugal,Empresas mortas: total e por setor de atividade económica,Enterprises%27 deaths total and by sector of economic activity,ok
+2877,portugal,Empresas mortas: total e por forma jurídica,Enterprises' deaths total and by legal form,ok
+2878,portugal,Empresas mortas: total e por setor de atividade económica,Enterprises' deaths total and by sector of economic activity,ok
 2860,portugal,Empresas não financeiras: total e por escalão de pessoal ao serviço,Non financial enterprises total and by band of personnel employed,ok
 2873,portugal,"Empresas nascidas, mortas e sobreviventes",Born dead and surviving enterprises,ok
-2874,portugal,Empresas nascidas: total e por forma jurídica,Enterprises%27 births total and by legal form,ok
-2875,portugal,Empresas nascidas: total e por setor de atividade económica,Enterprises%27 births total and by sector of economic activity,ok
+2874,portugal,Empresas nascidas: total e por forma jurídica,Enterprises' births total and by legal form,ok
+2875,portugal,Empresas nascidas: total e por setor de atividade económica,Enterprises' births total and by sector of economic activity,ok
 2955,portugal,Empresas no setor da indústria transformadora em Portugal,Enterprises in the manufacturing sector total and by type,ok
 2994,portugal,Empresas no setor público empresarial,Enterprises in the corporate public sector,ok
 1143,portugal,Empresas que utilizam computador em % do total de empresas: por escalão de pessoal ao serviço,Enterprises that use computers as a percentage of total of enterprises by band of personnel employed (2003 2019),ok
-2881,portugal,Empresas sobreviventes a 1 ano: total e por setor de atividade económica,Enterprises%27 survival at 1 year total and by sector of economic activity,ok
-2880,portugal,Empresas sobreviventes a 1 e 2 anos: total e por forma jurídica,Enterprises%27 survival at 1 and 2 years total and by legal form,ok
+2881,portugal,Empresas sobreviventes a 1 ano: total e por setor de atividade económica,Enterprises' survival at 1 year total and by sector of economic activity,ok
+2880,portugal,Empresas sobreviventes a 1 e 2 anos: total e por forma jurídica,Enterprises' survival at 1 and 2 years total and by legal form,ok
 2857,portugal,Empresas: total e por dimensão,Enterprises total and by size,ok
 2855,portugal,Empresas: total e por forma jurídica,Enterprises total and by legal form,ok
 2856,portugal,Empresas: total e por setor de atividade económica,Enterprises total and by sector of economic activity,ok
@@ -1638,7 +1638,7 @@ id,area,name_pt,name_en,status
 180,portugal,Jornais e outras publicações periódicas: títulos publicados,Newspapers and other periodicals titles published,ok
 2240,portugal,Jornais e outras publicações periódicas: total e por suporte de difusão,Newspapers and other periodicals total and by broadcast support,ok
 1146,portugal,"Julgados de Paz: processos entrados, findos e pendentes",Justices of the peace initiated terminated proceedings and proceedings pending,ok
-3439,portugal,Lagares de azeite: total e por tipo de lagar ? Continente,Oil press units total and by type of oil press unit %e2%80%93 mainland portugal,ok
+3439,portugal,Lagares de azeite: total e por tipo de lagar ? Continente,Oil press units total and by type of oil press unit – mainland portugal,ok
 2946,portugal,"Levantamentos, consultas e pagamentos de serviços nas caixas automáticas multibanco",Withdrawals balance requests and payment of services in atms,ok
 2167,portugal,Limiar de risco de pobreza,At risk of poverty threshold,ok
 3191,portugal,Linhas aéreas operadas: número e extensão,Operating airlines number and extent,ok
@@ -1693,9 +1693,9 @@ id,area,name_pt,name_en,status
 1435,portugal,Nados-vivos de mães residentes em Portugal fora do casamento: total e por coabitação dos pais,Live births of mothers resident in portugal outside marriage total and by cohabitation of parents,ok
 2575,portugal,Nados-vivos de mães residentes em Portugal: total e de pais com filhos anteriores não comuns,Live births of mothers resident in portugal total and from parents with previous children not in common,ok
 14,portugal,Nados-vivos de mães residentes em Portugal: total e fora do casamento,Live births of mothers resident in portugal total and outside marriage,ok
-3057,portugal,Nados-vivos de mães residentes em Portugal: total e por condição perante o trabalho da mãe,Live births of mothers resident in portugal total and by mother%27s work situation,ok
-2512,portugal,Nados-vivos de mães residentes em Portugal: total e por nacionalidade da mãe,Live births of mothers resident in portugal total and by mother%27s nationality,ok
-2513,portugal,Nados-vivos de mães residentes em Portugal: total e por nível de escolaridade completo mais elevado da mãe,Live births of mothers resident in portugal total and by mother%27s highest level of educational qualifications obtained,ok
+3057,portugal,Nados-vivos de mães residentes em Portugal: total e por condição perante o trabalho da mãe,Live births of mothers resident in portugal total and by mother's work situation,ok
+2512,portugal,Nados-vivos de mães residentes em Portugal: total e por nacionalidade da mãe,Live births of mothers resident in portugal total and by mother's nationality,ok
+2513,portugal,Nados-vivos de mães residentes em Portugal: total e por nível de escolaridade completo mais elevado da mãe,Live births of mothers resident in portugal total and by mother's highest level of educational qualifications obtained,ok
 620,portugal,"Nados-vivos fora do casamento, com coabitação e sem coabitação dos pais (%)",Live births outside of marriage with parents co habiting or not (percentage),ok
 3170,portugal,Navios de cruzeiro e passageiros transportados,Cruise ships and transported passengers,ok
 1188,portugal,Número de bombeiros em Portugal,Firemen,ok
@@ -1719,7 +1719,7 @@ id,area,name_pt,name_en,status
 758,portugal,Óbitos por algumas causas de morte (%),Deaths by certain causes (percentage),ok
 1987,portugal,Óbitos por algumas causas de morte por 100 mil habitantes,Deaths by certain causes per 100 thousand inhabitants,ok
 635,portugal,Ocupação efetiva das prisões (%),Actual prison occupancy (percentage),ok
-319,portugal,Ofertas de emprego (média anual) disponíveis nos centros de emprego e formação profissional: total e por grandes setores de atividade económica ? Continente,Job offers (yearly average) available at the public employment office total and by large sectors of economic activity %e2%80%93 mainland portugal,ok
+319,portugal,Ofertas de emprego (média anual) disponíveis nos centros de emprego e formação profissional: total e por grandes setores de atividade económica ? Continente,Job offers (yearly average) available at the public employment office total and by large sectors of economic activity – mainland portugal,ok
 591,portugal,Ópera: espectadores por mil habitantes,Opera audience per thousand inhabitants,ok
 596,portugal,Ópera: número médio de espectadores por sessão,Opera average audience per performance,ok
 182,portugal,Ópera: sessões e espectadores,Opera performances and audiences,ok
@@ -1872,7 +1872,7 @@ id,area,name_pt,name_en,status
 2227,portugal,Dados sobre jogadores federados em Portugal,Associated sportspersons total and by all sport federations,ok
 1338,portugal,Precipitação do mês com maior precipitação,Rainfall in month of heaviest rainfall,ok
 1070,portugal,Dados sobre a precipitação  total em Portugal,Total rainfall,ok
-1265,portugal,Preços dos combustíveis líquidos e gasosos em Portugal,Average price of liquid and gas fuel sold to the public %e2%80%93 mainland portugal,ok
+1265,portugal,Preços dos combustíveis líquidos e gasosos em Portugal,Average price of liquid and gas fuel sold to the public – mainland portugal,ok
 2194,portugal,Presidentes da Câmara: total e por partido político ou coligação,Mayors total and by political party or coalition,ok
 104,portugal,"Prestações de desemprego da Segurança Social: despesa total, subsídio de desemprego e subsídio social de desemprego",Social security unemployment benefit total benefits unemployment benefit and supplementary unemployment benefit,ok
 381,portugal,"Prestações de desemprego da Segurança Social: total de subsídios, subsídio de desemprego e subsídio social de desemprego",Social security unemployment benefits total benefits unemployment benefit and supplementary unemployment benefit,ok
@@ -1885,8 +1885,8 @@ id,area,name_pt,name_en,status
 1426,portugal,Processos findos de adoção,Terminated proceedings of adoption,ok
 1126,portugal,Produção bruta de energia elétrica: total e por tipo de produção de energia elétrica,Gross production of electricity total and by type of electricity generation,ok
 3357,portugal,Produção das principais culturas agrícolas,Main crops prodution,ok
-3441,portugal,Produção de azeite: total e por tipo de lagar ? Continente,Olive oil produced total and by type of oil press unit %e2%80%93 mainland portugal,ok
-3362,portugal,Produção de azeitona ? Continente,Olive production %e2%80%93 mainland portugal,ok
+3441,portugal,Produção de azeite: total e por tipo de lagar ? Continente,Olive oil produced total and by type of oil press unit – mainland portugal,ok
+3362,portugal,Produção de azeitona ? Continente,Olive production – mainland portugal,ok
 1232,portugal,Produção de energia elétrica a partir de fontes renováveis (%),Electricity production from renewable sources (percentage),ok
 1127,portugal,Produção de energia elétrica em Portugal,Production of electricity total and from renewable sources,ok
 3364,portugal,Produção de vinho por cor,Wine production by colour,ok
@@ -1901,7 +1901,7 @@ id,area,name_pt,name_en,status
 2584,portugal,Proveitos totais dos alojamentos turísticos: total e por tipo de estabelecimento,Total incomes of tourist accommodations total and by type of establishment,ok
 1996,portugal,"Publicações científicas: número, publicações citadas e citações",Scientific publications number referenced publications and references,ok
 1196,portugal,Publicações científicas por 100 mil habitantes,Scientific publications per 100 thousand inhabitants,ok
-1137,portugal,Publicações científicas por área científica ? Contagem global,Scientific publications total and by scientific area %e2%80%93 global count,ok
+1137,portugal,Publicações científicas por área científica ? Contagem global,Scientific publications total and by scientific area – global count,ok
 1134,portugal,Publicações científicas: total e em coautoria com instituições de outros países,Scientific publications total and in co authorship with institutions of other countries,ok
 1154,portugal,Publicações científicas: total e por tipo de documento,Scientific publications total and by type of document,ok
 1122,portugal,Qualidade da água para consumo humano,Water quality for human consumption,ok
@@ -1959,9 +1959,9 @@ id,area,name_pt,name_en,status
 363,portugal,Remuneração base média mensal dos trabalhadores por conta de outrem: total e por setor de atividade económica,Average monthly basic remuneration of employees total and by sector of economic activity,ok
 367,portugal,Remuneração base média mensal dos trabalhadores por conta de outrem: total e por sexo,Average monthly basic remuneration of employees total and by sex,ok
 2404,portugal,Remunerações dos empregados,Compensation of employees,ok
-496,portugal,Remunerações máximas mensais das carreiras especiais das Administrações Públicas,Maximum monthly remunerations of general governement%27s special careers,ok
-494,portugal,Remunerações mínimas e máximas mensais das carreiras gerais das Administrações Públicas,Minimum and maximum monthly remunerations of general government%27s general careers,ok
-495,portugal,Remunerações mínimas mensais das carreiras especiais das Administrações Públicas,Minimum monthly remunerations of general government%27s special careers,ok
+496,portugal,Remunerações máximas mensais das carreiras especiais das Administrações Públicas,Maximum monthly remunerations of general governement's special careers,ok
+494,portugal,Remunerações mínimas e máximas mensais das carreiras gerais das Administrações Públicas,Minimum and maximum monthly remunerations of general government's general careers,ok
+495,portugal,Remunerações mínimas mensais das carreiras especiais das Administrações Públicas,Minimum monthly remunerations of general government's special careers,ok
 2407,portugal,Rendimento disponível bruto das famílias,Gross disposable income of households,ok
 2380,portugal,Rendimento disponível bruto: total e por setor institucional,Gross disposable income total and by institutional sector,ok
 78,portugal,Rendimento e poupança das famílias,Households income and savings,ok
@@ -1970,7 +1970,7 @@ id,area,name_pt,name_en,status
 2633,portugal,Rendimento médio por quarto nos alojamentos turísticos: total e por tipo de estabelecimento,Revenue per bedroom in tourist accommodations total and by type of establishment,ok
 2942,portugal,Rendimento nacional bruto e rendimento disponível bruto em % do PIB,Gross national income and gross disposable income as percentage of gdp,ok
 2379,portugal,Rendimento nacional bruto e rendimento disponível bruto,Gross national income and gross disposable income,ok
-699,portugal,Rendimentos médios declarados das empresas: total e por setor de atividade económica,Enterprises%27 average income declared total and by sector of economic activity,ok
+699,portugal,Rendimentos médios declarados das empresas: total e por setor de atividade económica,Enterprises' average income declared total and by sector of economic activity,ok
 1104,portugal,Resíduos urbanos de recolha indiferenciada e seletiva,Urban waste by collection method undifferentiated and selective,ok
 1229,portugal,Resíduos urbanos recolhidos por habitante: total e seletivamente,Urban waste collection per inhabitant total and selectively,ok
 1228,portugal,Dados sobre a reciclagem em Portugal,Selective urban waste collection (percentage),ok
@@ -2006,7 +2006,7 @@ id,area,name_pt,name_en,status
 913,portugal,Saldo processual no Supremo Tribunal Administrativo,Balance of proceedings at the supreme administrative court,ok
 684,portugal,Saldo processual no Supremo Tribunal de Justiça,Balance of proceedings at supreme court of justice,ok
 916,portugal,Saldo processual no Tribunal Constitucional,Balance of proceedings at the constitutional court,ok
-914,portugal,Saldo processual no Tribunal de Contas,Balance of proceedings at the state auditor%e2%80%99s office,ok
+914,portugal,Saldo processual no Tribunal de Contas,Balance of proceedings at the state auditor’s office,ok
 915,portugal,Saldo processual nos Tribunais da Relação,Balance of proceedings at the appellate courts,ok
 665,portugal,Saldo processual nos Tribunais Judiciais,Balance of proceedings in courts of justice,ok
 657,portugal,Saldos populacionais anuais: saldo migratório e natural,Annual population growth total natural and migratory,ok
@@ -2032,7 +2032,7 @@ id,area,name_pt,name_en,status
 3342,portugal,Superfície agrícola utilizada: irrigável e regada (%),Utilized agricultural area irrigable and watered (percentage),ok
 3460,portugal,Superfície agrícola utilizada na superfície total do país (%),Agricultural area used in the total area of the country (percentage),ok
 3346,portugal,Superfície agrícola utilizada: total e por tipo de composição,Utilized agricultural area total and per type of composition,ok
-3480,portugal,Superfície ardida ? Continente (%),Burnt area %e2%80%93 mainland (percentage),ok
+3480,portugal,Superfície ardida ? Continente (%),Burnt area – mainland (percentage),ok
 3365,portugal,Superfície das principais árvores de fruto e oliveiras,Surface area of the main fruit and olive trees,ok
 3352,portugal,Superfície das principais culturas agrícolas,Main crops area,ok
 3363,portugal,Superfície de vinha: total e para vinho,Surface of vineyard total and for wine,ok
@@ -2069,14 +2069,14 @@ id,area,name_pt,name_en,status
 2920,portugal,Taxa de investimento das empresas não financeiras: total e por dimensão,Investment rate in non financial enterprises total and by dimension,ok
 2919,portugal,Taxa de investimento das empresas não financeiras: total e por setor de atividade,Investment rate in non financial enterprises total and by sector of economic activity,ok
 2934,portugal,Taxa de investimento das pequenas e médias empresas não financeiras: total e por dimensão,Investment rate in non financial small and medium sized enterprises total and by size,ok
-2887,portugal,Taxa de mortalidade das empresas: total e por forma jurídica,Enterprises%27 death rate total and by legal form,ok
-2888,portugal,Taxa de mortalidade das empresas: total e por setor de atividade económica,Enterprises%27 death rate total and by sector of economic activity,ok
+2887,portugal,Taxa de mortalidade das empresas: total e por forma jurídica,Enterprises' death rate total and by legal form,ok
+2888,portugal,Taxa de mortalidade das empresas: total e por setor de atividade económica,Enterprises' death rate total and by sector of economic activity,ok
 528,portugal,Taxa de mortalidade infantil em Portugal,Infant mortality rate,ok
 619,portugal,Taxa de mortalidade materna em Portugal,Maternal mortality rate,ok
 529,portugal,Taxa de mortalidade perinatal e neonatal,Perinatal and neonatal mortality rates,ok
 2883,portugal,"Taxa de natalidade, mortalidade e sobrevivência das empresas",Birth death and survival rates of enterprises,ok
-2884,portugal,Taxa de natalidade das empresas: total e por forma jurídica,Enterprises%27 birth rate total and by legal form,ok
-2885,portugal,Taxa de natalidade das empresas: total e por setor de atividade económica,Enterprises%27 birth rate total and by sector of economic activity,ok
+2884,portugal,Taxa de natalidade das empresas: total e por forma jurídica,Enterprises' birth rate total and by legal form,ok
+2885,portugal,Taxa de natalidade das empresas: total e por setor de atividade económica,Enterprises' birth rate total and by sector of economic activity,ok
 530,portugal,Dados sobre a taxa de nupcialidade em Portugal,Crude marriage rate,ok
 3666,portugal,Taxa de ocupação nos hospitais,Hospitals bed occupancy rate,ok
 2340,portugal,Dados da taxa de poupança das famílias em Portugal,Savings rate of households,ok
@@ -2089,8 +2089,8 @@ id,area,name_pt,name_en,status
 3008,portugal,Taxa de risco de pobreza após transferências sociais: total e por composição do agregado doméstico privado,At risk of poverty rate after social transfers total and by household type,ok
 3760,portugal,Taxa de risco de pobreza após transferências sociais: total e por condição perante o trabalho,At risk of poverty rate after social transfers by work situation,ok
 3009,portugal,Taxa de risco de pobreza por grupo etário: antes e após transferências sociais,At risk of poverty rate by age group before and after social transfers,ok
-2891,portugal,Taxa de sobrevivência das empresas a 1 ano: por setor de atividade económica,Enterprises%27 survival rate at 1 year total and by sector of economic activity,ok
-2890,portugal,Taxa de sobrevivência das empresas a 1 e 2 anos: por forma jurídica,Enterprises%27 survival rate at 1 and 2 years total and by legal form,ok
+2891,portugal,Taxa de sobrevivência das empresas a 1 ano: por setor de atividade económica,Enterprises' survival rate at 1 year total and by sector of economic activity,ok
+2890,portugal,Taxa de sobrevivência das empresas a 1 e 2 anos: por forma jurídica,Enterprises' survival rate at 1 and 2 years total and by legal form,ok
 987,portugal,Taxa real de escolarização,Actual schooling rate,ok
 2847,portugal,Taxas de juro sobre novas operações de empréstimos (média anual) a empresas: total e por escalão de crédito,Interest rates on new loan operations (annual average) to enterprises total and by credit scales,ok
 2845,portugal,Taxas de juro sobre novas operações de empréstimos (média anual) a particulares: total e por tipo de finalidade,Interest rates on new loan operations (annual average) to individuals total and by purpose type,ok
@@ -2130,15 +2130,15 @@ id,area,name_pt,name_en,status
 628,portugal,Tribunais Judiciais: processos entrados e findos por mil habitantes,Courts of justice initiated and terminated proceedings per thousand inhabitants,ok
 244,portugal,Evolução do número de Tribunais Judiciais,Courts of justice,ok
 873,portugal,"Tribunal Constitucional: processos entrados, findos e pendentes",Constitutional court initiated terminated proceedings and proceedings pending (1993 2010),ok
-870,portugal,"Tribunal de Contas: processos entrados, findos e pendentes",State auditor%27s office initiated terminated proceedings and proceedings pending,ok
+870,portugal,"Tribunal de Contas: processos entrados, findos e pendentes",State auditor's office initiated terminated proceedings and proceedings pending,ok
 608,portugal,Tuberculose: casos por 100 mil habitantes,Tuberculosis cases per 100 thousand inhabitants,ok
 157,portugal,Tuberculose: novos casos e retratamentos,Tuberculosis new cases and repeat treatments,ok
 3715,portugal,Valor acrescentado bruto da agricultura em % do PIB,Gross value added of agriculture in percentage of gdp,ok
 3374,portugal,Valor acrescentado bruto da agricultura,Gross value added of agriculture,ok
 3707,portugal,Valor acrescentado bruto da silvicultura em % do PIB,Gross value added of forestry in percentage of gdp,ok
 3694,portugal,Valor acrescentado bruto da silvicultura,Gross value added of forestry,ok
-2916,portugal,Valor acrescentado bruto das empresas: total e por dimensão,Enterprises%27 gross value added total and by size,ok
-2915,portugal,Valor acrescentado bruto das empresas: total e por setor de atividade económica,Enterprises%27 gross value added total and by sector of economic activity,ok
+2916,portugal,Valor acrescentado bruto das empresas: total e por dimensão,Enterprises' gross value added total and by size,ok
+2915,portugal,Valor acrescentado bruto das empresas: total e por setor de atividade económica,Enterprises' gross value added total and by sector of economic activity,ok
 3742,portugal,Valor acrescentado bruto das pescas e aquicultura em % do PIB,Gross value added of fishing in percentage of gdp,ok
 3741,portugal,Valor acrescentado bruto das pescas e aquicultura,Gross value added of fishing and aquaculture,ok
 2968,portugal,Valor acrescentado bruto nas pequenas e médias empresas: total e por dimensão,Gross value added in small and medium sized enterprises total and by size,ok
@@ -2165,8 +2165,8 @@ id,area,name_pt,name_en,status
 2550,portugal,Viagens turísticas de residentes: total e por destino principal,Touristic trips by residents total and by main destination,ok
 3403,portugal,Viveiros - Continente,Nursery gardens mainland,ok
 3196,portugal,Volume de negócios das empresas de transporte aéreo: total e por área,Turnover of air transport enterprises total and by area,ok
-2914,portugal,Volume de negócios das empresas: total e por dimensão,Enterprises%27 turnover total and by size,ok
-2913,portugal,Volume de negócios das empresas: total e por setor de atividade económica,Enterprises%27 turnover total and by sector of economic activity,ok
+2914,portugal,Volume de negócios das empresas: total e por dimensão,Enterprises' turnover total and by size,ok
+2913,portugal,Volume de negócios das empresas: total e por setor de atividade económica,Enterprises' turnover total and by sector of economic activity,ok
 2932,portugal,Volume de negócios das pequenas e médias empresas: total e por dimensão,Turnover in small and medium sized enterprises total and by size,ok
 3456,portugal,Volume de trabalho (UTA) da mão de obra agrícola: total e por tipo de mão de obra,Labour volume (awu) of the agricultural labour force total and by type of labour,ok
 3193,portugal,"Voos de transporte de passageiros e carga: total, doméstico e internacional",Passenger and cargo transport flights total domestic and international,ok

@@ -25,6 +25,7 @@ import re
 import sys
 import time
 import unicodedata
+from urllib.parse import unquote
 
 if __package__:
     from . import pordata_lib as lib
@@ -138,7 +139,8 @@ def build_en_names(sitemap_text: str) -> dict[tuple, str]:
             r"(portugal|municipalities|europe)/([^/]+)-(\d+)$", url)
         if not m or "summary+table" in url:
             continue
-        name = re.sub(r"\s+", " ", m.group(2).replace("+", " ")).strip()
+        name = re.sub(r"\s+", " ",
+                      unquote(m.group(2)).replace("+", " ")).strip()
         if name:
             en_names[(EN_AREAS[m.group(1)], int(m.group(3)))] = \
                 name[:1].upper() + name[1:]
@@ -148,7 +150,7 @@ def build_en_names(sitemap_text: str) -> dict[tuple, str]:
 def name_from_slug(slug: str) -> str:
     """Readable fallback name for records whose <title> parse came up
     empty: the PT slug minus the id, pluses as spaces."""
-    text = re.sub(r"-\d+$", "", slug.split("/")[-1]).replace("+", " ")
+    text = unquote(re.sub(r"-\d+$", "", slug.split("/")[-1])).replace("+", " ")
     text = re.sub(r"\s+", " ", text).strip()
     return text[:1].upper() + text[1:]
 

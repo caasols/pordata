@@ -53,6 +53,11 @@ class EnNamesTest(unittest.TestCase):
         # theme pages are not indicators
         self.assertNotIn(("portugal", 1), names)
 
+    def test_percent_encoding_decoded(self):
+        text = f"{PT}/en/portugal/master%27s+degrees-5"
+        names = b.build_en_names(text)
+        self.assertEqual(names[("portugal", 5)], "Master's degrees")
+
     def test_same_id_in_two_areas_kept_apart(self):
         # ids repeat across areas; each must keep its own EN name
         text = "\n".join([
