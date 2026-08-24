@@ -24,6 +24,7 @@ on:
           - a2
           - a3
           - a4
+          - a6
 
 permissions:
   contents: write
@@ -53,6 +54,10 @@ jobs:
       - name: "Spike A4: where the period lives on municipios pages"
         if: inputs.probe == 'a4'
         run: python3 scripts/spike_municipios_period.py
+
+      - name: "Spike A6: full page inventory - what are we not capturing?"
+        if: inputs.probe == 'a6'
+        run: python3 scripts/spike_page_inventory.py
 
       - name: Upload raw responses as artifact
         uses: actions/upload-artifact@v4
