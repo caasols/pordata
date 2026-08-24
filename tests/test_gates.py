@@ -6,6 +6,7 @@ catalogue unnoticed, and QA reporting instead of gating.
 """
 
 import json
+import os
 import pathlib
 import unittest
 from unittest import mock
@@ -299,3 +300,119 @@ class PerAreaGateTest(RepoCase):
     def test_missing_by_area_metric_is_skipped_not_crashed(self):
         # the published catalogue may be absent (fresh clone, no build)
         self.assertEqual(qa.gate({"unit_ratio": 0.52}), [])
+
+
+class PayloadBudgetTest(RepoCase):
+    """Roadmap 6f: the number a visitor actually waits for.
+
+    The thing that breaks a payload budget is never a mistake — it is a
+    good idea. Every field the crosswalk or the label system wants is
+    defensible on its own, and none of them is weighed against the
+    download until something weighs them. So the tests here are about
+    the measurement being honest: transfer size not disk size, a missing
+    bundle reporting nothing rather than a win, and the ceilings sitting
+    above the measurement with room but not unbounded room.
+    """
+
+    def build_site(self, catalogue=b'[{"a": 1}]', js=b"x" * 4096):
+        root = pathlib.Path("site-root")
+        (root / "assets").mkdir(parents=True)
+        (root / "data").mkdir(parents=True)
+        (root / "index.html").write_bytes(b"<html></html>")
+        (root / "assets" / "app.js").write_bytes(js)
+        (root / "assets" / "app.css").write_bytes(b"body{}")
+        (root / "data" / "catalogue.json").write_bytes(catalogue)
+        return root
+
+    def test_it_measures_every_part_of_a_first_load(self):
+        # a realistic catalogue: rounding to 0.1 KB makes a ten-byte
+        # fixture measure as zero, which says nothing either way
+        catalogue = ('[' + ','.join(f'{{"id":{n},"name":"indicador {n}"}}'
+                                    for n in range(3000)) + ']').encode()
+        got = qa.payload_metrics(self.build_site(catalogue=catalogue))
+        self.assertGreater(got["first_load_gzip_kb"], got["catalogue_gzip_kb"])
+        self.assertGreater(got["catalogue_gzip_kb"], 0)
+
+    def test_transfer_size_not_disk_size(self):
+        """1,430 KB of catalogue is 148 KB on the wire. Budgeting the
+        raw bytes would be budgeting a number nobody downloads."""
+        repetitive = b'[' + b'{"name":"x"},' * 5000 + b'{"name":"x"}]'
+        got = qa.payload_metrics(self.build_site(catalogue=repetitive))
+        self.assertLess(got["catalogue_gzip_kb"], len(repetitive) / 1024 / 10)
+
+    def test_the_catalogue_figure_tracks_the_catalogue(self):
+        """Not merely present and positive: the number has to move with
+        the file it claims to measure, or a constant would satisfy every
+        other assertion here."""
+        small = ('[' + ','.join(f'{{"id":{n}}}' for n in range(2000))
+                 + ']').encode()
+        big = ('[' + ','.join(f'{{"id":{n},"name":"indicador numero {n}"}}'
+                              for n in range(20000)) + ']').encode()
+        lean = qa.payload_metrics(self.build_site(catalogue=small))
+        pathlib.Path("site-root").rename("site-root-1")
+        heavy = qa.payload_metrics(self.build_site(catalogue=big))
+        self.assertGreater(heavy["catalogue_gzip_kb"],
+                           lean["catalogue_gzip_kb"] * 2)
+
+    def test_the_first_load_figure_includes_the_bundle(self):
+        """The catalogue is not the whole download. A first-load number
+        that ignored the JS would under-report by 107 KB today."""
+        catalogue = ('[' + ','.join(f'{{"id":{n}}}' for n in range(2000))
+                     + ']').encode()
+        lean = qa.payload_metrics(
+            self.build_site(catalogue=catalogue, js=b"x" * 1024))
+        pathlib.Path("site-root").rename("site-root-1")
+        heavy = qa.payload_metrics(self.build_site(
+            catalogue=catalogue,
+            # random bytes: a repeating pattern this size gzips to ~9 KB,
+            # which measures the compressor rather than the bundle
+            js=os.urandom(700 * 1024)))
+        self.assertGreater(heavy["first_load_gzip_kb"],
+                           lean["first_load_gzip_kb"] + 500)
+        self.assertEqual(heavy["catalogue_gzip_kb"],
+                         lean["catalogue_gzip_kb"])
+
+    def test_a_missing_bundle_reports_nothing_rather_than_a_win(self):
+        """An absent build is the smallest possible payload. Reporting it
+        as a number would pass the gate on a site that does not exist."""
+        root = self.build_site()
+        for path in (root / "assets").glob("*.js"):
+            path.unlink()
+        self.assertEqual(qa.payload_metrics(root), {})
+
+    def test_a_missing_catalogue_reports_nothing(self):
+        root = self.build_site()
+        (root / "data" / "catalogue.json").unlink()
+        self.assertEqual(qa.payload_metrics(root), {})
+
+    def test_an_empty_tree_reports_nothing(self):
+        pathlib.Path("empty").mkdir()
+        self.assertEqual(qa.payload_metrics(pathlib.Path("empty")), {})
+
+    def test_the_gate_trips_when_a_ceiling_is_exceeded(self):
+        over = qa.THRESHOLDS["first_load_gzip_kb_max"] + 1
+        breaches = qa.gate({"first_load_gzip_kb": over})
+        self.assertTrue(any("first_load_gzip_kb" in b for b in breaches))
+
+    def test_the_gate_is_silent_at_the_ceiling(self):
+        """A ceiling is a limit, not a target to stay under by one."""
+        at = qa.THRESHOLDS["catalogue_gzip_kb_max"]
+        self.assertEqual(qa.gate({"catalogue_gzip_kb": at}), [])
+
+    def test_an_unmeasured_payload_does_not_trip_the_gate(self):
+        """`payload_metrics` returns {} on an incomplete tree, and the
+        gate must treat that as "not measured", not as zero."""
+        self.assertEqual(qa.gate({}), [])
+
+    def test_the_ceilings_leave_headroom_over_the_measurement(self):
+        """261 KB first load and 148 KB catalogue when this was written.
+        A ceiling at the measurement makes every harvest a coin flip; one
+        an order of magnitude above it is not a budget."""
+        self.assertGreater(qa.THRESHOLDS["first_load_gzip_kb_max"], 261)
+        self.assertLess(qa.THRESHOLDS["first_load_gzip_kb_max"], 261 * 2)
+        self.assertGreater(qa.THRESHOLDS["catalogue_gzip_kb_max"], 148)
+        self.assertLess(qa.THRESHOLDS["catalogue_gzip_kb_max"], 148 * 2)
+
+    def test_the_catalogue_ceiling_sits_inside_the_first_load_one(self):
+        self.assertLess(qa.THRESHOLDS["catalogue_gzip_kb_max"],
+                        qa.THRESHOLDS["first_load_gzip_kb_max"])

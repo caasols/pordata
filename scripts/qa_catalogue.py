@@ -14,6 +14,7 @@ exits non-zero when a threshold in THRESHOLDS is breached, so a PORDATA
 parser regression fails the harvest job instead of publishing silently.
 """
 
+import gzip
 import json
 import os
 import pathlib
@@ -33,6 +34,14 @@ UNIT_TERMS = pathlib.Path("site/src/lib/unit-terms.json")
 UNIT_SEPARATOR = " - "
 PUBLISHED = pathlib.Path("docs/data/catalogue.json")
 STATS = pathlib.Path("docs/data/stats.json")
+
+# What a first visit costs before the first search can run: the page, its
+# bundle, and the whole catalogue. There is no pagination and no search
+# API — the client holds everything — so this really is one blocking
+# download, and it is the only number a visitor experiences.
+SITE_ROOT = pathlib.Path("docs")
+FIRST_LOAD = ("index.html", "assets/*.css", "assets/*.js",
+              "data/catalogue.json")
 
 # Machine-checked floors. Every metric a feature or roadmap item depends
 # on belongs here, never in prose (decision 7b). Values sit just under
@@ -87,6 +96,22 @@ THRESHOLDS = {
     # accrues, and the per-area table below is where the real signal will
     # show up first.
     "revision_ratio_min": 0.08,
+    # Payload budget (roadmap 6f). Measured 2026-08-24: 261 KB gzipped
+    # for a first visit, of which the catalogue is 148 KB. Benign today
+    # and deliberately gated anyway, because the thing that breaks it is
+    # not a mistake — it is a good idea. Every field the crosswalk or the
+    # label system wants to add is defensible on its own and none of them
+    # is weighed against the download until something weighs them. These
+    # ceilings sit ~50% above the measurement: enough headroom that
+    # ordinary growth does not trip them, low enough that widening every
+    # row has to be a decision rather than a drift. When one breaks, the
+    # levers are measured and in the QA report: `url` is 25% of the
+    # gzipped catalogue and is derivable from area+slug, and
+    # `description` is another 12% for a field the UI never renders —
+    # 96.1% of them are PORDATA's SEO template, so they add almost
+    # nothing to the search haystack they exist for.
+    "first_load_gzip_kb_max": 400,
+    "catalogue_gzip_kb_max": 250,
 }
 
 # Coverage floors *per area*, for fields parsed out of page markup.
@@ -125,6 +150,39 @@ PER_AREA_THRESHOLDS = {
 # which is what a leaked data value actually looks like.
 UNIT_CONTAMINATION = re.compile(
     r"ampliado|ver tabela|Carregue|Fontes|Última|\|\||\d{3}[ .\u00a0]\d{3}")
+
+
+def gzipped_kb(path: pathlib.Path) -> float:
+    """Transfer size, not disk size.
+
+    Pages serves compressed, so raw bytes overstate the cost by roughly
+    10x on JSON this repetitive — 1,430 KB of catalogue is 148 KB on the
+    wire. gzip -9 here is not byte-identical to what the CDN negotiates
+    (it may serve brotli, at its own level), but a budget needs a
+    measurement that is consistent and comparable, not one that predicts
+    the CDN."""
+    return len(gzip.compress(path.read_bytes(), 9)) / 1024
+
+
+def payload_metrics(root: pathlib.Path = SITE_ROOT) -> dict:
+    """Gzipped KB of the first load, and of the catalogue within it.
+
+    Returns `{}` when the bundle is absent rather than a small number: a
+    missing build must not read as a payload win. `gate()` skips metrics
+    that are None, so an incomplete tree reports nothing instead of
+    passing on a false measurement."""
+    total, catalogue = 0.0, None
+    for pattern in FIRST_LOAD:
+        matched = sorted(root.glob(pattern))
+        if not matched:
+            return {}
+        for path in matched:
+            size = gzipped_kb(path)
+            total += size
+            if path.name == "catalogue.json":
+                catalogue = size
+    return {"first_load_gzip_kb": round(total, 1),
+            "catalogue_gzip_kb": round(catalogue, 1)}
 
 
 def unit_translation_coverage(published: list, lang: str = "en") -> tuple:
@@ -347,6 +405,22 @@ def main(strict: bool = False) -> None:
             g.get("collisions", 0) for g in featured_stats.values())
         metrics["featured_rows"] = sum(
             g.get("distinct_rows", 0) for g in featured_stats.values())
+    payload = payload_metrics()
+    metrics.update(payload)
+    if payload:
+        lines += ["", "## Payload budget (roadmap 6f)", "",
+                  "Gzipped KB a first visit downloads before it can search: "
+                  "the page, its bundle and the whole catalogue. Levers, "
+                  "measured, for when a ceiling breaks: `url` is ~25% of the "
+                  "gzipped catalogue and derivable from area+slug; "
+                  "`description` is ~12% for a field the UI never renders.",
+                  "",
+                  f"- first load: **{payload['first_load_gzip_kb']:.1f} KB** "
+                  f"(ceiling {THRESHOLDS['first_load_gzip_kb_max']})",
+                  f"- of which catalogue.json: "
+                  f"**{payload['catalogue_gzip_kb']:.1f} KB** "
+                  f"(ceiling {THRESHOLDS['catalogue_gzip_kb_max']})"]
+
     breaches = gate(metrics)
     lines += ["", "## Gate", "",
               "Thresholds are machine-checked (decision 7b); `--strict` "

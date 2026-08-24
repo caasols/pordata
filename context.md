@@ -240,6 +240,21 @@ The pipeline, end to end, all live on `main`:
   numeric id and nothing else — so **3,661** URLs counted as indicator updates that the
   harvester never treats as indicators (2,944 `/en`, 337 quadro+resumo, 380 other), and the
   CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
+- **A payload budget, gated** (roadmap 6f, 2026-08-24). A first visit downloads **261 KB
+  gzipped** before it can search — 1.3 KB of page, 111.8 KB of bundle and 148.1 KB of
+  catalogue — because the client holds everything and there is no search API. That is fine, and
+  it is gated anyway at **400 KB first load / 250 KB catalogue** in `qa_catalogue.py --strict`,
+  because *the thing that breaks a payload budget is never a mistake — it is a good idea*.
+  Every field the crosswalk or the label system wants to add is defensible on its own, and none
+  of them is weighed against the download until something weighs them. The measurement is
+  transfer size, not disk: 1,430 KB of catalogue is 148 KB on the wire, so budgeting raw bytes
+  would budget a number nobody downloads. An absent bundle reports *nothing* rather than a
+  small number — a missing build must not read as a payload win. **The levers, measured, for
+  when a ceiling breaks**: `url` is **25%** of the gzipped catalogue and is derivable from
+  `area` + slug; `description` is another **12%** for a field the UI never renders — it exists
+  only in the search haystack, and 96.1% of descriptions are PORDATA's SEO template, so it adds
+  almost nothing there either. Neither is worth doing today; both are worth having already
+  counted.
 - **The INE crosswalk** (roadmap 2, 2026-08-24). `data/crosswalk/ine.json` routes
   **206 of the 839** in-scope PORDATA rows (INE-sourced, portugal/municipios) to a candidate
   family of INE series — 113 with an exact title inside the family, 93 by containment — and
@@ -624,9 +639,10 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
 
    *(e) Code hygiene — **done 2026-08-24**; see "What has been built".)*
 
-   **(f) Payload budget** — every visitor downloads the whole catalogue (1.27 MB raw / 137 KB
-   gzipped) before the first search. Benign today, unbounded once the crosswalk widens each
-   row: set a budget before that lands, then split or stream if it breaks.
+   *(f) Payload budget — **budget set 2026-08-24**; see "What has been built". Measured 261 KB
+   gzipped for a first visit (148 KB of it the catalogue), gated in `qa_catalogue.py --strict`
+   at 400/250. Splitting or streaming is the work when a ceiling breaks, and the levers are
+   measured and recorded in `data/catalogue/QA.md`.)*
 
    *Done 2026-08-23:* `spikes.yml` made dispatch-only — a push trigger was re-running finished
    research probes on any edit to their scripts.
