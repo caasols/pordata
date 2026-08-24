@@ -23,6 +23,7 @@ on:
           - a1
           - a2
           - a3
+          - a4
 
 permissions:
   contents: write
@@ -48,6 +49,10 @@ jobs:
       - name: "Spike A3: period, geography and unit in the page HTML"
         if: inputs.probe == 'a3'
         run: python3 scripts/spike_coverage_fields.py
+
+      - name: "Spike A4: where the period lives on municipios pages"
+        if: inputs.probe == 'a4'
+        run: python3 scripts/spike_municipios_period.py
 
       - name: Upload raw responses as artifact
         uses: actions/upload-artifact@v4
