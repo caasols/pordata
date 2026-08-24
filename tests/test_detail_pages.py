@@ -248,6 +248,19 @@ class ScriptContextTest(unittest.TestCase):
         self.assertNotIn("<script>alert(1)</script>", html)
 
 
+# What the generator needs out of site/src/index.css. Kept here as one
+# constant so a fixture cannot quietly drift into "minimal enough to
+# pass" while the real file grows.
+FULL_CSS = (":root {\n  --background: white;\n}\n"
+            ".dark {\n  --background: black;\n}\n"
+            "@theme inline {\n"
+            "  --radius-sm: calc(var(--radius) - 4px);\n"
+            "  --radius-md: calc(var(--radius) - 2px);\n"
+            "  --radius-lg: var(--radius);\n"
+            '  --font-sans: "Public Sans", ui-sans-serif, sans-serif;\n'
+            "}\n")
+
+
 class ThemeTest(RepoCase):
     """One source of truth for the colours."""
 
@@ -257,11 +270,27 @@ class ThemeTest(RepoCase):
         return path
 
     def test_it_reads_the_tokens_out_of_the_site_stylesheet(self):
-        css = self.write_css(":root {\n  --background: white;\n}\n"
-                             ".dark {\n  --background: black;\n}\n")
+        css = self.write_css(FULL_CSS)
         got = d.theme_tokens(css)
         self.assertIn("--background: white", got)
         self.assertIn("--background: black", got)
+
+    def test_it_lifts_the_radius_scale_and_the_font_stack(self):
+        """Colours were never the only thing shared. A hand-written
+        radius or a four-item subset of the font stack is the same drift
+        in a different property."""
+        got = d.theme_tokens(self.write_css(FULL_CSS))
+        self.assertIn("--radius-sm", got)
+        self.assertIn("--radius-lg", got)
+        self.assertIn("--font-sans", got)
+        self.assertIn("Public Sans", got)
+
+    def test_a_missing_font_stack_fails_the_build_loudly(self):
+        """Without it the pages render in the system sans and look like a
+        different site next to the index — which is what happened."""
+        css = self.write_css(FULL_CSS.replace("  --font-sans:", "  --other:"))
+        with self.assertRaises(SystemExit):
+            d.theme_tokens(css)
 
     def test_a_missing_block_fails_the_build_loudly(self):
         """A silent fallback copy would serve pages in stale colours and
@@ -328,6 +357,68 @@ class DesignSystemTest(unittest.TestCase):
         for name in ("--radius-sm", "--radius-md", "--radius-lg"):
             self.assertIn(name, tokens)
 
+    def test_the_font_is_loaded_not_merely_named(self):
+        """Naming "Public Sans" in a stack does not load it. The pages
+        fell through to the system sans and read as a different site."""
+        index = (self.SITE.parent / "index.html").read_text(encoding="utf-8")
+        self.assertIn("fonts.googleapis.com/css2?family=Public+Sans", index)
+        self.assertIn("fonts.googleapis.com/css2?family=Public+Sans",
+                      d.FONT_LINKS)
+        self.assertIn("fonts.gstatic.com", d.FONT_LINKS)
+
+    def test_the_body_uses_the_lifted_stack_not_a_subset(self):
+        body = self.sheet().split("body{")[1].split("}")[0]
+        self.assertIn("var(--font-sans)", body)
+        self.assertNotIn("Public Sans", body)
+
+    def test_the_cta_is_the_only_button_variant_this_site_has(self):
+        """button.tsx offers `outline` and `ghost` and defaults to
+        outline. There is no filled primary variant anywhere, so an
+        orange filled CTA was inventing an idiom — the same mistake as
+        the orange pill, one element along."""
+        button = (self.SITE / "components" / "ui" / "button.tsx").read_text(
+            encoding="utf-8")
+        self.assertIn('defaultVariants: { variant: "outline"', button)
+        self.assertNotIn("bg-primary", button)
+        cta = self.sheet().split(".cta{")[1].split("}")[0]
+        self.assertNotIn("--primary", cta)
+        self.assertIn("background:transparent", cta)
+        self.assertIn("var(--border)", cta)
+
+    def test_the_shadow_is_the_compiled_shadow_xs_value(self):
+        """Guessed as 0 1px 2px -1px / .08; Tailwind compiles shadow-xs
+        to 0 1px 2px 0 #0000000d."""
+        built = sorted((self.SITE.parents[1] / "docs" / "assets").glob("*.css"))
+        self.assertTrue(built, "no built stylesheet to check against")
+        compiled = built[0].read_text(encoding="utf-8")
+        self.assertIn("--tw-shadow:0 1px 2px 0 var(--tw-shadow-color,#0000000d)",
+                      compiled)
+        self.assertIn("box-shadow:0 1px 2px 0 #0000000d", self.sheet())
+
+    def test_focusable_things_get_a_ring_like_the_spa(self):
+        """The SPA rings every focusable control; these pages had the
+        browser default, which is inconsistent and worse."""
+        app = (self.SITE / "App.tsx").read_text(encoding="utf-8")
+        self.assertIn("focus-visible:ring-[3px]", app)
+        self.assertIn("a:focus-visible", self.sheet())
+        self.assertIn("var(--ring)", self.sheet())
+
+    def test_the_theme_boot_matches_the_spa_exactly(self):
+        """`t !== "light"`, not `!t`: an unset *or unrecognised* value
+        follows the system preference, and an explicit light beats a dark
+        system. Two different rules would flip appearance on crossing."""
+        index = (self.SITE.parent / "index.html").read_text(encoding="utf-8")
+        self.assertIn('t !== "light"', index)
+        self.assertIn('t!=="light"', d.BOOT)
+
+    def test_the_h1_matches_the_spa_heading_scale(self):
+        app = (self.SITE / "App.tsx").read_text(encoding="utf-8")
+        self.assertIn("text-2xl font-bold tracking-tight", app)
+        h1 = self.sheet().split("h1{")[1].split("}")[0]
+        self.assertIn("font-size:1.5rem", h1)     # text-2xl
+        self.assertIn("font-weight:700", h1)      # font-bold
+        self.assertIn("letter-spacing:-.025em", h1)  # tracking-tight
+
     def test_the_card_wrapper_matches_the_component(self):
         card = (self.SITE / "components" / "ui" / "card.tsx").read_text(
             encoding="utf-8")
@@ -362,8 +453,7 @@ class BuildTest(RepoCase):
         super().setUp()
         pathlib.Path("site/src").mkdir(parents=True)
         pathlib.Path("site/src/index.css").write_text(
-            ":root {\n  --background: white;\n}\n"
-            ".dark {\n  --background: black;\n}\n", encoding="utf-8")
+            FULL_CSS, encoding="utf-8")
         patch = mock.patch.object(d, "THEME_CSS",
                                   pathlib.Path("site/src/index.css"))
         patch.start()
@@ -399,8 +489,8 @@ class BuildTest(RepoCase):
         bust the cache or readers keep the old colours."""
         first = self.build()["css_version"]
         pathlib.Path("site/src/index.css").write_text(
-            ":root {\n  --background: pink;\n}\n"
-            ".dark {\n  --background: black;\n}\n", encoding="utf-8")
+            FULL_CSS.replace("--background: white", "--background: pink"),
+            encoding="utf-8")
         self.assertNotEqual(self.build()["css_version"], first)
 
     def test_a_row_the_crosswalk_never_saw_still_gets_a_page(self):

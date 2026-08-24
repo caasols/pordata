@@ -62,6 +62,16 @@ SITE = "https://caasols.github.io/pordata"
 INE_JSON = ("https://www.ine.pt/ine/json_indicador/pindica.jsp"
             "?op=2&varcd={}&lang=PT")
 
+# Naming "Public Sans" in a font stack does not load it. The SPA pulls it
+# from Google Fonts in its own <head>; without these three lines the
+# detail pages fell through to the system sans and looked like a
+# different site next to the index.
+FONT_LINKS = (
+    '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+    '<link href="https://fonts.googleapis.com/css2?family=Public+Sans:'
+    'wght@400;500;600;700&display=swap" rel="stylesheet">')
+
 # Lifted verbatim from site/src/index.css so the two cannot drift. The
 # generator asserts both blocks exist rather than falling back to a copy.
 ROOT_TOKENS = re.compile(r"^:root\s*\{(.*?)^\}", re.S | re.M)
@@ -71,6 +81,10 @@ DARK_TOKENS = re.compile(r"^\.dark\s*\{(.*?)^\}", re.S | re.M)
 # rather than re-derived: writing calc(var(--radius) - 4px) here again
 # would be a second copy of a number that has already moved once.
 RADIUS_SCALE = re.compile(r"^\s*(--radius-(?:sm|md|lg):[^;]+;)", re.M)
+# Also lifted: the detail pages were declaring a four-item hand-written
+# subset of the site's stack, so the two rendered in different fallbacks
+# the moment Public Sans failed to load.
+FONT_STACK = re.compile(r"^\s*(--font-sans:[^;]+;)", re.M | re.S)
 
 AREA_LABELS = {
     "portugal": ("Portugal", "Portugal"),
@@ -146,23 +160,26 @@ STYLESHEET = """
                    because this is a page to read, not a row to scan
      .card      <- components/ui/card.tsx
                    (rounded-lg border-border bg-card shadow-xs)
+     .cta       <- components/ui/button.tsx, `outline` variant — the
+                   only button this site has; there is no filled primary
+                   variant, so the orange CTA was inventing an idiom
      .chart     <- App.tsx ChartSlot
                    (dashed border-border/70, bg-muted/30, 9.5px label)
    A hand-written approximation is how the first version ended up with
    an orange pill where the card has a grey one. */
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--background);color:var(--foreground);
- font:16px/1.55 "Public Sans",ui-sans-serif,system-ui,sans-serif;
- -webkit-font-smoothing:antialiased}
+ font:16px/1.55 var(--font-sans);-webkit-font-smoothing:antialiased}
 main{max-width:46rem;margin:0 auto;padding:1.5rem 1.15rem 4rem}
 a{color:inherit}
-h1{font-size:1.6rem;line-height:1.25;margin:.2rem 0 .35rem;font-weight:650}
+h1{font-size:1.5rem;line-height:1.3;letter-spacing:-.025em;
+ margin:.2rem 0 .35rem;font-weight:700}
 h2{font-size:.95rem;margin:2rem 0 .6rem;font-weight:600}
 h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
-.back{display:inline-block;margin-bottom:1.1rem;font-size:.8rem;
+.back{display:inline-block;margin-bottom:1.1rem;font-size:.875rem;
  color:var(--muted-foreground);text-decoration:none}
 .back:hover{color:var(--foreground)}
-.coverage{margin:0 0 .9rem;color:var(--muted-foreground);font-size:.9rem}
+.coverage{margin:0 0 .9rem;color:var(--muted-foreground);font-size:.875rem}
 
 /* badge.tsx: rounded-sm px-2 py-0.5 text-xs font-medium, secondary */
 .chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.85rem 0 1.5rem}
@@ -174,7 +191,7 @@ h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
 /* card.tsx */
 .card{border:1px solid var(--border);border-radius:var(--radius-lg);
  background:var(--card);color:var(--card-foreground);
- box-shadow:0 1px 2px -1px rgb(0 0 0 / .08);padding:1rem 1.1rem}
+ box-shadow:0 1px 2px 0 #0000000d;padding:1rem 1.1rem}
 
 /* App.tsx Meta: the label is the card's exactly; the value steps from
    text-xs to .8125rem because a page is read, not scanned */
@@ -209,12 +226,19 @@ a.api:hover{color:var(--foreground)}
  padding:1.6rem 1.1rem;text-align:center;background:var(--muted)}
 .chart .slot{display:block;font-size:9.5px;text-transform:uppercase;
  letter-spacing:.08em;color:var(--muted-foreground);opacity:.7}
-.cta{display:inline-block;margin-top:.9rem;padding:.4rem .85rem;
- border-radius:var(--radius-md);background:var(--primary);
- color:var(--primary-foreground);text-decoration:none;font-size:.8125rem;
- font-weight:500}
+.cta{display:inline-flex;align-items:center;justify-content:center;
+ margin-top:.9rem;height:2rem;padding:0 .625rem;
+ border-radius:var(--radius-md);border:1px solid var(--border);
+ background:transparent;color:var(--foreground);text-decoration:none;
+ font-size:.875rem;font-weight:500;transition:background-color .15s}
+.cta:hover{background:var(--accent);color:var(--accent-foreground)}
 footer{margin-top:3rem;border-top:1px solid var(--border);padding-top:1rem;
- color:var(--muted-foreground);font-size:.8rem}
+ color:var(--muted-foreground);font-size:.875rem}
+
+/* the SPA rings every focusable thing; these pages had the browser
+   default, which is both inconsistent and worse */
+a:focus-visible{outline:none;border-radius:var(--radius-sm);
+ box-shadow:0 0 0 3px color-mix(in oklab,var(--ring) 30%,transparent)}
 [data-en]{display:none}
 html[lang="en"] [data-pt]{display:none}
 html[lang="en"] [data-en]{display:revert}
@@ -225,7 +249,8 @@ html[lang="en"] [data-en]{display:revert}
 BOOT = (
     '<script>(function(){try{var t=localStorage.getItem("theme"),'
     'l=localStorage.getItem("lang");'
-    'if(t==="dark"||(!t&&matchMedia("(prefers-color-scheme:dark)").matches))'
+    'if(t==="dark"||(t!=="light"&&'
+    'matchMedia("(prefers-color-scheme: dark)").matches))'
     'document.documentElement.classList.add("dark");'
     'if(l==="en")document.documentElement.lang="en";}catch(e){}})()</script>'
 )
@@ -242,7 +267,14 @@ def theme_tokens(path: pathlib.Path = None) -> str:
             "truth for the detail pages' colours — failing rather than "
             "shipping a stale copy.")
     radius = "\n".join(RADIUS_SCALE.findall(css))
-    return (f":root{{{root.group(1).strip()}\n{radius}}}\n"
+    font = FONT_STACK.search(css)
+    if not font:
+        raise SystemExit(
+            "build_detail_pages: no --font-sans in "
+            f"{path or THEME_CSS}. The detail pages render in the site's "
+            "typeface or they are a different site.")
+    return (f":root{{{root.group(1).strip()}\n{radius}\n"
+            f"{font.group(1).strip()}}}\n"
             f".dark{{{dark.group(1).strip()}}}\n")
 
 
@@ -377,6 +409,7 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 <meta property="og:type" content="article">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:url" content="{page_url(row)}">
+{FONT_LINKS}
 <link rel="stylesheet" href="{css_ref}">
 {BOOT}
 <script type="application/ld+json">{json_ld(row, entry)}</script>
