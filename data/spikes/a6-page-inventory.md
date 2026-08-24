@@ -10,7 +10,7 @@ Structure and metadata only. Numeric runs are redacted to `<number>` rather than
 
 *Abastecimento público de água*
 
-- status 200, 169,129 bytes, 0 distinct tag/class groups
+- status 200, 169,131 bytes, 0 distinct tag/class groups
 
 ### Questions found on the page
 
@@ -42,7 +42,7 @@ Structure and metadata only. Numeric runs are redacted to `<number>` rather than
 
 *Abastecimento de água: água captada, água tratada e água distribuída/consumida (1991-2006)*
 
-- status 200, 174,915 bytes, 2 distinct tag/class groups
+- status 200, 174,916 bytes, 0 distinct tag/class groups
 
 ### Questions found on the page
 
@@ -53,6 +53,4 @@ Structure and metadata only. Numeric runs are redacted to `<number>` rather than
 
 ### Most repeated blocks (page furniture)
 
-- `span` ×9 — x
-- `th` ×3 — Água captada para abastecimento
 
