@@ -80,6 +80,9 @@ fixes it at **zero extra requests**: units accrue as pages go stale. A forced ~1
 would finish it in one pass — owner's call, not a prerequisite. **20** follows automatically:
 471 of the 475 uncovered rows are portugal, so coverage should reach ~99.8% — *re-measure
 before believing it*; `unit_ratio[portugal]` sits at a gate floor of 0.0 recording the gap.
+**21** (one full re-harvest) is last on the board on purpose: raw HTML is not stored, so every
+field the parser learns about after a harvest needs the pages fetched again — fire it once the
+detail pages (15) have stopped teaching it new things, not the moment it is possible.
 
 Two things worth carrying forward. A catalogue-wide QA threshold passed the 100/100/0 unit
 split without complaint, so **coverage thresholds for fields parsed out of page markup are now

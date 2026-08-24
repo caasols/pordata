@@ -386,6 +386,8 @@ retired id stays retired (11), and a promoted one keeps its own (12). Priority:
    Both are hard-gated on 2; 14 is additionally gated on 13.
 4. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is
    what turns the project from a mirror of PORDATA into something more complete than it.
+   **21** (one full re-harvest) is deliberately last: its value grows with everything the
+   parser learns from 15, so firing it early means doing it twice.
 5. **8b/c, then 9** — labels from sources and recency, then blended relevance.
 6. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
 
@@ -771,6 +773,34 @@ call ("Resumo"/"Summary").*
    since refusing is correct where the tail is the indicator, but some could carry a second
    line derived differently.
 
+
+21. **One full re-harvest, deliberately** *(owner ask 2026-08-23; last item on the board on
+   purpose)*. Nothing is blocked on this — item 19's marker fix means units accrue for free as
+   pages go stale. It is here because **the harvester now captures things it did not capture
+   when those 2,195 pages were fetched**, and the stored records are frozen at whatever the
+   parser understood in August 2026. Raw HTML is not kept (`bytes` is recorded, the body is
+   not), so every field added after the fact needs the pages fetched again.
+
+   Known already-missed, and the reason to expect more: `"ampliado"` was added to
+   `MARKER_WORDS` after the harvest, so 1,053 portugal records carry no unit. Whatever items
+   14 and 15 need from the page — the period, geographic granularity, a chart caption, a
+   footnote, a definition — will be discovered the same way, *after* the last harvest that
+   could have captured it.
+
+   So the sequencing matters more than the run: **do not fire this the moment it is possible.**
+   Its value is proportional to how much the parser has learned since the last pass, and the
+   detail pages (15) are what will teach it the most. Fire it when the answer to "what else
+   should we be pulling off these pages?" has stopped changing — most likely once 15's design
+   is settled and item 19's municipios probe has said where the period lives. Firing early
+   means doing it twice.
+
+   Cost and shape when it does run: 2,195 pages at the polite 20 s pace is ~12 h, which the
+   harvester already handles in resumable 4.5 h chunks, so it is three dispatches rather than
+   one long job. Force it by clearing the freshness check rather than by deleting records — a
+   failed re-fetch must keep the good record it already has, which is the data-loss bug the
+   2026-08-23 audit found and fixed. Re-measure `breakdown_ratio` and `unit_ratio` per area
+   afterwards and raise the floors, `unit_ratio[portugal]` first: that floor sitting at 0.0 is
+   the marker for this whole thread being finished.
 
 ## Verification
 
