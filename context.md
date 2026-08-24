@@ -778,7 +778,32 @@ list; none of them takes long and all four unblock work that is otherwise ready 
    conformance check, and a size budget that trips before the repo does.
 
 15. **Per-indicator detail pages with charts** *(**metadata half done 2026-08-24** — see
-   "What has been built"; the charts remain, gated on 14)*. Replace the click-out to pordata.pt with a page this project owns: the
+   "What has been built"; the charts remain, gated on 14)*.
+
+   **Chart layer chosen and measured: `@tanstack/charts`** (owner ask 2026-08-24; spike in
+   `data/spikes/charts-tanstack.md`, reproducible). Marginal cost **≈27 KB gzipped** over
+   React, from 113 granular per-mark exports and `sideEffects: false`. The finding that
+   decides the architecture: **it renders to SVG in plain Node with no DOM** —
+   `createChartScene()` compiles a renderer-neutral scene and `renderChartSvg()` is a pure
+   string function. So the chart does not have to cost 88 KB of JavaScript:
+
+   - **pre-render the SVG at build time** (~3.4 KB gzipped for a 195-point three-series line),
+     which keeps the detail pages at the zero-JS weight they were built for, works with
+     JavaScript off, and is crawlable;
+   - **load the interactive chart only when someone reaches for it** — picking geographies,
+     changing the window, comparing. That is when 88 KB is worth spending.
+
+   CSS custom properties survive into the emitted SVG and axes use `currentColor`, so **one**
+   pre-rendered file serves light and dark. `ariaLabel` is a required prop and the root
+   carries `role="img"`; the React adapter exposes `tabIndex` and focus callbacks.
+
+   **The risk, recorded: 0.14.0, six releases in six days.** Pre-1.0 and moving fast, so a
+   breaking change before item 14 lands is likely rather than unlikely. Survivable because of
+   how it is used — the static path is two calls behind one build script and the interactive
+   path is one component on one page. Re-check the release timeline before adopting, and
+   treat the project going quiet, or `defineChart` churning across 0.x, as the signal to
+   reconsider. **Not added to `site/package.json` yet**: nothing to chart until 14 archives
+   values, and a dependency nothing renders is a dependency nobody maintains. Replace the click-out to pordata.pt with a page this project owns: the
    indicator's full metadata, its upstream attribution per decision 5 (source, vintage,
    revision caveat rendered *with* the series, not in a footer), and a chart the user can
    actually work with — pick geographies, pick a window, compare. This is stages 3
