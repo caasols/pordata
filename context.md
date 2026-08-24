@@ -959,9 +959,15 @@ to run.
      with floors at 0, because nothing harvested before 2026-08-24 carries them. Raising each
      floor as coverage climbs is how 24 is known to be working — and a selector that fails on
      one template surfaces as a named breach in the area it broke rather than as silence.
-   - **Answer europa's period.** Neither the portugal year elements nor the municipios picker
-     appear there. This is one question, not a frame: two or three europa pages, using the A6
-     inventory that already exists.
+   - ~~**Answer europa's period.**~~ **Answered 2026-08-25, and the premise was wrong.**
+     "Neither mechanism appears there" was inferred from spikes A3 and A4, which sampled the
+     *other two* areas. Probed directly (`data/spikes/europa-period.md`), all three sampled
+     europa pages carry **both**: four `YearCurrentText`/`YearOtherText` elements and 26–30
+     `<option value="YYYY">`. `extract_period` already returns the range on that shape — so
+     `period_ratio[europa]` sits at 0 purely because **no europa page has been re-fetched since
+     the parser learned the field** (0 of 638 records carry one). It is harvest lag, not a
+     missing extractor, and there is nothing to write. Pinned by a regression test so the
+     premise cannot return.
    - **Then re-measure the coverage line.** It stood at 78.4% with 475 rows carrying neither
      breakdown nor unit, **471 of them portugal**. If portugal's units accrue as expected that
      falls to roughly 4 rows — a projection from a 7-page sample, so treat it as a hypothesis

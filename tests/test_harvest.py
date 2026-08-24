@@ -168,3 +168,34 @@ class QuestionAndPeriodTest(RepoCase):
         self.assertEqual(
             h.extract_period('<div class="YearCurrentText">2006</div>'),
             ("", ""))
+
+
+class EuropaPeriodTest(unittest.TestCase):
+    """The third template, which the roadmap had recorded as unhandled.
+
+    Item 20 said europa has "neither the portugal year elements nor the
+    municipios picker", inferred from spikes A3 and A4 which had sampled
+    the other two areas. Probed directly on 2026-08-25, all three sampled
+    europa pages carry **both**: four `YearCurrentText`/`YearOtherText`
+    elements and 26-30 `<option value="YYYY">`. So the extractor already
+    covers it and `period_ratio[europa]` sits at 0 because no europa page
+    has been re-fetched since the parser learned the field — harvest lag,
+    not a missing mechanism.
+
+    Pinned here so the premise cannot quietly return.
+    """
+
+    EUROPA = ('<div class="YearOtherText">2010</div>'
+              '<div class="YearCurrentText">2023</div>'
+              '<select><option value="2010">2010</option>'
+              '<option value="2023">2023</option></select>')
+
+    def test_a_europa_shaped_page_yields_its_range(self):
+        self.assertEqual(h.extract_period(self.EUROPA),
+                         ("2010", "2023"))
+
+    def test_both_mechanisms_are_present_on_that_shape(self):
+        """The two are asserted separately because either alone would
+        make the test pass while the page carried only one."""
+        self.assertTrue(h.YEAR_ELEMENT.findall(self.EUROPA))
+        self.assertTrue(h.YEAR_OPTION.findall(self.EUROPA))
