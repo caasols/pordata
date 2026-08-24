@@ -75,7 +75,11 @@ def extract_names(html: str) -> list[str]:
             # name/desc/name/desc rendering: absorb the subtitle line —
             # it disambiguates matching (e.g. which "renováveis" series)
             subtitle = lines[i + 1].strip() if len(lines) > i + 3 else ""
-            if norm(lines[i + 2]) == n and subtitle \
+            # the length guard has to come first: Python evaluates
+            # norm(lines[i + 2]) before it can short-circuit on `subtitle`,
+            # so a name repeated as the final line raised IndexError and
+            # took the whole featured-set extraction down with it
+            if len(lines) > i + 3 and norm(lines[i + 2]) == n and subtitle \
                     and norm(subtitle) == norm(lines[i + 3]) \
                     and not re.fullmatch(r"\(\d+\)", subtitle) \
                     and len(subtitle) > 4:
