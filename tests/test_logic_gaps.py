@@ -10,6 +10,7 @@ ones where a surviving mutant means a real hole.
 
 import pathlib
 import unittest
+import unittest.mock
 
 from helpers import PT, RepoCase, load_script, record
 
@@ -197,3 +198,60 @@ class ResolveFeaturedEdgeTest(RepoCase):
         flags, stats = build.resolve_featured(lib.load_records())
         self.assertEqual(flags, {("europa", 300): ["quadro_resumo"]})
         self.assertEqual(stats["quadro_resumo_europa"]["matched"], 1)
+
+
+class IndicatorUrlTest(unittest.TestCase):
+    """One definition, shared by the harvester and the sitemap diff.
+
+    diff_sitemap used to carry a looser copy — a numeric id and nothing
+    else — which counted 3,661 non-indicator URLs as indicator updates.
+    """
+
+    def test_each_statistical_area_qualifies(self):
+        for area in ("portugal", "municipios", "europa"):
+            self.assertTrue(lib.is_indicator_url(f"{PT}/{area}/nome-123"), area)
+
+    def test_the_english_tree_never_qualifies(self):
+        self.assertFalse(lib.is_indicator_url(f"{PT}/en/portugal/name-123"))
+
+    def test_summary_tables_never_qualify(self):
+        self.assertFalse(
+            lib.is_indicator_url(f"{PT}/municipios/quadro+resumo/abrantes-8282"))
+
+    def test_a_non_area_path_never_qualifies(self):
+        for url in (f"{PT}/tema/portugal/populacao-1", f"{PT}/academia/x-1",
+                    f"{PT}/glossario-1"):
+            self.assertFalse(lib.is_indicator_url(url), url)
+
+    def test_the_numeric_id_must_end_the_url(self):
+        self.assertFalse(lib.is_indicator_url(f"{PT}/portugal/nome-123/extra"))
+        self.assertFalse(lib.is_indicator_url(f"{PT}/portugal/nome"))
+
+    def test_targets_and_the_predicate_cannot_disagree(self):
+        # the drift this consolidation exists to prevent
+        import pathlib
+        urls = [f"{PT}/portugal/a-1", f"{PT}/en/portugal/a-1",
+                f"{PT}/municipios/quadro+resumo/x-2", f"{PT}/tema/x-3",
+                f"{PT}/europa/b-4", f"{PT}/municipios/c-5"]
+        with unittest.mock.patch.object(
+                lib.pathlib.Path, "read_text",
+                return_value="\n".join(urls)):
+            picked = lib.targets(pathlib.Path("anything"))
+        self.assertEqual(picked, [u for u in urls if lib.is_indicator_url(u)])
+
+
+class WorksheetKeyTest(RepoCase):
+    def test_a_stats_dict_missing_keys_skips_rather_than_crashes(self):
+        self.write_records([record("europa/a-1", 1, "europa", "Alfa")])
+        build.write_unmatched_worksheet(
+            lib.load_records(), {"quadro_resumo_europa": {}})
+        self.assertTrue(
+            pathlib.Path("data/catalogue/FEATURED-UNMATCHED.md").exists())
+
+    def test_an_unknown_total_is_shown_rather_than_raised(self):
+        self.write_records([record("europa/a-1", 1, "europa", "Alfa")])
+        build.write_unmatched_worksheet(lib.load_records(), {
+            "quadro_resumo_europa": {"unmatched": ["Sem par"]}})
+        text = pathlib.Path(
+            "data/catalogue/FEATURED-UNMATCHED.md").read_text(encoding="utf-8")
+        self.assertIn("Sem par", text)

@@ -25,9 +25,14 @@ table still lands in the snapshot commit either way.
 import datetime
 import os
 import pathlib
-import re
 import subprocess
 import sys
+
+if __package__:
+    from . import pordata_lib as lib
+else:  # executed directly, e.g. python3 scripts/diff_sitemap.py
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import pordata_lib as lib
 
 URLS_FILE = "data/sitemap-urls.txt"
 LASTMOD_FILE = "data/sitemap-lastmod.tsv"
@@ -68,10 +73,13 @@ def main() -> None:
     new_mods = parse_tsv(pathlib.Path(LASTMOD_FILE).read_text(encoding="utf-8"))
     old_mods_text = committed(LASTMOD_FILE)
     old_mods = parse_tsv(old_mods_text) if old_mods_text else {}
+    # the same predicate the harvester plans from: a numeric id alone
+    # also matches the /en tree and the quadro+resumo tables, which are
+    # not indicator pages and must not appear as indicator updates
     updated = sorted(
         u for u in new_urls & set(old_mods)
         if u in new_mods and old_mods[u] != new_mods[u]
-        and re.search(r"-\d+$", u)
+        and lib.is_indicator_url(u)
     ) if old_mods else []
 
     today = datetime.date.today().isoformat()

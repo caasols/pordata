@@ -38,8 +38,6 @@ FEATURED_FILE = pathlib.Path("data/catalogue/featured.json")
 UNMATCHED_FILE = pathlib.Path("data/catalogue/FEATURED-UNMATCHED.md")
 OUT_DIR = pathlib.Path("docs/data")
 
-AREA_LABELS = {"portugal": "Portugal", "municipios": "Municípios",
-               "europa": "Europa"}
 
 
 # featured.json groups -> which catalogue area their names live in
@@ -223,12 +221,15 @@ def write_unmatched_worksheet(records: dict, stats: dict) -> None:
              "```", ""]
     for group, area in GROUP_AREAS.items():
         st = stats.get(group)
-        if not st or not st["unmatched"]:
+        # .get, not [...]: a stats dict from an older run or a partial
+        # featured fetch should skip the section, not abort the build
+        # with a raw KeyError halfway through writing it
+        if not st or not st.get("unmatched"):
             continue
         pool = [(content_tokens(r["name"]), r["id"], r["name"])
                 for r in records.values()
                 if "error" not in r and r["area"] == area and r.get("name")]
-        lines += [f"## {group} — {len(st['unmatched'])} of {st['names']} "
+        lines += [f"## {group} — {len(st['unmatched'])} of {st.get('names', '?')} "
                   f"unmatched", ""]
         for name in st["unmatched"]:
             tokens = content_tokens(split_definition(name))

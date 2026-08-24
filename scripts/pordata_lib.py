@@ -111,18 +111,32 @@ def clean_fontes(raw: str) -> str:
     return re.split(FONTES_BOUNDARY, raw)[0].strip(" ,;|-")
 
 
+INDICATOR_ID = re.compile(r"-\d+$")
+
+
+def is_indicator_url(url: str) -> bool:
+    """The one definition of "this sitemap URL is an indicator page":
+    one of the three statistical areas, the PT tree, a slug ending in a
+    numeric id, and not a quadro+resumo summary table.
+
+    It lives here because `diff_sitemap` used to carry its own, looser
+    version — a numeric id and nothing else — so its "updated" list
+    counted 3,661 URLs the harvester never treats as indicators: 2,944
+    from the /en tree, 337 quadro+resumo tables, 380 other paths. The
+    CHANGELOG over-reported indicator updates roughly threefold. That is
+    what the lib exists to prevent.
+    """
+    if not INDICATOR_ID.search(url) or "/en/" in url \
+            or "quadro+resumo" in url:
+        return False
+    path = url.split("pordata.pt/", 1)[-1]
+    return path.split("/", 1)[0] in AREA_PREFIXES
+
+
 def targets(urls_file: pathlib.Path = URLS_FILE) -> list[str]:
-    """Indicator pages: the three statistical areas, PT tree, slug ending
-    in a numeric id, quadro+resumo summary tables excluded."""
+    """Every indicator page in the committed sitemap snapshot."""
     urls = urls_file.read_text(encoding="utf-8").split()
-    picked = []
-    for u in urls:
-        path = u.split("pordata.pt/", 1)[-1]
-        area = path.split("/", 1)[0]
-        if area in AREA_PREFIXES and "/en/" not in u \
-                and "quadro+resumo" not in u and re.search(r"-\d+$", u):
-            picked.append(u)
-    return picked
+    return [u for u in urls if is_indicator_url(u)]
 
 
 def abandoned(file: pathlib.Path = ABANDONED_FILE) -> set[str]:
