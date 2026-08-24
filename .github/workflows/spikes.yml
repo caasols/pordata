@@ -26,6 +26,9 @@ on:
           - a4
           - a6
           - licences
+          - eurostat-toc
+          - ine-series
+          - europa-period
 
 permissions:
   contents: write
@@ -75,6 +78,25 @@ jobs:
       - name: "Licences: fetch INE, Eurostat and BPstat reuse terms"
         if: inputs.probe == 'licences'
         run: python3 scripts/spike_licences.py
+
+      # Roadmap 2's open half: measure Eurostat before specifying a
+      # crosswalk for it. A5's one-to-many shape is a fact about INE.
+      - name: "Eurostat: catalogue shape, size and identifiers"
+        if: inputs.probe == 'eurostat-toc'
+        run: python3 scripts/spike_eurostat_toc.py
+
+      # Roadmap 14's three open questions. Measurement only — the bodies
+      # go to the artifact, never the repo, which is what lets this run
+      # before item 13 records INE's reuse terms.
+      - name: "INE: the shape of a series response"
+        if: inputs.probe == 'ine-series'
+        run: python3 scripts/spike_ine_series.py
+
+      # Roadmap 20's last question: europa has neither the portugal year
+      # elements nor the municipios picker.
+      - name: "Europa: where the period lives"
+        if: inputs.probe == 'europa-period'
+        run: python3 scripts/spike_europa_period.py
 
       - name: Upload raw responses as artifact
         uses: actions/upload-artifact@v4
