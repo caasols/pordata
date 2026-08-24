@@ -21,10 +21,21 @@ The crosswalk hands item 14 a `varcd`; nobody had fetched one. Item 14's three o
 
 ## Size
 
-- median **291.0 KB**, max **10439.6 KB** across 8 series
-- extrapolated over the crosswalk's 1,062 named ids: **~1553 MB** raw
+- median **291.0 KB**, mean **1497.0 KB**, max **10.2 MB** across 8 series
+- the largest response alone is **87%** of the sample's bytes
 
-That is the number item 14's first open question wanted: it decides whether the archive lives next to `catalogue.json` in git or needs different storage.
+**Corrected after the run** (the script's first version quoted the
+mean-based figure alone, which is quoting one outlier). Two
+extrapolations over the crosswalk's 1,062 named ids, because the
+distribution is heavy-tailed and they disagree by five times:
+
+- median-based: **~0.29 GB**
+- mean-based: **~1.52 GB**
+
+Neither is a size estimate at n=8. What they jointly establish is the
+thing item 14 needed: **this does not fit beside `catalogue.json` in git
+at any of these figures**, and the right next measurement is the
+*distribution* rather than another average.
 
 ## Schema
 

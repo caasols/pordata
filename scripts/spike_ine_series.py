@@ -158,16 +158,31 @@ def render(rows: list, note: str) -> str:
     served = [r for r in rows if r.get("profile", {}).get("parsed")]
     lines += ["", "## Size", ""]
     if served:
-        sizes = [r["bytes"] / 1024 for r in served]
+        sizes = sorted(r["bytes"] / 1024 for r in served)
+        median = sizes[len(sizes) // 2]
+        mean = sum(sizes) / len(sizes)
+        tail_share = max(sizes) / sum(sizes)
         lines += [
-            f"- median **{sorted(sizes)[len(sizes) // 2]:.1f} KB**, "
-            f"max **{max(sizes):.1f} KB** across {len(served)} series",
-            f"- extrapolated over the crosswalk's 1,062 named ids: "
-            f"**~{sum(sizes) / len(sizes) * 1062 / 1024:.0f} MB** raw",
+            f"- median **{median:.1f} KB**, mean **{mean:.1f} KB**, "
+            f"max **{max(sizes) / 1024:.1f} MB** across {len(sizes)} series",
+            f"- the largest response alone is **{tail_share:.0%}** of the "
+            "sample's bytes",
             "",
-            "That is the number item 14's first open question wanted: it "
-            "decides whether the archive lives next to `catalogue.json` "
-            "in git or needs different storage.",
+            "**Two extrapolations, because the distribution is heavy-"
+            "tailed and they disagree by five times.** Over the "
+            "crosswalk's 1,062 named ids:",
+            "",
+            f"- median-based: **~{median * 1062 / 1024 / 1024:.2f} GB**",
+            f"- mean-based: **~{mean * 1062 / 1024 / 1024:.2f} GB**",
+            "",
+            "Quoting the mean alone would be quoting one outlier. Quoting "
+            "the median alone would assume the tail does not exist, and "
+            "the tail is where a storage decision actually breaks. With "
+            f"n={len(sizes)} neither is a size estimate — what they "
+            "jointly establish is the thing item 14 needed: **this does "
+            "not fit beside `catalogue.json` in git at any of these "
+            "figures**, and the right next measurement is the "
+            "*distribution*, not another average.",
             "",
             "## Schema",
             "",

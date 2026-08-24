@@ -783,8 +783,35 @@ to run.
    14's archive job refuses to write a series whose source has no entry here.
 
 14. **Series archive — pull the numbers from the sources** *(**13 is the only thing still
-   gating this**; item 2's INE half landed 2026-08-24, so 206 indicators already carry a fetch
-   route and `europa` simply has none yet)*. The turn from a
+   gating this**; item 2's INE half landed 2026-08-24, so 212 indicators already carry a fetch
+   route and `europa` simply has none yet)*.
+
+   **The pilot ran 2026-08-25** (`data/spikes/ine-series.md`, 8 series). It answers all three
+   of the questions below with measurements rather than guesses, and one of the answers is a
+   surprise worth acting on:
+
+   - **INE's JSON API is not blocked.** All 8 returned **200**, on the same runner where
+     `www.ine.pt` returns 403 to every request. `pindica.jsp` is a different subsystem from the
+     `xportal` pages, so **the archive can run from Actions after all** — which had been the
+     main unexamined risk in this item.
+   - **Size: it does not fit in git.** Median 291 KB, mean 1,497 KB, max **10.2 MB** for a
+     single series, and the largest response alone is 87% of the sample's bytes. Extrapolated
+     over the crosswalk's 1,062 named ids that is 0.29 GB by the median and 1.52 GB by the
+     mean — five times apart, so *neither is a size estimate at n=8*. What they jointly settle
+     is that this cannot live beside `catalogue.json`, and that the next measurement should be
+     the **distribution**, not another average.
+   - **Vintages are exposed.** Each response carries `DataExtracao` and
+     `DataUltimoAtualizacao`, so revision history is available per fetch rather than only by
+     diffing snapshots — which is what decision 5 wanted and what neither PORDATA nor INE shows
+     anyone today.
+
+   **The schema, measured**, so the long-format target maps rather than being invented:
+   `[].Dados.<ano>[]` holds one record per observation with `geocod` / `geodsg` (geography),
+   `dim_3` / `dim_3_t` (the breakdown dimension and its label), `valor` (the value) and
+   `ind_string`; the period is the **key** of `Dados`, and `IndicadorCod` / `IndicadorDsg`
+   identify the series. So (indicator, geography, period, value, unit, flag) maps to
+   (`IndicadorCod`, `geocod`, the `Dados` key, `valor`, …) with the unit and flag still to be
+   located — `MetaInfUrl` is the obvious place to look next. The turn from a
    catalogue of pointers into a data layer. For each crosswalked indicator, fetch the series
    from its upstream API, normalise to one long-format schema (indicator, geography, period,
    value, unit, flag), and archive it on the same git-scraping cadence the harvest already
