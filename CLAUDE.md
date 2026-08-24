@@ -45,9 +45,12 @@ in-scope rows (INE-sourced, portugal/municipios) to a candidate *family* of INE 
 with an exact title inside it — and `null` for the other 633. The relation is one-to-many
 (spike A5), so each entry stores the set, its true size, the INE operation/theme, and the
 evidence; series selection is deferred to fetch time — never a single `ine_id`. **Family size
-is never a reason to refuse**: 62 candidates means INE publishes 62 of them. Four filters,
+is never a reason to refuse**: 62 candidates means INE publishes 62 of them. Six filters,
 each added after a specific wrong match — full containment, the INE head must be a word
-PORDATA used, derivation parity (a count is not a rate), negation parity. Gated at
+PORDATA used, derivation parity (a count is not a rate), negation parity — plus two the tests
+caught: the unit is a *separate* comparison (INE suffixes it into the title, PORDATA carries it
+in a field, so reading `%` out of the raw title refused "Taxa de desemprego" against itself),
+and numbers are content (the two-character floor swallowed age brackets). Gated at
 `--strict` with a 170-match floor. `europa` (638 rows) is unrouted: Eurostat and BPstat must
 be measured the same way before being specified.
 
@@ -67,15 +70,16 @@ a `<select>` picker, europa neither. The parser now captures all three — the
 revision note needed no fetch at all (203 rows carry it today, from windows already stored) —
 so future fetches pay for themselves; item **21** is the re-harvest that backfills the rest.
 
-**Next:** the crosswalk's remaining halves — **Eurostat/BPstat** (measure first, do not
-assume A5's shape carries over) and the 647 INE refusals in `data/crosswalk/REVIEW.md` — with
-**17** (the rename) alongside. **13** (three upstream licences, owner, ~30 min) is the only
-thing gating **14**. Full detail and execution order in `context.md`.
+**Next: the owner's queue, then the crosswalk's remaining halves.** Four things are blocked on
+a human and nothing else, and all four unblock work that is otherwise ready — **25** (curate
+`data/coverage/INE-GAP.md`, ~45 min: the accept/reject record *is* the curation rule, and it
+closes 16), **13** (three upstream licences, ~30 min — the only thing gating **14**), **17**
+(the rename), and item **1**'s residual checks (a ~20-record spot-check, plus curating
+`data/catalogue/FEATURED-UNMATCHED.md`). Then **Eurostat/BPstat** (measure first — do not
+assume A5's shape carries over) and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Full
+detail and execution order in `context.md`.
 
-**Waiting on the owner:** item 13, the item 17 name call, a ~20-record spot-check, curating
-`data/catalogue/FEATURED-UNMATCHED.md`, and ledger attempts.
-
-**Four things worth not re-learning:**
+**Six things worth not re-learning:**
 - **Coverage thresholds for markup-parsed fields are per-area.** A catalogue-wide mean passed a
   100/100/0 unit split without complaint. The areas are separate PORDATA templates; a mean
   cannot say "each still works".
@@ -85,7 +89,10 @@ thing gating **14**. Full detail and execution order in `context.md`.
 - **A sampling frame must come from measured variation, not an obvious-looking dimension.**
   Spike A6 sampled one page per area and called it an inventory; the stored records actually
   hold **9 distinct structural fingerprints**, and municipios pages span 174 KB to 2.2 MB.
-  Roadmap 23 has the frame to use instead.
+  `scripts/spike_page_inventory.py` derives the frame from those fingerprints instead.
+  Its mirror image is just as dangerous: a *saturated* result. Single-token vocabulary overlap
+  "reached" 90% of INE's catalogue when item 16 was built, and proved nothing — PORDATA's words
+  are ordinary Portuguese statistical language. Only total absence carried signal.
 - **Check a "0 occurrences" result before believing it.** A3 reported `A carregar conteúdo…`
   0 times and it went into the docs as a killed hypothesis; A6 found it — A3 matched a literal
   string against entity-encoded HTML. The INE "persistent block" reading died the same way:

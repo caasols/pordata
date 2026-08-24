@@ -108,7 +108,7 @@ THRESHOLDS = {
     # levers are measured and in the QA report: `url` is 25% of the
     # gzipped catalogue and is derivable from area+slug, and
     # `description` is another 12% for a field the UI never renders —
-    # 96.1% of them are PORDATA's SEO template, so they add almost
+    # 96.3% of them are PORDATA's SEO template, so they add almost
     # nothing to the search haystack they exist for.
     "first_load_gzip_kb_max": 400,
     "catalogue_gzip_kb_max": 250,

@@ -272,7 +272,7 @@ The pipeline, end to end, all live on `main`:
   small number — a missing build must not read as a payload win. **The levers, measured, for
   when a ceiling breaks**: `url` is **25%** of the gzipped catalogue and is derivable from
   `area` + slug; `description` is another **12%** for a field the UI never renders — it exists
-  only in the search haystack, and 96.1% of descriptions are PORDATA's SEO template, so it adds
+  only in the search haystack, and 96.3% of descriptions are PORDATA's SEO template, so it adds
   almost nothing there either. Neither is worth doing today; both are worth having already
   counted.
 - **The INE crosswalk** (roadmap 2, 2026-08-24). `data/crosswalk/ine.json` routes
@@ -544,24 +544,36 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
 (referenced from code and docs), **not** priority order.
 
-**Execution order (2026-08-24, after the field-capture work).** Ids are stable and never
-reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority:
+**Execution order (2026-08-24, after the crosswalk, the coverage gap and the CI hardening).**
+Ids are stable and never reused — 6b, 6c, 6d, 6e, 6f, 10, 11, 12, 18, 19, 23 and 24 have
+shipped or been absorbed, and item 2's INE half and item 16's INE half both shipped today.
 
-1. **2 — the crosswalk.** The INE cache landed and A5 measured the relation, so it is both
-   unblocked and specified: candidate sets, never a single `ine_id`. The largest thing on the
-   board and the spine everything downstream hangs off.
-2. **17 — name the project**, alongside. Cheap now, and more expensive once Phase D publishes a
-   package name or FFMS replies.
-3. **13 — the three upstream licences** (owner, ~30 min). The only thing gating 14.
-4. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
+**Owner's queue first.** Four things are blocked on a human and nothing else, so they head the
+list; none of them takes long and all four unblock work that is otherwise ready to run.
+
+1. **25 — curate the INE gap shortlist** (~45 min). The accept/reject record *is* the curation
+   rule, and it is the only way to acquire one. Closes item 16.
+2. **13 — the three upstream licences** (~30 min). The only thing gating 14, which is where
+   the project stops being a catalogue.
+3. **17 — name the project.** Cheap now, more expensive once Phase D publishes a package name
+   or FFMS replies.
+4. **The residual checks in item 1** — the ~20-record spot-check and
+   `data/catalogue/FEATURED-UNMATCHED.md`.
+
+**Then, in order:**
+
+5. **2 — the crosswalk's remaining halves.** Eurostat and BPstat (638 `europa` rows, entirely
+   unrouted — measure each before specifying it, A5's shape must not be assumed to carry
+   over), and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Still the spine everything
+   downstream hangs off.
+6. **14 → 15 — the series archive, then per-indicator detail pages.** Where the project stops
+   being a catalogue. Gated on 13.
+7. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
    out the whole field-capture thread.
-5. **14 → 15 — the series archive, then per-indicator detail pages.** Where the project stops
-   being a catalogue.
-6. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is what
-   makes it more complete than PORDATA.
-7. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-8. Background, in any order: **6b–6f**, **7**, **3**, and **1**'s residual owner checks.
-9. **21 — the full re-harvest** stays last on purpose: its value grows with everything the
+8. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+9. Background, in any order: **7** (name/i18n review), **3** (the ledger), and **4** (the FFMS
+   follow-up, due ~2026-09-04).
+10. **21 — the full re-harvest** stays last on purpose: its value grows with everything the
    parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
    until it retires.
 
@@ -645,28 +657,16 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
      `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
      useful without it; low-end phone memory during inference → that is why the model
      must stay in the small-quantized class, not a larger one.
-6. **Hardening backlog** *(absorbs the old item 11; sources: the 2026-08-23 `/mega-audit`,
-   full report in `data/audits/`)*. Ordered by what breaks if ignored, not by effort.
+6. **Hardening backlog — closed 2026-08-24** *(absorbed the old item 11; sourced from the
+   2026-08-23 `/mega-audit`, full report in `data/audits/`)*. All six strands shipped: (a)
+   silent data corruption, (b) failures nobody hears, (c) freshness, (d) test strength, (e)
+   code hygiene, (f) payload budget. Each is described in "What has been built"; the id stays
+   because code and docs reference `6b`/`6d`/`6f`.
 
-   *(a) Silent data corruption — **done**; see "What has been built".)*
-
-   *(b) Failures nobody hears — **done 2026-08-24**; see "What has been built". Five gaps
-   closed and the workflows put under test.)*
-
-   *(c) Freshness — **done 2026-08-24**; see "What has been built".)*
-
-   *(d) Test strength — **done 2026-08-24**; see "What has been built".)*
-
-   *(e) Code hygiene — **done 2026-08-24**; see "What has been built".)*
-
-   *(f) Payload budget — **budget set 2026-08-24**; see "What has been built". Measured 261 KB
-   gzipped for a first visit (148 KB of it the catalogue), gated in `qa_catalogue.py --strict`
-   at 400/250. Splitting or streaming is the work when a ceiling breaks, and the levers are
-   measured and recorded in `data/catalogue/QA.md`.)*
-
-   *Done 2026-08-23:* `spikes.yml` made dispatch-only — a push trigger was re-running finished
-   research probes on any edit to their scripts.
-   *Deferred:* harvesting the `/en` tree (~2,196 pages) if EN descriptions become worth having.
+   **Still open, and only this:** harvesting the `/en` tree (~2,196 pages) if EN descriptions
+   ever become worth having. Deferred, not scheduled — the EN *names* already come from the
+   sitemap, and 96.3% of PT descriptions are an SEO template, so there is no reason to expect
+   the EN ones to carry more.
 7. **Name/i18n coverage review** *(owner ask 2026-08-23)*. `docs/data/names-map.csv`
    (rebuilt on every harvest) maps each indicator's PT name to its EN name and flags gaps:
    `missing_pt` (harvest found no name — the 3 known empties), `missing_en` (no `/en`
@@ -881,6 +881,43 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
    end: 21 days is only ~3 of each weekday — enough for a strong weekend effect, not a subtle
    one. If it is ambiguous at day 21, say so rather than extending on autopilot; Lisbon leaves
    WEST in late October, which would silently shift the sampled hour.
+
+25. **Curate the INE gap shortlist — accept or reject, one by one** *(owner, laptop, ~45 min;
+   the blocking half of item 16)*. Read `data/coverage/INE-GAP.md`. It proposes **302 concepts**
+   INE publishes that PORDATA never names once, the 40 largest laid out by theme with three
+   distinct example indicators each.
+
+   **This is the step that cannot be automated, and not because it is fiddly.** The central
+   insight of this project is that the scarce asset is the curation, not the numbers — so a
+   shortlist accepted wholesale would give the catalogue INE's coverage *and* INE's usability,
+   which is the problem this project exists to fix. The accept/reject record **is** the curation
+   rule; there is no way to acquire one except by making the calls. Item 16(d) says this in the
+   roadmap's own words and it is worth restating: *completeness without curation is a
+   regression.*
+
+   **What a decision looks like.** For each concept, one of three:
+   - **accept** — worth adding, with a human-meaningful Portuguese name for the indicator (not
+     INE's title) and the theme it belongs under. Those two fields are what makes an entry
+     usable, and nothing downstream can invent them.
+   - **reject** — PORDATA leaves it out on purpose, or it is an INE construct rather than a
+     public-facing indicator ("saldo de respostas extremas" is a survey instrument, not a
+     question anyone asks).
+   - **annotation** — not a subject at all, and the filter missed it. Say so and it moves to
+     `ANNOTATION` in `scripts/coverage_gap.py`, where the report already prints its own
+     filtering for exactly this purpose.
+
+   **The one that stands out on a first read** *(a starting point, not a recommendation —
+   the call is the owner's)*: **mortality by cause**. INE publishes 54 indicators on tumores
+   malignos, 54 on doenças do aparelho circulatório/digestivo/respiratório, and "anos potenciais
+   de vida perdidos" throughout — down to município — and PORDATA names none of it. Also large:
+   `horas trabalhadas` (130 indicators), `inovação` (50), `encomendas` (80), and the
+   confidence/expectations family (`apreciação`, `perspetivas`).
+
+   **Not a to-do list of 302.** Working through the 40 in the report is the deliverable; the
+   rest are in `data/coverage/ine-gap.json` if the shortlist runs dry. Record the decisions
+   wherever is easiest — a scratch list is fine — and the next session turns them into the rule.
+
+   *Preconditions: none. Item 16's INE half shipped 2026-08-24; this is its step (d).*
 
 
 ## Verification

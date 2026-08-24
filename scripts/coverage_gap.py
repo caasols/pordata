@@ -95,7 +95,7 @@ SAME_CONCEPT = 0.9
 def pordata_vocabulary(rows: list) -> set:
     """Every content word PORDATA's indicator names use, PT and EN.
 
-    Descriptions are deliberately excluded: 96.1% of them are the SEO
+    Descriptions are deliberately excluded: 96.3% of them are the SEO
     template with the name substituted in, so they widen the vocabulary
     with nothing the name did not already say."""
     vocab = set()

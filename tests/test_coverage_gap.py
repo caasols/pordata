@@ -45,7 +45,7 @@ class VocabularyTest(unittest.TestCase):
         self.assertLessEqual({"casamentos", "marriages", "sexo"}, got)
 
     def test_the_description_is_deliberately_excluded(self):
-        """96.1% of descriptions are the SEO template with the name
+        """96.3% of descriptions are the SEO template with the name
         substituted in, so they widen the vocabulary with nothing the
         name did not already say — and a word that only ever appears in
         boilerplate would mask a real gap."""
