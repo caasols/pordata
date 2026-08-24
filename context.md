@@ -240,6 +240,26 @@ The pipeline, end to end, all live on `main`:
   numeric id and nothing else — so **3,661** URLs counted as indicator updates that the
   harvester never treats as indicators (2,944 `/en`, 337 quadro+resumo, 380 other), and the
   CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
+- **Where PORDATA is thin against INE** (roadmap 16, 2026-08-24). `data/coverage/INE-GAP.md`
+  is a shortlist of **302 concepts** INE publishes and PORDATA never names once, ranked and
+  grouped by theme with three distinct examples each, for the owner to accept or reject —
+  which is what produces the curation rule. **The series-level complement is not computed, and
+  saying so is the point.** The crosswalk names 1,062 of 13,084 INE ids (8.1%) because it
+  refuses rather than guesses; subtracting that would present ~12,000 series as "missing from
+  PORDATA" when most are indicators PORDATA covers under a name the matcher declines to claim
+  — a number that would be enormous, precise and wrong. The unit is therefore the **concept**:
+  a content word INE uses that none of PORDATA's 2,195 names uses. That question survives a
+  matcher with a quarter of the recall, because it asks whether PORDATA has *any* indicator
+  touching a subject. **Two measurements changed the design.** Ranking by *series* put "TDT"
+  near the top — 54 series, one indicator republished across geographies — so the rank is
+  distinct titles, which is INE's investment in the subject rather than how widely one title
+  was cut. And single-token vocabulary overlap "reached" 90% of INE's catalogue, which is the
+  saturated mirror of the 0-occurrence trap: PORDATA's 2,687 words are ordinary Portuguese
+  statistical language, so *any* overlap proves nothing. Bookkeeping INE writes into its
+  titles (vintages, `CAE Rev.3`, seasonal adjustment, survey reference periods) is filtered by
+  an explicit list, and the report **prints that list and its cost** rather than presenting a
+  cleaner result than the data supports — a filter nobody can see is a filter nobody can
+  contest. Recomputed by `harvest.yml` and `ine-catalogue.yml` after the crosswalk.
 - **A payload budget, gated** (roadmap 6f, 2026-08-24). A first visit downloads **261 KB
   gzipped** before it can search — 1.3 KB of page, 111.8 KB of bundle and 148.1 KB of
   catalogue — because the client holds everything and there is no search API. That is fine, and
@@ -731,7 +751,9 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
    element that would later earn a place on the card — gated on 14, and the slot is waiting.
 
 16. **Coverage gap: what INE and Eurostat have that PORDATA does not** *(owner ask
-   2026-08-23; gated on 2)*. The goal stated plainly: **be more complete than PORDATA**.
+   2026-08-23; **INE half done 2026-08-24** — `data/coverage/INE-GAP.md`, 302 concepts
+   awaiting owner accept/reject, which is step (d); Eurostat still needs its TOC, which
+   needs network)*. The goal stated plainly: **be more complete than PORDATA**.
    PORDATA curates ~2,196 indicators out of upstream catalogues that hold far more, and the
    crosswalk (item 2) is what makes the comparison computable — once each PORDATA indicator
    is matched to its upstream series, the *complement* is the gap.

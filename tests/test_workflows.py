@@ -178,8 +178,15 @@ class HarvestSalvageTest(unittest.TestCase):
 
     def test_the_crosswalk_is_committed_with_the_harvest(self):
         """A rebuild nothing stages is a rebuild that never happened."""
-        self.assertIn("data/crosswalk/",
-                      self.steps["Commit progress"]["run"])
+        run = self.steps["Commit progress"]["run"]
+        self.assertIn("data/crosswalk/", run)
+        self.assertIn("data/coverage/", run)
+
+    def test_the_coverage_gap_is_recomputed_after_the_crosswalk(self):
+        """It reads the crosswalk to report its reach; running first
+        would state the previous run's."""
+        self.assertLess(index_of(self.job, "Rebuild the INE crosswalk"),
+                        index_of(self.job, "Recompute the INE coverage gap"))
 
     def test_qa_gate_reverts_before_the_commit(self):
         """The revert has to land before the commit or the degraded

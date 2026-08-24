@@ -32,13 +32,15 @@ jobs:
       # that did not rebuild it would leave the routing pointing at the
       # previous snapshot's ids with nothing saying so.
       - name: Rebuild the INE crosswalk
-        run: python3 scripts/build_crosswalk.py --strict
+        run: |
+          python3 scripts/build_crosswalk.py --strict
+          python3 scripts/coverage_gap.py
 
       - name: Commit cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ine/ data/crosswalk/
+          git add data/ine/ data/crosswalk/ data/coverage/
           if git diff --cached --quiet; then
             echo "No change."
           else

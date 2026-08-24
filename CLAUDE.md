@@ -51,6 +51,12 @@ PORDATA used, derivation parity (a count is not a rate), negation parity. Gated 
 `--strict` with a 170-match floor. `europa` (638 rows) is unrouted: Eurostat and BPstat must
 be measured the same way before being specified.
 
+**The gap it makes computable is a shortlist, not an inventory** (item 16).
+`data/coverage/INE-GAP.md` names **302 concepts** INE publishes and PORDATA never mentions,
+for owner accept/reject. The *series*-level complement is deliberately not computed: the
+crosswalk names 8.1% of INE ids, so subtracting it would call ~12,000 series "missing" when
+most are covered under a name the matcher declines to claim.
+
 **Three fields we do not capture, with selectors** (spike A6, 2026-08-24, sampled across all
 9 structural fingerprints): the plain-language **question** under each title, in `<h2>`, on
 **15/15** pages — phrased per area (`portugal` "Quantas…", `municipios` "Onde há mais e

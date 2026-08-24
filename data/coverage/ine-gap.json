@@ -1,0 +1,5840 @@
+{
+ "crosswalk_reach": {
+  "named_ids": 1062,
+  "total_series": 13084,
+  "share": 0.0812
+ },
+ "pordata_vocabulary": 2687,
+ "min_series": 8,
+ "concepts": [
+  {
+   "token": "serie",
+   "titles": 860,
+   "series": 1869,
+   "theme": "Mercado de trabalho / Emprego",
+   "theme_share": 0.255,
+   "annotation": true,
+   "examples": [
+    "Água captada (Série 2011 - m³)",
+    "Empresas (Série 2004-2007 - N.º)",
+    "Empresas (Série 2004-2009 - N.º)"
+   ],
+   "geo_levels": [
+    "Agrupamento/País",
+    "Continente",
+    "Distrito",
+    "Município",
+    "NUTS 3",
+    "NUTS I"
+   ],
+   "also": [
+    "antiga",
+    "trimestre",
+    "cos",
+    "regionais",
+    "ganhos",
+    "inicio",
+    "notificados",
+    "censos",
+    "desde",
+    "extraordinarios",
+    "operacionais",
+    "paternidade",
+    "ajustamentos",
+    "amortizacoes",
+    "inactiva"
+   ]
+  },
+  {
+   "token": "homologa",
+   "titles": 256,
+   "series": 324,
+   "theme": "Conjuntura / Mercado de trabalho",
+   "theme_share": 0.225,
+   "annotation": true,
+   "examples": [
+    "Taxa de variação homóloga do PIB (Base 2006 - %)",
+    "Taxa de variação homóloga (%) das exportações de bens",
+    "Taxa de variação homóloga (%) das importações de bens"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS",
+    "NUTS II",
+    "PT/Continente",
+    "Portugal",
+    "Total"
+   ],
+   "also": [
+    "unitario"
+   ]
+  },
+  {
+   "token": "ajustado",
+   "titles": 244,
+   "series": 382,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.285,
+   "annotation": true,
+   "examples": [
+    "Índice de custo do trabalho (ajustado de dias úteis, Base - 2008)",
+    "Índice de custo do trabalho (ajustado de dias úteis, Base - 2016)",
+    "Índice de custo do trabalho (ajustado de dias úteis, Base - 2020)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal",
+    "Total"
+   ],
+   "also": [
+    "calendario",
+    "efeitos"
+   ]
+  },
+  {
+   "token": "sazonalidade",
+   "titles": 152,
+   "series": 214,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.322,
+   "annotation": true,
+   "examples": [
+    "Subutilização do trabalho (Ajustada de sazonalidade - N.º)",
+    "Taxa de subutilização do trabalho (Ajustada de sazonalidade - %)",
+    "Indicador de confiança (SRE - Valores corrigidos de sazonalidade) do comércio"
+   ],
+   "geo_levels": [
+    "Portugal",
+    "Total",
+    "União Europeia",
+    "Área Euro"
+   ],
+   "also": [
+    "corrigidos",
+    "sre",
+    "ajustada"
+   ]
+  },
+  {
+   "token": "cae",
+   "titles": 151,
+   "series": 511,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.462,
+   "annotation": true,
+   "examples": [
+    "Emprego cultural (Série 2021, CAE Rev. 3 - N.º)",
+    "Emprego desportivo (Série 2021, CAE Rev. 3 - N.º)",
+    "Empresas das indústrias de baixa tecnologia (CAE Rev. 3 - N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região"
+   ],
+   "also": [
+    "tecnologia",
+    "conhecimento",
+    "intensivos",
+    "sectores",
+    "competitivos"
+   ]
+  },
+  {
+   "token": "horas",
+   "titles": 130,
+   "series": 193,
+   "theme": "Conjuntura / Mercado de trabalho",
+   "theme_share": 0.674,
+   "annotation": false,
+   "examples": [
+    "Incêndios rurais com duração superior a 24 horas (N.º)",
+    "Índice de horas trabalhadas no comércio - bruto (Base - 2021)",
+    "Índice de horas trabalhadas na indústria - bruto (Base - 2000)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ],
+   "also": [
+    "trabalhadas"
+   ]
+  },
+  {
+   "token": "encomendas",
+   "titles": 80,
+   "series": 118,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.602,
+   "annotation": false,
+   "examples": [
+    "Encomendas a fornecedores estrangeiros (%) do comércio",
+    "Índice de novas encomendas na indústria - bruto (Base - 2000)",
+    "Índice de novas encomendas na construção e obras públicas (Base - 2000)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS I",
+    "NUTS II",
+    "Portugal",
+    "Região autónoma",
+    "Total"
+   ],
+   "also": [
+    "cento",
+    "receber"
+   ]
+  },
+  {
+   "token": "hab",
+   "titles": 75,
+   "series": 121,
+   "theme": "Agricultura, floresta e pescas / Balança alimentar",
+   "theme_share": 0.298,
+   "annotation": true,
+   "examples": [
+    "Pegada material per capita (t/ hab.)",
+    "Densidade populacional (N.º hab./ km2)",
+    "Resíduos gerados per capita (kg/ hab.)"
+   ],
+   "geo_levels": [
+    "Distrito/ilha",
+    "Município",
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "alimentos",
+    "capitacao",
+    "tabela"
+   ]
+  },
+  {
+   "token": "potenciais",
+   "titles": 74,
+   "series": 79,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos (Ano)",
+    "Anos potenciais de vida perdidos por pneumonia (Anos)",
+    "Número médio de anos potenciais de vida perdidos (Ano)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "extremas",
+   "titles": 71,
+   "series": 71,
+   "theme": "Conjuntura / Procura de bens e serviços",
+   "theme_share": 0.423,
+   "annotation": false,
+   "examples": [
+    "Indicador de confiança (Saldo de respostas extremas) do comércio",
+    "Indicador de confiança (Saldo de respostas extremas) dos serviços",
+    "Indicador de confiança (Saldo de respostas extremas) da construção"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ],
+   "also": [
+    "respostas",
+    "perspetiva"
+   ]
+  },
+  {
+   "token": "trimestrais",
+   "titles": 61,
+   "series": 61,
+   "theme": "Mercado de trabalho / Fluxos entre estados do mercado de trabalho",
+   "theme_share": 0.885,
+   "annotation": true,
+   "examples": [
+    "Turistas (Trimestrais - N.º)",
+    "Fluxos trimestrais do emprego para o emprego (Série 1998 - N.º)",
+    "Fluxos trimestrais do emprego para o emprego (Série 2011 - N.º)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "deflacionado",
+   "titles": 59,
+   "series": 68,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.529,
+   "annotation": true,
+   "examples": [
+    "Índice de volume de negócios no comércio - bruto deflacionado (Base - 2021)",
+    "Índice de volume de negócios nos serviços - bruto deflacionado (Base - 2021)",
+    "Índice de volume de negócios no comércio a retalho - bruto deflacionado (Base - 2000)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "metodologia",
+   "titles": 55,
+   "series": 185,
+   "theme": "Construção e habitação / Outros indicadores da construção e habitação",
+   "theme_share": 0.411,
+   "annotation": true,
+   "examples": [
+    "Ecrãs de cinema (Metodologia 2006 - N.º)",
+    "Receitas de cinema (Metodologia 2006 - €)",
+    "Sessões de cinema (Metodologia 2006 - N.º)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Cidade com mais de 100 000 habitantes",
+    "Freguesia",
+    "Freguesia/Agregação",
+    "Município",
+    "NUTS 3"
+   ]
+  },
+  {
+   "token": "doencas",
+   "titles": 54,
+   "series": 59,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.797,
+   "annotation": false,
+   "examples": [
+    "Taxa de mortalidade por doenças do aparelho circulatório (‰)",
+    "População residente com menos de 15 anos sem doenças do sangue (N.º)",
+    "Anos potenciais de vida perdidos por doenças cerebrovasculares (Anos)"
+   ],
+   "geo_levels": [
+    "Distrito",
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "circulatorio"
+   ]
+  },
+  {
+   "token": "maligno",
+   "titles": 54,
+   "series": 54,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos por tumor maligno da próstata (Anos)",
+    "Anos potenciais de vida perdidos por tumor maligno do estômago (Anos)",
+    "Anos potenciais de vida perdidos por tumor maligno do pâncreas (Anos)"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ],
+   "also": [
+    "tumor",
+    "bronquios",
+    "pulmao"
+   ]
+  },
+  {
+   "token": "inovacao",
+   "titles": 50,
+   "series": 280,
+   "theme": "Inovação e conhecimento / Ciência e tecnologia",
+   "theme_share": 0.993,
+   "annotation": false,
+   "examples": [
+    "Proporção de empresas com 10 e mais pessoas ao serviço com atividades de inovação (%)",
+    "Intensidade de inovação das empresas com 10 e mais pessoas ao serviço com atividades de inovação (%)",
+    "Proporção de empresas com atividades de inovação com 10 e mais pessoas ao serviço com inovação de produto (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal",
+    "Região"
+   ],
+   "also": [
+    "cooperacao",
+    "melhorados"
+   ]
+  },
+  {
+   "token": "trimestral",
+   "titles": 50,
+   "series": 57,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.491,
+   "annotation": true,
+   "examples": [
+    "Índice de preços da habitação (Taxa de variação trimestral - Base 2015 - %)",
+    "Índice de preços da habitação (Taxa de variação trimestral - Base 2025 - %)",
+    "Transações (Taxa de variação trimestral (valor) - %) de alojamentos familiares"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal",
+    "Área metropolitana"
+   ],
+   "also": [
+    "cadeia"
+   ]
+  },
+  {
+   "token": "estrangeiras",
+   "titles": 47,
+   "series": 68,
+   "theme": "Empresas / Filiais de empresas estrangeiras",
+   "theme_share": 0.838,
+   "annotation": false,
+   "examples": [
+    "Empresas maioritariamente estrangeiras (N.º)",
+    "Proporção de empresas maioritariamente estrangeiras (%)",
+    "Empresas maioritariamente estrangeiras (Série 2005-2007 - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região"
+   ],
+   "also": [
+    "maioritariamente"
+   ]
+  },
+  {
+   "token": "beneficiarias",
+   "titles": 44,
+   "series": 81,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 0.938,
+   "annotation": false,
+   "examples": [
+    "Beneficiárias/os do subsídio por morte da segurança social (N.º)",
+    "Beneficiárias/os de licença por adoção, da segurança social (N.º)",
+    "Beneficiárias/os do subsídio de funeral da segurança social (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Total"
+   ]
+  },
+  {
+   "token": "malignos",
+   "titles": 44,
+   "series": 47,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Taxa de mortalidade por tumores malignos (‰)",
+    "Anos potenciais de vida perdidos por tumores malignos (Anos)",
+    "Taxa de mortalidade por tumores malignos por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "tumores",
+    "orgaos"
+   ]
+  },
+  {
+   "token": "apreciacao",
+   "titles": 44,
+   "series": 44,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.455,
+   "annotation": false,
+   "examples": [
+    "Apreciação sobre a atividade (Saldo de respostas extremas) do comércio",
+    "Apreciação sobre volume de vendas (Saldo de respostas extremas) do comércio",
+    "Apreciação sobre o volume de stocks (Saldo de respostas extremas) do comércio"
+   ],
+   "geo_levels": [
+    "Portugal",
+    "Total"
+   ]
+  },
+  {
+   "token": "declarado",
+   "titles": 40,
+   "series": 61,
+   "theme": "Território / Ordenamento do território",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Rendimento bruto declarado (€)",
+    "Rendimento bruto declarado por habitante (€)",
+    "Rendimento bruto declarado por agregado fiscal (€)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ],
+   "also": [
+    "deduzido",
+    "sujeitos",
+    "p10",
+    "p20",
+    "p80",
+    "p90"
+   ]
+  },
+  {
+   "token": "projecoes",
+   "titles": 40,
+   "series": 40,
+   "theme": "População / Projeções de população",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Saldo migratório (projeções 2012-2060 - N.º)",
+    "Saldo migratório (projeções 2015-2080 - N.º)",
+    "Saldo migratório (projeções 2018-2080 - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "custo",
+   "titles": 39,
+   "series": 96,
+   "theme": "Mercado de trabalho / Custo do trabalho",
+   "theme_share": 0.542,
+   "annotation": false,
+   "examples": [
+    "Índice de custo do trabalho (Base - 2008)",
+    "Custo das mercadorias vendidas (€) das Empresas",
+    "Custo de suportes publicitários (€) das Empresas"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "nova"
+   ]
+  },
+  {
+   "token": "licenca",
+   "titles": 38,
+   "series": 45,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Duração da licença por adoção, da segurança social (Dia)",
+    "Duração da licença parental inicial, da segurança social (Dia)",
+    "Duração da licença parental alargada, da segurança social (Dia)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "proximos",
+   "titles": 36,
+   "series": 36,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.306,
+   "annotation": false,
+   "examples": [
+    "Perspetivas sobre o emprego nos próximos 3 meses (Saldo de respostas extremas) do comércio",
+    "Perspetivas sobre a procura nos próximos 3 meses (Saldo de respostas extremas) dos serviços",
+    "Perspetivas sobre o emprego nos próximos 3 meses (Saldo de respostas extremas) dos serviços"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ],
+   "also": [
+    "perspetivas"
+   ]
+  },
+  {
+   "token": "individuo",
+   "titles": 35,
+   "series": 99,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.899,
+   "annotation": false,
+   "examples": [
+    "Despesas da proteção social em pensões por indivíduo ativo (€)",
+    "Volume de trabalho da população agrícola familiar por indivíduo (UTA)",
+    "Horas efetivamente trabalhadas no ano (h) pelo individuo nas organizações patronais"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "fins",
+   "titles": 35,
+   "series": 81,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.704,
+   "annotation": false,
+   "examples": [
+    "Despesa consolidada em ambiente (€) das instituições sem fins lucrativos",
+    "Despesa em investigação e desenvolvimento (I&D - €) das instituições privadas sem fins lucrativos",
+    "Proporção de estabelecimentos de ensino não superior com acesso à internet para fins pedagógicos (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região"
+   ],
+   "also": [
+    "lucrativos",
+    "interagiram"
+   ]
+  },
+  {
+   "token": "externo",
+   "titles": 35,
+   "series": 62,
+   "theme": "Conjuntura / Oferta de bens e serviços",
+   "theme_share": 0.468,
+   "annotation": false,
+   "examples": [
+    "Índice de novas encomendas na indústria no mercado externo - bruto (Base - 2000)",
+    "Índices de preços na produção industrial no mercado externo - bruto (Base - 2015)",
+    "Índice de volume de negócios na indústria no mercado externo - bruto (Base - 2000)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "contratos",
+   "titles": 34,
+   "series": 82,
+   "theme": "Construção e habitação / Outros indicadores da construção e habitação",
+   "theme_share": 0.72,
+   "annotation": false,
+   "examples": [
+    "Contratos de compra e venda (€) de prédios",
+    "Contratos de compra e venda (N.º) de prédios",
+    "Contratos de mútuo com hipoteca voluntária (€)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS I",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "arrendamento",
+    "hipoteca",
+    "voluntaria"
+   ]
+  },
+  {
+   "token": "entrevista",
+   "titles": 32,
+   "series": 94,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.681,
+   "annotation": true,
+   "examples": [
+    "População empregada que teve consulta ou exames de Medicina do Trabalho nos dois anos anteriores à entrevista",
+    "População residente com 15 e mais anos de idade que consultou um médico nos 12 meses anteriores à entrevista (N.º)",
+    "População residente com 15 e mais anos de idade que consultou um dentista nos 12 meses anteriores à entrevista (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "ter",
+    "consultou",
+    "consumiu",
+    "teve",
+    "tido",
+    "hospital"
+   ]
+  },
+  {
+   "token": "aparelho",
+   "titles": 32,
+   "series": 35,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Taxa de mortalidade por doenças do aparelho circulatório (‰)",
+    "Anos potenciais de vida perdidos por doenças do aparelho digestivo (Anos)",
+    "Anos potenciais de vida perdidos por doenças do aparelho circulatório (Anos)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "digestivo",
+    "respiratorio"
+   ]
+  },
+  {
+   "token": "indicador",
+   "titles": 30,
+   "series": 36,
+   "theme": "Conjuntura / Procura de bens e serviços",
+   "theme_share": 0.417,
+   "annotation": false,
+   "examples": [
+    "Indicador de clima económico (%)",
+    "Indicador de confiança (Saldo de respostas extremas) do comércio",
+    "Indicador de risco harmonizado 1 do uso de pesticidas (IRH1) (-)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal",
+    "União Europeia",
+    "Área Euro"
+   ],
+   "also": [
+    "confianca"
+   ]
+  },
+  {
+   "token": "grau",
+   "titles": 29,
+   "series": 37,
+   "theme": "Agricultura, floresta e pescas / Balanços de aprovisionamento",
+   "theme_share": 0.595,
+   "annotation": false,
+   "examples": [
+    "Grau de abertura (%)",
+    "Grau de autoaprovisionamento de mel (%)",
+    "Grau de autoaprovisionamento de ovos (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "autoaprovisionamento"
+   ]
+  },
+  {
+   "token": "primeiros",
+   "titles": 28,
+   "series": 78,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.962,
+   "annotation": true,
+   "examples": [
+    "Proporção de primeiros casamentos (%)",
+    "Indivíduos com idade entre 16 e 74 anos que utilizaram Internet nos primeiros 3 meses do ano (N.º)",
+    "Proporção de indivíduos com idade entre 10 e 15 anos que utilizaram Internet nos primeiros 3 meses do ano (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "relevante",
+   "titles": 28,
+   "series": 62,
+   "theme": "Comércio interno / Comércio interno",
+   "theme_share": 0.968,
+   "annotation": false,
+   "examples": [
+    "Unidades comerciais de dimensão relevante (N.º)",
+    "Unidades comerciais de dimensão relevante (Série 2004-2010 - N.º)",
+    "Volume de vendas (€) das unidades comerciais de dimensão relevante"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "dedicadas",
+    "marca",
+    "predominancia"
+   ]
+  },
+  {
+   "token": "televisao",
+   "titles": 26,
+   "series": 72,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.944,
+   "annotation": false,
+   "examples": [
+    "Assinantes do serviço de televisão através de subscrição (N.º)",
+    "Assinantes do serviço de televisão através de subscrição por 100 alojamentos familiares clássicos (%)",
+    "Televisores ligados à Televisão Digital Terrestre (TDT) em casa de agregados domésticos privados (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "tdt",
+    "subscricao",
+    "televisores"
+   ]
+  },
+  {
+   "token": "terrestre",
+   "titles": 26,
+   "series": 63,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.857,
+   "annotation": false,
+   "examples": [
+    "Assinantes do serviço móvel terrestre (N.º)",
+    "Superfície terrestre (km² - COS - Série 1) das unidades territoriais",
+    "Superfície terrestre (km² - COS - Série 2) das unidades territoriais"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Município",
+    "NUTS 2",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "intra",
+   "titles": 26,
+   "series": 40,
+   "theme": "Comércio internacional / Comércio intra-UE",
+   "theme_share": 0.35,
+   "annotation": false,
+   "examples": [
+    "Empresas Intra-UE exportadoras de bens (€)",
+    "Empresas Intra-UE importadoras de bens (€)",
+    "Proporção de exportações de bens intra-UE (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "normal",
+   "titles": 26,
+   "series": 37,
+   "theme": "Ambiente / Ar e clima",
+   "theme_share": 0.595,
+   "annotation": false,
+   "examples": [
+    "Desvio em relação à normal da temperatura média do ar (°C)",
+    "Desvio em relação à normal da temperatura máxima do ar (°C)",
+    "Desvio em relação à normal da temperatura mínima do ar (°C)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Estação meteorológica",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "desvio",
+    "desloca"
+   ]
+  },
+  {
+   "token": "nucleos",
+   "titles": 25,
+   "series": 84,
+   "theme": "População / Censos da população",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Núcleos familiares (N.º)",
+    "Núcleos familiares (N.º) de casais",
+    "Núcleos familiares conjugais (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia"
+   ],
+   "also": [
+    "casais",
+    "reconstituidos"
+   ]
+  },
+  {
+   "token": "disponibilizam",
+   "titles": 23,
+   "series": 29,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Câmaras Municipais que disponibilizam aplicações móveis ao utente (N.º)",
+    "Proporção de Câmaras Municipais que disponibilizam aplicações móveis ao utente (%)",
+    "Proporção de hospitais que disponibilizam acesso a computadores aos doentes internados (%)"
+   ],
+   "geo_levels": [
+    "NUTS I",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "dispersao",
+   "titles": 23,
+   "series": 26,
+   "theme": "Contas nacionais e regionais / Contas regionais",
+   "theme_share": 0.308,
+   "annotation": false,
+   "examples": [
+    "Dispersão regional do PIB por habitante (Base 2011, NUTS 2002 - %)",
+    "Dispersão regional do PIB por habitante (Base 2011, NUTS 2013 - %)",
+    "Dispersão regional do PIB por habitante (Base 2016, NUTS 2013 - %)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ],
+   "also": [
+    "nuts"
+   ]
+  },
+  {
+   "token": "participaram",
+   "titles": 21,
+   "series": 194,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 0.99,
+   "annotation": false,
+   "examples": [
+    "Indivíduos com idade entre 18 e 64 anos que participaram em atividades de educação formal (N.º)",
+    "Indivíduos com idade entre 18 e 64 anos que participaram em atividades de educação não formal (N.º)",
+    "Indivíduos com idade entre 18 e 64 anos que participaram em atividades de aprendizagem informal (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "formal",
+   "titles": 21,
+   "series": 105,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Tempo despendido por participante em atividades de educação formal (h)",
+    "Tempo despendido por participante em atividades de educação não formal (h)",
+    "Despesa por participante em propinas e livros em atividades de educação formal (€)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "efetuaram",
+   "titles": 21,
+   "series": 36,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.944,
+   "annotation": false,
+   "examples": [
+    "Proporção de explorações agrícolas que efetuaram análises de terras nos últimos 3 anos (%)",
+    "Proporção de hospitais que efetuaram encomendas de bens e/ou serviços através da Internet (%)",
+    "Proporção de hospitais que não efetuaram encomendas de bens e/ou serviços através da Internet (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Município",
+    "NUTS I",
+    "NUTS II",
+    "Portugal",
+    "Região autónoma"
+   ],
+   "also": [
+    "encomendados"
+   ]
+  },
+  {
+   "token": "tep",
+   "titles": 21,
+   "series": 34,
+   "theme": "Indústria e energia / Energia",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Consumo final de energia (tep)",
+    "Consumo de energia primária (tep)",
+    "Importação de energia primária (tep)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS I",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "referiu",
+   "titles": 20,
+   "series": 44,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.795,
+   "annotation": false,
+   "examples": [
+    "População residente com 15 e mais anos que referiu sofrer de diabetes (N.º)",
+    "População residente com 15 e mais anos que referiu sofrer de depressão (N.º)",
+    "População residente com 15 e mais anos que referiu sofrer de hipertensão arterial (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "alunas",
+   "titles": 19,
+   "series": 55,
+   "theme": "Educação, formação e aprendizagem / Alunos",
+   "theme_share": 0.982,
+   "annotation": false,
+   "examples": [
+    "Alunas/os inscritas/os no ensino superior (N.º)",
+    "Alunas/os matriculadas/os no ensino não superior (N.º)",
+    "Alunas/os inscritas/os por docente do ensino superior (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "matriculadas"
+   ]
+  },
+  {
+   "token": "meios",
+   "titles": 19,
+   "series": 30,
+   "theme": "Preços / Preços na produção",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Índice de preços dos meios de produção na agricultura (Base - 2000)",
+    "Proporção de hospitais que utilizam meios informáticos nas atividades desenvolvidas (%)",
+    "Índice de preços dos meios de produção na agricultura (Taxa de variação mensal - Base 2000 - %)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS I",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "exploradoras",
+   "titles": 19,
+   "series": 22,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Vagões (N.º) das empresas exploradoras de sistema ferroviário pesado",
+    "Pessoal ao serviço (N.º) nas empresas exploradoras de sistema ferroviário ligeiro",
+    "Material circulante (N.º) das empresas exploradoras de sistema ferroviário ligeiro"
+   ],
+   "geo_levels": [
+    "NUTS 2",
+    "NUTS II",
+    "Portugal",
+    "Sistema de metropolitano"
+   ],
+   "also": [
+    "pesado"
+   ]
+  },
+  {
+   "token": "pibpm",
+   "titles": 19,
+   "series": 19,
+   "theme": "Proteção social / Receitas e despesas da proteção social",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Despesas da proteção social (% do PIBpm - Base 2000)",
+    "Despesas da proteção social (% do PIBpm - Base 2006)",
+    "Despesas da proteção social (% do PIBpm - Base 2011)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "baixa",
+   "titles": 18,
+   "series": 46,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.957,
+   "annotation": false,
+   "examples": [
+    "Empresas das indústrias de baixa tecnologia (CAE Rev. 3 - N.º)",
+    "Volume de negócios das indústrias de baixa tecnologia (CAE Rev. 3 - €)",
+    "Índice de qualidade dos serviços de abastecimento de água em baixa (%)"
+   ],
+   "geo_levels": [
+    "NUTS",
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "problemas",
+   "titles": 18,
+   "series": 22,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Câmaras municipais que detetaram problemas de segurança informática (N.º)",
+    "População residente com menos de 15 anos sem cegueira ou problemas de visão (N.º)",
+    "População residente com menos de 15 anos sem surdez ou problemas de audição (N.º)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS II",
+    "Portugal",
+    "Região autónoma"
+   ]
+  },
+  {
+   "token": "longo",
+   "titles": 17,
+   "series": 60,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 0.933,
+   "annotation": false,
+   "examples": [
+    "Aprendizagem ao longo de vida (Série 1998 - %)",
+    "Aprendizagem ao longo de vida (Série 2011 - %)",
+    "Aprendizagem ao longo de vida (Série 2021 - %)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "pendulares",
+   "titles": 17,
+   "series": 44,
+   "theme": "População / Censos da população",
+   "theme_share": 0.727,
+   "annotation": false,
+   "examples": [
+    "Duração dos movimentos pendulares (min)",
+    "Meio de transporte mais utilizado nos movimentos pendulares (N.º)",
+    "Proporção da população empregada que utiliza o modo pedonal nas deslocações pendulares (%)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município"
+   ],
+   "also": [
+    "movimentos",
+    "coletivo"
+   ]
+  },
+  {
+   "token": "participou",
+   "titles": 17,
+   "series": 35,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção da população empregada com idade entre 18 e 64 anos que participou em atividades de educação formal (%)",
+    "Proporção da população empregada com idade entre 18 e 64 anos que participou em atividades de educação não-formal (%)",
+    "Proporção da população empregada com idade entre 18 e 64 anos que participou em atividades de aprendizagem informal (%)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "min",
+   "titles": 17,
+   "series": 26,
+   "theme": "Território / Infraestruturas e equipamentos",
+   "theme_share": 0.423,
+   "annotation": false,
+   "examples": [
+    "Tráfego telefónico de voz (min)",
+    "Duração dos movimentos pendulares (min)",
+    "Tráfego telefónico de voz em roaming (min)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município",
+    "Portugal"
+   ],
+   "also": [
+    "proximo"
+   ]
+  },
+  {
+   "token": "cronica",
+   "titles": 17,
+   "series": 18,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos por doença crónica do fígado e cirrose (Anos)",
+    "Taxa de mortalidade por doença crónica do fígado e cirrose por 100 000 habitantes (N.º)",
+    "Taxa de mortalidade padronizada por doença crónica do fígado e cirrose por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "turistico",
+   "titles": 16,
+   "series": 61,
+   "theme": "Turismo / Oferta turística",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Estabelecimentos de alojamento turístico (N.º)",
+    "Quartos (N.º) em estabelecimentos de alojamento turístico",
+    "Dormidas (N.º) nos estabelecimentos de alojamento turístico"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "País",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "eletronico",
+   "titles": 16,
+   "series": 36,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.972,
+   "annotation": false,
+   "examples": [
+    "Publicações periódicas em suporte papel e eletrónico simultaneamente (N.º)",
+    "Proporção de indivíduos com idade entre 16 e 74 anos que utilizam comércio eletrónico para fins privados (%)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizam correio eletrónico (e-mail) (Série antiga - %)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "assembleias",
+   "titles": 16,
+   "series": 32,
+   "theme": "Condições de vida e cidadania / Cidadania",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Votos nas eleições para as Assembleias Municipais (N.º)",
+    "Votos nas eleições para as Assembleias de Freguesia (N.º)",
+    "Abstenção nas eleições para as Assembleias Municipais (N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ],
+   "also": [
+    "freguesia"
+   ]
+  },
+  {
+   "token": "feminina",
+   "titles": 16,
+   "series": 23,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.478,
+   "annotation": false,
+   "examples": [
+    "Taxa de atividade feminina (%)",
+    "Distribuição da população residente feminina (%)",
+    "População residente feminina com filhos inativos (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "tem",
+   "titles": 16,
+   "series": 21,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.714,
+   "annotation": false,
+   "examples": [
+    "População que tem banheira ou chuveiro e/ou retrete em sua casa (%)",
+    "População residente com idade entre 6 e 14 anos que não tem problemas de ansiedade ou depressão (N.º)",
+    "População residente com idade entre 6 e 14 anos que não tem dificuldade em vestir-se ou tomar banho sozinha (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "efetuam",
+   "titles": 15,
+   "series": 38,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Câmaras Municipais que efetuam Analítica de Dados (Data analytics) (N.º)",
+    "Proporção de Câmaras Municipais que efetuam Analítica de Dados (Data analytics) (%)",
+    "Distribuição de Câmaras Municipais que efetuam Analítica de Dados (Data analytics) (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS III",
+    "Portugal",
+    "Região autónoma"
+   ]
+  },
+  {
+   "token": "sofreram",
+   "titles": 15,
+   "series": 29,
+   "theme": "Justiça / Violência no espaço público e privado",
+   "theme_share": 0.966,
+   "annotation": false,
+   "examples": [
+    "Pessoas dos 18 aos 74 anos que sofreram violência (%)",
+    "Pessoas dos 18 aos 74 anos que sofreram discriminação (N.º)",
+    "Pessoas dos 18 aos 74 anos que sofreram violência por outras/os que não parceiras/os (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "paridade",
+   "titles": 15,
+   "series": 15,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.8,
+   "annotation": false,
+   "examples": [
+    "Índice de paridade de sexo nos indivíduos com idade entre 16 e 74 anos com competências digitais (Série 2021 - N.º)",
+    "Índice de paridade de sexo nos indivíduos com idade entre 16 e 74 anos que efetuaram atividades relacionadas com computador (N.º)",
+    "Índice de paridade de grau de urbanização nos indivíduos com idade entre 16 e 74 anos com competências digitais (Série 2021 - N.º)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "peso",
+   "titles": 14,
+   "series": 40,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.4,
+   "annotation": false,
+   "examples": [
+    "Peso limpo de gado abatido e aprovado para consumo (t)",
+    "Peso médio de gado abatido e aprovado para consumo (kg/ cabeça)",
+    "Peso limpo de aves e coelhos abatidos e aprovados para consumo (t)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS 2",
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "movimento",
+   "titles": 14,
+   "series": 35,
+   "theme": "Transportes e comunicações / Transportes por água",
+   "theme_share": 0.743,
+   "annotation": false,
+   "examples": [
+    "Movimento de contentores (N.º)",
+    "Movimento de passageiros (N.º)",
+    "Movimento de mercadorias (t) nos portos"
+   ],
+   "geo_levels": [
+    "Carreira fluvial",
+    "NUTS II",
+    "Porto",
+    "Porto declarante",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "territoriais",
+   "titles": 14,
+   "series": 32,
+   "theme": "Território / Geografia física",
+   "theme_share": 0.562,
+   "annotation": false,
+   "examples": [
+    "Unidades territoriais (N.º)",
+    "Perímetro (km) das unidades territoriais",
+    "Superfície (km²) das unidades territoriais"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município",
+    "NUTS 3",
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "utiliza",
+   "titles": 14,
+   "series": 29,
+   "theme": "População / Censos da população",
+   "theme_share": 0.69,
+   "annotation": false,
+   "examples": [
+    "Média de pessoal ao serviço que utiliza computador nos estabelecimentos hoteleiros (N.º)",
+    "Proporção da população empregada que utiliza o modo pedonal nas deslocações pendulares (%)",
+    "Proporção da população estudante que utiliza o modo pedonal nas deslocações pendulares (%)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município",
+    "NUTS I"
+   ],
+   "also": [
+    "deslocacoes"
+   ]
+  },
+  {
+   "token": "necessidade",
+   "titles": 14,
+   "series": 22,
+   "theme": "Construção e habitação / Censos da habitação",
+   "theme_share": 0.318,
+   "annotation": false,
+   "examples": [
+    "Proporção de edifícios com necessidade de reparação (%)",
+    "Câmaras Municipais com elevada necessidade de reforço de competências TIC (N.º)",
+    "Proporção de edifícios com necessidade de grandes reparações ou muito degradados (%)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "eletronicas",
+   "titles": 14,
+   "series": 20,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.85,
+   "annotation": false,
+   "examples": [
+    "Publicações periódicas eletrónicas (Metodologia 2022 - N.º)",
+    "Circulação total de publicações periódicas eletrónicas (Metodologia 2022 - N.º)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que enviam faturas eletrónicas (Série antiga - %)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "informatica",
+   "titles": 14,
+   "series": 14,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Câmaras municipais que detetaram problemas de segurança informática (N.º)",
+    "Câmaras municipais que utilizam aplicações de segurança informática (N.º)",
+    "Proporção de câmaras municipais que detetaram problemas de segurança informática (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Portugal",
+    "Região autónoma"
+   ]
+  },
+  {
+   "token": "kwh",
+   "titles": 13,
+   "series": 41,
+   "theme": "Indústria e energia / Energia",
+   "theme_share": 0.976,
+   "annotation": false,
+   "examples": [
+    "Consumo de energia elétrica (kWh)",
+    "Produção bruta de eletricidade (kWh)",
+    "Produção bruta de energia elétrica (kWh)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS I",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "cons"
+   ]
+  },
+  {
+   "token": "pesados",
+   "titles": 13,
+   "series": 38,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Veículos pesados de mercadorias utilizados (N.º)",
+    "Matrículas de veículos pesados de mercadorias novos (N.º)",
+    "Matrículas de veículos pesados de passageiros novos (N.º)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS 2",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "estudante",
+   "titles": 13,
+   "series": 34,
+   "theme": "População / Censos da população",
+   "theme_share": 0.735,
+   "annotation": false,
+   "examples": [
+    "População residente empregada ou estudante (N.º)",
+    "Proporção da população estudante que utiliza o modo pedonal nas deslocações pendulares (%)",
+    "Duração média dos movimentos pendulares (min) da População residente empregada ou estudante"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "oficiais",
+   "titles": 13,
+   "series": 24,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.708,
+   "annotation": false,
+   "examples": [
+    "Hospitais oficiais públicos (N.º)",
+    "Camas (N.º) dos hospitais oficiais públicos",
+    "Partos (N.º) nos hospitais oficiais públicos"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região"
+   ]
+  },
+  {
+   "token": "igual",
+   "titles": 13,
+   "series": 17,
+   "theme": "Contas nacionais e regionais / Contas satélite",
+   "theme_share": 0.353,
+   "annotation": false,
+   "examples": [
+    "Duração de temperatura mínima inferior ou igual a 0°C (Número de Dia (s))",
+    "Número de dias com temperatura máxima do ar superior ou igual a 30ºC (Dia)",
+    "Número de dias com temperatura máxima do ar superior ou igual a 35ºC (Dia)"
+   ],
+   "geo_levels": [
+    "Estação meteorológica",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "avancados",
+   "titles": 12,
+   "series": 35,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.829,
+   "annotation": false,
+   "examples": [
+    "Empresas das indústrias transformadoras com fatores competitivos avançados (CAE Rev. 3 - N.º)",
+    "Volume de negócios das indústrias transformadoras com fatores competitivos avançados (CAE Rev. 3 - €)",
+    "Pessoal ao serviço nas indústrias transformadoras com fatores competitivos avançados (CAE Rev. 3 - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "outra",
+   "titles": 12,
+   "series": 35,
+   "theme": "Empresas / Instituições de crédito e sociedades financeiras",
+   "theme_share": 0.6,
+   "annotation": false,
+   "examples": [
+    "Crédito concedido (€) por estabelecimentos de outra intermediação monetária",
+    "Estabelecimentos de outra intermediação monetária por 10 000 habitantes (N.º)",
+    "Comissões (Recebidas) dos estabelecimentos de outra intermediação monetária (€)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "intermediacao",
+    "monetaria"
+   ]
+  },
+  {
+   "token": "rendas",
+   "titles": 12,
+   "series": 33,
+   "theme": "Construção e habitação / Outros indicadores da construção e habitação",
+   "theme_share": 0.576,
+   "annotation": false,
+   "examples": [
+    "Valor médio das rendas de habitação social (€)",
+    "Receita prevista de rendas de habitação social (€)",
+    "Fogos de habitação social com rendas em dívida (N.º)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "processado",
+   "titles": 12,
+   "series": 32,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Valor processado de subsídios de doença da segurança social (€)",
+    "Valor processado do subsídio de funeral da segurança social (€)",
+    "Valor processado das prestações de layoff da segurança social (€)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "uteis",
+   "titles": 12,
+   "series": 28,
+   "theme": "Mercado de trabalho / Custo do trabalho",
+   "theme_share": 0.929,
+   "annotation": true,
+   "examples": [
+    "Índice de custo do trabalho (ajustado de dias úteis, Base - 2008)",
+    "Índice de custo do trabalho (ajustado de dias úteis, Base - 2016)",
+    "Índice de custo do trabalho (ajustado de dias úteis, Base - 2020)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "territorial",
+   "titles": 12,
+   "series": 24,
+   "theme": "População / Censos da população",
+   "theme_share": 0.792,
+   "annotation": false,
+   "examples": [
+    "Taxa de cobertura territorial (%) das Lojas do Cidadão",
+    "Proporção de superfície ardida (da unidade territorial %)",
+    "Proporção da população empregada fora da unidade territorial (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "redes",
+   "titles": 12,
+   "series": 16,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.938,
+   "annotation": false,
+   "examples": [
+    "Redes de atendimento (N.º)",
+    "Proporção de estabelecimentos hoteleiros que utilizam redes sociais na Internet (%)",
+    "Proporção de estabelecimentos hoteleiros que efetuaram encomendas de bens e/ou serviços através de redes eletrónicas (%)"
+   ],
+   "geo_levels": [
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "incidencia",
+   "titles": 12,
+   "series": 15,
+   "theme": "Saúde / Morbilidade",
+   "theme_share": 0.733,
+   "annotation": false,
+   "examples": [
+    "Taxa de incidência da malária por 1000 habitantes (N.º)",
+    "Taxa de incidência da hepatite B por 100 000 habitantes (N.º)",
+    "Taxa de incidência da tuberculose por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "Distrito",
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "equivalentes",
+   "titles": 12,
+   "series": 12,
+   "theme": "Contas nacionais e regionais / Contas satélite",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Emissões de óxidos de azoto (Base 2000 - t equivalentes NO2)",
+    "Emissões de óxidos de azoto (Base 2006 - t equivalentes NO2)",
+    "Emissões de óxidos de enxofre (Base 2000 - t equivalentes SO2)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "figado",
+   "titles": 12,
+   "series": 12,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos por doença crónica do fígado e cirrose (Anos)",
+    "Taxa de mortalidade por doença crónica do fígado e cirrose por 100 000 habitantes (N.º)",
+    "Taxa de mortalidade padronizada por doença crónica do fígado e cirrose por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "ligeiro",
+   "titles": 12,
+   "series": 12,
+   "theme": "Território / Infraestruturas e equipamentos",
+   "theme_share": 0.583,
+   "annotation": false,
+   "examples": [
+    "Pessoal ao serviço (N.º) nas empresas exploradoras de sistema ferroviário ligeiro",
+    "Material circulante (N.º) das empresas exploradoras de sistema ferroviário ligeiro",
+    "Tempo de acesso em automóvel ligeiro da população residente ao museu mais próximo (min)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Sistema de metropolitano"
+   ]
+  },
+  {
+   "token": "mama",
+   "titles": 12,
+   "series": 12,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos por tumor maligno da mama feminina (Anos)",
+    "Anos potenciais de vida perdidos por tumores malignos dos ossos, pele e mama (Anos)",
+    "Taxa de mortalidade por tumor maligno da mama feminina por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "investigadoras",
+   "titles": 11,
+   "series": 59,
+   "theme": "Inovação e conhecimento / Ciência e tecnologia",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Investigadoras/es no ensino superior (N.º)",
+    "Investigadoras/es no ensino superior (Valor estimado - N.º)",
+    "Investigadoras/es no ensino superior (Equivalente a tempo integral - N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "padrao",
+   "titles": 11,
+   "series": 36,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.778,
+   "annotation": false,
+   "examples": [
+    "Dotação de rega padrão (m3/ ha) das explorações agrícolas",
+    "Valor da produção padrão total (€) das explorações agrícolas",
+    "Volume de água de rega padrão (m³) das explorações agrícolas"
+   ],
+   "geo_levels": [
+    "Agrupamento/País",
+    "Freguesia",
+    "NUTS 2",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "dificuldade",
+   "titles": 11,
+   "series": 29,
+   "theme": "População / Censos da população",
+   "theme_share": 0.517,
+   "annotation": false,
+   "examples": [
+    "População residente com pelo menos uma dificuldade (N.º)",
+    "Proporção da população residente com pelo menos uma dificuldade (%)",
+    "População residente com 15 e mais anos de idade com pelo menos uma dificuldade (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "resultante",
+   "titles": 11,
+   "series": 22,
+   "theme": "Inovação e conhecimento / Ciência e tecnologia",
+   "theme_share": 0.682,
+   "annotation": false,
+   "examples": [
+    "Volume de negócios resultante da venda de produtos novos ou melhorados das empresas com inovação de produto com 10 e mais pessoas ao serviço (€)",
+    "Proporção do volume de negócios resultante da venda de produtos novos ou melhorados das empresas com inovação de produto com 10 e mais pessoas ao serviço (%)",
+    "Volume de negócios resultante da venda de produtos novos (2004 - €) das empresas com 10 e mais pessoas ao serviço (CAE Rev. 2.1 C a K) com atividades de inovação de produto"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "universal",
+   "titles": 11,
+   "series": 22,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.909,
+   "annotation": false,
+   "examples": [
+    "Hospitais públicos de acesso universal e hospitais em parceria público-privada (N.º)",
+    "Camas (N.º) dos hospitais públicos de acesso universal e hospitais em parceria público-privada",
+    "Partos (N.º) nos hospitais públicos de acesso universal e hospitais em parceria público-privada"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "monetario",
+   "titles": 11,
+   "series": 15,
+   "theme": "Condições de vida e cidadania / Pobreza e desigualdade económica",
+   "theme_share": 0.533,
+   "annotation": false,
+   "examples": [
+    "Média do rendimento monetário líquido equivalente (€)",
+    "Rendimento médio monetário anual líquido por adulto equivalente (€)",
+    "Rendimento mediano monetário anual líquido por adulto equivalente (€)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "preco",
+   "titles": 11,
+   "series": 15,
+   "theme": "Comércio internacional / Comércio internacional",
+   "theme_share": 0.4,
+   "annotation": false,
+   "examples": [
+    "Preço do petróleo Brent (€/ barril)",
+    "Preço do petróleo Brent (Taxa de variação homóloga - %)",
+    "Preço médio da resina nacional à entrada da fábrica (€/ kg)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "equipamento",
+   "titles": 11,
+   "series": 12,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "Proporção de agregados domésticos privados com equipamento de comunicação e lazer (%)",
+    "Perspetiva sobre aquisição de bens de equipamento nos próximos 12 meses (Saldo de respostas extremas) dos consumidores",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que disponibilizam equipamento portátil ao pessoal ao serviço para fins profissionais (2012 - %)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "cabecas",
+   "titles": 10,
+   "series": 93,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.968,
+   "annotation": false,
+   "examples": [
+    "Cabeças normais (aves - N.º)",
+    "Cabeças normais (bovinos - N.º)",
+    "Cabeças normais (bovinos) (N.º)"
+   ],
+   "geo_levels": [
+    "Agrupamento/País",
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ],
+   "also": [
+    "normais"
+   ]
+  },
+  {
+   "token": "vivem",
+   "titles": 10,
+   "series": 58,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de indivíduos com idade entre 16 e 74 anos que vivem em agregados domésticos privados com telefone fixo em casa (%)",
+    "Proporção de indivíduos com idade entre 16 e 74 anos que vivem em agregados domésticos privados com ligação à Internet em casa (%)",
+    "Proporção de indivíduos com idade entre 16 e 74 anos que vivem em agregados domésticos privados com televisão por subscrição em casa (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "subutilizacao",
+   "titles": 10,
+   "series": 36,
+   "theme": "Mercado de trabalho / Subutilização do trabalho",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Subutilização do trabalho (N.º)",
+    "Taxa de subutilização do trabalho (%)",
+    "Subutilização do trabalho (Série 1998 - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "telecomunicacoes",
+   "titles": 10,
+   "series": 35,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.914,
+   "annotation": false,
+   "examples": [
+    "Receitas dos serviços de telecomunicações (€)",
+    "Receitas dos serviços de telecomunicações (Série 2000-2012 - €)",
+    "Proporção da população residente coberta pela rede móvel de telecomunicações (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "pacote",
+    "incluidos"
+   ]
+  },
+  {
+   "token": "propriedade",
+   "titles": 10,
+   "series": 34,
+   "theme": "População / Censos da população",
+   "theme_share": 0.529,
+   "annotation": false,
+   "examples": [
+    "Registo de propriedade de veículos novos (N.º)",
+    "Registo de propriedade de veículos novos por 1000 habitantes (N.º)",
+    "Alojamentos familiares clássicos de residência habitual propriedade dos ocupantes (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "diariamente",
+   "titles": 10,
+   "series": 28,
+   "theme": "Saúde / Determinantes de saúde",
+   "theme_share": 0.643,
+   "annotation": false,
+   "examples": [
+    "Proporção da população residente com 15 e mais anos que fuma diariamente (%)",
+    "População residente com 15 e mais anos de idade que fuma cigarros diariamente (N.º)",
+    "Proporção da população residente com 15 e mais anos que consome bebidas alcoólicas diariamente (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "consome",
+    "porcoes",
+    "tabaco"
+   ]
+  },
+  {
+   "token": "periodo",
+   "titles": 10,
+   "series": 27,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.296,
+   "annotation": false,
+   "examples": [
+    "Período de internamento (Dia) nos hospitais",
+    "Período de internamento (Dias) nos hospitais",
+    "Resultado líquido do período (€) das empresas"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "quilometro",
+   "titles": 10,
+   "series": 27,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Tonelada-quilómetro (tkm) dos Veículos pesados de mercadorias",
+    "Tonelada-quilómetro dos Veículos pesados de mercadorias estrangeiros (tkm)",
+    "Tonelada-quilómetro em transporte nacional (tkm) nos veículos pesados de mercadorias"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS 2",
+    "NUTS II",
+    "Portugal",
+    "Sistema de metropolitano"
+   ],
+   "also": [
+    "tonelada"
+   ]
+  },
+  {
+   "token": "dificuldades",
+   "titles": 10,
+   "series": 26,
+   "theme": "População / Censos da população",
+   "theme_share": 0.846,
+   "annotation": false,
+   "examples": [
+    "Dificuldades (N.º) da população residente",
+    "Dificuldades (N.º) da população residente com dificuldades",
+    "Indivíduos com dificuldades (N.º) nos agregados domésticos privados"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "secundaria",
+   "titles": 10,
+   "series": 26,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.654,
+   "annotation": false,
+   "examples": [
+    "População empregada com atividade secundária (Série 1998 - N.º)",
+    "População empregada com atividade secundária (Série 2011 - N.º)",
+    "População empregada com atividade secundária (Série 2021 - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "modo",
+   "titles": 10,
+   "series": 25,
+   "theme": "População / Censos da população",
+   "theme_share": 0.44,
+   "annotation": false,
+   "examples": [
+    "Proporção de superfície agrícola utilizada em modo de produção biológico (%)",
+    "Proporção de mercadorias chegadas por modo rodoviário (%) em transporte intracomunitário",
+    "Proporção de mercadorias expedidas por modo rodoviário (%) em transporte intracomunitário"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "região agrária"
+   ]
+  },
+  {
+   "token": "consulta",
+   "titles": 10,
+   "series": 20,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.4,
+   "annotation": false,
+   "examples": [
+    "Consultas médicas na unidade de consulta externa (N.º) dos hospitais",
+    "Consultas médicas na unidade de consulta externa dos hospitais por habitante (N.º)",
+    "População empregada que teve consulta ou exames de Medicina do Trabalho nos dois anos anteriores à entrevista"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "patronais",
+   "titles": 10,
+   "series": 15,
+   "theme": "Mercado de trabalho / Organizações do trabalho",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Organizações patronais (N.º)",
+    "Formandos (N.º) das organizações patronais",
+    "Associados (N.º) das organizações patronais"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "automovel",
+   "titles": 10,
+   "series": 14,
+   "theme": "Território / Infraestruturas e equipamentos",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Proporção de utilização do automóvel nas deslocações (%)",
+    "Consumo de combustível automóvel por habitante (tep/ hab.)",
+    "Tempo de acesso em automóvel ligeiro da população residente ao museu mais próximo (min)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "aplicacoes",
+   "titles": 10,
+   "series": 11,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Câmaras Municipais que disponibilizam aplicações móveis ao utente (N.º)",
+    "Câmaras municipais que utilizam aplicações de segurança informática (N.º)",
+    "Proporção de Câmaras Municipais que disponibilizam aplicações móveis ao utente (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS III",
+    "Portugal",
+    "Região autónoma"
+   ]
+  },
+  {
+   "token": "eletronica",
+   "titles": 10,
+   "series": 10,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.6,
+   "annotation": false,
+   "examples": [
+    "Penas e medidas iniciadas com recurso à vigilância eletrónica (N.º)",
+    "Visitantes da página eletrónica (Metodologia 2022 - N.º) das publicações periódicas",
+    "Visualizações da página eletrónica (Metodologia 2022 - N.º) das publicações periódicas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "aves",
+   "titles": 9,
+   "series": 46,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.761,
+   "annotation": false,
+   "examples": [
+    "Efetivo de aves (N.º)",
+    "Efectivo de aves (N.º)",
+    "Cabeças normais (aves - N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ],
+   "also": [
+    "abatidos",
+    "aprovados"
+   ]
+  },
+  {
+   "token": "automaticos",
+   "titles": 9,
+   "series": 30,
+   "theme": "Empresas / Instituições de crédito e sociedades financeiras",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Consultas em Caixas Automáticos Multibanco (N.º)",
+    "Levantamentos em Caixas Automáticos Multibanco (€)",
+    "Caixas Automáticos Multibanco em 31 de Dezembro (N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "leite",
+   "titles": 9,
+   "series": 27,
+   "theme": "Agricultura, floresta e pescas / Produção animal",
+   "theme_share": 0.889,
+   "annotation": false,
+   "examples": [
+    "Leite recolhido (l)",
+    "Produção de leite (l)",
+    "Consumo humano de leite e produtos lácteos (t)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "recolhido",
+    "teor"
+   ]
+  },
+  {
+   "token": "consumidas",
+   "titles": 9,
+   "series": 26,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.462,
+   "annotation": false,
+   "examples": [
+    "Fontes energéticas consumidas na indústria",
+    "Custo das matérias consumidas (Série 2004-2007 - €) das Empresas",
+    "Custo das matérias consumidas (Série 2007-2009 - €) das Empresas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "orientadas",
+   "titles": 9,
+   "series": 23,
+   "theme": "Educação, formação e aprendizagem / Alunos",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Alunas/os matriculadas/os no ensino básico em ofertas de educação e formação orientadas para jovens (N.º)",
+    "Alunas/os matriculadas/os no ensino secundário em ofertas de educação e formação orientadas para jovens (N.º)",
+    "Alunas/os matriculadas/os no ensino não superior em ofertas de educação e formação orientadas para jovens (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "racio",
+   "titles": 9,
+   "series": 22,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.682,
+   "annotation": false,
+   "examples": [
+    "Rácio debt to equity (N.º) das empresas",
+    "Rácio de endividamento (N.º) das empresas",
+    "Rácio debt to equity (N.º) das sociedades"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "internacionalizaveis",
+   "titles": 9,
+   "series": 18,
+   "theme": "Contas nacionais e regionais / Contas regionais",
+   "theme_share": 0.556,
+   "annotation": false,
+   "examples": [
+    "Valor acrescentado bruto em ramos de atividade internacionalizáveis (Base 2011 - €)",
+    "Valor acrescentado bruto em ramos de atividade internacionalizáveis (Base 2016 - €)",
+    "Valor acrescentado bruto em ramos de atividade internacionalizáveis (Base 2021 - €)"
+   ],
+   "geo_levels": [
+    "NUTS 3",
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "trabalhos",
+   "titles": 9,
+   "series": 17,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.706,
+   "annotation": false,
+   "examples": [
+    "Trabalhos para a própria entidade (€)",
+    "Trabalhos para a própria empresa (Série 2004-2007 - €)",
+    "Trabalhos para a própria empresa (Série 2007-2009 - €)"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "transacoes",
+   "titles": 9,
+   "series": 17,
+   "theme": "Construção e habitação / Outros indicadores da construção e habitação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Transações (€) de alojamentos familiares",
+    "Transações (N.º) de alojamentos familiares",
+    "Transações de alojamentos familiares adquiridos por famílias (€)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "passivo",
+   "titles": 9,
+   "series": 16,
+   "theme": "Território / Ordenamento do território",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Passivo (€) das empresas",
+    "Rendimento bruto declarado por sujeito passivo (€)",
+    "Valor mediano do rendimento bruto declarado por sujeito passivo (€)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "Portugal"
+   ],
+   "also": [
+    "sujeito"
+   ]
+  },
+  {
+   "token": "postais",
+   "titles": 9,
+   "series": 15,
+   "theme": "Transportes e comunicações / Comunicações",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Empresas de serviços postais em atividade (N.º)",
+    "Investimentos (€) das empresas de serviços postais",
+    "Tráfego postal (N.º) das empresas de serviços postais"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "coeficiente",
+   "titles": 9,
+   "series": 14,
+   "theme": "Território / Ordenamento do território",
+   "theme_share": 0.571,
+   "annotation": false,
+   "examples": [
+    "Coeficiente de Gini (%)",
+    "Coeficiente de Gini do rendimento bruto declarado por agregado fiscal (%)",
+    "Coeficiente de Gini do rendimento bruto declarado por sujeito passivo (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "licencas",
+   "titles": 9,
+   "series": 13,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 0.385,
+   "annotation": false,
+   "examples": [
+    "Licenças de emissão atribuídas (N.º) a empresas",
+    "Licenças de emissão verificadas (N.º) a empresas",
+    "Licenças de rótulo ecológico da União Europeia (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "vias",
+   "titles": 9,
+   "series": 13,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.462,
+   "annotation": false,
+   "examples": [
+    "Extensão de linhas e vias exploradas (km)",
+    "Movimento de veículos em vias navegáveis interiores (N.º)",
+    "Movimento de passageiros em vias navegáveis interiores (N.º)"
+   ],
+   "geo_levels": [
+    "Carreira fluvial",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "recebidas",
+   "titles": 9,
+   "series": 10,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.3,
+   "annotation": false,
+   "examples": [
+    "Comissões (Recebidas) (milhares €)",
+    "Doações alimentares recebidas pelos Bancos Alimentares (t)",
+    "Comissões (Recebidas) dos estabelecimentos de outra intermediação monetária (€)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "inferior",
+   "titles": 9,
+   "series": 9,
+   "theme": "Contas nacionais e regionais / Contas satélite",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Duração de temperatura mínima inferior ou igual a 0°C (Número de Dia (s))",
+    "Emissões de partículas suspensas (com um diâmetro aerodinâmico inferior ou igual a 10 microns) (Base 2000 - t)",
+    "Emissões de partículas suspensas (com um diâmetro aerodinâmico inferior ou igual a 10 microns) (Base 2006 - t)"
+   ],
+   "geo_levels": [
+    "Estação meteorológica",
+    "Município",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "online",
+   "titles": 9,
+   "series": 9,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Câmaras municipais que efetuaram pagamentos online de bens e/ou serviços encomendados através da Internet (N.º)",
+    "Proporção de hospitais que efetuaram pagamentos online de bens e/ou serviços encomendados através da Internet (%)",
+    "Proporção de câmaras municipais que efetuaram pagamentos online de bens e/ou serviços encomendados através da Internet (%)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS I",
+    "Portugal",
+    "Região autónoma"
+   ]
+  },
+  {
+   "token": "software",
+   "titles": 9,
+   "series": 9,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizam software de aplicação (Enterprise resource planning - ERP) (%)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizam verificação de vírus ou software de proteção (Série antiga - %)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizam software de aplicação (Customer relationship management - CRM) (%)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "vih",
+   "titles": 9,
+   "series": 9,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.778,
+   "annotation": false,
+   "examples": [
+    "Casos de infeção por VIH (Ano de diagnóstico - N.º)",
+    "Taxa de incidência da infeção por VIH por 1000 habitantes (N.º)",
+    "Óbitos por doença pelo vírus de imunodeficiência humana (VIH - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "tratores",
+   "titles": 8,
+   "series": 68,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Tratores por exploração agrícola (N.º)",
+    "Explorações agrícolas com tratores (N.º)",
+    "Tratores (N.º) das explorações agrícolas"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "coelhos",
+   "titles": 8,
+   "series": 44,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.795,
+   "annotation": false,
+   "examples": [
+    "Efetivo de coelhos (N.º)",
+    "Efectivo de coelhos (N.º)",
+    "Cabeças normais (coelhos - N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "arrendados",
+   "titles": 8,
+   "series": 43,
+   "theme": "População / Censos da população",
+   "theme_share": 0.465,
+   "annotation": false,
+   "examples": [
+    "Fogos de habitação social arrendados (N.º)",
+    "Proporção de alojamentos clássicos arrendados ou subarrendados (%)",
+    "Alojamentos familiares clássicos arrendados de residência habitual (N.º)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "subemprego",
+   "titles": 8,
+   "series": 24,
+   "theme": "Mercado de trabalho / Emprego",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Subemprego visível (Série 1998 - N.º)",
+    "Subemprego visível (Série 2011 - N.º)",
+    "Subemprego da população empregada a tempo parcial (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "vendidas",
+   "titles": 8,
+   "series": 24,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Custo das mercadorias vendidas (€) das Empresas",
+    "Árvores de fruto e oliveiras vendidas (N.º) pelos viveiros",
+    "Custo das mercadorias vendidas (Série 2004-2007 - €) das Empresas"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região agrária"
+   ],
+   "also": [
+    "agricultores",
+    "diretamente"
+   ]
+  },
+  {
+   "token": "lugares",
+   "titles": 8,
+   "series": 23,
+   "theme": "População / Censos da população",
+   "theme_share": 0.348,
+   "annotation": false,
+   "examples": [
+    "Lugares censitários (N.º)",
+    "População residente em lugares censitários (N.º)",
+    "Lugares sentados dos recintos de espetáculos (N.º)"
+   ],
+   "geo_levels": [
+    "Continente",
+    "Lugar",
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "alcoolicas",
+   "titles": 8,
+   "series": 19,
+   "theme": "Saúde / Determinantes de saúde",
+   "theme_share": 0.421,
+   "annotation": false,
+   "examples": [
+    "Proporção da população residente com 15 e mais anos que consome bebidas alcoólicas diariamente (%)",
+    "População residente com 15 e mais anos de idade que consumiu bebidas alcoólicas nos 12 meses anteriores à entrevista (N.º)",
+    "Capitação edível diária de bebidas alcoólicas disponível para abastecimento (tabela de composição dos alimentos 2016 - ml/ hab.)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "bebidas"
+   ]
+  },
+  {
+   "token": "tkm",
+   "titles": 8,
+   "series": 19,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 0.842,
+   "annotation": false,
+   "examples": [
+    "Tonelada-quilómetro (tkm) dos Veículos pesados de mercadorias",
+    "Transporte de carga (tkm) pelas empresas nacionais de transporte aéreo",
+    "Transporte de correio (tkm) pelas empresas nacionais de transporte aéreo"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "espetadores",
+   "titles": 8,
+   "series": 18,
+   "theme": "Cultura, desporto e lazer / Cultura",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Espetadores de dança (N.º)",
+    "Espetadores de cinema (N.º)",
+    "Espetadores de teatro (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "institucionais",
+   "titles": 8,
+   "series": 16,
+   "theme": "População / Censos da população",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Famílias institucionais (N.º)",
+    "Agregados institucionais (N.º)",
+    "Indivíduos (N.º) nas famílias institucionais"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "vacinacao",
+   "titles": 8,
+   "series": 16,
+   "theme": "Saúde / Cuidados preventivos",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Vacinação individual da hepatite B (N.º) à população residente",
+    "Vacinação individual da tuberculose (N.º) à população residente",
+    "Vacinação polivalente ou individual do tétano (N.º) à população residente"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ],
+   "also": [
+    "polivalente"
+   ]
+  },
+  {
+   "token": "prestados",
+   "titles": 8,
+   "series": 14,
+   "theme": "Serviços às empresas e outros / Serviços especializados",
+   "theme_share": 0.714,
+   "annotation": false,
+   "examples": [
+    "Serviços prestados (N.º) pelos corpos de bombeiros",
+    "Serviços prestados aos associados (N.º) das organizações patronais",
+    "Volume de negócios das atividades de serviços prestados às empresas (€)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "acima",
+   "titles": 8,
+   "series": 13,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de indivíduos com idade entre 16 e 74 anos com competências digitais ao nível básico ou acima de básico (%)",
+    "Proporção de indivíduos com idade entre 16 e 74 anos com competências digitais ao nível básico ou acima de básico (Série 2021 - %)",
+    "Índice de paridade de sexo nos indivíduos com idade entre 16 e 74 anos com competências digitais ao nível básico ou acima de básico (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "adulto",
+   "titles": 8,
+   "series": 12,
+   "theme": "Condições de vida e cidadania / Pobreza e desigualdade económica",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Despesas de consumo médias anuais por adulto equivalente (€)",
+    "Rendimento médio monetário anual líquido por adulto equivalente (€)",
+    "Rendimento mediano monetário anual líquido por adulto equivalente (€)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "aplicacao",
+   "titles": 8,
+   "series": 12,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Proporção de superfície agrícola utilizada com aplicação de chorume (%)",
+    "Proporção de superfície agrícola utilizada com aplicação de estrume (%)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizam software de aplicação (Enterprise resource planning - ERP) (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "quociente",
+   "titles": 8,
+   "series": 12,
+   "theme": "População / Mortalidade e esperança de vida",
+   "theme_share": 0.417,
+   "annotation": false,
+   "examples": [
+    "Quociente de mortalidade (projeções 2012 - 2060)",
+    "Quociente de mortalidade (projeções 2015 - 2080)",
+    "Quociente de mortalidade (projeções 2018 - 2080)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "carbono",
+   "titles": 8,
+   "series": 11,
+   "theme": "Contas nacionais e regionais / Contas satélite",
+   "theme_share": 0.545,
+   "annotation": false,
+   "examples": [
+    "Emissões de monóxido de carbono (Base 2000 - t)",
+    "Emissões de monóxido de carbono (Base 2006 - t)",
+    "Emissões de dióxido de carbono de origem fóssil (Base 2000 - t)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "exceto",
+   "titles": 8,
+   "series": 11,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.364,
+   "annotation": false,
+   "examples": [
+    "Cirurgias (exceto pequenas cirurgias) por dia (N.º) nos hospitais",
+    "Volume de negócios (€) das empresas de comércio a retalho, exceto de veículos automóveis e motociclos",
+    "Volume de negócios (€) das empresas de comércio por grosso, exceto de veículos automóveis e motociclos"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "membros",
+   "titles": 8,
+   "series": 11,
+   "theme": "População / Censos da população",
+   "theme_share": 0.545,
+   "annotation": false,
+   "examples": [
+    "Membros do conselho de administração do Banco de Portugal (N.º)",
+    "Membros do Conselho de Reitores das Universidades Portuguesas (N.º)",
+    "Proporção de membros do Conselho de Reitores das Universidades Portuguesas (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "reparacao",
+   "titles": 8,
+   "series": 11,
+   "theme": "Conjuntura / Preços",
+   "theme_share": 0.364,
+   "annotation": false,
+   "examples": [
+    "Proporção de edifícios com necessidade de reparação (%)",
+    "Índice de preços de manutenção e reparação regular da habitação (Base - 2000)",
+    "Despesas das famílias com reparação e manutenção de produtos (bens de consumo, incluindo veículos) (€)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "definidas",
+   "titles": 8,
+   "series": 9,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos por sintomas e sinais, resultados anormais e causas mal definidas (Anos)",
+    "Taxa de mortalidade por sintomas e sinais, resultados anormais e causas mal definidas por 100 000 habitantes (N.º)",
+    "Taxa de mortalidade padronizada por sintomas e sinais, resultados anormais e causas mal definidas por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "fornecedores",
+   "titles": 8,
+   "series": 9,
+   "theme": "Conjuntura / Procura de bens e serviços",
+   "theme_share": 0.556,
+   "annotation": false,
+   "examples": [
+    "Encomendas a fornecedores estrangeiros (%) do comércio",
+    "Apreciação sobre as encomendas a fornecedores (Saldo de respostas extremas) do comércio",
+    "Apreciação sobre as encomendas a fornecedores (SRE - Valores corrigidos de sazonalidade) do comércio"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "manutencao",
+   "titles": 8,
+   "series": 9,
+   "theme": "Conjuntura / Preços",
+   "theme_share": 0.444,
+   "annotation": false,
+   "examples": [
+    "Índice de preços de manutenção e reparação regular da habitação (Base - 2000)",
+    "Proporção de explorações agrícolas com manutenção de elementos da paisagem (%)",
+    "Despesas das famílias com reparação e manutenção de produtos (bens de consumo, incluindo veículos) (€)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "portatil",
+   "titles": 8,
+   "series": 9,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de empresas com 10 e mais pessoas ao serviço que disponibilizam equipamento portátil ao pessoal ao serviço para fins profissionais (2012 - %)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que indicaram limitações no uso de uma ligação móvel à Internet através de equipamento portátil (2012 - %)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que disponibilizam equipamento portátil ao pessoal ao serviço para fins profissionais (Série 2012-2013 - %)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "arroz",
+   "titles": 8,
+   "series": 8,
+   "theme": "Agricultura, floresta e pescas / Balanços de aprovisionamento",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Consumo humano de trinca de arroz (t)",
+    "Grau de autoaprovisionamento de arroz em casca (%)",
+    "Grau de autoaprovisionamento de trinca de arroz (%)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "ativo",
+   "titles": 8,
+   "series": 8,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "Ativo (€) das empresas",
+    "Ativo corrente (€) das empresas",
+    "Rotação do ativo líquido (N.º) das sociedades"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "diabetes",
+   "titles": 8,
+   "series": 8,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Anos potenciais de vida perdidos por diabetes mellitus (Anos)",
+    "Taxa de mortalidade por diabetes mellitus por 100 000 habitantes (N.º)",
+    "População residente com 15 e mais anos que referiu sofrer de diabetes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "gestoras",
+   "titles": 8,
+   "series": 8,
+   "theme": "Ambiente / Proteção do ambiente",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Custos das entidades gestoras com o serviço de abastecimento de água (€)",
+    "Proveitos das entidades gestoras com o serviço de abastecimento de água (€)",
+    "Gastos e rendimentos (€) das entidades gestoras de serviços públicos de resíduos urbanos"
+   ],
+   "geo_levels": [
+    "NUTS I",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "recente",
+   "titles": 8,
+   "series": 8,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Duração média da atividade de aprendizagem mais recente (h) da população residente com 15 e mais anos de idade",
+    "Mediana da duração da atividade de aprendizagem mais recente (h) da população residente com 15 e mais anos de idade",
+    "Percentil 15 da duração da atividade de aprendizagem mais recente (h) da população residente com 15 e mais anos de idade"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "regimes",
+   "titles": 8,
+   "series": 8,
+   "theme": "Proteção social / Beneficiários de pensões",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Beneficiárias/os de pensões dos regimes de proteção social na velhice (N.º)",
+    "Beneficiárias/os de pensões dos regimes de proteção social na invalidez (N.º)",
+    "Beneficiárias/os de pensões dos regimes de proteção social na sobrevivência (N.º)"
+   ],
+   "geo_levels": [
+    "Portugal",
+    "Total"
+   ]
+  },
+  {
+   "token": "suspensas",
+   "titles": 8,
+   "series": 8,
+   "theme": "Contas nacionais e regionais / Contas satélite",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Emissões de partículas suspensas totais (Base 2000 - t)",
+    "Emissões de partículas suspensas totais (Base 2006 - t)",
+    "Emissões de partículas suspensas (com um diâmetro aerodinâmico inferior ou igual a 10 microns) (Base 2000 - t)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "vacinal",
+   "titles": 8,
+   "series": 8,
+   "theme": "Saúde / Cuidados preventivos",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Taxa de cobertura vacinal a indivíduos com 2 anos de idade (%)",
+    "Taxa de cobertura vacinal a indivíduos com 7 anos de idade (%)",
+    "Taxa de cobertura vacinal a indivíduos com 14 anos de idade (%)"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "virus",
+   "titles": 8,
+   "series": 8,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Óbitos por doença pelo vírus de imunodeficiência humana (VIH - N.º)",
+    "Anos potenciais de vida perdidos por doença pelo vírus de imunodeficiência humana (VIH - Anos)",
+    "Taxa de mortalidade por doença pelo vírus de imunodeficiência humana (VIH) por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "bovinos",
+   "titles": 7,
+   "series": 48,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.979,
+   "annotation": false,
+   "examples": [
+    "Bovinos por exploração (N.º)",
+    "Cabeças normais (bovinos - N.º)",
+    "Cabeças normais (bovinos) (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "equivalencia",
+   "titles": 7,
+   "series": 25,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Indivíduos com idade entre 15 e 34 anos que abandonaram a frequência de ensino ou outra formação com equivalência escolar (N.º)",
+    "Idade média de abandono de frequência de ensino ou outra formação com equivalência escolar (Anos) dos indivíduos com idade entre 15 e 34 anos",
+    "Indivíduos com idade entre 15 e 34 anos que tiveram um primeiro trabalho exercido por mais de 3 meses após abandono de ensino ou formação com equivalência escolar (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "tiveram",
+    "exercido"
+   ]
+  },
+  {
+   "token": "margem",
+   "titles": 7,
+   "series": 18,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.556,
+   "annotation": false,
+   "examples": [
+    "Margem bruta total por exploração (€)",
+    "Margem bruta (€) das explorações agrícolas",
+    "Margem de segurança (Série 2004-2007 - N.º) das Empresas"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "certificacao",
+   "titles": 7,
+   "series": 16,
+   "theme": "Educação, formação e aprendizagem / Alunos",
+   "theme_share": 0.25,
+   "annotation": false,
+   "examples": [
+    "Fogos de habitação social com certificação energética (N.º)",
+    "Edifícios de habitação social com certificação energética (N.º)",
+    "Proporção dos fogos de habitação social com certificação energética melhorada (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "instalacoes",
+   "titles": 7,
+   "series": 16,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Distribuição de suínos em instalações (%)",
+    "Distribuição de bovinos em instalações de estabulação (%)",
+    "Distribuição de explorações agrícolas com instalações de suínos (%)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "continua",
+   "titles": 7,
+   "series": 15,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Taxa de acesso a cursos de formação profissional contínua (%)",
+    "Distribuição das horas ocupadas em formação profissional contínua (%)",
+    "Custo médio dos cursos de formação profissional contínua (por participante - N.º)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "juros",
+   "titles": 7,
+   "series": 15,
+   "theme": "Empresas / Instituições de crédito e sociedades financeiras",
+   "theme_share": 0.6,
+   "annotation": false,
+   "examples": [
+    "Juros totais (Série 2003 - €) nos contratos de crédito à habitação",
+    "Juros totais (Série 2012 - €) nos contratos de crédito à habitação",
+    "Juros e custos equiparados (€) estabelecimentos de outra intermediação monetária"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS I",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "materias",
+   "titles": 7,
+   "series": 15,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.867,
+   "annotation": false,
+   "examples": [
+    "Custo das matérias consumidas (Série 2004-2007 - €) das Empresas",
+    "Custo das matérias consumidas (Série 2007-2009 - €) das Empresas",
+    "Custo das matérias consumidas e ativos biológicos (€) das empresas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "fiscal",
+   "titles": 7,
+   "series": 14,
+   "theme": "Território / Ordenamento do território",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Rendimento bruto declarado por agregado fiscal (€)",
+    "Valor mediano do rendimento bruto declarado por agregado fiscal (€)",
+    "Coeficiente de Gini do rendimento bruto declarado por agregado fiscal (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "edicao",
+   "titles": 7,
+   "series": 13,
+   "theme": "Cultura, desporto e lazer / Cultura",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Edições da edição impressa de publicações periódicas (N.º)",
+    "Tiragem total da edição impressa de publicações periódicas (N.º)",
+    "Publicações periódicas da edição impressa (Metodologia 2022 - N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "impressa"
+   ]
+  },
+  {
+   "token": "termo",
+   "titles": 7,
+   "series": 13,
+   "theme": "Mercado de trabalho / Emprego",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção da população empregada por conta de outrem com contrato a termo (%)",
+    "Proporção da população empregada por conta de outrem com contrato a termo (Série 2011 - %)",
+    "Proporção da população empregada por conta de outrem com contrato a termo (Série 2021 - %)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "tratadas",
+   "titles": 7,
+   "series": 11,
+   "theme": "Ambiente / Água",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Águas residuais tratadas (Série 2001-2005 - m³)",
+    "Proporção de águas residuais tratadas (Série 2014 ) ( %)",
+    "Proporção de águas residuais tratadas (Série 2001-2005 - %)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "ate",
+   "titles": 7,
+   "series": 10,
+   "theme": "Condições de vida e cidadania / Rendimentos e condições de vida",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Taxa de cobertura vacinal a indivíduos até 12 meses de idade (%)",
+    "Pessoas dos 18 aos 74 anos que sofreram violência sexual na infância (até aos 15 anos) (%)",
+    "Proporção de edifícios com acessibilidade através de cadeira de rodas até ao alojamento (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "massas",
+   "titles": 7,
+   "series": 10,
+   "theme": "Território / Geografia física",
+   "theme_share": 0.7,
+   "annotation": false,
+   "examples": [
+    "Massas de água subterrâneas",
+    "Massas de água superficiais",
+    "Estado químico das massas de água subterrâneas"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "autoprovocadas",
+   "titles": 7,
+   "series": 8,
+   "theme": "Saúde / Mortalidade por causas de morte",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Óbitos por lesões autoprovocadas intencionalmente (N.º)",
+    "Anos potenciais de vida perdidos por lesões autoprovocadas intencionalmente (suicídio - Anos)",
+    "Taxa de mortalidade por lesões autoprovocadas intencionalmente (suicídio) por 100 000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "intencionalmente",
+    "lesoes"
+   ]
+  },
+  {
+   "token": "motociclos",
+   "titles": 7,
+   "series": 8,
+   "theme": "Comércio interno / Comércio interno",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "Volume de negócios (€) das empresas de comércio a retalho, exceto de veículos automóveis e motociclos",
+    "Volume de negócios (€) das empresas de comércio por grosso, exceto de veículos automóveis e motociclos",
+    "Volume de negócios (€) das empresas de comércio, manutenção e reparação de veículos automóveis e motociclos"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "suinos",
+   "titles": 6,
+   "series": 48,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.979,
+   "annotation": false,
+   "examples": [
+    "Suínos por exploração (N.º)",
+    "Cabeças normais (suínos - N.º)",
+    "Explorações agrícolas com suínos (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "informal",
+   "titles": 6,
+   "series": 45,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Indivíduos com idade entre 18 e 64 anos que participaram em atividades de aprendizagem informal (N.º)",
+    "Proporção de indivíduos com idade entre 18 e 64 anos que participaram em atividades de aprendizagem informal (%)",
+    "Proporção da população empregada com idade entre 18 e 64 anos que participou em atividades de aprendizagem informal (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "inscritas",
+   "titles": 6,
+   "series": 28,
+   "theme": "Educação, formação e aprendizagem / Alunos",
+   "theme_share": 0.964,
+   "annotation": false,
+   "examples": [
+    "Alunas/os inscritas/os no ensino superior (N.º)",
+    "Crianças inscritas na educação pré-escolar (N.º)",
+    "Alunas/os inscritas/os por docente do ensino superior (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "ocupantes",
+   "titles": 6,
+   "series": 28,
+   "theme": "População / Censos da população",
+   "theme_share": 0.643,
+   "annotation": false,
+   "examples": [
+    "Alojamentos familiares clássicos de residência habitual propriedade dos ocupantes (N.º)",
+    "Alojamentos familiares clássicos de residência habitual de ocupantes não proprietários (N.º)",
+    "Famílias clássicas (N.º) nos alojamentos familiares clássicos de residência habitual propriedade dos ocupantes"
+   ],
+   "geo_levels": [
+    "Freguesia"
+   ]
+  },
+  {
+   "token": "diplomadas",
+   "titles": 6,
+   "series": 27,
+   "theme": "Educação, formação e aprendizagem / Alunos",
+   "theme_share": 0.704,
+   "annotation": false,
+   "examples": [
+    "Diplomadas/os do ensino superior (N.º)",
+    "Diplomadas/os do ensino superior em áreas de C&T (N.º)",
+    "Diplomadas/os de nacionalidade estrangeira no ensino superior (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "edificio",
+   "titles": 6,
+   "series": 17,
+   "theme": "Construção e habitação / Censos da habitação",
+   "theme_share": 0.529,
+   "annotation": false,
+   "examples": [
+    "Pisos por edifício (N.º)",
+    "Alojamentos familiares clássicos por edifício (%)",
+    "Pisos por edifício com mais de um alojamento (N.º)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "fixos",
+   "titles": 6,
+   "series": 16,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "Encargos fixos com o parque de habitação social (€)",
+    "Proporção do investimento em ativos fixos tangíveis das empresas maioritariamente estrangeiras (%)",
+    "Proporção de agregados domésticos privados com pelo menos um indivíduo com idade entre 16 e 74 anos e com serviços fixos de telecomunicações em casa (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "numa",
+   "titles": 6,
+   "series": 15,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.933,
+   "annotation": false,
+   "examples": [
+    "População residente com 15 e mais anos de idade que se desloca a pé pelo menos um dia numa semana normal (N.º)",
+    "População residente com 15 e mais anos de idade que se desloca de bicicleta pelo menos um dia numa semana normal (N.º)",
+    "População residente com 15 e mais anos de idade que pratica exercício físico pelo menos um dia numa semana normal (N.º)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "ligados",
+   "titles": 6,
+   "series": 13,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Televisores ligados à Televisão Digital Terrestre (TDT) em casa de agregados domésticos privados (N.º)",
+    "Média de televisores ligados à Televisão Digital Terrestre (TDT) em casa de agregados domésticos privados (N.º)",
+    "Televisores ligados à Televisão Digital Terrestre (TDT) em alojamentos de residência secundária de agregados domésticos privados (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "branco",
+   "titles": 6,
+   "series": 12,
+   "theme": "Condições de vida e cidadania / Cidadania",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de votos em branco nas eleições para o Parlamento Europeu (%)",
+    "Proporção de votos em branco nas eleições para as Câmaras Municipais (%)",
+    "Proporção de votos em branco nas eleições para a Assembleia da República (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "exatas",
+   "titles": 6,
+   "series": 12,
+   "theme": "População / Mortalidade e esperança de vida",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Quociente de mortalidade entre as idades exatas x e (x + n) - nqx (-)",
+    "Óbitos entre as idades exatas x e (x+1) - dx (Metodologia 2007 - N.º)",
+    "Óbitos entre as idades exatas x e (x + n) - ndx (Metodologia 2007 - N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "fronteira",
+   "titles": 6,
+   "series": 12,
+   "theme": "Turismo / Procura turística",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Saídas (Fronteira aérea - N.º) de turistas residentes",
+    "Saídas (Fronteira rodoviária - N.º) de turistas residentes",
+    "Entradas (Fronteira aérea - N.º) de turistas não residentes"
+   ],
+   "geo_levels": [
+    "País",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "inscrita",
+   "titles": 6,
+   "series": 12,
+   "theme": "Condições de vida e cidadania / Cidadania",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "População inscrita nas eleições para o Parlamento Europeu (N.º)",
+    "População inscrita nas eleições para as Câmaras Municipais (N.º)",
+    "População inscrita nas eleições para a Assembleia da República (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "votado",
+   "titles": 6,
+   "series": 12,
+   "theme": "Condições de vida e cidadania / Cidadania",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de votos do candidato mais votado nas eleições para a Presidência da República (%)",
+    "Proporção de votos do partido/coligação mais votado nas eleições para o Parlamento Europeu (%)",
+    "Proporção de votos do partido/coligação mais votado nas eleições para as Câmaras Municipais (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "distancia",
+   "titles": 6,
+   "series": 11,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 0.818,
+   "annotation": false,
+   "examples": [
+    "Distância média percorrida por comboio (km)",
+    "Distância total percorrida (comboio - km) pelos comboios",
+    "Distância percorrida (km) pelos veículos pesados de mercadorias"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "percorrida"
+   ]
+  },
+  {
+   "token": "harmonizado",
+   "titles": 6,
+   "series": 10,
+   "theme": "Preços / Preços no consumidor",
+   "theme_share": 0.8,
+   "annotation": false,
+   "examples": [
+    "Índice harmonizado de preços no consumidor (IHPC, Base - 2025)",
+    "Indicador de risco harmonizado 1 do uso de pesticidas (IRH1) (-)",
+    "Indicador de risco harmonizado 2 do uso de pesticidas (IRH1) (-)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "reclusas",
+   "titles": 6,
+   "series": 10,
+   "theme": "Justiça / Justiça criminal",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Movimento de reclusas/os (N.º) nos estabelecimentos prisionais",
+    "Reclusas/os existentes em 31 de dezembro (N.º) nos estabelecimentos prisionais",
+    "Reclusas/os existentes em 31 de dezembro (N.º) nos estabelecimentos prisionais comuns"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "contra",
+   "titles": 6,
+   "series": 9,
+   "theme": "Saúde / Cuidados preventivos",
+   "theme_share": 0.556,
+   "annotation": false,
+   "examples": [
+    "Agentes/ suspeitas/os identificadas/os em crimes de violência doméstica contra o cônjuge ou análogo registados pela PSP e GNR (N.º)",
+    "Lesadas/os/ ofendidas/os identificadas/os em crimes de violência doméstica contra o cônjuge ou análogo registados pela PSP e GNR (N.º)",
+    "Proporção de agentes/ suspeitas/os identificadas/os em crimes de violência doméstica contra o cônjuge ou análogo registados pela PSP e GNR (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "frutos",
+   "titles": 6,
+   "series": 9,
+   "theme": "Agricultura, floresta e pescas / Balanços de aprovisionamento",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Consumo humano de frutos (t)",
+    "Grau de autoaprovisionamento de frutos (%)",
+    "Consumo humano de frutos per capita (kg/ hab.)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "ovos",
+   "titles": 6,
+   "series": 9,
+   "theme": "Agricultura, floresta e pescas / Produção animal",
+   "theme_share": 0.556,
+   "annotation": false,
+   "examples": [
+    "Ovos (t)",
+    "Produção de ovos (t)",
+    "Consumo humano de ovos (t)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "participante",
+   "titles": 6,
+   "series": 8,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Tempo despendido por participante em atividades de educação formal (h)",
+    "Tempo despendido por participante em atividades de educação não formal (h)",
+    "Custo médio dos cursos de formação profissional contínua (por participante - N.º)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "caprinos",
+   "titles": 5,
+   "series": 43,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.977,
+   "annotation": false,
+   "examples": [
+    "Caprinos por exploração (N.º)",
+    "Cabeças normais (caprinos - N.º)",
+    "Cabeças normais (caprinos) (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "bovino",
+   "titles": 5,
+   "series": 37,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.892,
+   "annotation": false,
+   "examples": [
+    "Efetivo bovino (N.º)",
+    "Efetivo bovino habitual (N.º)",
+    "Efetivo bovino habitual estabulado (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ],
+   "also": [
+    "estabulado"
+   ]
+  },
+  {
+   "token": "discriminacao",
+   "titles": 5,
+   "series": 24,
+   "theme": "Condições de vida e cidadania / Origens, trajetórias e pertença étnica",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Pessoas dos 18 aos 74 anos que sofreram discriminação (N.º)",
+    "Proporção de população dos 18 aos 74 anos que sofreu discriminação (%)",
+    "Proporção de população dos 18 aos 74 anos que sofreu discriminação nos últimos 12 meses (%)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ],
+   "also": [
+    "sofreu"
+   ]
+  },
+  {
+   "token": "telefone",
+   "titles": 5,
+   "series": 21,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de indivíduos com idade entre 16 e 74 anos que vivem em agregados domésticos privados com telefone fixo em casa (%)",
+    "Proporção de agregados domésticos privados com pelo menos um indivíduo com idade entre 16 e 74 anos e com telefone fixo em casa (%)",
+    "Proporção de agregados domésticos privados com pelo menos um indivíduo com idade entre 16 e 74 anos e sem telefone fixo em casa (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "concluidas",
+   "titles": 5,
+   "series": 17,
+   "theme": "Construção e habitação / Obras concluídas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Superfície total das obras concluídas (m²)",
+    "Reconstruções concluídas por 100 construções novas concluídas (N.º)",
+    "Superfície habitável das divisões concluídas (m²) em construções novas para habitação familiar"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "doutoradas",
+   "titles": 5,
+   "series": 17,
+   "theme": "Educação, formação e aprendizagem / Alunos",
+   "theme_share": 0.941,
+   "annotation": false,
+   "examples": [
+    "Doutoradas/os (N.º)",
+    "Doutoradas/os em áreas de C&T (N.º)",
+    "Doutoradas/os por 1000 habitantes (N.º) da população residente com idade entre 25 e 34 anos"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "habitualmente",
+   "titles": 5,
+   "series": 15,
+   "theme": "Saúde / Determinantes de saúde",
+   "theme_share": 0.933,
+   "annotation": false,
+   "examples": [
+    "População residente com 15 e mais anos de idade que toma habitualmente pelo menos uma refeição principal (N.º)",
+    "Média de porções de fruta consumidas habitualmente por dia pela população residente com 15 e mais anos que consome fruta diariamente (N.º)",
+    "Média de porções de fruta consumidas habitualmente por dia pela população residente com 15 e mais anos que consome fruta diariamente (excluindo sumos) (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "permanente",
+   "titles": 5,
+   "series": 15,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.467,
+   "annotation": false,
+   "examples": [
+    "Mão-de-obra agrícola não familiar permanente (N.º)",
+    "Taxa de esforço do crédito para habitação permanente (%)",
+    "Atendimentos no serviço de atendimento permanente ou prolongado - SAP (Série 1993-1998 - N.º) nos centros de saúde"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "apartamentos",
+   "titles": 5,
+   "series": 14,
+   "theme": "Construção e habitação / Outros indicadores da construção e habitação",
+   "theme_share": 0.571,
+   "annotation": false,
+   "examples": [
+    "Edifícios de apartamentos concluídos (N.º) em construções novas para habitação familiar",
+    "Edifícios de apartamentos licenciados (N.º) em construções novas para habitação familiar",
+    "Valor mediano das vendas de alojamentos familiares em apartamentos nos últimos 12 meses (Metodologia 2018 - €/ m²)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Freguesia/Agregação",
+    "Município"
+   ]
+  },
+  {
+   "token": "parte",
+   "titles": 5,
+   "series": 14,
+   "theme": "População / Censos da população",
+   "theme_share": 0.929,
+   "annotation": false,
+   "examples": [
+    "População residente que vive no alojamento a maior parte do ano (N.º)",
+    "População residente que vive no alojamento a maior parte do ano (e utiliza um segundo meio de transporte - N.º)",
+    "Proporção de agregados domésticos privados com crianças cuidadas em parte por alguém, que não os pais ou o tutor (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "predios",
+   "titles": 5,
+   "series": 14,
+   "theme": "Construção e habitação / Operações sobre imóveis",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Contratos de compra e venda (€) de prédios",
+    "Contratos de compra e venda (N.º) de prédios",
+    "Valor médio dos prédios hipotecados (€/ N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "zonas",
+   "titles": 5,
+   "series": 14,
+   "theme": "Agricultura, floresta e pescas / Floresta",
+   "theme_share": 0.429,
+   "annotation": false,
+   "examples": [
+    "Zonas de caça (ha)",
+    "Superfície das Zonas de Intervenção Florestal (ha)",
+    "Proporção de superfície das zonas de intervenção florestal (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS I",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "equiparados",
+   "titles": 5,
+   "series": 13,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 0.538,
+   "annotation": false,
+   "examples": [
+    "Juros e custos equiparados (€) estabelecimentos de outra intermediação monetária",
+    "Juros e proveitos equiparados (€) dos estabelecimentos de outra intermediação monetária",
+    "Beneficiárias/os descendentes ou equiparados do subsídio mensal vitalício da segurança social (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "externos",
+   "titles": 5,
+   "series": 13,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 0.923,
+   "annotation": false,
+   "examples": [
+    "Fornecimentos e serviços externos (€) das Empresas",
+    "Fornecimentos e serviços externos (Série 2004-2007 - €) das Empresas",
+    "Fornecimentos e serviços externos (Série 2007-2009 - €) das Empresas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ],
+   "also": [
+    "fornecimentos"
+   ]
+  },
+  {
+   "token": "produtoras",
+   "titles": 5,
+   "series": 13,
+   "theme": "Ambiente / Proteção do ambiente",
+   "theme_share": 0.923,
+   "annotation": false,
+   "examples": [
+    "Entidades produtoras de bens e serviços de ambiente (N.º)",
+    "Volume de negócios (€) das entidades produtoras de bens e serviços de ambiente",
+    "Pessoal ao serviço (N.º) das entidades produtoras de bens e serviços de ambiente"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "aposento",
+   "titles": 5,
+   "series": 12,
+   "theme": "Turismo / Oferta turística",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proveitos de aposento por hóspede (€)",
+    "Proveitos de aposento por capacidade de alojamento (€)",
+    "Proveitos de aposento (€) dos estabelecimentos hoteleiros"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "atendimentos",
+   "titles": 5,
+   "series": 12,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Atendimentos em serviço de urgência (N.º) nos hospitais",
+    "Atendimentos em serviço de urgência (N.º) nos hospitais oficiais públicos",
+    "Atendimentos no serviço de atendimento permanente ou prolongado - SAP (Série 1993-1998 - N.º) nos centros de saúde"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "mercadoria",
+   "titles": 5,
+   "series": 12,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Peso da mercadoria transportada (t) pelos veículos pesados de mercadorias",
+    "Peso da mercadoria em transporte nacional (t) nos veículos pesados de mercadorias",
+    "Mercadoria transportada (t) das empresas exploradoras de sistema ferroviário pesado"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS 2",
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "transportada"
+   ]
+  },
+  {
+   "token": "parque",
+   "titles": 5,
+   "series": 12,
+   "theme": "Construção e habitação / Estimativas do parque habitacional",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Encargos fixos com o parque de habitação social (€)",
+    "Alojamentos familiares clássicos (Parque habitacional - N.º)",
+    "Edifícios de habitação familiar clássica (Parque habitacional - N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "sitios",
+   "titles": 5,
+   "series": 12,
+   "theme": "Ambiente / Proteção do ambiente",
+   "theme_share": 0.333,
+   "annotation": false,
+   "examples": [
+    "Superfície dos Sítios (ha) da Rede Natura 2000",
+    "Superfície dos Sítios (ha) da Convenção de Ramsar",
+    "Proporção da superfície dos sítios (%) da Rede Natura 2000"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "urgencia",
+   "titles": 5,
+   "series": 12,
+   "theme": "Saúde / Cuidados hospitalares",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Atendimentos em serviço de urgência (N.º) nos hospitais",
+    "Atendimentos em serviço de urgência (N.º) nos hospitais oficiais públicos",
+    "Atendimentos em serviço de urgência (N.º) nos hospitais públicos de acesso universal e hospitais em parceria público-privada"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "utilizado",
+   "titles": 5,
+   "series": 12,
+   "theme": "Indústria e energia / Energia",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Meio de transporte mais utilizado nos movimentos pendulares (N.º)",
+    "Despesa média com combustível utilizado em veículos por alojamento familiar clássico de residência habitual (€)",
+    "Consumo médio de combustível utilizado em veículos por alojamento familiar clássico de residência habitual (tep)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "NUTS I"
+   ]
+  },
+  {
+   "token": "autoridades",
+   "titles": 5,
+   "series": 11,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.545,
+   "annotation": false,
+   "examples": [
+    "Crimes registados (N.º) pelas autoridades policiais",
+    "Crimes de tráfico de pessoas registados pelas autoridades policiais (N.º)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizaram a Internet para interagir com organismos, entidades e autoridades públicas (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "especial",
+   "titles": 5,
+   "series": 11,
+   "theme": "Território / Ordenamento do território",
+   "theme_share": 0.364,
+   "annotation": false,
+   "examples": [
+    "Superfície das Zonas de Proteção Especial (ha) da Rede Natura 2000",
+    "Beneficiárias/os do subsídio de educação especial da segurança social (N.º)",
+    "Proporção de superfície de zonas de proteção especial (%) da Rede Natura 2000"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "terras",
+   "titles": 5,
+   "series": 11,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.909,
+   "annotation": false,
+   "examples": [
+    "Explorações agrícolas com terras aráveis (N.º)",
+    "Superfície das terras aráveis (ha) das explorações agrícolas",
+    "Proporção de terras aráveis ocupadas com culturas temporárias sucessivas (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Região agrária"
+   ],
+   "also": [
+    "araveis"
+   ]
+  },
+  {
+   "token": "construidos",
+   "titles": 5,
+   "series": 10,
+   "theme": "Construção e habitação / Censos da habitação",
+   "theme_share": 0.8,
+   "annotation": false,
+   "examples": [
+    "Proporção de edifícios construídos nos últimos 10 anos (%)",
+    "Edifícios construídos estruturalmente para possuir 3 ou mais alojamentos familiares (N.º)",
+    "Edifícios construídos estruturalmente para possuir 3 ou mais alojamentos familiares, não isolados mais altos do que os adjacentes (N.º)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "contentores",
+   "titles": 5,
+   "series": 10,
+   "theme": "Transportes e comunicações / Transportes por água",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Contentores carregados (N.º)",
+    "Movimento de contentores (N.º)",
+    "Contentores descarregados (N.º)"
+   ],
+   "geo_levels": [
+    "Porto",
+    "Porto declarante"
+   ]
+  },
+  {
+   "token": "qualificadas",
+   "titles": 5,
+   "series": 10,
+   "theme": "Mercado de trabalho / Emprego",
+   "theme_share": 0.6,
+   "annotation": false,
+   "examples": [
+    "Proporção de trabalhadoras/es não qualificadas/os (Série 1998 - %) na População empregada",
+    "Proporção de trabalhadoras/es não qualificadas/os (Série 2011 - %) na População empregada",
+    "Proporção de trabalhadoras/es não qualificadas/os (Série 2021 - %) na população empregada"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "superficiais",
+   "titles": 5,
+   "series": 10,
+   "theme": "Território / Geografia física",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Águas superficiais (N.º)",
+    "Massas de água superficiais",
+    "Proporção de águas superficiais (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS I"
+   ]
+  },
+  {
+   "token": "tauromaquia",
+   "titles": 5,
+   "series": 10,
+   "theme": "Cultura, desporto e lazer / Cultura",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Receitas em espetáculos de tauromaquia (€)",
+    "Sessões de espetáculos de tauromaquia (N.º)",
+    "Espectadores de espetáculos de tauromaquia (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "aquecimento",
+   "titles": 5,
+   "series": 9,
+   "theme": "Indústria e energia / Energia",
+   "theme_share": 0.889,
+   "annotation": false,
+   "examples": [
+    "Proporção de alojamentos familiares com aquecimento central (%)",
+    "Consumo médio de energia para aquecimento de água por alojamento familiar clássico de residência habitual (tep)",
+    "Consumo médio de energia para aquecimento do ambiente por alojamento familiar clássico de residência habitual (tep)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS I"
+   ]
+  },
+  {
+   "token": "brutos",
+   "titles": 5,
+   "series": 9,
+   "theme": "Empresas / Seguros e resseguros",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Consumo humano de gorduras e óleos vegetais brutos (t)",
+    "Grau de autoaprovisionamento de gorduras e óleos vegetais brutos (%)",
+    "Consumo humano de gorduras e óleos vegetais brutos per capita (kg/ hab.)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "dois",
+   "titles": 5,
+   "series": 9,
+   "theme": "Saúde / Saúde e segurança no trabalho",
+   "theme_share": 0.444,
+   "annotation": false,
+   "examples": [
+    "População empregada que teve consulta ou exames de Medicina do Trabalho nos dois anos anteriores à entrevista",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizam dois ou mais meios de comunicação digital (%)",
+    "Proporção de sujeitos passivos que subiram dois ou mais decis na distribuição do rendimento bruto declarado deduzido do IRS liquidado (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "localizacao",
+   "titles": 5,
+   "series": 9,
+   "theme": "População / Censos da população",
+   "theme_share": 0.556,
+   "annotation": false,
+   "examples": [
+    "Localização geográfica da empresa",
+    "Localização geográfica (Portugal) da empresa",
+    "Quociente de localização da população residente estrangeira (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "oferecidos",
+   "titles": 5,
+   "series": 9,
+   "theme": "Transportes e comunicações / Transportes terrestres",
+   "theme_share": 0.444,
+   "annotation": false,
+   "examples": [
+    "Bilhetes oferecidos de espetáculos ao vivo (N.º)",
+    "Bilhetes oferecidos em espetáculos de tauromaquia (N.º)",
+    "Lugares oferecidos (N.º) pelas empresas de transporte aéreo"
+   ],
+   "geo_levels": [
+    "Continente",
+    "NUTS II",
+    "Portugal",
+    "Sistema de metropolitano"
+   ]
+  },
+  {
+   "token": "precoce",
+   "titles": 5,
+   "series": 9,
+   "theme": "Educação, formação e aprendizagem / Níveis de escolaridade",
+   "theme_share": 0.778,
+   "annotation": false,
+   "examples": [
+    "Taxa de mortalidade neonatal precoce (‰)",
+    "Taxa de abandono precoce de educação e formação (Série 1992 - %)",
+    "Taxa de abandono precoce de educação e formação (Série 1998 - %)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "reservas",
+   "titles": 5,
+   "series": 9,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de estabelecimentos hoteleiros que aceitaram reservas através da Internet (%)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizaram comércio eletrónico para efetuar vendas através de encomendas/reservas (%)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que utilizaram comércio eletrónico (vendas efetuadas através de encomendas/reservas pelo menos 1 por cento - %)"
+   ],
+   "geo_levels": [
+    "NUTS I",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "foi",
+   "titles": 5,
+   "series": 8,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "População estrangeira a quem foi atribuída nacionalidade portuguesa (N.º)",
+    "População residente com 15 e mais anos de idade que foi ao hospital para cuidados de saúde nos 12 meses anteriores à entrevista (N.º)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço que efetuou encomendas e cuja informação relevante foi partilhada eletronicamente através do software usado (Série 2009-2012 - %)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "receita",
+   "titles": 5,
+   "series": 8,
+   "theme": "Construção e habitação / Habitação social",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "Receita de venda de fogos de habitação social (€)",
+    "Receita prevista de rendas de habitação social (€)",
+    "Receita da cobrança de rendas de habitação social (€)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "setoriais",
+   "titles": 5,
+   "series": 8,
+   "theme": "Ambiente / Economia circular",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Resíduos Setoriais perigosos (t)",
+    "Resíduos Setoriais produzidos (t)",
+    "Resíduos Setoriais não perigosos (t)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "trabalha",
+   "titles": 5,
+   "series": 8,
+   "theme": "Condições de vida e cidadania / Trabalho",
+   "theme_share": 0.375,
+   "annotation": false,
+   "examples": [
+    "Proporção da população residente que não trabalha (%)",
+    "Proporção da população residente que trabalha menos de 30 horas (%)",
+    "Proporção da população residente que trabalha ou estuda noutro município (%)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "pastagens",
+   "titles": 4,
+   "series": 44,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Superfície de prados e pastagens permanentes (ha)",
+    "Explorações agrícolas com pastagens permanentes regadas (N.º)",
+    "Explorações agrícolas com prados e pastagens permanentes (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ],
+   "also": [
+    "prados"
+   ]
+  },
+  {
+   "token": "ovinos",
+   "titles": 4,
+   "series": 43,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.977,
+   "annotation": false,
+   "examples": [
+    "Ovinos por exploração (N.º)",
+    "Cabeças normais (ovinos - N.º)",
+    "Explorações agrícolas com ovinos (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "alem",
+   "titles": 4,
+   "series": 34,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Indivíduos com idade entre 18 e 64 anos que conhecem outras línguas além da materna (N.º)",
+    "Proporção de indivíduos com idade entre 18 e 64 anos que conhecem outras línguas além da materna (%)",
+    "Proporção da população empregada com idade entre 18 e 64 anos que conhece outras línguas além da materna (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "linguas",
+    "conhecem"
+   ]
+  },
+  {
+   "token": "caprino",
+   "titles": 4,
+   "series": 32,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Efetivo caprino (N.º)",
+    "Efectivo caprino (N.º)",
+    "Efetivo caprino leiteiro por exploração agrícola (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "pertencentes",
+   "titles": 4,
+   "series": 16,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Explorações agrícolas que utilizam tratores não pertencentes à exploração (N.º)",
+    "Proporção das explorações agrícolas que utilizam tratores não pertencentes à exploração (%)",
+    "Membros do conselho de administração das empresas pertencentes ao \"Portuguese Stock Index - PSI\" (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "frequencia",
+   "titles": 4,
+   "series": 14,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 0.929,
+   "annotation": false,
+   "examples": [
+    "Distribuição da população residente com 16 e mais anos de idade que não utilizou transportes públicos com frequência (%)",
+    "Indivíduos com idade entre 15 e 34 anos que abandonaram a frequência de ensino ou outra formação com equivalência escolar (N.º)",
+    "Idade média de abandono de frequência de ensino ou outra formação com equivalência escolar (Anos) dos indivíduos com idade entre 15 e 34 anos"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "presente",
+   "titles": 4,
+   "series": 14,
+   "theme": "População / Censos da população",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "População presente (N.º)",
+    "População presente sem abrigo (N.º)",
+    "População presente (N.º) nos alojamentos"
+   ],
+   "geo_levels": [
+    "Distrito",
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "quinquenal",
+   "titles": 4,
+   "series": 14,
+   "theme": "População / Mortalidade e esperança de vida",
+   "theme_share": 0.429,
+   "annotation": false,
+   "examples": [
+    "Taxa quinquenal de mortalidade infantil (‰)",
+    "Taxa quinquenal de mortalidade neonatal (‰)",
+    "Proporção quinquenal de nados-vivos de mães adolescentes (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "proprio",
+   "titles": 4,
+   "series": 13,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.462,
+   "annotation": false,
+   "examples": [
+    "Capital próprio (€) das empresas",
+    "Proporção de alojamentos do próprio com encargos (%)",
+    "Proporção de alojamentos familiares clássicos do próprio (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "reconstrucoes",
+   "titles": 4,
+   "series": 13,
+   "theme": "Construção e habitação / Obras concluídas",
+   "theme_share": 0.615,
+   "annotation": false,
+   "examples": [
+    "Reconstruções concluídas por 100 construções novas concluídas (N.º)",
+    "Reconstruções licenciadas por 100 construções novas licenciadas (N.º)",
+    "Reconstruções concluídas para habitação familiar por 100 construções novas concluídas para habitação familiar (Valores trienais - N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "rega",
+   "titles": 4,
+   "series": 13,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Dotação de rega padrão (m3/ ha) das explorações agrícolas",
+    "Distribuição de explorações com disponibilidade de rega (%)",
+    "Volume de água de rega padrão (m³) das explorações agrícolas"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS 2",
+    "Região agrária"
+   ],
+   "also": [
+    "disponibilidade"
+   ]
+  },
+  {
+   "token": "efectivo",
+   "titles": 4,
+   "series": 12,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Efectivo caprino (N.º)",
+    "Efectivo de aves (N.º)",
+    "Efectivo de coelhos (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II"
+   ]
+  },
+  {
+   "token": "exterior",
+   "titles": 4,
+   "series": 12,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "População agrícola familiar com atividade remunerada exterior à exploração agrícola (N.º)",
+    "Volume de negócios para o exterior (€) das sociedades com menos de 250 pessoas ao serviço",
+    "Proporção do volume de negócios para o exterior no volume de negócios das sociedades com menos de 250 pessoas ao serviço (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "NUTS III",
+    "Portugal",
+    "Região"
+   ]
+  },
+  {
+   "token": "habitavel",
+   "titles": 4,
+   "series": 12,
+   "theme": "Construção e habitação / Obras concluídas",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Superfície habitável das divisões concluídas (m²) em construções novas para habitação familiar",
+    "Superfície habitável das divisões licenciadas (m²) em construções novas para habitação familiar",
+    "Superfície habitável média das divisões concluídas (m²) em construções novas para habitação familiar"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "resultado",
+   "titles": 4,
+   "series": 12,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Resultado líquido do período (€) das empresas",
+    "Resultado líquido do exercício (Série 2004-2007 - €) das Empresas",
+    "Resultado líquido do exercício (Série 2007-2009 - €) das Empresas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "suplementares",
+   "titles": 4,
+   "series": 12,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Rendimentos suplementares (€) das empresas",
+    "Proveitos suplementares (Série 2004-2007 - €) das empresas",
+    "Proveitos suplementares (Série 2007-2009 - €) das empresas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "algum",
+   "titles": 4,
+   "series": 11,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 0.727,
+   "annotation": false,
+   "examples": [
+    "Pessoas dos 18 aos 74 anos que sofreram algum tipo de violência na infância (até aos 15 anos) (%)",
+    "Indivíduos com idade entre 15 e 34 anos que completaram algum nível de escolaridade e não estão a estudar (N.º)",
+    "Proporção de indivíduos com idade entre 15 e 34 anos que completaram algum nível de escolaridade e não estão a estudar (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ],
+   "also": [
+    "completaram"
+   ]
+  },
+  {
+   "token": "fisico",
+   "titles": 4,
+   "series": 11,
+   "theme": "Cultura, desporto e lazer / Desporto e lazer",
+   "theme_share": 0.545,
+   "annotation": false,
+   "examples": [
+    "Proporção de indivíduos com idade entre os 18 e os 69 anos que praticaram exercício físico nos tempos livres (%)",
+    "População residente com 15 e mais anos de idade que pratica exercício físico pelo menos um dia numa semana normal (N.º)",
+    "Proporção de indivíduos com idade entre os 18 e os 69 anos que não praticaram atividade desportiva e/ou exercício físico nos tempos livres (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "fuma",
+   "titles": 4,
+   "series": 11,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.727,
+   "annotation": false,
+   "examples": [
+    "Proporção da população residente com 15 e mais anos de idade que fuma (%)",
+    "Proporção da população residente com 15 e mais anos que fuma diariamente (%)",
+    "População residente com 15 e mais anos de idade que fuma cigarros diariamente (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "inseridos",
+   "titles": 4,
+   "series": 11,
+   "theme": "Cultura, desporto e lazer / Cultura",
+   "theme_share": 0.727,
+   "annotation": false,
+   "examples": [
+    "Visitantes inseridos em grupos escolares (N.º) de museus",
+    "Proporção de visitantes inseridos em grupos escolares de museus (%)",
+    "Visitantes inseridos em grupos escolares (N.º) de jardins zoológicos, botânicos e aquários"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "aprovado",
+   "titles": 4,
+   "series": 10,
+   "theme": "Agricultura, floresta e pescas / Produção animal",
+   "theme_share": 0.9,
+   "annotation": false,
+   "examples": [
+    "Cabeças de gado abatido e aprovado para consumo (N.º)",
+    "Peso limpo de gado abatido e aprovado para consumo (t)",
+    "Peso médio de gado abatido e aprovado para consumo (kg/ cabeça)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ],
+   "also": [
+    "abatido",
+    "gado"
+   ]
+  },
+  {
+   "token": "cama",
+   "titles": 4,
+   "series": 10,
+   "theme": "Turismo / Oferta turística",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Taxa líquida de ocupação cama (%) nos estabelecimentos hoteleiros",
+    "Taxa líquida de ocupação cama (%) nos estabelecimentos de alojamento turístico",
+    "Taxa bruta de ocupação cama (Série 2002-2005 - %) nos estabelecimentos hoteleiros"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "dentista",
+   "titles": 4,
+   "series": 10,
+   "theme": "Saúde / Estado de saúde e cuidados de saúde autorreferidos",
+   "theme_share": 0.8,
+   "annotation": false,
+   "examples": [
+    "População residente com 15 e mais anos de idade que consultou um dentista nos 12 meses anteriores à entrevista (N.º)",
+    "Proporção da população residente com 18 anos de idade que consultou um dentista nos 12 meses anteriores à entrevista (%)",
+    "Proporção da população residente com menos de 16 anos de idade com necessidade de consulta com dentista não concretizada (%)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "gordura",
+   "titles": 4,
+   "series": 10,
+   "theme": "Agricultura, floresta e pescas / Produção animal",
+   "theme_share": 0.9,
+   "annotation": false,
+   "examples": [
+    "Teor de gordura do leite de vaca recolhido (%)",
+    "Teor de gordura do leite de cabra recolhido (%)",
+    "Teor de gordura do leite de ovelha recolhido (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "atribuidos",
+   "titles": 4,
+   "series": 9,
+   "theme": "Condições de vida e cidadania / Cidadania",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Fogos de habitação social atribuídos (N.º)",
+    "Mandatos atribuídos nas eleições para as Câmaras Municipais (N.º)",
+    "Mandatos atribuídos nas eleições para as Assembleias Municipais (N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "frequentar",
+   "titles": 4,
+   "series": 9,
+   "theme": "População / Censos da população",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção da população residente com idade entre 3 e 5 anos a frequentar a educação pré-escolar (%)",
+    "Proporção da população residente com idade entre 6 e 15 anos que não está a frequentar o sistema de ensino (%)",
+    "Proporção da população residente com idade entre 18 e 24 anos com o 3º ciclo do ensino básico completo que não está a frequentar o sistema de ensino (%)"
+   ],
+   "geo_levels": [
+    "Freguesia"
+   ]
+  },
+  {
+   "token": "simultaneamente",
+   "titles": 4,
+   "series": 9,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.889,
+   "annotation": false,
+   "examples": [
+    "Publicações periódicas em suporte papel e eletrónico simultaneamente (N.º)",
+    "Agregados domésticos privados com pelo menos um indivíduo com idade entre 16 e 74 anos e que têm simultaneamente Televisão Digital Terrestre (TDT) e televisão por subscrição em casa (N.º)",
+    "Proporção de indivíduos com idade entre 16 e 74 anos que vivem em agregados domésticos privados que têm simultaneamente Televisão Digital Terrestre (TDT) e televisão por subscrição em casa (%)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "sobrelotados",
+   "titles": 4,
+   "series": 9,
+   "theme": "População / Censos da população",
+   "theme_share": 0.444,
+   "annotation": false,
+   "examples": [
+    "Proporção de alojamentos sobrelotados (%)",
+    "Famílias clássicas (N.º) nos alojamentos familiares clássicos sobrelotados",
+    "Agregados domésticos privados (N.º) nos alojamentos familiares clássicos sobrelotados"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Cidade/área metropolitana",
+    "Freguesia"
+   ]
+  },
+  {
+   "token": "analises",
+   "titles": 4,
+   "series": 8,
+   "theme": "Ambiente / Água",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Qualidade (N.º de análises) das Águas para consumo humano",
+    "Proporção de explorações agrícolas que efetuaram análises de terras nos últimos 3 anos (%)",
+    "Prestações de serviços em atividades de ensaios e análises técnicas (Série 2008-2024 €) das empresas"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "exclusivamente",
+   "titles": 4,
+   "series": 8,
+   "theme": "Construção e habitação / Censos da habitação",
+   "theme_share": 0.375,
+   "annotation": false,
+   "examples": [
+    "Proporção de edifícios não exclusivamente residenciais (%)",
+    "Pessoal ao serviço afeto exclusivamente a atividades TIC nas Câmaras Municipais (N.º)",
+    "Distribuição de pessoal ao serviço afeto exclusivamente a atividades TIC nas Câmaras Municipais (%)"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "NUTS II",
+    "NUTS III",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "realizar",
+   "titles": 4,
+   "series": 8,
+   "theme": "Inovação e conhecimento / Sociedade da informação",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Indivíduos com idade entre 16 e 74 anos que utilizaram a Internet para realizar serviços avançados para fins privados nos primeiros 3 meses do ano (N.º)",
+    "Proporção de indivíduos com idade entre 16 e 74 anos que utilizaram Internet para realizar serviços avançados para fins privados nos primeiros 3 meses do ano (%)",
+    "População residente com menos de 15 anos com doenças ou problemas de saúde que afetaram a sua capacidade de realizar atividades consideradas habituais para a idade (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "exportadoras",
+   "titles": 3,
+   "series": 20,
+   "theme": "Comércio internacional / Comércio internacional",
+   "theme_share": 0.4,
+   "annotation": false,
+   "examples": [
+    "Empresas exportadoras de bens (€)",
+    "Empresas Extra-UE exportadoras de bens (€)",
+    "Empresas Intra-UE exportadoras de bens (€)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "importadoras",
+   "titles": 3,
+   "series": 20,
+   "theme": "Comércio internacional / Comércio internacional",
+   "theme_share": 0.4,
+   "annotation": false,
+   "examples": [
+    "Empresas importadoras de bens (€)",
+    "Empresas Extra-UE importadoras de bens (€)",
+    "Empresas Intra-UE importadoras de bens (€)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "coletivas",
+   "titles": 3,
+   "series": 17,
+   "theme": "Empresas / Constituição e dissolução de pessoas coletivas e entidades equiparadas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Dissolução de pessoas coletivas e entidades equiparadas (N.º)",
+    "Constituição de pessoas coletivas e entidades equiparadas (N.º)",
+    "Processos de falência/insolvência decretada de pessoas coletivas e entidades equiparadas (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "NUTS II"
+   ],
+   "also": [
+    "equiparadas"
+   ]
+  },
+  {
+   "token": "leiteiro",
+   "titles": 3,
+   "series": 14,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Efetivo ovino leiteiro por exploração agrícola (N.º)",
+    "Efetivo caprino leiteiro por exploração agrícola (N.º)",
+    "Efectivo caprino leiteiro por exploração agrícola (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "vagos",
+   "titles": 3,
+   "series": 12,
+   "theme": "Mercado de trabalho / Emprego",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Proporção de alojamentos familiares clássicos vagos (%)",
+    "Empregos vagos (N.º) em estabelecimentos com 1 ou mais trabalhadores por conta de outrem",
+    "Taxa de empregos vagos (%) em estabelecimentos com 1 ou mais trabalhadores por conta de outrem"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Freguesia",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "experiencia",
+   "titles": 3,
+   "series": 11,
+   "theme": "Mercado de trabalho / Emprego",
+   "theme_share": 0.727,
+   "annotation": false,
+   "examples": [
+    "População empregada com experiência anterior de trabalho (Série 1998 - N.º)",
+    "Distribuição da população com idade dos 18 aos 64 anos, empregada e não empregada, com experiência profissional anterior (%)",
+    "Distribuição da população com idade dos 18 aos 64 anos, empregada e não empregada, com experiência profissional anterior, que interrompeu a carreira profissional para cuidar de filhos menores de 15 anos (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "maquinas",
+   "titles": 3,
+   "series": 11,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.909,
+   "annotation": false,
+   "examples": [
+    "Máquinas agrícolas (N.º)",
+    "Explorações agrícolas com máquinas agrícolas (N.º)",
+    "Indicador de formação bruta de capital fixo em outras máquinas e equipamentos - ajustado de efeitos de calendário e de sazonalidade (Taxa de variação homóloga - Base 2021 - %)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "praticaram",
+   "titles": 3,
+   "series": 11,
+   "theme": "Cultura, desporto e lazer / Desporto e lazer",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de indivíduos com idade entre os 18 e os 69 anos que praticaram alguma atividade desportiva (%)",
+    "Proporção de indivíduos com idade entre os 18 e os 69 anos que praticaram exercício físico nos tempos livres (%)",
+    "Proporção de indivíduos com idade entre os 18 e os 69 anos que não praticaram atividade desportiva e/ou exercício físico nos tempos livres (%)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "estudar",
+   "titles": 3,
+   "series": 10,
+   "theme": "Educação, formação e aprendizagem / Formação",
+   "theme_share": 0.8,
+   "annotation": false,
+   "examples": [
+    "Proporção de núcleos familiares com filhos a estudar de 23 ou mais anos de idade (%)",
+    "Indivíduos com idade entre 15 e 34 anos que completaram algum nível de escolaridade e não estão a estudar (N.º)",
+    "Proporção de indivíduos com idade entre 15 e 34 anos que completaram algum nível de escolaridade e não estão a estudar (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "reprodutoras",
+   "titles": 3,
+   "series": 10,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Porcas reprodutoras por exploração agrícola (N.º)",
+    "Distribuição de galinhas poedeiras e reprodutoras em instalações (%)",
+    "Distribuição de explorações agrícolas com instalações de galinhas poedeiras e reprodutoras (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "homem",
+   "titles": 3,
+   "series": 9,
+   "theme": "População / Nupcialidade e divorcialidade",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Idade média do homem ao divórcio (Ano)",
+    "Idade média do homem ao casamento (Ano)",
+    "Idade média do homem ao primeiro casamento (Ano)"
+   ],
+   "geo_levels": [
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "mulher",
+   "titles": 3,
+   "series": 9,
+   "theme": "População / Nupcialidade e divorcialidade",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Idade média da mulher ao divórcio (Ano)",
+    "Idade média da mulher ao casamento (Ano)",
+    "Idade média da mulher ao primeiro casamento (Ano)"
+   ],
+   "geo_levels": [
+    "NUTS III"
+   ]
+  },
+  {
+   "token": "produzidos",
+   "titles": 3,
+   "series": 9,
+   "theme": "Indústria e energia / Produção industrial",
+   "theme_share": 0.444,
+   "annotation": false,
+   "examples": [
+    "Resíduos produzidos (t)",
+    "Produtos produzidos na indústria",
+    "Resíduos Setoriais produzidos (t)"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "regadas",
+   "titles": 3,
+   "series": 9,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Explorações agrícolas com culturas permanentes regadas (N.º)",
+    "Explorações agrícolas com pastagens permanentes regadas (N.º)",
+    "Explorações agrícolas com culturas temporárias regadas (Cultura principal - N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "terceira",
+   "titles": 3,
+   "series": 9,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Valor processado do subsídio de assistência por terceira pessoa da segurança social (€)",
+    "Beneficiárias/os do subsídio por assistência de terceira pessoa da segurança social (N.º)",
+    "Beneficiárias/os descendentes ou equiparados do subsídio por assistência de terceira pessoa da segurança social (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "actividades",
+   "titles": 3,
+   "series": 8,
+   "theme": "Inovação e conhecimento / Ciência e tecnologia",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Proporção de empresas com 10 e mais pessoas ao serviço (CAE Rev. 2. 1, C a K) com actividades de inovação (2006 - %)",
+    "Proporção de empresas com 10 e mais pessoas ao serviço (CAE Rev. 3 B a H, J, K, M, Q) com actividades de inovação (2010 - %)",
+    "População residente com 15 e mais anos de idade que nos últimos 12 meses participou em actividades de aprendizagem não-formal (N.º)"
+   ],
+   "geo_levels": [
+    "NUTS II",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "espanha",
+   "titles": 3,
+   "series": 8,
+   "theme": "Comércio internacional / Comércio internacional",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "Proporção de importações de bens de Espanha (%)",
+    "Proporção de exportações de bens para Espanha (%)",
+    "Saídas para Espanha (Fronteira rodoviária - N.º) de excursionistas residentes"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "operacional",
+   "titles": 3,
+   "series": 8,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Rendibilidade operacional das vendas (%) das Empresas",
+    "Rendibilidade operacional das vendas (Série 2004-2007 - %) das Empresas",
+    "Rendibilidade operacional das vendas (Série antiga 2001-2004 - N.º) das empresas com 20 e mais pessoas ao serviço"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "paisagem",
+   "titles": 3,
+   "series": 8,
+   "theme": "Ambiente / Proteção do ambiente",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Investimentos na proteção da biodiversidade e paisagem dos municípios (€)",
+    "Proporção de explorações agrícolas com manutenção de elementos da paisagem (%)",
+    "Proporção de explorações agrícolas com implementação de elementos de paisagem (%)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "remunerada",
+   "titles": 3,
+   "series": 8,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.75,
+   "annotation": false,
+   "examples": [
+    "População agrícola familiar com atividade remunerada exterior à exploração agrícola (N.º)",
+    "Duração da licença parental remunerada, da segurança social (Série 2000-2009 - 15 dias - Dia)",
+    "Beneficiários de licença parental remunerada, da segurança social (Série 2000-2009 - 15 dias - N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Portugal",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "equideo",
+   "titles": 2,
+   "series": 36,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.889,
+   "annotation": false,
+   "examples": [
+    "Efetivo equídeo (N.º)",
+    "Cabeças normais (equídeo - N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "ovino",
+   "titles": 2,
+   "series": 32,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.875,
+   "annotation": false,
+   "examples": [
+    "Efetivo ovino (N.º)",
+    "Efetivo ovino leiteiro por exploração agrícola (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "lucrativas",
+   "titles": 2,
+   "series": 22,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Explorações agrícolas com atividades lucrativas não agrícolas (N.º)",
+    "Proporção das explorações agrícolas com atividades lucrativas não agrícolas (%)"
+   ],
+   "geo_levels": [
+    "Agrupamento/País",
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "mesmo",
+   "titles": 2,
+   "series": 18,
+   "theme": "População / Nupcialidade e divorcialidade",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Casamentos celebrados entre pessoas do mesmo sexo (Feminino - N.º)",
+    "Casamentos celebrados entre pessoas do mesmo sexo (Masculino - N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "feitas",
+   "titles": 2,
+   "series": 17,
+   "theme": "Turismo / Procura turística",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Viagens (N.º) feitas pelos turistas",
+    "Despesas de viagem (€) feitas pelos turistas"
+   ],
+   "geo_levels": [
+    "Portugal"
+   ]
+  },
+  {
+   "token": "colmeias",
+   "titles": 2,
+   "series": 14,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Colmeias e cortiços povoados (N.º)",
+    "Explorações agrícolas com colmeias e cortiços povoados (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ],
+   "also": [
+    "corticos",
+    "povoados"
+   ]
+  },
+  {
+   "token": "declarada",
+   "titles": 2,
+   "series": 12,
+   "theme": "Agricultura, floresta e pescas / Produção vegetal",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Produção vinícola declarada em mosto (hl) pelos produtores",
+    "Produção vinícola declarada em vinho (hl) pelos produtores"
+   ],
+   "geo_levels": [
+    "Município",
+    "Região agrária"
+   ],
+   "also": [
+    "vinicola"
+   ]
+  },
+  {
+   "token": "biologicos",
+   "titles": 2,
+   "series": 10,
+   "theme": "Empresas / Contas integradas das empresas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Vendas de produtos e ativos biológicos (€) das empresas",
+    "Custo das matérias consumidas e ativos biológicos (€) das empresas"
+   ],
+   "geo_levels": [
+    "NUTS III",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "sau",
+   "titles": 2,
+   "series": 10,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Proporção de mulheres no total de dirigentes com forma de exploração da SAU por conta própria (%)",
+    "Proporção de dirigentes com forma de exploração da SAU por conta própria na população agrícola (%)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "analfabetismo",
+   "titles": 2,
+   "series": 9,
+   "theme": "População / Censos da população",
+   "theme_share": 0.667,
+   "annotation": false,
+   "examples": [
+    "Taxa de analfabetismo (%)",
+    "Taxa de analfabetismo (%) da população presente com 10 e mais anos de idade"
+   ],
+   "geo_levels": [
+    "Cidade",
+    "Distrito",
+    "Freguesia",
+    "Município"
+   ]
+  },
+  {
+   "token": "solicitou",
+   "titles": 2,
+   "series": 9,
+   "theme": "População / Migrações e população estrangeira",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "População estrangeira que solicitou estatuto de residente (N.º)",
+    "População estrangeira que solicitou estatuto de residente por 100 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "enfermeiras",
+   "titles": 2,
+   "series": 8,
+   "theme": "Saúde / Pessoal de saúde",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Enfermeiras/os (N.º)",
+    "Enfermeiras/os por 1000 habitantes (N.º)"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "inclusao",
+   "titles": 2,
+   "series": 8,
+   "theme": "Proteção social / Regime da segurança social",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Valor processado da prestação social para a inclusão da segurança social (€)",
+    "Beneficiárias/os da prestação social para a inclusão da segurança social (N.º)"
+   ],
+   "geo_levels": [
+    "Município",
+    "Portugal"
+   ]
+  },
+  {
+   "token": "singular",
+   "titles": 2,
+   "series": 8,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Idade média do produtor agrícola singular (Ano)",
+    "Proporção de explorações com rendimento do produtor agrícola singular exclusivamente da exploração (%)"
+   ],
+   "geo_levels": [
+    "Agrupamento/País",
+    "Freguesia",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "sobrevivencias",
+   "titles": 2,
+   "series": 8,
+   "theme": "Empresas / Demografia das empresas",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Sobrevivências (N.º) de empresas nascidas 1 ano antes",
+    "Sobrevivências (N.º) de empresas nascidas 2 anos antes"
+   ],
+   "geo_levels": [
+    "Município"
+   ]
+  },
+  {
+   "token": "suino",
+   "titles": 1,
+   "series": 25,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 0.84,
+   "annotation": false,
+   "examples": [
+    "Efetivo suíno (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "equideos",
+   "titles": 1,
+   "series": 20,
+   "theme": "Agricultura, floresta e pescas / Recenseamento agrícola e inquéritos estruturais",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Explorações agrícolas com equídeos (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "NUTS II",
+    "Região agrária"
+   ]
+  },
+  {
+   "token": "porte",
+   "titles": 1,
+   "series": 8,
+   "theme": "Transportes e comunicações / Transportes por água",
+   "theme_share": 1.0,
+   "annotation": false,
+   "examples": [
+    "Porte bruto das embarcações de comércio (TPB)"
+   ],
+   "geo_levels": [
+    "Porto",
+    "Porto declarante",
+    "Portugal"
+   ],
+   "also": [
+    "tpb"
+   ]
+  },
+  {
+   "token": "renovacao",
+   "titles": 1,
+   "series": 8,
+   "theme": "População / Estimativas de população",
+   "theme_share": 0.5,
+   "annotation": false,
+   "examples": [
+    "Índice de renovação da população em idade ativa (N.º)"
+   ],
+   "geo_levels": [
+    "Freguesia",
+    "Município",
+    "Portugal"
+   ]
+  }
+ ]
+}
