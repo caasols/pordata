@@ -29,6 +29,7 @@ No observation values are fetched. This is the catalogue, which is
 metadata about what Eurostat holds — the same thing the INE cache is.
 """
 
+import collections
 import csv
 import io
 import pathlib
@@ -46,12 +47,23 @@ INVENTORY_URL = f"{BASE}/files/inventory?type=data"
 OUT_DIR = pathlib.Path("data/eurostat")
 OUT_CSV = OUT_DIR / "datasets.csv"
 TIMEOUT = 300
+# The file inventory lists 7,412 dataset codes, so the TOC should reach
+# the same order of magnitude. Set under that, not at it: the two
+# endpoints need not agree exactly.
+MIN_DATASETS = 5000
 
 # The TOC indents the title to show depth — four spaces per level — and
 # marks each row as a folder or a table. Folders are the theme tree and
 # tables are the datasets, so the hierarchy has to be tracked while
 # scanning to give each dataset the path it sits under.
 INDENT = 4
+
+# The sampled TOC showed "folder" and "table", and parsing only those
+# yielded 1,436 datasets where the file inventory lists 7,412 — so the
+# tree carries at least one more leaf type. Rather than guess which,
+# every type seen is counted and reported on both paths, so an unknown
+# one is named in the log instead of silently dropped.
+LEAF_TYPES = {"table", "dataset"}
 FIELDS = ["code", "title", "theme", "last_update", "last_structure_change",
           "data_start", "data_end", "values", "tsv_url", "sdmx_url",
           "browser_url"]
@@ -67,12 +79,16 @@ def depth(title: str) -> int:
     return (len(title) - len(title.lstrip(" "))) // INDENT
 
 
-def parse_toc(text: str) -> list[dict]:
-    """Datasets with the theme path they hang under.
+def parse_toc(text: str) -> tuple[list[dict], collections.Counter]:
+    """Datasets with the theme path they hang under, and a census of the
+    row types seen.
 
     Rows arrive depth-first, so a running stack of folder titles is
-    enough — no second pass and no tree to build."""
+    enough — no second pass and no tree to build. The census is returned
+    rather than logged here because it is the evidence a floor breach
+    needs: "only N parsed" says nothing without it."""
     rows = []
+    seen: collections.Counter = collections.Counter()
     stack: list[str] = []
     reader = csv.reader(io.StringIO(text), delimiter="\t", quotechar='"')
     header = next(reader, None)
@@ -87,11 +103,12 @@ def parse_toc(text: str) -> list[dict]:
         title, code, kind = record[0], record[1].strip(), record[2].strip()
         level = depth(title)
         name = title.strip()
+        seen[kind] += 1
         if kind == "folder":
             del stack[level:]
             stack.append(name)
             continue
-        if kind != "table":
+        if kind not in LEAF_TYPES:
             continue
         rows.append({
             "code": code.upper(),
@@ -106,7 +123,7 @@ def parse_toc(text: str) -> list[dict]:
             "data_end": (record[6] or "").strip(),
             "values": (record[7] or "").strip() if len(record) > 7 else "",
         })
-    return rows
+    return rows, seen
 
 
 def parse_inventory(text: str) -> dict:
@@ -139,13 +156,20 @@ def main() -> None:
     print(f"fetching {INVENTORY_URL}")
     inventory = fetch(INVENTORY_URL)
 
-    datasets = merge(parse_toc(toc), parse_inventory(inventory))
-    if len(datasets) < 5000:
+    parsed, seen = parse_toc(toc)
+    datasets = merge(parsed, parse_inventory(inventory))
+    census = ", ".join(f"{kind or '(blank)'}={count}"
+                       for kind, count in seen.most_common())
+    print(f"TOC row types: {census}")
+    if len(datasets) < MIN_DATASETS:
         raise SystemExit(
             f"fetch_eurostat_catalogue: only {len(datasets)} datasets "
-            "parsed; the TOC held ~8,500 when it was measured. Refusing "
-            "to overwrite the cache with a degraded pull — the same rule "
-            "the sitemap corpus floor follows.")
+            f"parsed, under the floor of {MIN_DATASETS}; the file "
+            "inventory lists 7,412. Refusing to overwrite the cache with "
+            "a degraded pull — the same rule the sitemap corpus floor "
+            f"follows.\n  row types seen: {census}\n  leaf types "
+            f"accepted: {sorted(LEAF_TYPES)}\nIf a type above is a leaf "
+            "and is not in that list, add it.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     with io.open(OUT_CSV, "w", encoding="utf-8", newline="") as handle:
