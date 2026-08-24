@@ -51,36 +51,55 @@ def redact(text: str) -> str:
     return VALUE_LIKE.sub("<number>", text)
 
 
+# Void elements never emit an end tag. Treating them like containers is
+# what broke the first two runs: <meta> and <link> inside <head> each
+# incremented the skip counter with nothing to decrement it, so the
+# counter never returned to zero and the entire <body> was skipped —
+# reported as "0 groups" on a 169 KB page.
+VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+             "link", "meta", "param", "source", "track", "wbr"}
+
+
 class LeafText(HTMLParser):
     """Collect each text node with the tag+class that encloses it.
 
     A regex cannot do this: PORDATA's markup is deeply nested, so a
     non-greedy `<div>.*?</div>` swallows whole subtrees and every block
-    lands over any sane length limit — the first version of this probe
-    reported 0 groups on a 169 KB page, which said nothing about PORDATA
-    and everything about the tool. A real parser walks to the leaves.
+    lands over any sane length limit. A real parser walks to the leaves.
+
+    Lenient by design, because scraped markup is not well-formed: an end
+    tag with no matching open tag is ignored, and an end tag that closes
+    several unclosed elements pops all of them.
     """
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.stack = []
+        self.stack = []          # [(tag, "tag.class")]
         self.skip_depth = 0
         self.groups = collections.defaultdict(list)
 
     def handle_starttag(self, tag, attrs):
+        if tag in VOID_TAGS:
+            return
         if self.skip_depth or tag in SKIP_TAGS:
             self.skip_depth += 1
             return
-        classes = dict(attrs).get("class") or ""
-        first = classes.split()[0] if classes.split() else ""
-        self.stack.append(f"{tag}.{first}" if first else tag)
+        classes = (dict(attrs).get("class") or "").split()
+        label = f"{tag}.{classes[0]}" if classes else tag
+        self.stack.append((tag, label))
+
+    def handle_startendtag(self, tag, attrs):
+        return                   # <br/> — self-closing, nothing to track
 
     def handle_endtag(self, tag):
+        if tag in VOID_TAGS:
+            return
         if self.skip_depth:
             self.skip_depth -= 1
             return
-        if self.stack:
-            self.stack.pop()
+        if any(t == tag for t, _ in self.stack):
+            while self.stack and self.stack.pop()[0] != tag:
+                pass
 
     def handle_data(self, data):
         if self.skip_depth:
@@ -88,7 +107,8 @@ class LeafText(HTMLParser):
         text = re.sub(r"\s+", " ", data).strip()
         if not text or len(text) > MAX_TEXT:
             return
-        self.groups[self.stack[-1] if self.stack else "(root)"].append(text)
+        where = self.stack[-1][1] if self.stack else "(root)"
+        self.groups[where].append(text)
 
 
 def inventory(html: str) -> dict:
