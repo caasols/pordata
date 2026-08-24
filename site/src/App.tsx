@@ -19,6 +19,7 @@ import {
   prepare, searchAndSort,
   type Hit, type PreparedRow, type Row, type SortMode,
 } from "@/lib/search";
+import { cardParts, monthYear, shortSources } from "@/lib/card";
 import { formatUnit } from "@/lib/units";
 import { cn } from "@/lib/utils";
 
@@ -52,42 +53,6 @@ export function displayNames(r: PreparedRow, lang: string): [string, string] {
   return [primary, alt === primary ? "" : alt];
 }
 
-// The card answers "is this the row I meant?", so it shows the title
-// split from its breakdown clause. `breakdown` is Portuguese prose from
-// PORDATA, so it rides with the PT name only - same rule the description
-// followed. `unit` is a short source token and shows in every language.
-export function cardParts(r: PreparedRow, lang: string):
-    { title: string; coverage: string } {
-  if (lang !== "pt" && r.name_en)
-    return { title: r.name_en, coverage: "" };
-  return { title: r.title || r.name, coverage: r.breakdown || "" };
-}
-
-// "abr 2026", not "2026-04-23": a statistical series is not revised to
-// the day, and the exact date is one click away.
-export function monthYear(iso: string, lang: string): string {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso || "";
-  const d = new Date(`${iso}T00:00:00Z`);
-  if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat(lang, {
-    month: "short", year: "numeric", timeZone: "UTC",
-  }).format(d);
-}
-
-// The first source plus a count. The full list belongs on the detail
-// page; "SGMAI - Base de Dados do Recenseamento Eleitoral (eleitores)"
-// and three more is 194 characters the card cannot spend.
-export function shortSources(fontes: string[] | undefined): string {
-  if (!fontes || !fontes.length) return "";
-  const first = fontes[0].split(" - ")[0].trim();
-  return fontes.length > 1 ? `${first} +${fontes.length - 1}` : first;
-}
-
-// One fixed grid cell, always rendered. The three columns must start at
-// the same x on every card and the unit is absent on 48% of rows, so an
-// omitted cell would slide the sources column left down a scrolling
-// list. A missing value keeps its label and shows a dimmed placeholder:
-// a labelled "n/d" reads as deliberate, a blank gap reads as a bug.
 function Meta({ label, value, empty }:
     { label: string; value: string; empty: string }) {
   return (

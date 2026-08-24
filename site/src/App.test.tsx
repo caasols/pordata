@@ -2,8 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import App, { cardParts, displayNames, monthYear, shortSources }
-  from "./App";
+import App, { displayNames } from "./App";
 import { prepare } from "./lib/search";
 import type { Row } from "./lib/search";
 
@@ -312,67 +311,3 @@ describe("displayNames", () => {
   });
 });
 
-describe("cardParts", () => {
-  const row = (over: Partial<Row>) =>
-    prepare([{ id: 1, area: "portugal", name: "N: total e por sexo",
-      title: "N", breakdown: "total e por sexo", unit: "Indivíduo",
-      name_en: "N en", description: "", fontes: [], ultima_atualizacao: "",
-      url: "u", harvested_at: "", ...over }])[0];
-
-  it("PT shows the split title and its breakdown", () => {
-    expect(cardParts(row({}), "pt"))
-      .toEqual({ title: "N", coverage: "total e por sexo" });
-  });
-  it("falls back to the full name when the split was refused", () => {
-    expect(cardParts(row({ title: "", breakdown: "" }), "pt"))
-      .toEqual({ title: "N: total e por sexo", coverage: "" });
-  });
-  it("other languages show the EN name and no PT breakdown", () => {
-    expect(cardParts(row({}), "en"))
-      .toEqual({ title: "N en", coverage: "" });
-  });
-  it("missing EN name falls back to the PT split", () => {
-    expect(cardParts(row({ name_en: "" }), "en"))
-      .toEqual({ title: "N", coverage: "total e por sexo" });
-  });
-});
-
-describe("monthYear", () => {
-  it("renders month precision", () => {
-    expect(monthYear("2026-04-23", "en")).toBe("Apr 2026");
-  });
-  it("localizes the month", () => {
-    expect(monthYear("2026-04-23", "pt")).toMatch(/2026/);
-    expect(monthYear("2026-04-23", "pt")).not.toBe("Apr 2026");
-  });
-  it("does not drift across the UTC day boundary", () => {
-    expect(monthYear("2026-01-01", "en")).toBe("Jan 2026");
-    expect(monthYear("2026-12-31", "en")).toBe("Dec 2026");
-  });
-  it("passes through anything that is not an ISO date", () => {
-    expect(monthYear("", "en")).toBe("");
-    expect(monthYear("2026-04", "en")).toBe("2026-04");
-    expect(monthYear("not a date", "en")).toBe("not a date");
-  });
-  it("returns the input for a well-shaped but unreal date", () => {
-    expect(monthYear("2026-13-45", "en")).toBe("2026-13-45");
-  });
-});
-
-describe("shortSources", () => {
-  it("returns a lone source unchanged", () => {
-    expect(shortSources(["INE"])).toBe("INE");
-  });
-  it("appends a count for the rest", () => {
-    expect(shortSources(["INE", "PORDATA"])).toBe("INE +1");
-    expect(shortSources(["INE", "PORDATA", "DGEEC"])).toBe("INE +2");
-  });
-  it("keeps only the entity before a dash gloss", () => {
-    expect(shortSources(["SGMAI - Base de Dados do Recenseamento Eleitoral"]))
-      .toBe("SGMAI");
-  });
-  it("handles empty and missing", () => {
-    expect(shortSources([])).toBe("");
-    expect(shortSources(undefined)).toBe("");
-  });
-});
