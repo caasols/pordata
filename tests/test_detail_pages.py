@@ -300,6 +300,66 @@ class ThemeTest(RepoCase):
             d.theme_tokens(css)
 
 
+class StableLayoutTest(unittest.TestCase):
+    """Every page has the same shape, whatever the row is missing.
+
+    The card hit this first: dropping an empty cell let the remaining
+    fields slide up into its place, so a field sat in a different
+    position on every indicator and the whole block jumped as you moved
+    between them. The detail page shipped with the same defect. The
+    invariant is the card's — reserve the row, keep the label, dim the
+    value — so it is asserted the same way.
+    """
+
+    FIELDS = 5      # sources, updated, unit, area, name_en
+
+    def rows_in(self, html):
+        return html.count("<dt>"), html.count("<dd>")
+
+    def test_a_row_with_no_unit_still_reserves_it(self):
+        """The unit is genuinely absent on 48% of rows. That is the
+        common case, not the edge case."""
+        html = render(row(unit=""))
+        block = html.split('<dl class="meta">')[1].split("</dl>")[0]
+        self.assertEqual(self.rows_in(block), (self.FIELDS, self.FIELDS))
+
+    def test_a_full_row_has_exactly_the_same_shape(self):
+        full = render(row(unit="Taxa - %"))
+        lean = render(row(unit=""))
+        block = lambda h: h.split('<dl class="meta">')[1].split("</dl>")[0]
+        self.assertEqual(self.rows_in(block(full)),
+                         self.rows_in(block(lean)))
+
+    def test_the_fields_keep_their_order(self):
+        """Order is the other half of stability: same count in a
+        different sequence still moves everything."""
+        def labels(html):
+            block = html.split('<dl class="meta">')[1].split("</dl>")[0]
+            return [chunk.split("</dt>")[0]
+                    for chunk in block.split("<dt>")[1:]]
+        self.assertEqual(labels(render(row(unit=""))),
+                         labels(render(row(unit="Taxa - %"))))
+
+    def test_a_missing_value_shows_a_dimmed_placeholder(self):
+        """A blank cell reads as a rendering fault; a labelled `n/d`
+        reads as 'PORDATA does not publish one'."""
+        html = render(row(unit=""))
+        self.assertIn('<span class="na">', html)
+        self.assertIn("n/d", html)
+        self.assertIn("n/a", html)
+
+    def test_the_placeholder_is_dimmer_than_a_real_value(self):
+        na = d.STYLESHEET.split(".na{")[1].split("}")[0]
+        self.assertIn("opacity:.5", na)
+
+    def test_the_columns_are_fixed_not_auto_fitting(self):
+        """`auto-fit` was the mechanism: it repacked the columns as soon
+        as a field disappeared."""
+        rule = d.STYLESHEET.split("dl.meta{")[1].split("}")[0]
+        self.assertNotIn("auto-fit", rule)
+        self.assertIn("grid-template-columns:minmax(", rule)
+
+
 class DesignSystemTest(unittest.TestCase):
     """The detail page and the card have to read as one design.
 
@@ -336,14 +396,14 @@ class DesignSystemTest(unittest.TestCase):
     def test_the_meta_label_matches_the_card_exactly(self):
         app = (self.SITE / "App.tsx").read_text(encoding="utf-8")
         self.assertIn("text-[9.5px] uppercase tracking-[0.1em]", app)
-        label = self.sheet().split(".field .k{")[1].split("}")[0]
+        label = self.sheet().split("dl.meta dt{")[1].split("}")[0]
         self.assertIn("font-size:9.5px", label)
         self.assertIn("letter-spacing:.1em", label)
 
     def test_the_meta_value_is_near_the_card_not_body_size(self):
         """A page is read rather than scanned, so one step up from the
         card's text-xs is deliberate — the 16px body size was not."""
-        value = self.sheet().split(".field .v{")[1].split("}")[0]
+        value = self.sheet().split("\ndl.meta dd{")[1].split("}")[0]
         self.assertIn("font-size:.8125rem", value)
 
     def test_radii_come_from_the_lifted_scale(self):

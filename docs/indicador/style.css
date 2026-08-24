@@ -85,15 +85,27 @@ h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
  background:var(--card);color:var(--card-foreground);
  box-shadow:0 1px 2px 0 #0000000d;padding:1rem 1.1rem}
 
-/* App.tsx Meta: the label is the card's exactly; the value steps from
-   text-xs to .8125rem because a page is read, not scanned */
-.grid{display:grid;gap:.85rem 1.25rem;
- grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}
-.field{min-width:0}
-.field .k{display:block;font-size:9.5px;text-transform:uppercase;
- letter-spacing:.1em;color:var(--muted-foreground);opacity:.75}
-.field .v{display:block;margin-top:.15rem;font-size:.8125rem;
- line-height:1.45;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+/* A definition list, not a reflowing grid. `auto-fit` plus a dropped
+   empty field meant the columns rearranged per page: on a row with no
+   unit, ÁREA slid into where UNIDADE sat on the page before, so nothing
+   held its position between indicators. Two fixed columns and a row per
+   field are stable whatever the data, and a long value grows downward
+   inside its own column instead of moving anything.
+   App.tsx Meta supplies the type: the label is the card's exactly, the
+   value steps from text-xs to .8125rem because a page is read, not
+   scanned. */
+dl.meta{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) 1fr;
+ gap:0 1rem;margin:0;align-items:baseline}
+dl.meta dt,dl.meta dd{padding:.5rem 0;border-top:1px solid var(--border);
+ min-width:0}
+dl.meta dt:first-of-type,dl.meta dt:first-of-type + dd{border-top:0}
+dl.meta dt{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+ color:var(--muted-foreground);opacity:.75;line-height:1.5}
+dl.meta dd{margin:0;font-size:.8125rem;line-height:1.45;
+ overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+/* the card dims a missing value so the gap reads as deliberate; the
+   unit is genuinely absent on 48% of rows */
+.na{color:var(--muted-foreground);opacity:.5}
 
 .note{border-left:2px solid var(--border);padding:.1rem 0 .1rem .85rem;
  margin:.5rem 0;font-size:.875rem;line-height:1.5}

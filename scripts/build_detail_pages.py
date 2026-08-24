@@ -193,15 +193,27 @@ h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
  background:var(--card);color:var(--card-foreground);
  box-shadow:0 1px 2px 0 #0000000d;padding:1rem 1.1rem}
 
-/* App.tsx Meta: the label is the card's exactly; the value steps from
-   text-xs to .8125rem because a page is read, not scanned */
-.grid{display:grid;gap:.85rem 1.25rem;
- grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}
-.field{min-width:0}
-.field .k{display:block;font-size:9.5px;text-transform:uppercase;
- letter-spacing:.1em;color:var(--muted-foreground);opacity:.75}
-.field .v{display:block;margin-top:.15rem;font-size:.8125rem;
- line-height:1.45;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+/* A definition list, not a reflowing grid. `auto-fit` plus a dropped
+   empty field meant the columns rearranged per page: on a row with no
+   unit, ÁREA slid into where UNIDADE sat on the page before, so nothing
+   held its position between indicators. Two fixed columns and a row per
+   field are stable whatever the data, and a long value grows downward
+   inside its own column instead of moving anything.
+   App.tsx Meta supplies the type: the label is the card's exactly, the
+   value steps from text-xs to .8125rem because a page is read, not
+   scanned. */
+dl.meta{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) 1fr;
+ gap:0 1rem;margin:0;align-items:baseline}
+dl.meta dt,dl.meta dd{padding:.5rem 0;border-top:1px solid var(--border);
+ min-width:0}
+dl.meta dt:first-of-type,dl.meta dt:first-of-type + dd{border-top:0}
+dl.meta dt{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+ color:var(--muted-foreground);opacity:.75;line-height:1.5}
+dl.meta dd{margin:0;font-size:.8125rem;line-height:1.45;
+ overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+/* the card dims a missing value so the gap reads as deliberate; the
+   unit is genuinely absent on 48% of rows */
+.na{color:var(--muted-foreground);opacity:.5}
 
 .note{border-left:2px solid var(--border);padding:.1rem 0 .1rem .85rem;
  margin:.5rem 0;font-size:.875rem;line-height:1.5}
@@ -295,10 +307,17 @@ def raw_both(key: str) -> str:
 
 
 def field(key: str, value: str) -> str:
-    if not value:
-        return ""
-    return (f'<div class="field"><div class="k">{both(key)}</div>'
-            f'<div class="v">{value}</div></div>')
+    """One row of the definition list — **always rendered**.
+
+    Dropping the row when the value is empty is what made every page a
+    different shape: on a row with no unit the remaining fields slid up
+    into its place, so `ÁREA` sat where `UNIDADE` had been on the page
+    before. The card hit exactly this and was fixed the same way — the
+    cell keeps its label and shows a dimmed placeholder, so the gap reads
+    as deliberate rather than as a rendering fault. The unit is genuinely
+    absent on 48% of rows; that is information, not an error."""
+    shown = value or f'<span class="na">{both("notAvailable")}</span>'
+    return f'<dt>{both(key)}</dt><dd>{shown}</dd>'
 
 
 def page_path(row: dict) -> pathlib.Path:
@@ -373,12 +392,12 @@ def provenance(entry: dict | None, titles: dict) -> str:
                 f'<span data-en>more series in the same family</span></p>')
     return (
         f'<h2>{both("provenance")}</h2><div class="card">'
-        f'<div class="grid">'
+        f'<dl class="meta">'
         + field("operation", esc(entry.get("operation")))
         + field("theme", esc(entry.get("theme")))
         + field("geo", esc(", ".join(entry.get("geo_levels") or [])))
         + field("periodicity", esc(", ".join(entry.get("periodicities") or [])))
-        + f'</div><h3>{both("candidates")}</h3>'
+        + f'</dl><h3>{both("candidates")}</h3>'
         f'<p class="why">{raw_both("candidatesWhy")}</p>'
         f'<ol class="series">{rows}</ol>{more}</div>')
 
@@ -420,13 +439,13 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 <h1>{esc(title)}</h1>
 {f'<p class="coverage">{esc(coverage)}</p>' if coverage else ''}
 <div class="chips">{"".join(chips)}</div>
-<div class="card"><div class="grid">
+<div class="card"><dl class="meta">
 {field("sources", esc(sources))}
 {field("updated", esc(row.get("ultima_atualizacao")))}
 {field("unit", esc(row.get("unit")))}
 {field("area", f'<span data-pt>{area_pt}</span><span data-en>{area_en}</span>')}
 {field("nameEn", esc(row.get("name_en")))}
-</div></div>
+</dl></div>
 {revision}
 <div class="chart"><span class="slot">{both("chartSoon")}</span>
 <p class="why">{both("chartWhy")}</p>
