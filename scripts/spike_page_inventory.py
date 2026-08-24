@@ -16,6 +16,16 @@ someone thought to search for. Item 21 fires once "what else should we
 be pulling off these pages?" stops changing; this is how that question
 gets answered instead of guessed.
 
+**The sampling frame is derived, not assumed** (roadmap 23). The first
+version took one page per area and called it an inventory; the owner
+pointed out that PORDATA's pages are not all alike and nobody knows how
+many variants exist. They are countable offline: every harvested record
+stores which marker keys matched and how big the page was, which is a
+structural fingerprint. There are **9 distinct fingerprints**, not 3, and
+municipios pages span 174 KB to 2.2 MB. So the frame is one page per
+fingerprint plus the size extremes inside each area — representative by
+construction rather than by hope.
+
 Structure and short metadata samples only — headings, labels, questions.
 No data values are extracted or written (decision 1); numeric-looking
 text is counted and redacted rather than recorded. Raw HTML goes to the
@@ -23,6 +33,7 @@ workflow artifact, never the repo.
 """
 
 import collections
+import io
 import json
 import pathlib
 import re
@@ -34,7 +45,7 @@ USER_AGENT = (
     "pordata-map research (github.com/caasols/pordata; "
     "one page per area, 20s apart)"
 )
-CATALOGUE = pathlib.Path("docs/data/catalogue.json")
+PAGES = pathlib.Path("data/catalogue/pages.jsonl")
 RAW_DIR = pathlib.Path("data/spikes/raw")
 REPORT = pathlib.Path("data/spikes/a6-page-inventory.md")
 DELAY_SECONDS = 20
@@ -148,6 +159,7 @@ def probe(row: dict) -> dict:
         "url": row["url"], "area": row["area"], "id": row["id"],
         "status": status, "bytes": len(raw),
         "name": row.get("title") or row["name"],
+        "why": row.get("why", ""), "fingerprint": row.get("fingerprint", ""),
         "group_count": len(groups),
         "questions": [(w, redact(q)) for w, q in found][:10],
         "singletons": [(k, redact(v[0])[:150]) for k, v in ranked
@@ -157,15 +169,69 @@ def probe(row: dict) -> dict:
     }
 
 
+def fingerprint(rec: dict) -> tuple:
+    """(area, marker keys that matched) — a structural signature we have
+    stored for every page since the harvest and never used."""
+    return (rec["area"],
+            tuple(sorted((rec.get("marker_windows") or {}).keys())))
+
+
+def build_frame() -> list:
+    """One page per fingerprint, plus the size extremes inside each area.
+
+    Deterministic: for each group the median-sized page is taken, so a
+    re-run picks the same pages and the report stays comparable. Extremes
+    are added separately because size varies 12x inside `municipios`, and
+    a median-only frame would never show whatever a 2.2 MB page is.
+    """
+    records = []
+    with io.open(PAGES, encoding="utf-8") as fh:
+        for line in fh:
+            try:
+                rec = json.loads(line)
+            except ValueError:
+                continue
+            if rec.get("http_status") == 200 and rec.get("bytes"):
+                records.append(rec)
+
+    chosen, seen = [], set()
+
+    def take(rec, why):
+        key = (rec["area"], rec["id"])
+        if key in seen:
+            return
+        seen.add(key)
+        chosen.append({"area": rec["area"], "id": rec["id"],
+                       "url": rec["url"], "name": rec.get("name", ""),
+                       "bytes": rec["bytes"], "why": why,
+                       "fingerprint": "+".join(fingerprint(rec)[1])})
+
+    groups = collections.defaultdict(list)
+    for rec in records:
+        groups[fingerprint(rec)].append(rec)
+    for (area, keys), members in sorted(
+            groups.items(), key=lambda kv: -len(kv[1])):
+        members.sort(key=lambda r: r["bytes"])
+        take(members[len(members) // 2],
+             f"median of {len(members)} pages with markers {'+'.join(keys)}")
+
+    by_area = collections.defaultdict(list)
+    for rec in records:
+        by_area[rec["area"]].append(rec)
+    for area, members in sorted(by_area.items()):
+        members.sort(key=lambda r: r["bytes"])
+        take(members[0], f"smallest {area} page ({members[0]['bytes']:,} B)")
+        take(members[-1], f"largest {area} page ({members[-1]['bytes']:,} B)")
+    return chosen
+
+
 def main() -> None:
-    rows = json.loads(CATALOGUE.read_text(encoding="utf-8"))
-    picked, seen = [], set()
-    for r in rows:
-        if r["area"] not in seen and not r.get("removed"):
-            seen.add(r["area"])
-            picked.append(r)
-    print(f"probing {len(picked)} pages (one per area), "
+    picked = build_frame()
+    print(f"probing {len(picked)} pages from the derived frame, "
           f"{DELAY_SECONDS}s apart")
+    for row in picked:
+        print(f"  {row['area']}/{row['id']:<6} {row['bytes']:>9,} B  "
+              f"{row['why']}")
 
     results = []
     for i, row in enumerate(picked):
@@ -208,6 +274,8 @@ def main() -> None:
         lines += [
             f"*{r['name']}*",
             "",
+            f"- selected as: {r.get('why', '')}",
+            f"- markers stored at harvest: `{r.get('fingerprint', '')}`",
             f"- status {r['status']}, {r['bytes']:,} bytes, "
             f"{r['group_count']} distinct tag/class groups",
             "",
