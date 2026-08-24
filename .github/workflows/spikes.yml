@@ -25,6 +25,7 @@ on:
           - a3
           - a4
           - a6
+          - licences
 
 permissions:
   contents: write
@@ -66,6 +67,14 @@ jobs:
       - name: "Spike A6: full page inventory - what are we not capturing?"
         if: inputs.probe == 'a6'
         run: python3 scripts/spike_page_inventory.py
+
+      # Not a probe about PORDATA: the reuse terms of the three sources
+      # item 14 would archive from. Runs here because this sandbox has no
+      # route to any of them, and decision 7 forbids asserting an
+      # upstream from memory.
+      - name: "Licences: fetch INE, Eurostat and BPstat reuse terms"
+        if: inputs.probe == 'licences'
+        run: python3 scripts/spike_licences.py
 
       - name: Upload raw responses as artifact
         uses: actions/upload-artifact@v4
