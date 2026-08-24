@@ -647,9 +647,10 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    `"ampliado"` added to `MARKER_WORDS` fixes it at **zero extra requests** — units accrue as
    pages go stale. A forced re-harvest would complete it in one pass; that is item 21.
 
-   **The period is specified for all three areas but not yet captured.** Years sit in `<table>`
-   headers on portugal and europa, and in a `<select>` year picker on municipios (17–18
-   `<option value="YYYY">` per page — structured, so first/last are min/max of the options).
+   **The period needs three extractors, one per area** (A4 + A6, both 2026-08-24). `portugal`
+   carries `div.YearCurrentText` / `div.YearOtherText` (first and last, as named elements — the
+   cleanest of the three); `municipios` uses a `<select>` year picker, 17–18
+   `<option value="YYYY">` per page; `europa` has neither, and is the one still unspecified.
    The catch: `marker_windows` runs on *stripped* text, so the tags carrying that structure are
    gone before a window is cut. The period therefore needs a parse against unstripped HTML at
    harvest time plus a fetch to populate — **it belongs to item 21**, and it is the second field
@@ -768,12 +769,26 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    trabalhadores domésticos descontam para a Segurança Social?". Only 14 because the windows
    are narrow slices around `Fontes`; the question usually falls outside them.
 
-   **What to do before any further probing:** build the sampling frame from the fingerprints —
-   one page per fingerprint (9), plus the size extremes within `municipios` (min, median, max),
-   which is ~12 pages rather than 3 and still one polite pass. Then re-run the inventory
-   against *that* frame. The general rule this earns: **a probe's sampling frame must be
-   derived from measured variation, never from a dimension that seems obvious** — area seemed
-   obvious and was wrong.
+   **Done 2026-08-24.** `build_frame()` in `spike_page_inventory.py` derives the frame from
+   `pages.jsonl`: the median page of each of the 9 fingerprints plus the smallest and largest
+   of each area — 15 pages, deterministic, so re-runs stay comparable. A6 then ran against it
+   (`data/spikes/a6-page-inventory.md`) and the frame paid for itself immediately:
+
+   - **The question is universal**: present in `<h2>` on **15 of 15** pages, every fingerprint.
+     It is the field to harvest.
+   - **Its phrasing is area-specific**, which the old frame could never have shown:
+     `portugal` asks *"Quantas / Quanto / Qual…"*, `municipios` asks *"Onde há mais e menos…"*,
+     `europa` asks *"Que países…"*. The question encodes the geographic comparison mode, which
+     makes it a better search and embedding input than the name — and hints that PORDATA's own
+     curation is organised around a question form per area.
+   - **The period elements are `portugal`-only**: `div.YearCurrentText`, `div.YearOtherText`
+     and `td.YearCell` appear on **5 of 5** portugal pages and **0 of 10** europa and
+     municipios pages. A frame of one page per area would have found them on its single
+     portugal page and generalised them to the whole catalogue. With A4 (municipios uses a
+     `<select>` year picker) that makes **three** distinct period mechanisms, one per area.
+
+   The general rule this earns: **a probe's sampling frame must be derived from measured
+   variation, never from a dimension that seems obvious** — area seemed obvious and was wrong.
 
 ## Verification
 

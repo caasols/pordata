@@ -69,6 +69,12 @@ def redact(text: str) -> str:
 # reported as "0 groups" on a 169 KB page.
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
              "link", "meta", "param", "source", "track", "wbr"}
+# Only inline elements merge their text into the parent. Bubbling every
+# element instead makes <body> report the whole page as one string, which
+# buries the fields this probe exists to find.
+INLINE_TAGS = {"a", "abbr", "b", "bdi", "bdo", "cite", "code", "em", "i",
+               "kbd", "mark", "q", "s", "samp", "small", "span", "strong",
+               "sub", "sup", "time", "u", "var"}
 
 
 class LeafText(HTMLParser):
@@ -81,13 +87,30 @@ class LeafText(HTMLParser):
     Lenient by design, because scraped markup is not well-formed: an end
     tag with no matching open tag is ignored, and an end tag that closes
     several unclosed elements pops all of them.
+
+    Text is joined per element rather than reported per node. Inline
+    markup splits a text node — "…emissões de CO<sub>2</sub> e outros
+    gases?" arrives as three pieces — so a per-node view reports
+    fragments, and a question-detector looking for a trailing "?" misses
+    the question entirely. That produced two false "no question found"
+    results on pages that plainly had one.
     """
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.stack = []          # [(tag, "tag.class")]
+        self.stack = []          # [(tag, label, [text fragments])]
         self.skip_depth = 0
         self.groups = collections.defaultdict(list)
+
+    def _flush(self, frame):
+        tag, label, parts = frame
+        text = re.sub(r"\s+", " ", " ".join(parts)).strip()
+        if text and len(text) <= MAX_TEXT:
+            self.groups[label].append(text)
+        # only inline markup merges upward: "CO<sub>2</sub> …?" must
+        # reach its <h2> whole, while a <div> must not absorb the page
+        if text and tag in INLINE_TAGS and self.stack:
+            self.stack[-1][2].append(text)
 
     def handle_starttag(self, tag, attrs):
         if tag in VOID_TAGS:
@@ -97,7 +120,7 @@ class LeafText(HTMLParser):
             return
         classes = (dict(attrs).get("class") or "").split()
         label = f"{tag}.{classes[0]}" if classes else tag
-        self.stack.append((tag, label))
+        self.stack.append((tag, label, []))
 
     def handle_startendtag(self, tag, attrs):
         return                   # <br/> — self-closing, nothing to track
@@ -108,23 +131,30 @@ class LeafText(HTMLParser):
         if self.skip_depth:
             self.skip_depth -= 1
             return
-        if any(t == tag for t, _ in self.stack):
-            while self.stack and self.stack.pop()[0] != tag:
-                pass
+        if any(t == tag for t, _, _ in self.stack):
+            while self.stack:
+                frame = self.stack.pop()
+                self._flush(frame)
+                if frame[0] == tag:
+                    break
 
     def handle_data(self, data):
-        if self.skip_depth:
+        if self.skip_depth or not self.stack:
             return
         text = re.sub(r"\s+", " ", data).strip()
-        if not text or len(text) > MAX_TEXT:
-            return
-        where = self.stack[-1][1] if self.stack else "(root)"
-        self.groups[where].append(text)
+        if text:
+            self.stack[-1][2].append(text)
+
+    def close(self):
+        super().close()
+        while self.stack:            # unclosed tags at EOF still count
+            self._flush(self.stack.pop())
 
 
 def inventory(html: str) -> dict:
     parser = LeafText()
     parser.feed(html)
+    parser.close()
     return parser.groups
 
 

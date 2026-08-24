@@ -71,3 +71,38 @@ class RedactionTest(unittest.TestCase):
 
     def test_a_bare_year_survives(self):
         self.assertEqual(inv.redact("desde 1960"), "desde 1960")
+
+
+class JoinedTextTest(unittest.TestCase):
+    """Inline markup splits a text node. Reporting per node produced two
+    false 'no question found' results on pages that plainly had one."""
+
+    def test_inline_markup_does_not_split_the_question(self):
+        g = inv.inventory("<body><h2>Mais emissoes de CO<sub>2</sub> e "
+                          "outros gases?</h2></body>")
+        self.assertEqual(g["h2"],
+                         ["Mais emissoes de CO 2 e outros gases?"])
+        self.assertEqual(inv.questions(g),
+                         [("h2", "Mais emissoes de CO 2 e outros gases?")])
+
+    def test_block_elements_do_not_absorb_the_page(self):
+        # bubbling everything made <body> report the whole document as one
+        # string, burying the fields the probe exists to find
+        g = inv.inventory("<body><h2>Titulo</h2><p>Paragrafo</p></body>")
+        self.assertNotIn("body", g)
+        self.assertEqual(sorted(g), ["h2", "p"])
+
+    def test_an_inline_child_still_reaches_its_block_parent(self):
+        g = inv.inventory('<body><div class="lead">'
+                          "<span>Quantos sao?</span></div></body>")
+        self.assertEqual(g["div.lead"], ["Quantos sao?"])
+        self.assertEqual(g["span"], ["Quantos sao?"])
+
+    def test_a_question_is_reported_once_not_per_ancestor(self):
+        g = inv.inventory('<body><div class="lead">'
+                          "<span>Quantos sao?</span></div></body>")
+        self.assertEqual(len(inv.questions(g)), 1)
+
+    def test_text_in_a_tag_left_unclosed_at_eof_still_counts(self):
+        g = inv.inventory("<body><h2>Sem fecho?")
+        self.assertEqual(g["h2"], ["Sem fecho?"])
