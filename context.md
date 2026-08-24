@@ -215,6 +215,34 @@ The pipeline, end to end, all live on `main`:
   catalogue. Three of my own false negatives were caught the same day (a literal string search
   against entity-encoded HTML, void elements unwinding a skip counter, and inline markup
   splitting a text node) — each looked like a finding about PORDATA and was a bug in a filter.
+- **Test strength, and two bugs it surfaced** (roadmap 6c/6d/6e, 2026-08-24). The Python
+  mutation kill rate was measured at **55.9%** — below the ~65% the roadmap claimed — and
+  ungated. Boundary tests pinning every threshold constant from both sides, plus content
+  (not prose) assertions on the report writers, took it to **62.5%**, and
+  `scripts/mutation_gate.py` now enforces a floor the way StrykerJS does on the site.
+  Coverage went 80% → 86%. The floor is 58%, not 62%: two runs of the same tree scored 64.1%
+  and 62.5%, and a gate that flakes gets disabled. Writing those tests found a **live
+  crash** — `extract_names` raised `IndexError` on any quadro page whose last two lines are a
+  repeated name, because a length guard sat after an index access Python evaluates first.
+  **Not every survivor is worth killing**, and the gate says so: `parse()`'s ~54 are
+  equivalent mutants, and ~80% of the rest are markdown labels where asserting exact prose
+  buys brittleness rather than correctness.
+- **The freshness loop stopped losing same-day updates** (roadmap 6c). Staleness compared
+  `lastmod > harvested_at`, both date-only, so an update published the day a page was
+  harvested never re-fetched — and never would, since every later run compares the same two
+  equal dates. `>=` was not the fix (it re-fetches those pages for ever); the harvester now
+  stores the lastmod it saw and re-fetches when the value *changes*, exactly once. Records
+  predating the field keep the old comparison deliberately, so the fix could not fire a full
+  re-harvest by accident.
+- **One definition of "indicator page"** (roadmap 6e). `diff_sitemap` used a looser copy — a
+  numeric id and nothing else — so **3,661** URLs counted as indicator updates that the
+  harvester never treats as indicators (2,944 `/en`, 337 quadro+resumo, 380 other), and the
+  CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
+- **The card logic moved into `site/src/lib/card.ts`** so it is mutation-tested. Adding
+  `App.tsx` to Stryker's scope was tried first and rejected: it scored 59% and pulled the
+  overall under the break threshold, because most of what it mutates is JSX. Moving the pure
+  functions in put them inside the gate instead of weakening it — 92.13% overall, and 52
+  mutants that were never exercised are now killed.
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 
@@ -509,18 +537,13 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
    in-run checkpoints protect nothing in Actions; `sitemap.yml` commits its snapshot before
    opening the issue, so a failed `gh issue create` loses the add/remove notification for
    good; nothing verifies the committed `docs/` bundle matches `site/` source, and the Pages
-   deployment itself is unmonitored; `tests.yml` swallows mutation failures with `|| true`.
+   deployment itself is unmonitored. *(The `|| true` on mutation testing is fixed — (d).)*
 
-   **(c) Correctness of the freshness loop** — staleness uses a strict `>` on a date-only
-   lastmod, so a same-day PORDATA update is missed for ever.
+   *(c) Freshness — **done 2026-08-24**; see "What has been built".)*
 
-   **(d) Test strength** — Python mutation kill rate is ~65% (mutmut) and ungated; the site's
-   is 91% behind a hard `break: 85`. Bring Python up and gate it the same way.
+   *(d) Test strength — **done 2026-08-24**; see "What has been built".)*
 
-   **(e) Code hygiene** — `diff_sitemap.py` re-implements `pordata_lib`'s parsing instead of
-   importing it (the lib exists to prevent exactly that drift); `build_catalogue.AREA_LABELS`
-   duplicates a vocabulary it never uses; records missing required keys still crash with a
-   raw `KeyError`.
+   *(e) Code hygiene — **done 2026-08-24**; see "What has been built".)*
 
    **(f) Payload budget** — every visitor downloads the whole catalogue (1.27 MB raw / 137 KB
    gzipped) before the first search. Benign today, unbounded once the crosswalk widens each

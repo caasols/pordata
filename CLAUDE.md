@@ -82,6 +82,11 @@ owner, ~30 min) is the only thing gating **14**. Full detail and execution order
   it served twice on a Saturday and we throttled ourselves with four 21 MB pulls in 45 minutes.
 - **Refusing beats guessing.** The featured matcher, `split_breakdown` and the crosswalk all
   converged on the same rule: be right or be absent.
+- **Not every mutation survivor is worth killing.** `parse()`'s ~54 are equivalent mutants
+  (`decode("utf-8")` vs `decode()`, `[-1]` vs `[+1]` on a two-element list), and ~80% of the
+  rest are markdown labels in report writers. Test the *figures and sections* a reader
+  depends on, not the prose. And put logic in `src/lib` — that is where StrykerJS mutates, so
+  a helper living in `App.tsx` is unit-tested but never mutation-tested.
 
 ## How it runs
 
@@ -91,7 +96,7 @@ Eight workflows on `main`, the first two a detector→worker pair:
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
 | `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, commit |
-| `tests.yml` | push to scripts/tests | unittest + coverage gate + mutmut |
+| `tests.yml` | push to scripts/tests | unittest + coverage gate (86%) + **mutmut gate** (floor 58%) |
 | `site.yml` | push to site/ | typecheck, build, vitest + coverage gate, StrykerJS (break 85) |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
 | `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes (`spikes.yml` takes a probe input: a1–a4) |
