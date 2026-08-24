@@ -85,23 +85,26 @@ h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
  background:var(--card);color:var(--card-foreground);
  box-shadow:0 1px 2px 0 #0000000d;padding:1rem 1.1rem}
 
-/* A definition list, not a reflowing grid. `auto-fit` plus a dropped
-   empty field meant the columns rearranged per page: on a row with no
-   unit, ÁREA slid into where UNIDADE sat on the page before, so nothing
-   held its position between indicators. Two fixed columns and a row per
-   field are stable whatever the data, and a long value grows downward
-   inside its own column instead of moving anything.
+/* The card's own meta grid: a cell per field, label above value. Two
+   things have to hold at once. Stability comes from a *fixed* three
+   columns and a cell that is never omitted — `auto-fit` plus a dropped
+   empty field is what made ÁREA land where UNIDADE sat on the page
+   before. Legibility comes from keeping the card's stacked cell rather
+   than a two-column label/value list, which reads as a form and leaves
+   a wide empty gutter.
+   `wide` fields span the row because they are sentences: fontes, the
+   English name, the INE operation. That is fixed per field, not decided
+   from the value, or the layout is back at the mercy of the data.
    App.tsx Meta supplies the type: the label is the card's exactly, the
    value steps from text-xs to .8125rem because a page is read, not
    scanned. */
-dl.meta{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) 1fr;
- gap:0 1rem;margin:0;align-items:baseline}
-dl.meta dt,dl.meta dd{padding:.5rem 0;border-top:1px solid var(--border);
- min-width:0}
-dl.meta dt:first-of-type,dl.meta dt:first-of-type + dd{border-top:0}
-dl.meta dt{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:1rem .9rem}
+.field{min-width:0;display:flex;flex-direction:column}
+.field.wide{grid-column:1/-1}
+.field .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
  color:var(--muted-foreground);opacity:.75;line-height:1.5}
-dl.meta dd{margin:0;font-size:.8125rem;line-height:1.45;
+.field .v{margin-top:.1rem;font-size:.8125rem;line-height:1.45;
  overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
 /* the card dims a missing value so the gap reads as deliberate; the
    unit is genuinely absent on 48% of rows */

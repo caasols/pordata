@@ -193,23 +193,26 @@ h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
  background:var(--card);color:var(--card-foreground);
  box-shadow:0 1px 2px 0 #0000000d;padding:1rem 1.1rem}
 
-/* A definition list, not a reflowing grid. `auto-fit` plus a dropped
-   empty field meant the columns rearranged per page: on a row with no
-   unit, ÁREA slid into where UNIDADE sat on the page before, so nothing
-   held its position between indicators. Two fixed columns and a row per
-   field are stable whatever the data, and a long value grows downward
-   inside its own column instead of moving anything.
+/* The card's own meta grid: a cell per field, label above value. Two
+   things have to hold at once. Stability comes from a *fixed* three
+   columns and a cell that is never omitted — `auto-fit` plus a dropped
+   empty field is what made ÁREA land where UNIDADE sat on the page
+   before. Legibility comes from keeping the card's stacked cell rather
+   than a two-column label/value list, which reads as a form and leaves
+   a wide empty gutter.
+   `wide` fields span the row because they are sentences: fontes, the
+   English name, the INE operation. That is fixed per field, not decided
+   from the value, or the layout is back at the mercy of the data.
    App.tsx Meta supplies the type: the label is the card's exactly, the
    value steps from text-xs to .8125rem because a page is read, not
    scanned. */
-dl.meta{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) 1fr;
- gap:0 1rem;margin:0;align-items:baseline}
-dl.meta dt,dl.meta dd{padding:.5rem 0;border-top:1px solid var(--border);
- min-width:0}
-dl.meta dt:first-of-type,dl.meta dt:first-of-type + dd{border-top:0}
-dl.meta dt{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:1rem .9rem}
+.field{min-width:0;display:flex;flex-direction:column}
+.field.wide{grid-column:1/-1}
+.field .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
  color:var(--muted-foreground);opacity:.75;line-height:1.5}
-dl.meta dd{margin:0;font-size:.8125rem;line-height:1.45;
+.field .v{margin-top:.1rem;font-size:.8125rem;line-height:1.45;
  overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
 /* the card dims a missing value so the gap reads as deliberate; the
    unit is genuinely absent on 48% of rows */
@@ -306,18 +309,26 @@ def raw_both(key: str) -> str:
     return f'<span data-pt>{pt}</span><span data-en>{en}</span>'
 
 
-def field(key: str, value: str) -> str:
-    """One row of the definition list — **always rendered**.
+def field(key: str, value: str, wide: bool = False) -> str:
+    """One cell — label above value, exactly like the card's `Meta`, and
+    **always rendered**.
 
-    Dropping the row when the value is empty is what made every page a
-    different shape: on a row with no unit the remaining fields slid up
-    into its place, so `ÁREA` sat where `UNIDADE` had been on the page
-    before. The card hit exactly this and was fixed the same way — the
-    cell keeps its label and shows a dimmed placeholder, so the gap reads
-    as deliberate rather than as a rendering fault. The unit is genuinely
-    absent on 48% of rows; that is information, not an error."""
+    Two things have to hold at once and the first attempt at this traded
+    one for the other. Dropping an empty cell let the rest slide up, so
+    `ÁREA` sat where `UNIDADE` had been on the page before; replacing the
+    grid with a two-column list fixed that and lost the card's design —
+    a narrow label column against a wide empty gutter, which is a form,
+    not a card. So: keep the card's stacked cell, and get stability from
+    a *fixed* column count plus a cell that is never omitted.
+
+    `wide` is a property of the field, not of its content — `fontes` and
+    the English name are sentences and always span the row. Deciding
+    that per value would put the layout back at the mercy of the data.
+    """
     shown = value or f'<span class="na">{both("notAvailable")}</span>'
-    return f'<dt>{both(key)}</dt><dd>{shown}</dd>'
+    cls = "field wide" if wide else "field"
+    return (f'<div class="{cls}"><span class="k">{both(key)}</span>'
+            f'<span class="v">{shown}</span></div>')
 
 
 def page_path(row: dict) -> pathlib.Path:
@@ -392,12 +403,12 @@ def provenance(entry: dict | None, titles: dict) -> str:
                 f'<span data-en>more series in the same family</span></p>')
     return (
         f'<h2>{both("provenance")}</h2><div class="card">'
-        f'<dl class="meta">'
-        + field("operation", esc(entry.get("operation")))
+        f'<div class="meta">'
+        + field("operation", esc(entry.get("operation")), wide=True)
         + field("theme", esc(entry.get("theme")))
         + field("geo", esc(", ".join(entry.get("geo_levels") or [])))
         + field("periodicity", esc(", ".join(entry.get("periodicities") or [])))
-        + f'</dl><h3>{both("candidates")}</h3>'
+        + f'</div><h3>{both("candidates")}</h3>'
         f'<p class="why">{raw_both("candidatesWhy")}</p>'
         f'<ol class="series">{rows}</ol>{more}</div>')
 
@@ -439,13 +450,13 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 <h1>{esc(title)}</h1>
 {f'<p class="coverage">{esc(coverage)}</p>' if coverage else ''}
 <div class="chips">{"".join(chips)}</div>
-<div class="card"><dl class="meta">
-{field("sources", esc(sources))}
+<div class="card"><div class="meta">
+{field("sources", esc(sources), wide=True)}
 {field("updated", esc(row.get("ultima_atualizacao")))}
 {field("unit", esc(row.get("unit")))}
 {field("area", f'<span data-pt>{area_pt}</span><span data-en>{area_en}</span>')}
-{field("nameEn", esc(row.get("name_en")))}
-</dl></div>
+{field("nameEn", esc(row.get("name_en")), wide=True)}
+</div></div>
 {revision}
 <div class="chart"><span class="slot">{both("chartSoon")}</span>
 <p class="why">{both("chartWhy")}</p>

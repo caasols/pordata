@@ -300,6 +300,10 @@ class ThemeTest(RepoCase):
             d.theme_tokens(css)
 
 
+def meta_block(html):
+    return html.split('<div class="meta">')[1].split("</div></div>")[0]
+
+
 class StableLayoutTest(unittest.TestCase):
     """Every page has the same shape, whatever the row is missing.
 
@@ -313,30 +317,27 @@ class StableLayoutTest(unittest.TestCase):
 
     FIELDS = 5      # sources, updated, unit, area, name_en
 
-    def rows_in(self, html):
-        return html.count("<dt>"), html.count("<dd>")
+    def cells_in(self, html):
+        return html.count('class="field'), html.count('class="k"')
 
     def test_a_row_with_no_unit_still_reserves_it(self):
         """The unit is genuinely absent on 48% of rows. That is the
         common case, not the edge case."""
-        html = render(row(unit=""))
-        block = html.split('<dl class="meta">')[1].split("</dl>")[0]
-        self.assertEqual(self.rows_in(block), (self.FIELDS, self.FIELDS))
+        block = meta_block(render(row(unit="")))
+        self.assertEqual(self.cells_in(block), (self.FIELDS, self.FIELDS))
 
     def test_a_full_row_has_exactly_the_same_shape(self):
-        full = render(row(unit="Taxa - %"))
-        lean = render(row(unit=""))
-        block = lambda h: h.split('<dl class="meta">')[1].split("</dl>")[0]
-        self.assertEqual(self.rows_in(block(full)),
-                         self.rows_in(block(lean)))
+        self.assertEqual(
+            self.cells_in(meta_block(render(row(unit="Taxa - %")))),
+            self.cells_in(meta_block(render(row(unit="")))))
 
     def test_the_fields_keep_their_order(self):
         """Order is the other half of stability: same count in a
         different sequence still moves everything."""
         def labels(html):
-            block = html.split('<dl class="meta">')[1].split("</dl>")[0]
-            return [chunk.split("</dt>")[0]
-                    for chunk in block.split("<dt>")[1:]]
+            block = meta_block(html)
+            return [chunk.split("</span>")[0]
+                    for chunk in block.split('<span class="k">')[1:]]
         self.assertEqual(labels(render(row(unit=""))),
                          labels(render(row(unit="Taxa - %"))))
 
@@ -355,9 +356,20 @@ class StableLayoutTest(unittest.TestCase):
     def test_the_columns_are_fixed_not_auto_fitting(self):
         """`auto-fit` was the mechanism: it repacked the columns as soon
         as a field disappeared."""
-        rule = d.STYLESHEET.split("dl.meta{")[1].split("}")[0]
+        rule = d.STYLESHEET.split(".meta{")[1].split("}")[0]
         self.assertNotIn("auto-fit", rule)
-        self.assertIn("grid-template-columns:minmax(", rule)
+        self.assertIn("repeat(3,minmax(0,1fr))", rule)
+
+    def test_long_fields_span_the_row_by_declaration_not_by_length(self):
+        """`fontes` and the English name are sentences and always span.
+        Deciding that from the value would put the layout back at the
+        mercy of the data — a short source string would sit in a
+        one-third cell on one page and a full row on the next."""
+        short = render(row(fontes=["INE"], name_en="X"))
+        long_ = render(row(fontes=["A", "B", "C", "D"], name_en="Y" * 90))
+        self.assertEqual(meta_block(short).count('class="field wide"'),
+                         meta_block(long_).count('class="field wide"'))
+        self.assertEqual(meta_block(short).count('class="field wide"'), 2)
 
 
 class DesignSystemTest(unittest.TestCase):
@@ -396,14 +408,14 @@ class DesignSystemTest(unittest.TestCase):
     def test_the_meta_label_matches_the_card_exactly(self):
         app = (self.SITE / "App.tsx").read_text(encoding="utf-8")
         self.assertIn("text-[9.5px] uppercase tracking-[0.1em]", app)
-        label = self.sheet().split("dl.meta dt{")[1].split("}")[0]
+        label = self.sheet().split(".field .k{")[1].split("}")[0]
         self.assertIn("font-size:9.5px", label)
         self.assertIn("letter-spacing:.1em", label)
 
     def test_the_meta_value_is_near_the_card_not_body_size(self):
         """A page is read rather than scanned, so one step up from the
         card's text-xs is deliberate — the 16px body size was not."""
-        value = self.sheet().split("\ndl.meta dd{")[1].split("}")[0]
+        value = self.sheet().split(".field .v{")[1].split("}")[0]
         self.assertIn("font-size:.8125rem", value)
 
     def test_radii_come_from_the_lifted_scale(self):
