@@ -298,3 +298,48 @@ class ExtractUnitTest(unittest.TestCase):
         rec = {"marker_windows": {"Fontes": [
             self.CAPTION.format("Fontes: INE")]}}
         self.assertEqual(b.extract_unit(rec), "")
+
+
+class ExtractRevisionTest(unittest.TestCase):
+    """Decision 5's revision caveat, recovered from `revis` windows the
+    harvester has been storing since day one (roadmap 24)."""
+
+    def rec(self, text):
+        return {"marker_windows": {"revis": [text]}}
+
+    def test_reads_the_revision_sentence(self):
+        self.assertEqual(
+            b.extract_revision(self.rec(
+                "Fontes/Entidades: INE, PORDATA Última actualização: "
+                "2026-08-05 Os valores foram revistos pela entidade "
+                "oficial. Mais opções e dados")),
+            "Os valores foram revistos pela entidade oficial.")
+
+    def test_strips_a_label_or_date_the_window_sliced_into(self):
+        got = b.extract_revision(self.rec(
+            "actualização: 2026-07-13 Os valores são revistos anualmente "
+            "para a série toda."))
+        self.assertEqual(got,
+                         "Os valores são revistos anualmente para a série toda.")
+
+    def test_magazines_are_not_revisions(self):
+        # "revistas" means magazines: pages about jornais e revistas
+        # matched the marker and served their own question as a note
+        self.assertEqual(b.extract_revision(self.rec(
+            "Onde há mais e menos diários, semanários, revistas ou "
+            "outros periódicos?")), "")
+
+    def test_an_unforeseen_expense_is_not_a_revision(self):
+        # "imprevista" contains "revis"
+        self.assertEqual(b.extract_revision(self.rec(
+            "Pessoas sem dinheiro para pagar uma despesa imprevista de "
+            "valor próximo ao limiar de pobreza.")), "")
+
+    def test_ui_furniture_is_never_served_as_a_note(self):
+        for junk in ("Mais opções e dados. Aprofunde a sua análise.",
+                     "Carregue aqui para ver a revisão. ver tabela completa"):
+            self.assertEqual(b.extract_revision(self.rec(junk)), "")
+
+    def test_missing_window_gives_empty(self):
+        self.assertEqual(b.extract_revision({}), "")
+        self.assertEqual(b.extract_revision({"marker_windows": {}}), "")

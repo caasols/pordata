@@ -120,3 +120,51 @@ class CaptionMarkerTest(RepoCase):
     def test_page_without_a_caption_yields_no_marker(self):
         self.assertNotIn("ampliado", h.marker_windows(
             "Fontes/Entidades: INE, PORDATA Última actualização: 2026-01-01"))
+
+
+class QuestionAndPeriodTest(RepoCase):
+    """Roadmap 24: fields spike A6 located, captured at harvest time so
+    the freshness loop collects them without a dedicated re-fetch."""
+
+    def test_question_is_read_from_h2(self):
+        self.assertEqual(
+            h.extract_question("<h1>Título</h1><h2>Quantos médicos há?</h2>"),
+            "Quantos médicos há?")
+
+    def test_inline_markup_does_not_break_the_question(self):
+        self.assertEqual(
+            h.extract_question("<h2>Emissões de CO<sub>2</sub>?</h2>"),
+            "Emissões de CO₂?")
+
+    def test_a_footnote_marker_does_not_leave_a_gap(self):
+        self.assertEqual(
+            h.extract_question("<h2>Água da rede pública<sub>1</sub>?</h2>"),
+            "Água da rede pública₁?")
+
+    def test_an_h2_that_is_not_a_question_is_ignored(self):
+        self.assertEqual(h.extract_question("<h2>Metainformação</h2>"), "")
+
+    def test_period_from_the_portugal_year_elements(self):
+        self.assertEqual(
+            h.extract_period('<div class="YearCurrentText">2006</div>'
+                             '<div class="YearOtherText">1991</div>'),
+            ("1991", "2006"))
+
+    def test_period_from_the_municipios_year_picker(self):
+        html = "".join(f'<option value="{y}">{y}</option>'
+                       for y in (2019, 2020, 2021))
+        self.assertEqual(h.extract_period(html), ("2019", "2021"))
+
+    def test_europa_has_neither_mechanism_so_no_period(self):
+        self.assertEqual(h.extract_period("<h2>Que países?</h2>"), ("", ""))
+
+    def test_implausible_years_are_refused(self):
+        self.assertEqual(
+            h.extract_period('<div class="YearCurrentText">1899</div>'
+                             '<div class="YearOtherText">1801</div>'),
+            ("", ""))
+
+    def test_a_single_year_is_not_a_period(self):
+        self.assertEqual(
+            h.extract_period('<div class="YearCurrentText">2006</div>'),
+            ("", ""))

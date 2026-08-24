@@ -86,6 +86,52 @@ def marker_windows(text: str) -> dict[str, list[str]]:
     return windows
 
 
+# --- fields A6 found, captured here so future fetches pay for themselves ---
+# Raw HTML is not stored, so a field learned about after a harvest costs a
+# full re-fetch. That has happened twice (the unit caption, the period).
+# These are added now, ahead of roadmap 21, so the freshness loop collects
+# them for free as pages go stale.
+
+# The plain-language question sits in <h2> on every page A6 sampled
+# (15/15, all 9 structural fingerprints). Inline markup splits it —
+# "…de CO<sub>2</sub>…?" — so tags are stripped before testing.
+H2 = re.compile(r"<h2[^>]*>(.*?)</h2>", re.I | re.DOTALL)
+MIN_QUESTION_LEN = 15
+MAX_QUESTION_LEN = 240
+
+
+def extract_question(html: str) -> str:
+    for match in H2.finditer(html):
+        inner = html_mod.unescape(
+            re.sub(r"<[^>]+>", " ", lib.scripts_to_unicode(match.group(1))))
+        text = re.sub(r"\s+", " ", inner).strip()
+        # a footnote marker leaves "… pública ₁ ?" — close that gap
+        text = re.sub(r"\s+([?!.,;:])", r"\1", text)
+        if text.endswith("?") and MIN_QUESTION_LEN <= len(text) <= MAX_QUESTION_LEN:
+            return text
+    return ""
+
+
+# The period's mechanism differs by area (A4 + A6): portugal names the
+# first and last year in their own elements, municipios exposes a
+# <select> year picker, europa does neither and is still unspecified.
+YEAR_ELEMENT = re.compile(
+    r'class="[^"]*Year(?:Current|Other)Text[^"]*"[^>]*>\s*(\d{4})\s*<', re.I)
+YEAR_OPTION = re.compile(r'<option[^>]+value="(\d{4})"', re.I)
+EARLIEST_YEAR, LATEST_YEAR = 1960, 2035
+
+
+def extract_period(html: str) -> tuple:
+    """(first, last) as strings, or ("", "") when the page does not say."""
+    years = [int(y) for y in YEAR_ELEMENT.findall(html)]
+    if not years:
+        years = [int(y) for y in YEAR_OPTION.findall(html)]
+    years = [y for y in years if EARLIEST_YEAR <= y <= LATEST_YEAR]
+    if len(years) < 2:
+        return "", ""
+    return str(min(years)), str(max(years))
+
+
 def parse(url: str, status: int, body: bytes) -> dict:
     html = body.decode("utf-8", errors="replace")
     path = url.split("pordata.pt/", 1)[-1]
@@ -134,6 +180,13 @@ def parse(url: str, status: int, body: bytes) -> dict:
         warnings.append("date_shape")
         ultima = ""
 
+    question = extract_question(html)
+    if question and "|" in question:
+        # a page-title fragment, not a question PORDATA wrote
+        warnings.append("question_shape")
+        question = ""
+    first_year, last_year = extract_period(html)
+
     record = {
         "url": url,
         "id": int(re.search(r"-(\d+)$", url).group(1)),
@@ -146,6 +199,9 @@ def parse(url: str, status: int, body: bytes) -> dict:
         "ultima_atualizacao": ultima,
         "json_ld": json_ld,
         "marker_windows": marker_windows(text),
+        "question": question,
+        "period_start": first_year,
+        "period_end": last_year,
         "http_status": status,
         "bytes": len(body),
         "harvested_at": time.strftime("%Y-%m-%d", time.gmtime()),

@@ -264,16 +264,12 @@ def build_en_names(sitemap_text: str) -> dict[tuple, str]:
     return en_names
 
 
-SUP_DIGITS = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
-SUB_DIGITS = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
-
-
 def strip_markup(s: str) -> str:
     """PORDATA titles carry inline HTML (<em>per capita</em>,
     CO<sub>2</sub>, km<sup>2</sup>). Digits in sub/sup become their
-    Unicode forms; every other tag is dropped."""
-    s = re.sub(r"<sup>(\d+)</sup>", lambda m: m.group(1).translate(SUP_DIGITS), s)
-    s = re.sub(r"<sub>(\d+)</sub>", lambda m: m.group(1).translate(SUB_DIGITS), s)
+    Unicode forms (shared with the harvester via `lib`); every other tag
+    is dropped."""
+    s = lib.scripts_to_unicode(s)
     s = re.sub(r"<[^>]+>", "", s)
     return re.sub(r"\s+", " ", s).strip()
 
@@ -368,6 +364,60 @@ def plausible_unit(value: str) -> bool:
     return not any(c in value for c in "|:\n")
 
 
+# --- revision note (roadmap 24) --------------------------------------
+# Decision 5 requires a revision caveat to travel *with* the series. The
+# harvester has been storing one since day one without anyone reading it:
+# 215 pages carry a `revis` marker window holding sentences like "Os
+# valores apresentados entre 2021 e 2024 foram revistos pelo INE…".
+# Extracted at build time, so it needs no re-fetch.
+#
+# Matching the bare word is not enough, twice over. Without \b, "despesa
+# imprevista" matches because "previs" contains "revis". And **"revistas"
+# means magazines** in Portuguese, so pages about jornais e revistas
+# matched too and served their own question as a revision note. So the
+# pattern requires a revision *event* — the noun "revisão/revisões", or a
+# participle with its auxiliary — not merely the stem.
+REVISION_WORD = re.compile(
+    r"\brevis(?:ão|ões)|(?:foram|foi|são|ser|sido)\s+revist|"
+    r"\brevist[oa]s?\s+(?:pel|em|entre|a partir)", re.I)
+# UI furniture that shares the window and must never be served as a note
+REVISION_BOUNDARY = re.compile(
+    r"Mais opções|Aprofunde|Carregue|ver tabela|Relacionados|"
+    r"Fontes/Entidades|A carregar", re.I)
+# a window is a slice, so it can open mid-sentence or just after a label
+REVISION_LEAD = re.compile(r"^.*?(?:\d{4}-\d{2}-\d{2}|actualiza[^:]*:)\s*",
+                           re.S)
+MIN_REVISION_LEN = 25
+MAX_REVISION_LEN = 240
+
+
+def extract_revision(rec: dict) -> str:
+    """The revision sentence from the stored `revis` window, or ""."""
+    window = (rec.get("marker_windows") or {}).get("revis")
+    if not window:
+        return ""
+    text = window if isinstance(window, str) else " ".join(map(str, window))
+    text = re.sub(r"\s+", " ", text)
+    for part in re.split(r"(?<=[.!?])\s+", text):
+        part = part.strip()
+        match = REVISION_WORD.search(part)
+        # a question is never a revision note, whatever words it shares
+        if not match or part.endswith("?"):
+            continue
+        # trim the label the window sliced into *before* testing for UI
+        # furniture: a window that opens on "Fontes/Entidades: … Última
+        # actualização: <date> Os valores foram revistos…" is a good note
+        # preceded by chrome, not chrome
+        head = REVISION_LEAD.sub("", part[:match.start()])
+        candidate = re.sub(r"^[^A-Za-zÀ-Úà-ú]+", "",
+                           head + part[match.start():]).strip()
+        if REVISION_BOUNDARY.search(candidate):
+            continue
+        if MIN_REVISION_LEN <= len(candidate) <= MAX_REVISION_LEN:
+            return candidate
+    return ""
+
+
 def unit_slices(rec: dict):
     """Each marker window is a list of disjoint excerpts. They are
     searched one at a time and never concatenated: joining them lets a
@@ -432,6 +482,16 @@ def main() -> None:
         unit = extract_unit(rec)
         if unit:
             row["unit"] = unit
+        revision = extract_revision(rec)
+        if revision:
+            row["revision"] = revision
+        # captured at harvest time from 2026-08-24 (roadmap 24); existing
+        # records predate it and simply have none until re-fetched
+        question = strip_markup(rec.get("question", ""))
+        if question:
+            row["question"] = question
+        if rec.get("period_start") and rec.get("period_end"):
+            row["period"] = f"{rec['period_start']}-{rec['period_end']}"
         if url not in current:
             row["removed"] = True
         if (rec["area"], rec["id"]) in featured_flags:

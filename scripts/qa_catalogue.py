@@ -79,6 +79,14 @@ THRESHOLDS = {
     # a zero — but a floor means a PORDATA unit we have never seen shows
     # up here instead of quietly appearing untranslated on the card.
     "unit_translated_ratio_min": 0.99,
+    # Roadmap 24. The revision note is extracted from windows already
+    # stored, so it is live now; 203 of 2,195 rows carry one and the floor
+    # sits just under that. The question and period are captured at
+    # harvest time, so existing records have none and the floors start at
+    # 0 — they are placeholders that must be raised as the freshness loop
+    # accrues, and the per-area table below is where the real signal will
+    # show up first.
+    "revision_ratio_min": 0.08,
 }
 
 # Coverage floors *per area*, for fields parsed out of page markup.
@@ -98,6 +106,12 @@ THRESHOLDS = {
 # other two areas regressing silently, which is what happened before.
 PER_AREA_THRESHOLDS = {
     "unit_ratio": {"portugal": 0.0, "europa": 0.95, "municipios": 0.95},
+    # Both start at 0 across the board: nothing harvested before
+    # 2026-08-24 carries them. Raise each area's floor as coverage
+    # accrues — that is how roadmap 24 is known to be working, and how a
+    # selector that fails on one template gets named.
+    "question_ratio": {"portugal": 0.0, "europa": 0.0, "municipios": 0.0},
+    "period_ratio": {"portugal": 0.0, "europa": 0.0, "municipios": 0.0},
     "breakdown_ratio": {"portugal": 0.50, "europa": 0.44,
                         "municipios": 0.55},
 }
@@ -304,8 +318,13 @@ def main(strict: bool = False) -> None:
     if published:
         metrics["breakdown_ratio"] = coverage(published, "breakdown")
         metrics["unit_ratio"] = coverage(published, "unit")
+        metrics["revision_ratio"] = coverage(published, "revision")
+        metrics["question_ratio"] = coverage(published, "question")
+        metrics["period_ratio"] = coverage(published, "period")
         for metric, field in (("breakdown_ratio", "breakdown"),
-                              ("unit_ratio", "unit")):
+                              ("unit_ratio", "unit"),
+                              ("question_ratio", "question"),
+                              ("period_ratio", "period")):
             metrics[f"{metric}_by_area"] = {
                 area: coverage([r for r in published if r["area"] == area],
                                field)

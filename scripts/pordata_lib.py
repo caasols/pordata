@@ -34,6 +34,22 @@ FONTES_BOUNDARY = (r"Carregue|ver tabela|ver o gráfico|Última|Ultima"
 # published, and the record carries a warning so the gate sees the
 # coverage fall instead of the site quietly serving junk.
 
+# PORDATA writes CO<sub>2</sub> and km<sup>2</sup> inline, and uses the
+# same tags for footnote markers. Both the harvester (question text) and
+# the build (names) need the digits as Unicode rather than as stray
+# numerals, so the tables live here rather than in one of them.
+SUP_DIGITS = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+SUB_DIGITS = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+
+
+def scripts_to_unicode(html: str) -> str:
+    """<sup>2</sup> -> ², <sub>2</sub> -> ₂; other tags untouched."""
+    html = re.sub(r"<sup>(\d+)</sup>",
+                  lambda m: m.group(1).translate(SUP_DIGITS), html)
+    return re.sub(r"<sub>(\d+)</sub>",
+                  lambda m: m.group(1).translate(SUB_DIGITS), html)
+
+
 MAX_FONTES_LEN = 200
 MAX_FONTE_PART_LEN = 90
 MAX_FONTE_PART_WORDS = 14

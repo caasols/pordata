@@ -58,8 +58,13 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - published_rows_ratio: 1
 - breakdown_ratio: 0.5449
 - unit_ratio: 0.5185
+- revision_ratio: 0.09248
+- question_ratio: 0
+- period_ratio: 0
 - breakdown_ratio_by_area: europa 49%, municipios 60%, portugal 55%
 - unit_ratio_by_area: europa 100%, municipios 100%, portugal 0%
+- question_ratio_by_area: europa 0%, municipios 0%, portugal 0%
+- period_ratio_by_area: europa 0%, municipios 0%, portugal 0%
 - separator_repairs: 37
 - unit_contamination: 0
 - unit_translated_ratio: 1
