@@ -741,15 +741,36 @@ call ("Resumo"/"Summary").*
    `/screenservices/`, no `OutSystems`, no `application/json`. The pages are server-rendered.
    The 12-hour re-harvest was never at risk of fetching nothing.
 
-   **Period: genuinely partial, and the split is by area.** Years appear inside `<table>` on
-   **5 of 7** — all three portugal and both europa pages (1981–2025, 1991–2006, 2007–2023,
-   1989–2020, 2002–2024) — and on **neither municipios page**, though both carry years
-   elsewhere in the document (1991–2026, 2009–2026). So the period is harvestable for
-   portugal and europa by reading table headers, and municipios needs a different path;
-   its 358 KB / 289 KB pages and 19 `<option>` selects suggest the years sit in a control or
-   a script payload rather than a table. **Next step: one more probe against municipios
-   specifically**, before writing any extraction. Geography is not yet answered — the
-   `<option>` counts (2–3 on portugal, 19–31 elsewhere) are too small to be a município list.
+   **Period: the split is by area, and both halves are now answered.** A3 found years inside
+   `<table>` on **5 of 7** — all three portugal and both europa pages (1981–2025, 1991–2006,
+   2007–2023, 1989–2020, 2002–2024) — and on **neither municipios page**, though both carried
+   years elsewhere. A3 could not say where, because it counted years by container type without
+   recording *which* container.
+
+   **Spike A4 (run 2026-08-24, `data/spikes/a4-municipios-period.md`) named it: a `<select>`
+   year picker.** Three municipios pages, 17–18 `<option>` elements each carrying a year, the
+   year repeated in `value=`. That is *better* than the table case — `<option value="2019">` is
+   structured, so first/last are the min and max of the option values rather than a header
+   parse. Period extraction is therefore fully specified:
+
+   | area | where the period lives | extractor |
+   |---|---|---|
+   | portugal, europa | year headers inside `<table>` | parse table headers |
+   | municipios | `<select>` year picker | min/max of `<option value>` |
+
+   **Both need raw HTML, which is the catch.** `marker_windows` runs on `strip_text(html)`, so
+   the tags carrying the structure are already gone by the time a window is cut — the years
+   survive as bare text with nothing to distinguish a picker from a copyright notice. So the
+   period cannot be recovered from stored records: it needs a parse at harvest time against
+   the unstripped HTML, storing `period_start`/`period_end`, and a fetch to populate it. That
+   is item **21**, and it is the clearest argument yet for doing 21 *once*, late, with every
+   such field known — this is the second field discovered after the harvest that could have
+   been captured during it.
+
+   **Geography: still unanswered, and now known not to be inline.** Municipios pages carry 2
+   `<select>` and 19 `<option>` — not the ~308 a município list would need. Their 251–359 KB
+   weight is something else. Whatever names the geographic granularity is not sitting in the
+   markup we have looked at; leave it to item 14, where upstream states it directly.
 
 
 20. **Raise the coverage line past 78.4%** *(owner ask 2026-08-23; unblocked by 19)*. 475 rows

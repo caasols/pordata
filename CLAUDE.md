@@ -89,8 +89,12 @@ split without complaint, so **coverage thresholds for fields parsed out of page 
 per-area** — the areas are separate templates and a mean cannot say "each still works". And a
 hypothesis of mine died usefully: `A carregar conteúdo…` led me to guess the data table was
 client-rendered; it appears **0 times** across all seven pages, which are server-rendered with
-12–18 tables. The period is in a `<table>` on portugal and europa but on **neither municipios
-page** — one more probe there before writing any extraction.
+12–18 tables. The period is in a `<table>` on portugal and europa, and spike A4 found the
+municipios case is a **`<select>` year picker** (17–18 `<option value="YYYY">` per page) — so
+extraction is fully specified for all three areas. But it needs *raw* HTML: `marker_windows`
+runs on stripped text, so the structure is gone before a window is cut. That makes the period
+a harvest-time parse plus a fetch — i.e. **item 21**, and the second field found after the
+harvest that could have been captured during it.
 
 ## How it runs
 
