@@ -114,5 +114,12 @@ jobs:
             echo "No report changes."
           else
             git commit -m "data: spike report (${{ inputs.probe }})"
+            # rebase before pushing, as harvest.yml already does. Two
+            # spikes dispatched close together raced on 2026-08-24: the
+            # europa-period run completed its probe, wrote its report and
+            # then lost the push to "fetch first", so a polite pass over
+            # three PORDATA pages was spent for a file nobody ever saw.
+            # The report is cheap to regenerate; the requests are not.
+            git pull --rebase origin "${GITHUB_REF_NAME}"
             git push
           fi
