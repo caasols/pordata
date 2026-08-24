@@ -374,10 +374,11 @@ Only open work. History lives in "What has been built" and git. Item numbers are
 **Execution order (2026-08-23, after the audit).** Ids are stable and never reused — a
 retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 
-1. **17 — name the project.** The one cheap thing left that gets more expensive with delay:
-   do it before Phase D publishes a package name or FFMS replies. *Done 2026-08-23: **18**,
-   and **19's spike** — which solved the unit half outright and cost nothing to fix.*
-   Remaining in 19: one probe against municipios, whose period is not in a table.
+1. **2 — the crosswalk.** The INE cache landed 2026-08-24, so the roadmap's biggest lever is
+   live and nothing gates it. **17 — name the project** runs alongside: cheap, and it gets more
+   expensive once Phase D publishes a package name or FFMS replies. *Done 2026-08-23/24:
+   **18**, **19's spikes A3 and A4** — the unit half solved outright at zero request cost, and
+   period extraction now specified for all three areas.*
 2. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
    largest item on the board and the gateway to everything below it; blocked only on a laptop.
    **13** rides along in the same laptop session — it is reading, not building, and it gates 14.
@@ -396,12 +397,11 @@ retired id stays retired (11), and a promoted one keeps its own (12). Priority:
 
 Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
 
-**Waiting on the owner:** the INE `raw.xml` upload (5 min at a laptop; unblocks item 2, the
-crosswalk — the roadmap's biggest strategic lever), the three upstream licence texts (item 13,
-same laptop session), the ~20-record spot-check, curating
-`data/catalogue/FEATURED-UNMATCHED.md` (item 1), and ledger attempts (3). *Done: the id-1221
-browser check — dead for humans too, so it is retired rather than retried; and the item 12 name
-call ("Resumo"/"Summary").*
+**Waiting on the owner:** the three upstream licence texts (item 13 — now the *only* thing
+gating item 14), the ~20-record spot-check, curating `data/catalogue/FEATURED-UNMATCHED.md`
+(item 1), the item 17 name call, and ledger attempts (3). *Cleared: the INE `raw.xml` upload —
+the fourth Actions fetch succeeded on 2026-08-24, so item 2 is unblocked without it; the
+id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
 
 1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
    upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
@@ -412,15 +412,35 @@ call ("Resumo"/"Summary").*
    snippet. Several have no counterpart at all (derived aggregates PORDATA publishes only
    inside the quadro; a few quadro rows share one catalogue page), so a perfect score is not
    the goal and the QA floor is set accordingly.
-2. **INE catalogue snapshot, then the crosswalk** — the gateway to Extraction and Phase D.
-   Three fetch attempts failed from Actions runners (403, timeout ×2, 2026-08-22/23): INE
-   likely blocks cloud IP ranges persistently, not temporarily. Fallback shipped: the owner
-   downloads `xml_indic.jsp?opc=2` from their own connection and commits it as
-   `data/ine/raw.xml`; `fetch_ine_catalogue.py` then processes the committed file offline
-   (and deletes it — the gzip is the cache). Then cache `data/ine/indicators.csv`. Then
-   match each catalogue entry to its upstream series: name-match against INE's catalogue for
-   INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary. Store
-   match + confidence; unmatched entries stay honest with `crosswalk: null`.
+2. **INE catalogue snapshot — *landed 2026-08-24* — then the crosswalk.** The gateway to
+   Extraction and Phase D, and **no longer blocked**.
+
+   **The fetch finally worked from an Actions runner on the fourth attempt** (run
+   32702104416, ~10 min). Three earlier attempts failed (403, timeout ×2, 2026-08-22/23) and
+   the recorded conclusion was that INE "likely blocks cloud IP ranges **persistently**, not
+   temporarily". That conclusion was **wrong** — the blocking is intermittent, and patience
+   beat the workaround. The owner's `raw.xml` upload path stays documented in
+   `data/ine/README.md` as the fallback, but is no longer needed.
+
+   **What landed:** `data/ine/indicators.csv` — **13,084 indicators** (13,084 distinct ids)
+   across 25 themes, plus `catalogue.xml.gz` as the durable raw cache. Fields per entry:
+   `theme`, `subtheme`, `keywords`, `periodicity`, `source`, `dates` (last period available
+   and last update), `varcd`, and **two that matter more than the rest**:
+   - **`json`** — a per-indicator INE API URL. This is the route to actual values, so it is
+     the concrete starting point for item 14, not a thing to be designed from scratch.
+   - **`geo_lastlevel`** — the finest geography each indicator is published at. That is the
+     geographic-granularity field item 19 could not find in PORDATA's markup, stated plainly
+     upstream, exactly where it was predicted to be.
+
+   Largest themes: Agricultura/floresta/pescas 1,686 · População 1,537 · Mercado de trabalho
+   1,251 · Inovação e conhecimento 1,236 · Empresas 1,058 · Saúde 922.
+
+   **Next, and now unblocked:** match each catalogue entry to its upstream series —
+   name-match against INE's 13,084 for INE-sourced indicators, Eurostat dataset codes for
+   `europa`, BPstat for monetary. Store match + confidence; unmatched entries stay honest with
+   `crosswalk: null`. Note the ratio while designing it: 2,195 PORDATA rows against 13,084 INE
+   indicators is the raw material for item 16, and the reason 16 insists on selection rather
+   than enumeration.
 
    **2a. Pilot: find the upstream of the dead page (id 1221).** "Despesas das administrações
    públicas em ambiente em % do total das despesas (1995-2013)" is the ideal first case —

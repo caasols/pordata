@@ -51,12 +51,18 @@ upstream defect: PORDATA serves a literal `?` where an en dash belongs in 37 nam
 decodes clean; their own slug drops the character), now the second concrete bug for the FFMS
 follow-up.
 
-Next up per the roadmap in `context.md` (execution order in its header): the card design pass
-(roadmap 10) — the card just gained the summary badge and item 8's labels will add more chips
-to it, so design it once — then the PORDATA→upstream **crosswalk** (gated on the INE cache —
-owner unblock) and the rest of the label-filter design (roadmap 8); Phase D (MCP server) gated
-on owner go. FFMS was emailed 2026-08-21, reply pending; ledger attempts remain the owner's
-evidence-gathering task.
+**The INE catalogue landed 2026-08-24 and unblocked the roadmap's biggest lever.** The fetch
+succeeded from an Actions runner on the *fourth* attempt, so the recorded conclusion that INE
+"blocks cloud IP ranges persistently" was wrong — it is intermittent, and the owner's `raw.xml`
+upload is no longer needed. `data/ine/indicators.csv` now holds **13,084 indicators** across 25
+themes, each with a per-indicator **`json` API URL** (the concrete route to values, i.e. the
+starting point for roadmap 14) and **`geo_lastlevel`** (the geographic granularity PORDATA's
+markup does not expose).
+
+Next up per the roadmap in `context.md` (execution order in its header): the PORDATA→upstream
+**crosswalk** (roadmap 2, now unblocked), with the **rename** (17) alongside it; then the
+label-filter design (roadmap 8); Phase D (MCP server) gated on owner go. FFMS was emailed
+2026-08-21, reply pending; ledger attempts remain the owner's evidence-gathering task.
 
 **Direction set 2026-08-23 (owner):** the project does not stop at a catalogue of pointers. Go
 to the sources, pull and archive the series, and build the UI PORDATA does not have — charts
