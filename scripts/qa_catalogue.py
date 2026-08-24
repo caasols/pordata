@@ -412,11 +412,16 @@ def main(strict: bool = False) -> None:
             g.get("collisions", 0) for g in featured_stats.values())
         metrics["featured_rows"] = sum(
             g.get("distinct_rows", 0) for g in featured_stats.values())
-    metrics["orgs_coverage"] = (
-        sum(1 for r in published if r.get("orgs")) / len(published)
-        if published else 0.0)
-    metrics["distinct_orgs"] = len(
-        {o for r in published for o in r.get("orgs", [])})
+    # Conditional on a published catalogue, like the other metrics
+    # derived from one. Reporting 0 when there is nothing to measure
+    # would breach the floor on every run that has records but no build
+    # yet — `gate()` skips metrics that are absent, which is the whole
+    # mechanism for "not measured" as distinct from "measured as zero".
+    if published:
+        metrics["orgs_coverage"] = (
+            sum(1 for r in published if r.get("orgs")) / len(published))
+        metrics["distinct_orgs"] = len(
+            {o for r in published for o in r.get("orgs", [])})
 
     payload = payload_metrics()
     metrics.update(payload)

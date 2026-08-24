@@ -343,3 +343,79 @@ class ExtractRevisionTest(unittest.TestCase):
     def test_missing_window_gives_empty(self):
         self.assertEqual(b.extract_revision({}), "")
         self.assertEqual(b.extract_revision({"marker_windows": {}}), "")
+
+
+class SourceOrganisationTest(unittest.TestCase):
+    """Roadmap 8b: 159 source strings, ~30 organisations.
+
+    Two mechanical rules do nearly all of it, and each test below is one
+    of the shapes measured in the real `fontes` vocabulary rather than an
+    invented one.
+    """
+
+    def test_a_period_qualifier_is_not_part_of_the_name(self):
+        """PORDATA writes "INE (a partir de 2001)" where a series changed
+        hands or method. Five INE variants collapse this way."""
+        for fonte in ("INE (a partir de 2001)", "INE (até 2003)",
+                      "INE (entre 2006 e 2009)"):
+            with self.subTest(fonte):
+                self.assertEqual(b.source_org(fonte), "INE")
+
+    def test_a_qualifier_without_a_year_is_left_alone(self):
+        """The rule keys on the year, not on the parenthesis, so a name
+        that genuinely ends in brackets keeps them."""
+        self.assertEqual(b.source_org("Instituto (Norte)"),
+                         "Instituto (Norte)")
+
+    def test_the_ministry_suffix_is_dropped(self):
+        """"DGEEC/MECI" and "DGEEC/MEd" are one body under two cabinets;
+        the ministry is whichever government reorganised last."""
+        self.assertEqual(b.source_org("DGEEC/MECI"), "DGEEC")
+        self.assertEqual(b.source_org("DGEEC/MEd"), "DGEEC")
+        self.assertEqual(b.source_org("GEP/MTSSS"), "GEP")
+
+    def test_a_slash_inside_brackets_is_not_a_ministry(self):
+        """Three real sources carry an acronym in brackets. Splitting on
+        their slash would cut the name in half — this test exists because
+        the first version did exactly that."""
+        for fonte in (
+            "Centro Temático Europeu sobre a Diversidade Biológica (ETC/BD)",
+            "Fórum Internacional de Transportes (ITF / OCDE)",
+            "Ruído e Poluição Industrial (ETC/ATNI)",
+        ):
+            with self.subTest(fonte):
+                self.assertEqual(b.source_org(fonte), fonte)
+
+    def test_a_hyphenated_name_is_not_split(self):
+        self.assertEqual(b.source_org("UNESCO-UIS"), "UNESCO-UIS")
+
+    def test_both_rules_apply_together(self):
+        self.assertEqual(b.source_org("GEE/MEc (2010 a 2012)"), "GEE")
+
+    def test_the_detail_after_a_dash_is_dropped(self):
+        """`fontes` entries carry the survey after " - "; the leading
+        entity is the organisation."""
+        self.assertEqual(
+            b.source_org("SGMAI - Base de Dados do Recenseamento"),
+            "SGMAI")
+
+    def test_the_universal_source_is_not_a_facet(self):
+        """PORDATA cites itself on all 2,195 rows, so as a filter it
+        separates nothing. It stays in `fontes` verbatim."""
+        self.assertEqual(b.source_orgs(["PORDATA"]), [])
+        self.assertEqual(b.source_orgs(["INE", "PORDATA"]), ["INE"])
+
+    def test_duplicates_collapse_to_one_entry(self):
+        """Two qualifiers of the same body are one organisation, which is
+        the entire point of normalising."""
+        self.assertEqual(
+            b.source_orgs(["INE (até 2003)", "INE (a partir de 2004)"]),
+            ["INE"])
+
+    def test_order_is_first_seen_so_rebuilds_are_stable(self):
+        self.assertEqual(b.source_orgs(["Eurostat", "INE"]),
+                         ["Eurostat", "INE"])
+
+    def test_no_sources_gives_no_organisations(self):
+        self.assertEqual(b.source_orgs([]), [])
+        self.assertEqual(b.source_orgs([""]), [])
