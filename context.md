@@ -283,6 +283,34 @@ The pipeline, end to end, all live on `main`:
   component variant changing fails the build. **The lesson generalises past CSS**: writing
   what looks right instead of reading what the component does produced the orange pill, and
   then produced the orange button one element along after the first fix.
+- **PORDATA's category prefix, demoted** (roadmap 2, 2026-08-25). `REVIEW.md` earned its
+  keep: a colon prefix turned out to be **6× over-represented among refusals** — 15.5% of the
+  633, against 2.4% of matches — because PORDATA writes a category in front ("Cinema: nº de
+  ecrãs", "SNS: hospitais gerais") where INE names the indicator alone, and full containment
+  cannot forgive a word the title never had. **The trap is that a colon is not always a
+  category**: "Densidade populacional: estatísticas por município" has the indicator in front
+  and boilerplate behind. The two separate on a measured property rather than a guess — *a
+  category repeats and an indicator does not*. 36 heads are shared by two or more rows (sns
+  20, cinema 14, administrações públicas 13) and every one reads as a category; 45 appear once
+  (abortos, dívida pública, óbitos infantis) and every one is the indicator itself. Same shape
+  as `split_breakdown`, mirrored. The first version lost two rows it should have kept, both
+  ending in `: total` — a tail with no content words is a breakdown, not an indicator, and
+  `total` is already a stopword, so the phrase reduced to nothing to match on. With that
+  guard: **206 → 212 matched, 6 gained, 0 lost**, and the category is stored as evidence.
+- **Source organisations, normalised** (roadmap 8b, 2026-08-25). **159 source strings → 127
+  organisations** on two mechanical rules: a trailing parenthetical carrying a year is a period
+  qualifier ("INE (a partir de 2001)"), and a slash separates the body from its ministry — so
+  "DGEEC/MECI" and "DGEEC/MEd" are one source under two cabinets, as are "GEP/MTSSS" and
+  "GEP/MSESS". Only slashes *outside* parentheses count: three sources carry an acronym in
+  brackets ("… (ETC/BD)", "… (ITF / OCDE)") and splitting those cuts the name in half, which
+  the first version did. PORDATA is excluded — it cites itself on all 2,195 rows, so as a
+  filter facet it separates nothing. Gated on coverage (99.4%) **and** on the distinct count
+  (127, ceiling 140), the second because the collapsing rules failing silently would leave 159
+  near-singleton facets. Payload 148.1 → 151.7 KB gzipped against a 250 ceiling.
+  **Recency (8c) deliberately gets the opposite treatment** and `site/src/lib/recency.ts` says
+  why: a bucket is relative to *now*, so one baked in at build time is wrong when the calendar
+  turns, and the harvest only rebuilds rows whose records changed. Derived in the client, where
+  it cannot rot; a missing date is a third state rather than a synonym for stale.
 - **Where PORDATA is thin against INE** (roadmap 16, 2026-08-24). `data/coverage/INE-GAP.md`
   is a shortlist of **302 concepts** INE publishes and PORDATA never names once, ranked and
   grouped by theme with three distinct examples each, for the owner to accept or reject —
@@ -664,7 +692,7 @@ to run.
    assume they share INE's shape. `europa` is 638 rows and entirely unrouted. The
    2,195-to-13,084 ratio is also item 16's raw material.
 
-   **Also open on the INE half**: 633 in-scope rows refused, sampled in
+   **Also open on the INE half**: 627 in-scope rows refused, sampled in
    `data/crosswalk/REVIEW.md`. Two categories are visible there and are worth separate work —
    PORDATA rewording an indicator INE publishes under another name, and PORDATA computing a
    ratio INE publishes only as its parts ("Acidentes de viação com vítimas **por mil
