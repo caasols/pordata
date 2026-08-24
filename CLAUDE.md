@@ -53,12 +53,14 @@ single `ine_id`.
 menos…", `europa` "Que países…"), which makes it a better search and embedding input than the
 name; a **revision note** in the `revis` window on 215 pages, which is decision 5's caveat; and
 the **period**, whose mechanism differs by area — portugal has named year elements, municipios
-a `<select>` picker, europa neither. Item **24** widens the parser so future fetches capture
-them; item **21** is the re-harvest that backfills the rest.
+a `<select>` picker, europa neither. The parser now captures all three — the
+revision note needed no fetch at all (203 rows carry it today, from windows already stored) —
+so future fetches pay for themselves; item **21** is the re-harvest that backfills the rest.
 
-**Next:** item **2** (the crosswalk) with **17** (the rename) alongside; **24** (widen the
-parse — no new requests); **13** (three upstream licences, owner, ~30 min) is the only thing
-gating **14**. Full detail and execution order in `context.md`.
+**Next:** item **2** (the crosswalk) — unblocked and, after A5, specified: candidate sets,
+never a single `ine_id` — with **17** (the rename) alongside. **13** (three upstream licences,
+owner, ~30 min) is the only thing gating **14**. Full detail and execution order in
+`context.md`.
 
 **Waiting on the owner:** item 13, the item 17 name call, a ~20-record spot-check, curating
 `data/catalogue/FEATURED-UNMATCHED.md`, and ledger attempts.

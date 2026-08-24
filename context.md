@@ -195,6 +195,26 @@ The pipeline, end to end, all live on `main`:
   *family* split by geography, periodicity and census-vs-estimate. Storing one `ine_id` per row
   would have recorded an arbitrary choice as fact — the failure the featured matcher was
   rewritten to avoid. Spec revised to store candidate sets and defer selection to fetch time.
+- **Three more fields found and captured** (spikes A3–A6 and roadmap 19/23/24, 2026-08-24).
+  The **unit** was never missing from portugal's template, only from our markers: `"ampliado"`
+  now anchors the chart caption, at zero extra requests. The **question** PORDATA writes under
+  every title — present in `<h2>` on 15/15 sampled pages, and phrased per area (`portugal`
+  "Quantas…", `municipios` "Onde há mais e menos…", `europa` "Que países…") — is captured at
+  harvest time, as is the **period**, whose mechanism differs by area (portugal names the first
+  and last year in their own elements; municipios uses a `<select>` picker; europa does
+  neither and stays honestly empty). The **revision note** needed no fetch at all: it was
+  already sitting in the `revis` marker windows, and 203 rows now carry decision 5's caveat.
+  Two false-positive classes had to be excluded, both real Portuguese: "imp**revis**ta"
+  contains the stem, and "**revistas**" means magazines.
+- **How the probing itself was corrected.** A6 first sampled one page per area and called it an
+  inventory; the owner pointed out that PORDATA's pages are not all alike. The variant count
+  was measurable offline from records already stored — **9 structural fingerprints**, and
+  municipios pages spanning 174 KB to 2.2 MB — so the frame became one page per fingerprint
+  plus each area's size extremes. It paid immediately: the period elements are `portugal`-only,
+  and the old frame would have generalised them from its single portugal page to the whole
+  catalogue. Three of my own false negatives were caught the same day (a literal string search
+  against entity-encoded HTML, void elements unwinding a skip counter, and inline markup
+  splitting a text node) — each looked like a finding about PORDATA and was a bug in a filter.
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 
@@ -395,26 +415,26 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
 (referenced from code and docs), **not** priority order.
 
-**Execution order (2026-08-24).** Ids are stable and never reused — a retired id stays
-retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
+**Execution order (2026-08-24, after the field-capture work).** Ids are stable and never
+reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority:
 
-1. **2 — the crosswalk.** The INE cache landed 2026-08-24, so the biggest lever is live and
-   nothing gates it. **17 — name the project** runs alongside: cheap, and more expensive once
-   Phase D publishes a package name or FFMS replies.
-2. **13, then 14 → 15** — read the three upstream licences (owner, ~30 min), then the series
-   archive, then per-indicator detail pages. 13 is now the only thing gating 14.
-3. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is what
-   turns the project from a mirror of PORDATA into something more complete than it.
-4. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-5. **24 — widen the harvest parse** (question, revision note, period) so every future fetch
-   captures what A6 found. No new requests, and it is 21's precondition.
-6. Background, in any order: **6b–6f**, **7**, **3** as evidence accumulates, and **20** once
-   19's units have accrued. **21** is deliberately last: its value grows with everything the
-   parser learns from 15 and 24, so firing it early means doing it twice. **22** runs itself
-   daily until it retires.
-
-*Shipped 2026-08-23/24: **6a**, **10**, **12**, **18**, and **19's spikes A3/A4** — see
-"What has been built".*
+1. **2 — the crosswalk.** The INE cache landed and A5 measured the relation, so it is both
+   unblocked and specified: candidate sets, never a single `ine_id`. The largest thing on the
+   board and the spine everything downstream hangs off.
+2. **17 — name the project**, alongside. Cheap now, and more expensive once Phase D publishes a
+   package name or FFMS replies.
+3. **13 — the three upstream licences** (owner, ~30 min). The only thing gating 14.
+4. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
+   out the whole field-capture thread.
+5. **14 → 15 — the series archive, then per-indicator detail pages.** Where the project stops
+   being a catalogue.
+6. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is what
+   makes it more complete than PORDATA.
+7. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+8. Background, in any order: **6b–6f**, **7**, **3**, and **1**'s residual owner checks.
+9. **21 — the full re-harvest** stays last on purpose: its value grows with everything the
+   parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
+   until it retires.
 
 1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
    upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
@@ -641,57 +661,24 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    Constraint on candidates: the name must survive the scope change — it should describe
    *Portuguese public statistics made reachable*, not *a wrapper around PORDATA*.
 
-19. **Recover the period, and the units portugal is missing** *(spikes A3 and A4 run
-   2026-08-23/24; reports in `data/spikes/`)*.
+20. **Let the new fields accrue, then raise the floors** *(follows 24; low effort, high
+   signal)*. Roadmap 24 widened the parse for question, period and revision note, and the
+   freshness loop now collects them as pages go stale. Three things remain:
 
-   **The unit half is solved and already shipped.** The chart caption is present in 7 of 7
-   sampled pages including portugal, so its 0% was a missing marker, not a missing template.
-   `"ampliado"` added to `MARKER_WORDS` fixes it at **zero extra requests** — units accrue as
-   pages go stale. A forced re-harvest would complete it in one pass; that is item 21.
-
-   **The period needs three extractors, one per area** (A4 + A6, both 2026-08-24). `portugal`
-   carries `div.YearCurrentText` / `div.YearOtherText` (first and last, as named elements — the
-   cleanest of the three); `municipios` uses a `<select>` year picker, 17–18
-   `<option value="YYYY">` per page; `europa` has neither, and is the one still unspecified.
-   The catch: `marker_windows` runs on *stripped* text, so the tags carrying that structure are
-   gone before a window is cut. The period therefore needs a parse against unstripped HTML at
-   harvest time plus a fetch to populate — **it belongs to item 21**, and it is the second field
-   found after the harvest that could have been captured during it.
-
-   **Geography is not in PORDATA's markup** (2 selects, 19 options — not the ~308 a município
-   list needs) and does not need to be: INE's `geo_lastlevel` states it directly, so it comes
-   with item 14.
-
-   *Corrected 2026-08-24:* A3 reported `A carregar conteúdo…` appearing **0 times** and I
-   recorded the client-rendering hypothesis as killed. Spike A6 found it — `div.Text_Note`.
-   A3 searched for the literal string in entity-encoded HTML while A6 decodes entities, so
-   A3's zero was a false negative, not evidence. The conclusion still holds for the **main
-   table** (42 `td.ValueCell` and 16 `td.YearCell` are server-rendered on the sampled page),
-   but there *is* a lazily-loaded section, and the binary framing was wrong.
-20. **Raise the coverage line past 78.4%** *(owner ask 2026-08-23; unblocked by 19)*. 475 rows
-   (21.6%) carry neither a breakdown nor a unit, and **471 of the 475 are `portugal`** — 3 are
-   europa, 1 is municipios. Spike A3 established the cause and the fix landed the same evening
-   (item 19): the caption marker is in place, so the gap closes as pages are re-fetched.
-   Expected end state once every portugal page has been fetched again: uncovered falls from
-   475 to roughly **4 rows**, and the coverage line goes from 78.4% to ~99.8%.
-
-   **Do not treat that as done until re-measured.** The projection assumes portugal behaves
-   like europa and municipios, which the 7-page sample supports but does not prove across
-   1,053 pages. `breakdown_ratio` and `unit_ratio` are already gated per area, and
-   `unit_ratio[portugal]` sits at a floor of **0.0 recording this known gap** — raising it is
-   the signal that 20 is genuinely done, and a test asserts the 0.0 is deliberate so raising
-   it must be a decision rather than a drift.
-
-   What remains after that is real tail, with two further levers in order of value: (a) the
-   **period** from item 19, which turns the line into
-   `1960–2024 · 308 municípios · total e por sexo` and applies to rows with no breakdown at
-   all; (b) the 158 rows whose colon tail the splitter deliberately refused — not a defect,
-   since refusing is correct where the tail is the indicator, but some could carry a second
-   line derived differently.
-
-
+   - **Watch the per-area coverage.** `question_ratio` and `period_ratio` are gated per area
+     with floors at 0, because nothing harvested before 2026-08-24 carries them. Raising each
+     floor as coverage climbs is how 24 is known to be working — and a selector that fails on
+     one template surfaces as a named breach in the area it broke rather than as silence.
+   - **Answer europa's period.** Neither the portugal year elements nor the municipios picker
+     appear there. This is one question, not a frame: two or three europa pages, using the A6
+     inventory that already exists.
+   - **Then re-measure the coverage line.** It stood at 78.4% with 475 rows carrying neither
+     breakdown nor unit, **471 of them portugal**. If portugal's units accrue as expected that
+     falls to roughly 4 rows — a projection from a 7-page sample, so treat it as a hypothesis
+     until the gate says otherwise. `unit_ratio[portugal]` sitting at a floor of 0.0 is the
+     marker for this whole thread being finished.
 21. **One full re-harvest, deliberately** *(owner ask 2026-08-23; last item on the board on
-   purpose)*. Nothing is blocked on this — item 19's marker fix means units accrue for free as
+   purpose)*. Nothing is blocked on this — the caption marker means units accrue for free as
    pages go stale. It is here because **the harvester now captures things it did not capture
    when those 2,195 pages were fetched**, and the stored records are frozen at whatever the
    parser understood in August 2026. Raw HTML is not kept (`bytes` is recorded, the body is
@@ -719,7 +706,7 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    Its value is proportional to how much the parser has learned since the last pass, and the
    detail pages (15) are what will teach it the most. Fire it when the answer to "what else
    should we be pulling off these pages?" has stopped changing — most likely once 15's design
-   is settled and item 19's municipios probe has said where the period lives. Firing early
+   is settled and item 20 has answered europa's period. Firing early
    means doing it twice.
 
    Cost and shape when it does run: 2,195 pages at the polite 20 s pace is ~12 h, which the
@@ -755,76 +742,6 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    one. If it is ambiguous at day 21, say so rather than extending on autopilot; Lisbon leaves
    WEST in late October, which would silently shift the sampled hour.
 
-23. **Sample by page template, not by area** *(owner correction 2026-08-24)*. Spike A6 was
-   dispatched as a "full inventory" of one page per area. That was the wrong sampling frame,
-   and the owner named it: *PORDATA's detail pages are not all the same, and we do not know how
-   many variants exist.* Three pages is a sample; calling it an inventory hid the assumption
-   rather than testing it.
-
-   **The variant count is measurable offline, from records we already hold.** Every harvested
-   record carries which marker keys matched and how big the page was — a structural fingerprint
-   never used. Measured 2026-08-24, at zero request cost:
-
-   - **9 distinct `(area, marker-key-set)` fingerprints**, not 3.
-   - `Unidade` matched on **494** pages and not on ~1,700 — and it is a **false positive**,
-     matching "Nomenclatura das **Unidade**s Territoriais" (NUTS), never a unit label. So the
-     earlier note that "'Unidade' never appears in the page text" was wrong: it appears, and
-     never means what the marker assumed.
-   - `revis` matched on **215** pages (140 portugal, 71 municipios, 3 europa, 1 more) and holds
-     a **revision note** — "Os valores foram revistos pela entidade oficial. (01/02/2024)".
-     That is decision 5's revision caveat, which the project requires rendered *with* the
-     series, and we capture none of it.
-   - **municipios pages span 174 KB to 2.2 MB** — a 12× range within one area. A6 sampled a
-     359 KB page and would never have seen whatever the 2.2 MB one is.
-
-   Two fields were also found *in windows we already stored*, needing no fetch at all: a year
-   run (127 records, e.g. 2005–2025) and **the question itself** on 14 records — "Onde há mais
-   e menos empregadores a contribuir para a Segurança Social?", "Quantos empregadores ou
-   trabalhadores domésticos descontam para a Segurança Social?". Only 14 because the windows
-   are narrow slices around `Fontes`; the question usually falls outside them.
-
-   **Done 2026-08-24.** `build_frame()` in `spike_page_inventory.py` derives the frame from
-   `pages.jsonl`: the median page of each of the 9 fingerprints plus the smallest and largest
-   of each area — 15 pages, deterministic, so re-runs stay comparable. A6 then ran against it
-   (`data/spikes/a6-page-inventory.md`) and the frame paid for itself immediately:
-
-   - **The question is universal**: present in `<h2>` on **15 of 15** pages, every fingerprint.
-     It is the field to harvest.
-   - **Its phrasing is area-specific**, which the old frame could never have shown:
-     `portugal` asks *"Quantas / Quanto / Qual…"*, `municipios` asks *"Onde há mais e menos…"*,
-     `europa` asks *"Que países…"*. The question encodes the geographic comparison mode, which
-     makes it a better search and embedding input than the name — and hints that PORDATA's own
-     curation is organised around a question form per area.
-   - **The period elements are `portugal`-only**: `div.YearCurrentText`, `div.YearOtherText`
-     and `td.YearCell` appear on **5 of 5** portugal pages and **0 of 10** europa and
-     municipios pages. A frame of one page per area would have found them on its single
-     portugal page and generalised them to the whole catalogue. With A4 (municipios uses a
-     `<select>` year picker) that makes **three** distinct period mechanisms, one per area.
-
-   The general rule this earns: **a probe's sampling frame must be derived from measured
-   variation, never from a dimension that seems obvious** — area seemed obvious and was wrong.
-
-24. **Widen the harvest parse before re-harvesting** *(precondition for 21; no new requests)*.
-   A6 named three fields and their selectors. Capturing them is not another probe — it is a
-   change to `harvest_catalogue.py` that makes **every future fetch pay for itself**, because
-   the freshness loop already re-fetches pages as their sitemap `lastmod` moves.
-
-   Add to `parse()`: the **question** from `<h2>`, the **revision note** from the `revis`
-   window, and the **period** via the per-area mechanism (portugal's named year elements,
-   municipios' `<option value>` picker; europa pending). Each needs a roadmap-6a shape
-   assertion so a template change drops the value and raises `parse_warnings` rather than
-   publishing junk, and a **per-area** QA floor (roadmap 23's lesson: a catalogue-wide mean
-   hid a 100/100/0 split).
-
-   **Why this beats sampling more pages.** A wider sample tells you about the pages you
-   sampled; the parser plus the QA gate tells you about all 2,195, continuously, for free.
-   Coverage climbing toward its expected ceiling *is* the validation, and a selector that
-   fails on some template surfaces as a named `parse_warnings` breach in the area it broke —
-   which is stronger evidence than any hand-picked frame can give.
-
-   Sequence: widen the parse → let the freshness loop accrue and watch the per-area coverage →
-   answer europa's period (one small probe, not a frame) → then fire 21 with a parser that is
-   actually complete.
 
 ## Verification
 
