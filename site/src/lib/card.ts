@@ -47,3 +47,16 @@ export function shortSources(fontes: string[] | undefined): string {
   const first = fontes[0].split(" - ")[0].trim();
   return fontes.length > 1 ? `${first} +${fontes.length - 1}` : first;
 }
+
+/**
+ * Where the card goes now that the indicator has a page of its own
+ * (roadmap 15). Relative, because the site is served from a project
+ * subpath (`/pordata/`) and an absolute `/indicador/...` would resolve
+ * against the domain root and 404.
+ *
+ * `area` is part of the path because ids repeat across the three areas —
+ * `portugal/1` and `municipios/1` are different indicators.
+ */
+export function detailHref(r: { area: string; id: number }): string {
+  return `indicador/${r.area}/${r.id}/`;
+}

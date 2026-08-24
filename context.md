@@ -240,6 +240,31 @@ The pipeline, end to end, all live on `main`:
   numeric id and nothing else — so **3,661** URLs counted as indicator updates that the
   harvester never treats as indicators (2,944 `/en`, 337 quadro+resumo, 380 other), and the
   CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
+- **A page per indicator** (roadmap 15, metadata half, 2026-08-24). Every card used to bounce
+  to pordata.pt; now it opens a page this project owns, at a real URL —
+  `/indicador/<area>/<id>/`, **2,195 of them pre-rendered**, each with its own `Dataset`
+  JSON-LD and listed in `docs/sitemap-indicadores.xml`. Hash routing was the cheap option and
+  the wrong one: a catalogue whose whole claim is machine discoverability cannot have 2,195
+  indicators with no addresses. **No JavaScript bundle** — a metadata page is a document, not
+  an app, so these are plain HTML against one shared stylesheet, ~4 KB and 2 KB gzipped
+  against the SPA's 110 KB of bundle. The only script is nine lines restoring the reader's
+  stored theme and language from the same `localStorage` keys the SPA writes.
+  **What the page has that PORDATA's does not**: the revision note rendered *with* the
+  indicator rather than in a footer (decision 5 — a caveat that does not travel with the
+  series is a caveat nobody reads), and the crosswalk as **provenance** — the INE operation,
+  its granularity and periodicity, and the candidate series each linked to both INE's page and
+  its **JSON endpoint**, because an id you cannot fetch from is a footnote. A refusal renders
+  as a first-class state that says the matcher looked and declined, never as an empty section.
+  The chart stays inert and says why, with the click-out to PORDATA beside it.
+  **Three things that make it maintainable.** Pages are written only when their bytes change,
+  so a harvest touching five indicators commits five files instead of 2,195 — the whole set
+  packs to 4.45 MiB in git. The colour tokens are read out of `site/src/index.css` at build
+  time and the build **fails** if that block moves, rather than serving stale colours that
+  look fine. And `--strict` asserts every published row has a page on disk, because every card
+  now links here and a missing one is a 404 a visitor meets. Writing the tests found a real
+  defect: the visible HTML was escaped and the **JSON-LD block was not**, so an indicator name
+  containing `</script>` would have closed the element early and put the rest into the
+  document as live markup.
 - **Where PORDATA is thin against INE** (roadmap 16, 2026-08-24). `data/coverage/INE-GAP.md`
   is a shortlist of **302 concepts** INE publishes and PORDATA never names once, ranked and
   grouped by theme with three distinct examples each, for the owner to accept or reject —
@@ -703,7 +728,26 @@ list; none of them takes long and all four unblock work that is otherwise ready 
    the Phase D embeddings for semantic closeness. The `sortRelevance` i18n strings remain
    in `site/src/lib/i18n.ts` for its return. Design after the label system, since labels
    and ranking share the same signal inventory.
-13. **Upstream reuse terms — read and record** *(owner, laptop, ~30 min; gates item 14)*. Before
+13. **Upstream reuse terms — read and record** *(owner, laptop, **~10 min now**; gates item 14;
+   `spikes.yml` probe `licences`, report in `data/spikes/licences.md`)*.
+
+   **Eurostat is answered, in its own words** (fetched 2026-08-24): the Commission legal notice
+   at <https://commission.europa.eu/legal-notice_en> says "content owned by the EU on this
+   website is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)**
+   licence" and "reuse is allowed, **provided appropriate credit is given and changes are
+   indicated**", implementing the Commission Decision of 12 December 2011 on the reuse of
+   Commission documents. That covers redistribution of derived series, which is what item 14
+   needs. *Confirm the quote against the page before recording it as this project's basis —
+   the spike quotes, it does not decide.*
+
+   **INE and BPstat still need a browser, and it has to be yours.** All three INE candidates
+   returned **403**, including its front page: the same bot protection item 22 is measuring,
+   and a result about the runner's IP rather than about INE's terms. BPstat served but is a
+   JavaScript app, so its 104 KB front page carries no terms text, and
+   `bportugal.pt/pagina/termos-e-condicoes` 403'd too. Both are a two-minute look from a real
+   browser.
+
+ Before
    a single upstream value is archived, read and record the actual reuse licence of each source
    the archive would draw on: **Eurostat** (Commission reuse policy), **INE** (Statistics
    Portugal's terms of use) and **BPstat** (Banco de Portugal). For each, record in this file:
@@ -733,8 +777,8 @@ list; none of them takes long and all four unblock work that is otherwise ready 
    Preconditions in QA thresholds, not prose: a per-source fetch-success floor, a schema
    conformance check, and a size budget that trips before the repo does.
 
-15. **Per-indicator detail pages with charts** *(owner direction 2026-08-23; gated on 14 for
-   the charts)*. Replace the click-out to pordata.pt with a page this project owns: the
+15. **Per-indicator detail pages with charts** *(**metadata half done 2026-08-24** — see
+   "What has been built"; the charts remain, gated on 14)*. Replace the click-out to pordata.pt with a page this project owns: the
    indicator's full metadata, its upstream attribution per decision 5 (source, vintage,
    revision caveat rendered *with* the series, not in a footer), and a chart the user can
    actually work with — pick geographies, pick a window, compare. This is stages 3

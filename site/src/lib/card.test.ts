@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { cardParts, monthYear, shortSources } from "./card";
+import { cardParts, monthYear, shortSources, detailHref } from "./card";
 import { prepare, type Row } from "./search";
 
 // A card row with the fields the build now emits. `title` and
@@ -74,5 +74,26 @@ describe("shortSources", () => {
   it("handles empty and missing", () => {
     expect(shortSources([])).toBe("");
     expect(shortSources(undefined)).toBe("");
+  });
+});
+
+describe("detailHref", () => {
+  it("points at this project's own page, not pordata.pt", () => {
+    expect(detailHref({ area: "portugal", id: 42 })).toBe("indicador/portugal/42/");
+  });
+
+  it("is relative, because the site lives on a project subpath", () => {
+    // an absolute "/indicador/..." resolves against caasols.github.io,
+    // not caasols.github.io/pordata, and 404s
+    expect(detailHref({ area: "europa", id: 1 }).startsWith("/")).toBe(false);
+  });
+
+  it("keeps the area in the path, because ids repeat across areas", () => {
+    expect(detailHref({ area: "portugal", id: 1 }))
+      .not.toBe(detailHref({ area: "municipios", id: 1 }));
+  });
+
+  it("ends in a slash so the static index.html is served", () => {
+    expect(detailHref({ area: "municipios", id: 858 })).toMatch(/\/$/);
   });
 });

@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://caasols.github.io/pordata/sitemap.xml
+Sitemap: https://caasols.github.io/pordata/sitemap-indicadores.xml

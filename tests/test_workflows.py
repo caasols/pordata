@@ -182,6 +182,19 @@ class HarvestSalvageTest(unittest.TestCase):
         self.assertIn("data/crosswalk/", run)
         self.assertIn("data/coverage/", run)
 
+    def test_detail_pages_are_built_after_the_crosswalk(self):
+        """They render the crosswalk as provenance, so building first
+        would show the previous run's routing on this run's pages."""
+        self.assertLess(index_of(self.job, "Rebuild the INE crosswalk"),
+                        index_of(self.job, "Rebuild the indicator detail"))
+        self.assertEqual(
+            self.steps["Rebuild the indicator detail pages"]["if"],
+            "steps.qa.outputs.status == 'pass'")
+
+    def test_the_detail_pages_are_committed(self):
+        """Every card links to them; unstaged pages are 404s."""
+        self.assertIn("docs/", self.steps["Commit progress"]["run"])
+
     def test_the_coverage_gap_is_recomputed_after_the_crosswalk(self):
         """It reads the crosswalk to report its reach; running first
         would state the previous run's."""

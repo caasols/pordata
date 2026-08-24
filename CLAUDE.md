@@ -54,6 +54,15 @@ and numbers are content (the two-character floor swallowed age brackets). Gated 
 `--strict` with a 170-match floor. `europa` (638 rows) is unrouted: Eurostat and BPstat must
 be measured the same way before being specified.
 
+**Every indicator now has a page** (item 15, metadata half). `/indicador/<area>/<id>/` —
+**2,195 pre-rendered**, each with `Dataset` JSON-LD, listed in `docs/sitemap-indicadores.xml`,
+and carrying the two things PORDATA's page does not: the revision note **with** the indicator
+(decision 5) and the crosswalk as provenance, candidate series linked to INE's page *and* its
+JSON endpoint. No JS bundle — ~4 KB of HTML against one shared stylesheet. Pages are written
+only when their bytes change (the whole set packs to 4.45 MiB); theme tokens are read from
+`site/src/index.css` and the build **fails** if that block moves; `--strict` asserts every row
+has a page, because every card links here now. The chart slot stays inert until item 14.
+
 **The gap it makes computable is a shortlist, not an inventory** (item 16).
 `data/coverage/INE-GAP.md` names **302 concepts** INE publishes and PORDATA never mentions,
 for owner accept/reject. The *series*-level complement is deliberately not computed: the
@@ -73,7 +82,9 @@ so future fetches pay for themselves; item **21** is the re-harvest that backfil
 **Next: the owner's queue, then the crosswalk's remaining halves.** Four things are blocked on
 a human and nothing else, and all four unblock work that is otherwise ready — **25** (curate
 `data/coverage/INE-GAP.md`, ~45 min: the accept/reject record *is* the curation rule, and it
-closes 16), **13** (three upstream licences, ~30 min — the only thing gating **14**), **17**
+closes 16), **13** (upstream licences — now ~10 min: Eurostat is answered as CC BY 4.0 in
+`data/spikes/licences.md`, INE and BPstat need a browser that is not a cloud IP; the only
+thing gating **14**), **17**
 (the rename), and item **1**'s residual checks (a ~20-record spot-check, plus curating
 `data/catalogue/FEATURED-UNMATCHED.md`). Then **Eurostat/BPstat** (measure first — do not
 assume A5's shape carries over) and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Full
@@ -112,12 +123,12 @@ Nine workflows on `main`, the first two a detector→worker pair:
 | workflow | when | what |
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
-| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, crosswalk, commit |
+| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, crosswalk, coverage gap, detail pages, commit |
 | `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 64.6%) |
 | `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
 | `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
-| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue + crosswalk, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6) |
+| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue + crosswalk, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6, `licences`) |
 
 Data-writing workflows check out the branch head at run time — never the trigger-time sha. A
 QA-gate breach reverts `docs/`, opens an issue and fails the job, so a degraded harvest never

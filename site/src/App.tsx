@@ -19,7 +19,7 @@ import {
   prepare, searchAndSort,
   type Hit, type PreparedRow, type Row, type SortMode,
 } from "@/lib/search";
-import { cardParts, monthYear, shortSources } from "@/lib/card";
+import { cardParts, detailHref, monthYear, shortSources } from "@/lib/card";
 import { formatUnit } from "@/lib/units";
 import { cn } from "@/lib/utils";
 
@@ -311,12 +311,13 @@ export default function App() {
           const sources = shortSources(r.fontes);
           return (
             <Card key={r.url} className="my-2.5 [overflow-wrap:anywhere]">
-              {/* the whole card is the tap target; until the detail page
-                  exists (roadmap 15) it still opens PORDATA */}
+              {/* the whole card is the tap target, and since roadmap 15
+                  it opens this project's own page rather than bouncing
+                  to pordata.pt — the click-out lives there, beside the
+                  chart slot it will eventually replace */}
               <a
-                href={r.url}
-                rel="noopener"
-                title={t("openAt")}
+                href={detailHref(r)}
+                title={t("openDetail")}
                 className="flex items-center gap-2.5 rounded-lg px-4 py-3.5
                   no-underline focus-visible:outline-none focus-visible:ring-2
                   focus-visible:ring-ring"

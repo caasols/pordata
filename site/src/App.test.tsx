@@ -58,9 +58,14 @@ describe("App", () => {
     expect(await screen.findByText("Birth rate")).toBeInTheDocument();
     expect(screen.getByText("3 indicators")).toBeInTheDocument();
     expect(headings()).toEqual(["Birth rate", "Gini index", "Doctors"]);
-    // every card is one tap target wrapping the whole row
+    // every card is one tap target wrapping the whole row, and since
+    // roadmap 15 it opens this project's own page rather than bouncing
+    // to pordata.pt — the click-out moved to the detail page, beside the
+    // chart slot it will eventually replace
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
-    expect(hrefs).toContain("https://www.pordata.pt/portugal/taxa+de+natalidade-1");
+    expect(hrefs).toContain("indicador/portugal/1/");
+    expect(hrefs).not.toContain(
+      "https://www.pordata.pt/portugal/taxa+de+natalidade-1");
     // discontinued badge on the tombstoned row
     expect(screen.getByText("discontinued")).toBeInTheDocument();
   });
