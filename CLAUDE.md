@@ -53,8 +53,11 @@ follow-up.
 
 **The INE catalogue landed 2026-08-24 and unblocked the roadmap's biggest lever.** The fetch
 succeeded from an Actions runner on the *fourth* attempt, so the recorded conclusion that INE
-"blocks cloud IP ranges persistently" was wrong — it is intermittent, and the owner's `raw.xml`
-upload is no longer needed. `data/ine/indicators.csv` now holds **13,084 indicators** across 25
+"blocks cloud IP ranges persistently" was wrong — and the attempt log shows the block was
+largely self-inflicted: two successful pulls on a Saturday morning, then failures only after a
+third and fourth 21 MB pull inside 45 minutes. The owner's `raw.xml` upload is no longer
+needed. What governs the block's *duration* is still unknown (a 22.6 h gap failed, an 11.3 h
+gap succeeded) — roadmap 22 measures it cheaply, with HEAD requests rather than repeat pulls. `data/ine/indicators.csv` now holds **13,084 indicators** across 25
 themes, each with a per-indicator **`json` API URL** (the concrete route to values, i.e. the
 starting point for roadmap 14) and **`geo_lastlevel`** (the geographic granularity PORDATA's
 markup does not expose).

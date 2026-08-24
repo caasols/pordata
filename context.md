@@ -416,11 +416,13 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    Extraction and Phase D, and **no longer blocked**.
 
    **The fetch finally worked from an Actions runner on the fourth attempt** (run
-   32702104416, ~10 min). Three earlier attempts failed (403, timeout ×2, 2026-08-22/23) and
-   the recorded conclusion was that INE "likely blocks cloud IP ranges **persistently**, not
-   temporarily". That conclusion was **wrong** — the blocking is intermittent, and patience
-   beat the workaround. The owner's `raw.xml` upload path stays documented in
-   `data/ine/README.md` as the fallback, but is no longer needed.
+   32702104416, ~10 min). The recorded conclusion had been that INE "likely blocks cloud IP
+   ranges **persistently**, not temporarily". That was **wrong**, and the full timeline says
+   why: the catalogue was served successfully **twice on a Saturday morning** (09:00 and
+   09:16) and only started failing after a third and fourth 21 MB pull inside 45 minutes. We
+   throttled ourselves. The owner's `raw.xml` upload path stays documented in
+   `data/ine/README.md` as the fallback, but is no longer needed. What the block's *duration*
+   depends on is still unknown — see item 22.
 
    **What landed:** `data/ine/indicators.csv` — **13,084 indicators** (13,084 distinct ids)
    across 25 themes, plus `catalogue.xml.gz` as the durable raw cache. Fields per entry:
@@ -865,6 +867,48 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    2026-08-23 audit found and fixed. Re-measure `breakdown_ratio` and `unit_ratio` per area
    afterwards and raise the floors, `unit_ratio[portugal]` first: that floor sitting at 0.0 is
    the marker for this whole thread being finished.
+
+22. **Characterise INE's availability window** *(owner question 2026-08-24; gates nothing, but
+   item 14 is guesswork without it)*. The owner asked whether INE lowers capacity at weekends.
+   The attempt log says no — and says something more useful.
+
+   | when (UTC) | day | gap | result |
+   |---|---|---|---|
+   | 2026-08-22 09:00 | Sat | — | **success** |
+   | 2026-08-22 09:16 | Sat | 0.3 h | **success** |
+   | 2026-08-22 09:31 | Sat | 0.3 h | failure |
+   | 2026-08-22 09:45 | Sat | 0.2 h | failure |
+   | 2026-08-23 08:19 | Sun | 22.6 h | failure |
+   | 2026-08-23 20:17 | Sun | 12.0 h | failure |
+   | 2026-08-24 07:34 | Mon | 11.3 h | **success** |
+
+   Two successful Saturday pulls kill the weekend hypothesis outright. The visible cause is
+   self-inflicted: **four 21 MB pulls in 45 minutes**, blocked after the second — which
+   `data/spikes/a2-ine-catalogue.md` already warned about on the day ("retry later rather than
+   harder, and keep requests sparse").
+
+   **But a simple cooldown does not fit either**: a 22.6 h gap still failed while an 11.3 h gap
+   succeeded. Candidate explanations, none yet distinguished — each failed attempt re-arms the
+   block; the block is per runner IP and the IP changed; or something time-of-day shaped that
+   n=7 cannot see. Every attempt so far is confounded by the ones before it, so the honest
+   position is **we do not know**.
+
+   **Design the probe to be cheaper than the problem.** Do *not* re-pull 21 MB to test
+   availability — that is what caused this. A `HEAD`, or a `Range` request for the first few
+   KB, distinguishes "blocked" from "serving" at a fraction of the cost, so a handful of
+   samples a day for two weeks stays far politer than that one Saturday burst. Log
+   `timestamp, weekday, hour, http_status, bytes` to a small CSV and analyse for a weekday
+   effect, an hour effect, and a recovery time after a known block.
+
+   Two guards, since this is a scheduled probe against someone else's infrastructure:
+   **stop on success-with-no-question-left** (the point is a pattern, not a heartbeat — retire
+   it once the answer is recorded), and **back off on repeated 403s** rather than sampling
+   through a block, which would both pollute the measurement and be the same rudeness that
+   started this.
+
+   The payoff is item 14: the archive needs sustained, repeated INE access, and its refresh
+   cadence is a guess until this is known. It also tells item 21 whether a full re-harvest can
+   safely share a window with INE traffic.
 
 ## Verification
 
