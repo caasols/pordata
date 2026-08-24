@@ -1,0 +1,83 @@
+name: pages health
+
+# The deliverable, checked from outside (roadmap 6b).
+#
+# docs/ is committed and GitHub Pages deploys it out of band, so the one
+# hop between "the repo is correct" and "the public sees it" has no gate
+# on either side. A failed pages-build-deployment leaves every workflow
+# here green. This fetches the live site and compares its built_at with
+# the committed one, and checks that the assets the served index.html
+# names actually resolve — a partial deploy answers 200 on / and renders
+# a white page.
+#
+# 11:11 UTC: after the 09:07 sitemap run and whatever harvest it
+# dispatches have settled, so a mismatch means a stuck deployment rather
+# than one still in flight. The script's own 30-minute grace window
+# covers the rest.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "11 11 * * *"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: pages-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare the live site with the committed bundle
+        id: check
+        env:
+          PAGES_REPORT: ${{ runner.temp }}/pages-health.md
+        # continue-on-error, because the whole point is the issue below:
+        # a red job nobody is watching is the failure this item is about
+        continue-on-error: true
+        run: python3 scripts/check_pages_live.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # One open issue at a time. A stuck deployment stays stuck, and a
+      # daily cron that opens a fresh issue every morning is how a real
+      # signal becomes noise and then gets ignored.
+      - name: Open or update the issue
+        if: steps.check.outputs.status != 'ok' && steps.check.outputs.status != 'deploying'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT: ${{ runner.temp }}/pages-health.md
+        run: |
+          TITLE="Pages health: the live site does not match the committed bundle"
+          EXISTING=$(gh issue list --state open --search "in:title \"$TITLE\"" \
+            --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file "$REPORT"
+          else
+            gh issue create --title "$TITLE" --body-file "$REPORT"
+          fi
+
+      - name: Close the issue once the site is healthy
+        if: steps.check.outputs.status == 'ok'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Pages health: the live site does not match the committed bundle"
+          EXISTING=$(gh issue list --state open --search "in:title \"$TITLE\"" \
+            --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue close "$EXISTING" \
+              --comment "The live site now serves the committed build." \
+              --reason completed
+          fi
+
+      - name: Fail the run when the site is unhealthy
+        if: steps.check.outputs.status != 'ok' && steps.check.outputs.status != 'deploying'
+        run: |
+          echo "::error::pages health: ${{ steps.check.outputs.status }}"
+          exit 1

@@ -21,6 +21,7 @@ import unittest
 
 import yaml
 
+from helpers import load_script
 from test_diff_sitemap import DiffCase
 
 WF_DIR = pathlib.Path(__file__).resolve().parents[1] / ".github" / "workflows"
@@ -182,6 +183,30 @@ class SiteBundleTest(unittest.TestCase):
         build = next(i for i, n in enumerate(names) if n == "npm run build")
         gate = next(i for i, n in enumerate(names) if "docs/ bundle" in n)
         self.assertLess(build, gate)
+
+
+class PagesHealthContractTest(unittest.TestCase):
+    """The health workflow branches on strings the script produces.
+
+    Nothing connects the two files, and the failure is silent in the
+    worst direction: `status != 'deploy'` is true for every real state,
+    so a typo turns a daily health check into a daily issue."""
+
+    def setUp(self):
+        self.job = load(WF_DIR / "pages-health.yml")["jobs"]["health"]
+        self.raw = (WF_DIR / "pages-health.yml").read_text(encoding="utf-8")
+
+    def test_the_states_it_treats_as_healthy_are_the_scripts(self):
+        script = load_script("check_pages_live")
+        compared = set(re.findall(r"steps\.check\.outputs\.status "
+                                  r"[!=]= '([a-z]+)'", self.raw))
+        self.assertEqual(compared, set(script.HEALTHY))
+
+    def test_an_unhealthy_run_still_fails(self):
+        """The check step is continue-on-error so the issue gets filed,
+        which would otherwise leave every run green."""
+        names = [s.get("name", "") for s in self.job["steps"]]
+        self.assertIn("Fail the run when the site is unhealthy", names)
 
 
 class OutputContractTest(DiffCase):

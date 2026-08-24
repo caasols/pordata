@@ -65,6 +65,22 @@ class KillRateTest(unittest.TestCase):
     def test_all_survived_is_zero_not_an_error(self):
         self.assertEqual(gate.kill_rate({"survived": 4}), 0.0)
 
+    def test_a_timeout_counts_as_a_kill(self):
+        """The docstring says a timeout means the mutant broke the suite,
+        and every run so far has reported zero of them - so the branch
+        that implements it had never been executed by anything. Mutation
+        testing on the mutation gate is what surfaced that."""
+        self.assertEqual(gate.kill_rate({"killed": 1, "timeout": 1,
+                                         "survived": 2}), 0.5)
+
+    def test_timeouts_alone_are_a_perfect_score(self):
+        self.assertEqual(gate.kill_rate({"timeout": 3}), 1.0)
+
+    def test_a_timeout_is_not_subtracted(self):
+        """Pinning the sign: with `-` in place of `+` this reads 0.0 and
+        the gate would fail a tree that killed everything."""
+        self.assertEqual(gate.kill_rate({"killed": 4, "timeout": 4}), 1.0)
+
 
 class FloorTest(unittest.TestCase):
     def test_the_floor_leaves_margin_below_the_lowest_measurement(self):

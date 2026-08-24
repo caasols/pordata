@@ -48,7 +48,9 @@ MARKERS = {"killed": "🎉", "no_tests": "🫥", "timeout": "⏰",
 def tally(text: str) -> dict:
     """Counts from the last progress line that carries them."""
     counts: dict = {}
-    for line in reversed(text.replace("\r", "\n").splitlines()):
+    # splitlines() already breaks on \r, which is how mutmut redraws its
+    # progress line, so no normalisation is needed first
+    for line in reversed(text.splitlines()):
         found = {}
         for name, marker in MARKERS.items():
             match = re.search(re.escape(marker) + r"\s*(\d+)", line)

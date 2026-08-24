@@ -108,9 +108,11 @@ The pipeline, end to end, all live on `main`:
   needs a human for the tail: `data/catalogue/FEATURED-UNMATCHED.md` is regenerated each build
   with candidates and paste-ready `overrides` snippets.
 - **Quality — Python**: unittest suite with line coverage gated at 80%, plus full mutation
-  testing on every push (mutmut; kill rate ~65%, roadmap 6d). Network fetchers are validated
-  by their live runs instead. Counts are measured by the suites, never quoted here — they
-  drifted three times in two days before this rule (decision 7).
+  testing on every push, gated at a 58% kill-rate floor by `scripts/mutation_gate.py`. The
+  CI configuration is itself under test (`tests/test_workflows.py`). Network fetchers are
+  validated by their live runs instead. Rates and counts are measured by the suites, never
+  quoted here — the previous "~65%" here was asserted, and measured at 55.9% when someone
+  finally checked (decision 7).
 - **Quality — data**: since the 2026-08-23 audit the pipeline is **gated, not just reported**:
   `qa_catalogue.py --strict` checks nine thresholds (record ratio, per-field coverage, ISO
   dates, duplicate `(area, id)`, corrupt JSONL lines, featured collisions and row floor) and
@@ -238,6 +240,40 @@ The pipeline, end to end, all live on `main`:
   numeric id and nothing else — so **3,661** URLs counted as indicator updates that the
   harvester never treats as indicators (2,944 `/en`, 337 quadro+resumo, 380 other), and the
   CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
+- **Failures nobody hears** (roadmap 6b, 2026-08-24). Five places where something broke and
+  the pipeline stayed green. *(i)* The harvest commit step had no `if`, so a crash or timeout
+  skipped it and threw away every 25-page checkpoint the harvester writes precisely so a dead
+  run is not a total loss; it now commits with `always()` and marks the commit partial.
+  Nothing degraded can publish that way: when the fetch dies, build and QA never run, so
+  `docs/data` is untouched. *(ii)* `sitemap.yml` committed its snapshot before opening the
+  issue, and the diff is computed against the *committed* snapshot — so a failed
+  `gh issue create` lost the add/remove notification permanently, because the next run
+  compared against the advanced snapshot and saw nothing. Notifying first makes it
+  self-healing. *(iii)* Nothing checked that the committed `docs/` bundle matches `site/`
+  source; the build is byte-deterministic, so `site.yml` now rebuilds and fails on a diff.
+  *(iv)* `sitemap.yml` and `spikes.yml` had no `timeout-minutes`, so a stalled fetch inherits
+  GitHub's six-hour default and holds its serial concurrency group all day — for the detector,
+  that is the whole pipeline. *(v)* Pages deploys `docs/` out of band, so the last hop to the
+  public had no gate on either side; `pages-health.yml` fetches the live site daily and
+  compares its `built_at` with the committed one, and checks that the assets the *served*
+  `index.html` names resolve — a partial deploy answers 200 on `/` and renders a white page,
+  which a check of `/` alone would call healthy.
+- **The workflows are now tested** (roadmap 6b). Eight workflows were the only thing running
+  this project and the one part of it with no tests. The failures they hide are quiet by
+  construction: Actions does not error on a mistyped `steps.<id>`, it renders the empty string
+  and takes the other branch; an output renamed in `diff_sitemap.py` leaves
+  `steps.diff.outputs.notify == 'true'` simply never true, and the run stays green with no
+  issue opened. `tests/test_workflows.py` asserts invariants rather than a schema — every job
+  bounded, every pusher serialised, every writer checked out at the branch head, no dangling
+  step ids, notify-before-commit, `always()` on the salvage paths, the QA revert before the
+  commit, the `docs/` gate after the build — and two cross-file contracts run the real script
+  and compare the keys it emits against the ones the workflow reads. Each mechanical invariant
+  was verified by breaking it in the real files and confirming a red suite. **335 tests, 86%
+  coverage, kill rate 62.9%.** Two things the exercise taught: `tests.yml` only triggered on
+  its own workflow file, so tests *about* the other seven would not have run when they changed
+  (now `.github/workflows/**`); and mutmut runs from a copied tree, so `.github/` had to join
+  `also_copy` — caught by the suite's own "no workflows found" guard rather than by an empty
+  glob passing silently.
 - **The card logic moved into `site/src/lib/card.ts`** so it is mutation-tested. Adding
   `App.tsx` to Stryker's scope was tried first and rejected: it scored 59% and pulled the
   overall under the break threshold, because most of what it mutates is JSX. Moving the pure
@@ -533,11 +569,8 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
 
    *(a) Silent data corruption — **done**; see "What has been built".)*
 
-   **(b) Failures nobody hears** — the harvest commit step is skipped on crash/timeout, so
-   in-run checkpoints protect nothing in Actions; `sitemap.yml` commits its snapshot before
-   opening the issue, so a failed `gh issue create` loses the add/remove notification for
-   good; nothing verifies the committed `docs/` bundle matches `site/` source, and the Pages
-   deployment itself is unmonitored. *(The `|| true` on mutation testing is fixed — (d).)*
+   *(b) Failures nobody hears — **done 2026-08-24**; see "What has been built". Five gaps
+   closed and the workflows put under test.)*
 
    *(c) Freshness — **done 2026-08-24**; see "What has been built".)*
 

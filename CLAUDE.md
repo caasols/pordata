@@ -90,21 +90,24 @@ owner, ~30 min) is the only thing gating **14**. Full detail and execution order
 
 ## How it runs
 
-Eight workflows on `main`, the first two a detector→worker pair:
+Nine workflows on `main`, the first two a detector→worker pair:
 
 | workflow | when | what |
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
 | `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, commit |
-| `tests.yml` | push to scripts/tests | unittest + coverage gate (86%) + **mutmut gate** (floor 58%) |
-| `site.yml` | push to site/ | typecheck, build, vitest + coverage gate, StrykerJS (break 85) |
+| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 86%) + **mutmut gate** (floor 58%, at 62.9%) |
+| `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
+| `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
-| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes (`spikes.yml` takes a probe input: a1–a4) |
+| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6) |
 
 Data-writing workflows check out the branch head at run time — never the trigger-time sha. A
 QA-gate breach reverts `docs/`, opens an issue and fails the job, so a degraded harvest never
-publishes. This sandbox cannot reach pordata.pt or ine.pt; anything needing their network runs
-via Actions.
+publishes; the harvest commits its checkpoints even when the run dies, and `tests/test_workflows.py`
+asserts these invariants offline (ordering, `always()` guards, bounded jobs, no dangling
+step ids). This sandbox cannot reach pordata.pt, ine.pt or the live Pages site; anything
+needing their network runs via Actions.
 
 ## Sibling project
 
