@@ -64,6 +64,9 @@ JSON endpoint. No JS bundle — ~4 KB of HTML against one shared stylesheet. Pag
 only when their bytes change (the whole set packs to 4.45 MiB); theme tokens are read from
 `site/src/index.css` and the build **fails** if that block moves; `--strict` asserts every row
 has a page, because every card links here now. The chart slot stays inert until item 14.
+**One design, asserted**: the page's chip, card, meta, button, shadow, radii, focus ring, font
+stack and theme boot all come from the components the SPA uses, and `DesignSystemTest` reads
+those files so a variant change fails the build rather than leaving two designs on one site.
 
 **The chart layer is chosen and measured, and deliberately not installed yet**
 (`@tanstack/charts`, spike in `data/spikes/charts-tanstack.md`). Marginal cost **≈27 KB
@@ -102,7 +105,7 @@ thing gating **14**), **17** (the rename), and item **1**'s residual checks (a ~
 assume A5's shape carries over) and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Full
 detail and execution order in `context.md`.
 
-**Six things worth not re-learning:**
+**Eight things worth not re-learning:**
 - **Coverage thresholds for markup-parsed fields are per-area.** A catalogue-wide mean passed a
   100/100/0 unit split without complaint. The areas are separate PORDATA templates; a mean
   cannot say "each still works".
@@ -122,6 +125,18 @@ detail and execution order in `context.md`.
   it served twice on a Saturday and we throttled ourselves with four 21 MB pulls in 45 minutes.
 - **Refusing beats guessing.** The featured matcher, `split_breakdown` and the crosswalk all
   converged on the same rule: be right or be absent.
+- **Derive from the component; do not write what looks right.** The detail pages' stylesheet
+  was hand-written from memory of the card and shipped as a visibly different design — an
+  orange pill where the card has a grey `secondary` Badge, a 16 px meta value against an 11 px
+  label. Fixing the pill by hand then produced an orange **button** one element along, on a
+  site whose `button.tsx` has no filled variant at all. The values now come from
+  `badge.tsx` / `button.tsx` / `card.tsx` / `App.tsx`, and `DesignSystemTest` asserts against
+  those files so a variant change fails the build. Naming a font is not loading it: the SPA
+  pulls Public Sans from Google Fonts in its own `<head>`, and the pages that only listed it
+  in a stack rendered in the system sans.
+- **Anything a test reads off disk must be in mutmut's `also_copy`.** It runs the suite from a
+  copied tree, so `.github/`, `site/src/` and `docs/assets/` are listed. Without them the
+  cross-file tests die on a `FileNotFoundError` that reads like a bug in the code under test.
 - **Not every mutation survivor is worth killing.** `parse()`'s ~54 are equivalent mutants
   (`decode("utf-8")` vs `decode()`, `[-1]` vs `[+1]` on a two-element list), and ~80% of the
   rest are markdown labels in report writers. Test the *figures and sections* a reader
@@ -136,7 +151,7 @@ Nine workflows on `main`, the first two a detector→worker pair:
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
 | `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, crosswalk, coverage gap, detail pages, commit |
-| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 65.4%) |
+| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 65.3%) |
 | `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
 | `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |

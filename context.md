@@ -266,6 +266,23 @@ The pipeline, end to end, all live on `main`:
   defect: the visible HTML was escaped and the **JSON-LD block was not**, so an indicator name
   containing `</script>` would have closed the element early and put the rest into the
   document as live markup.
+
+  **It shipped looking like a different site, and the fix is the durable part** (owner caught
+  it on a phone, 2026-08-24). The stylesheet had been hand-written from memory of the card
+  rather than derived from the components the card uses, and it showed: the area badge was a
+  primary-orange pill where the card's is a grey `secondary` Badge; the meta value rendered at
+  the 16 px body size against an 11 px label where the card pairs 9.5 px with 12 px; the CTA
+  was a **filled primary button on a site whose `button.tsx` has no filled variant at all**;
+  the shadow, the radii and the theme-boot condition were each a guess a few points off. The
+  worst of them was invisible in the CSS: **`"Public Sans"` was named in the font stack and
+  never loaded**, because the SPA pulls it from Google Fonts in its own `<head>` — so the
+  pages rendered in the system sans, and no amount of colour-matching would have closed the
+  gap. Every value now comes from the component it mirrors, `theme_tokens()` lifts the radius
+  scale and `--font-sans` alongside the colours, and seven `DesignSystemTest` cases assert
+  against `badge.tsx`, `button.tsx`, `card.tsx`, `App.tsx` and the compiled bundle so a
+  component variant changing fails the build. **The lesson generalises past CSS**: writing
+  what looks right instead of reading what the component does produced the orange pill, and
+  then produced the orange button one element along after the first fix.
 - **Where PORDATA is thin against INE** (roadmap 16, 2026-08-24). `data/coverage/INE-GAP.md`
   is a shortlist of **302 concepts** INE publishes and PORDATA never names once, ranked and
   grouped by theme with three distinct examples each, for the owner to accept or reject —
@@ -359,8 +376,9 @@ The pipeline, end to end, all live on `main`:
   step ids, notify-before-commit, `always()` on the salvage paths, the QA revert before the
   commit, the `docs/` gate after the build — and two cross-file contracts run the real script
   and compare the keys it emits against the ones the workflow reads. Each mechanical invariant
-  was verified by breaking it in the real files and confirming a red suite. **519 tests, 88%
-  coverage, kill rate 65.4%** (measured after the detail pages landed). Two things the exercise taught: `tests.yml` only triggered on
+  was verified by breaking it in the real files and confirming a red suite. **535 tests, 88%
+  coverage, kill rate 65.3%** (current; re-measured after the UI consistency sweep). Two
+  things the exercise taught: `tests.yml` only triggered on
   its own workflow file, so tests *about* the other seven would not have run when they changed
   (now `.github/workflows/**`); and mutmut runs from a copied tree, so `.github/` had to join
   `also_copy` — caught by the suite's own "no workflows found" guard rather than by an empty
