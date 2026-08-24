@@ -41,6 +41,13 @@ JSON_URL = ("https://www.ine.pt/ine/json_indicador/pindica.jsp"
 DELAY_SECONDS = 25
 TIMEOUT = 90
 SAMPLE = 8
+# Stop after this many consecutive refusals. The licence spike got 403
+# from www.ine.pt three times on this same runner, so a blanket block is
+# a live possibility — and if it is blanket, the eighth request tells us
+# nothing the third did not, while adding pressure to a host item 22 is
+# still trying to measure. `pindica.jsp` is a different subsystem from
+# the xportal www pages, which is exactly why it is worth one look.
+MAX_CONSECUTIVE_REFUSALS = 3
 
 
 def pick(crosswalk: dict) -> list:
@@ -190,12 +197,17 @@ def main() -> None:
     picked = pick(crosswalk)
     print(f"probing {len(picked)} series, {DELAY_SECONDS}s apart")
     rows = []
+    refused = 0
     for index, (key, varcd, operation, geo) in enumerate(picked):
+        if refused >= MAX_CONSECUTIVE_REFUSALS:
+            print(f"  stopping: {refused} consecutive refusals")
+            break
         if index:
             time.sleep(DELAY_SECONDS)
         url = JSON_URL.format(varcd)
         print(f"  {key} -> {varcd}")
         attempt = fetch(url)
+        refused = 0 if attempt["status"] == 200 else refused + 1
         row = {"key": key, "varcd": varcd, "operation": operation,
                "geo": geo, "status": attempt["status"],
                "bytes": attempt["bytes"]}
@@ -203,7 +215,12 @@ def main() -> None:
             row["profile"] = profile(attempt["body"])
             (RAW_DIR / f"{varcd}.json").write_bytes(attempt["body"])
         rows.append(row)
-    note = (f"{len(picked)} requests to INE on this date. Item 22 samples "
+    note = (f"{len(rows)} requests to INE on this date (of {len(picked)} "
+            f"planned; the run stops after "
+            f"{MAX_CONSECUTIVE_REFUSALS} consecutive refusals). The "
+            "licence spike already got 403 from www.ine.pt on this same "
+            "runner today, so this date was not clean before this ran. "
+            "Item 22 samples "
             "availability once a day to characterise INE's block; its "
             "reading for this day inherits this traffic and should not be "
             "treated as a clean sample.")
