@@ -36,6 +36,8 @@ publishing a degraded catalogue.
 96.3% of them are exactly its SEO template. A `Badge` means *a facet you can filter on* and
 nothing else; sources and freshness are labelled micro-columns in a fixed 3-column grid that
 holds its shape when a value is missing; the chart slot is reserved but inert until item 14.
+Since item 15 the whole card opens *this project's* page, not pordata.pt — the click-out moved
+to the detail page, beside the chart slot it will replace.
 The coverage line was hiding in the title, welded on with a colon: `split_breakdown` demotes
 that tail on 54.5% of rows and **refuses** when the tail is the indicator itself, and
 `extract_unit` recovers a unit on 51.8%.
@@ -63,6 +65,17 @@ only when their bytes change (the whole set packs to 4.45 MiB); theme tokens are
 `site/src/index.css` and the build **fails** if that block moves; `--strict` asserts every row
 has a page, because every card links here now. The chart slot stays inert until item 14.
 
+**The chart layer is chosen and measured, and deliberately not installed yet**
+(`@tanstack/charts`, spike in `data/spikes/charts-tanstack.md`). Marginal cost **≈27 KB
+gzipped** over React. The finding that decides the architecture: **it renders to SVG in plain
+Node with no DOM** — `createChartScene()` compiles a renderer-neutral scene and
+`renderChartSvg()` is a pure string function. So pre-render the SVG at build time (~3.4 KB gz
+for 195 points, crawlable, works with JS off, keeps the detail pages at their zero-JS weight)
+and load the interactive chart only when someone reaches for it. CSS custom properties survive
+into the output and axes use `currentColor`, so **one** file serves light and dark. Risk
+recorded: **0.14.0, six releases in six days** — re-check the release timeline before adopting.
+Not in `site/package.json`: nothing to chart until 14 archives values.
+
 **The gap it makes computable is a shortlist, not an inventory** (item 16).
 `data/coverage/INE-GAP.md` names **302 concepts** INE publishes and PORDATA never mentions,
 for owner accept/reject. The *series*-level complement is deliberately not computed: the
@@ -84,8 +97,7 @@ a human and nothing else, and all four unblock work that is otherwise ready — 
 `data/coverage/INE-GAP.md`, ~45 min: the accept/reject record *is* the curation rule, and it
 closes 16), **13** (upstream licences — now ~10 min: Eurostat is answered as CC BY 4.0 in
 `data/spikes/licences.md`, INE and BPstat need a browser that is not a cloud IP; the only
-thing gating **14**), **17**
-(the rename), and item **1**'s residual checks (a ~20-record spot-check, plus curating
+thing gating **14**), **17** (the rename), and item **1**'s residual checks (a ~20-record spot-check, plus curating
 `data/catalogue/FEATURED-UNMATCHED.md`). Then **Eurostat/BPstat** (measure first — do not
 assume A5's shape carries over) and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Full
 detail and execution order in `context.md`.
@@ -124,7 +136,7 @@ Nine workflows on `main`, the first two a detector→worker pair:
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
 | `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, crosswalk, coverage gap, detail pages, commit |
-| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 64.6%) |
+| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 65.4%) |
 | `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
 | `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |

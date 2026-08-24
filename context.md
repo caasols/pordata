@@ -159,8 +159,9 @@ The pipeline, end to end, all live on `main`:
   filter on* and nothing else, which is what stops the card becoming a wall of pills when item
   8's labels land; sources and freshness are labelled micro-columns; freshness is month
   precision; the whole card is one tap target. The chart slot is reserved, muted and inert —
-  no values exist until roadmap 14 and PORDATA's are never redistributed — and the click still
-  leaves for pordata.pt until the detail pages (15) land.
+  no values exist until roadmap 14 and PORDATA's are never redistributed. **Since item 15 the
+  click opens this project's own page**, not pordata.pt; the click-out moved to the detail
+  page, beside the chart slot it will eventually replace.
   **The coverage line came out of the title.** The descriptive half was already in the
   catalogue, welded on with a colon at equal weight, which *was* the hierarchy problem:
   `split_breakdown` demotes that tail on 1,196 rows (54.5%) and refuses when the tail is the
@@ -358,8 +359,8 @@ The pipeline, end to end, all live on `main`:
   step ids, notify-before-commit, `always()` on the salvage paths, the QA revert before the
   commit, the `docs/` gate after the build — and two cross-file contracts run the real script
   and compare the keys it emits against the ones the workflow reads. Each mechanical invariant
-  was verified by breaking it in the real files and confirming a red suite. **417 tests, 88%
-  coverage, kill rate 64.6%.** Two things the exercise taught: `tests.yml` only triggered on
+  was verified by breaking it in the real files and confirming a red suite. **519 tests, 88%
+  coverage, kill rate 65.4%** (measured after the detail pages landed). Two things the exercise taught: `tests.yml` only triggered on
   its own workflow file, so tests *about* the other seven would not have run when they changed
   (now `.github/workflows/**`); and mutmut runs from a copied tree, so `.github/` had to join
   `also_copy` — caught by the suite's own "no workflows found" guard rather than by an empty
@@ -569,17 +570,20 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
 (referenced from code and docs), **not** priority order.
 
-**Execution order (2026-08-24, after the crosswalk, the coverage gap and the CI hardening).**
-Ids are stable and never reused — 6b, 6c, 6d, 6e, 6f, 10, 11, 12, 18, 19, 23 and 24 have
-shipped or been absorbed, and item 2's INE half and item 16's INE half both shipped today.
+**Execution order (2026-08-24, end of day — after the crosswalk, the coverage gap, the CI
+hardening and the detail pages).** Ids are stable and never reused. Fully shipped: **6**
+(a–f), **10**, **11**, **12**, **18**, **19**, **23**, **24**. Half shipped, with the open half
+named in the item: **2** (INE done, Eurostat/BPstat open), **15** (metadata done, charts open),
+**16** (computed, owner pass open), **13** (Eurostat answered, INE/BPstat open).
 
 **Owner's queue first.** Four things are blocked on a human and nothing else, so they head the
-list; none of them takes long and all four unblock work that is otherwise ready to run.
+list; together they are about ninety minutes, and each unblocks work that is otherwise ready
+to run.
 
 1. **25 — curate the INE gap shortlist** (~45 min). The accept/reject record *is* the curation
-   rule, and it is the only way to acquire one. Closes item 16.
-2. **13 — the three upstream licences** (~30 min). The only thing gating 14, which is where
-   the project stops being a catalogue.
+   rule, and it is the only way to acquire one. Closes 16.
+2. **13 — INE and BPstat's reuse terms** (~10 min now; Eurostat is answered as CC BY 4.0).
+   Both 403 from a cloud IP, so this needs a real browser. The only thing gating 14.
 3. **17 — name the project.** Cheap now, more expensive once Phase D publishes a package name
    or FFMS replies.
 4. **The residual checks in item 1** — the ~20-record spot-check and
@@ -587,18 +591,22 @@ list; none of them takes long and all four unblock work that is otherwise ready 
 
 **Then, in order:**
 
-5. **2 — the crosswalk's remaining halves.** Eurostat and BPstat (638 `europa` rows, entirely
+5. **14 — the series archive.** Where the project stops being a catalogue. Unblocked the
+   moment 13 is recorded, and the pilot it asks for (size, vintages, "no series" as a
+   first-class state) is measurable the same day, since nobody has yet fetched a single INE
+   series and the response shape is unmeasured.
+6. **15's charts**, on the archive. The layer is chosen and measured (`@tanstack/charts`,
+   pre-rendered SVG plus interactive-on-demand); the slot is already shaped for it.
+7. **2 — the crosswalk's remaining halves.** Eurostat and BPstat (638 `europa` rows, entirely
    unrouted — measure each before specifying it, A5's shape must not be assumed to carry
-   over), and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Still the spine everything
-   downstream hangs off.
-6. **14 → 15 — the series archive, then per-indicator detail pages.** Where the project stops
-   being a catalogue. Gated on 13.
-7. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
+   over), and the 633 INE refusals in `data/crosswalk/REVIEW.md`, where the untried lead is
+   PORDATA's colon prefix.
+8. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
    out the whole field-capture thread.
-8. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-9. Background, in any order: **7** (name/i18n review), **3** (the ledger), and **4** (the FFMS
+9. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+10. Background, in any order: **7** (name/i18n review), **3** (the ledger), and **4** (the FFMS
    follow-up, due ~2026-09-04).
-10. **21 — the full re-harvest** stays last on purpose: its value grows with everything the
+11. **21 — the full re-harvest** stays last on purpose: its value grows with everything the
    parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
    until it retires.
 
@@ -658,7 +666,9 @@ list; none of them takes long and all four unblock work that is otherwise ready 
    the acceptance tests for everything built so far.
 4. **FFMS follow-up** if no reply by ~2026-09-04 (email sent 2026-08-21; see `outreach/`). Any
    reply may redirect items 2 and 5.
-5. **Phase D: MCP server over the catalogue** *(gated on owner go + crosswalk)*. Discovery
+5. **Phase D: MCP server over the catalogue** *(gated on owner go; the crosswalk precondition
+   is met for INE as of 2026-08-24 — "which INE series answers this?" is now answerable for 206
+   indicators, which is the query that makes an MCP worth having)*. Discovery
    tools first — search the catalogue, return metadata + PORDATA link + upstream source:
    pointers, not numbers, so nothing can be hallucinated. Values from upstream only where the
    crosswalk is confident, each answer carrying source/vintage/caveats per decision 5.
@@ -747,18 +757,16 @@ list; none of them takes long and all four unblock work that is otherwise ready 
    `bportugal.pt/pagina/termos-e-condicoes` 403'd too. Both are a two-minute look from a real
    browser.
 
- Before
-   a single upstream value is archived, read and record the actual reuse licence of each source
-   the archive would draw on: **Eurostat** (Commission reuse policy), **INE** (Statistics
-   Portugal's terms of use) and **BPstat** (Banco de Portugal). For each, record in this file:
-   the licence name, its URL, the exact attribution string it requires, and whether it permits
-   redistribution of derived/reformatted series (not just display). *Not yet checked from this
-   sandbox — it has no route to any of the three, and decision 7 exists because an upstream was
-   once asserted from memory.* Expected outcome is three source-citation regimes rather than
-   three blockers, but "expected" is not "recorded". Prevention: the archive job should refuse
-   to write a series whose source has no recorded licence entry.
+   **What to record here, per source**, before a single upstream value is archived: the licence
+   name, its URL, the exact attribution string it requires, and whether it permits
+   redistribution of derived/reformatted series — not merely display. Expected outcome is three
+   source-citation regimes rather than three blockers, but "expected" is not "recorded", and
+   decision 7 exists because an upstream was once asserted from memory. **Prevention**: item
+   14's archive job refuses to write a series whose source has no entry here.
 
-14. **Series archive — pull the numbers from the sources** *(gated on 2 + 13)*. The turn from a
+14. **Series archive — pull the numbers from the sources** *(**13 is the only thing still
+   gating this**; item 2's INE half landed 2026-08-24, so 206 indicators already carry a fetch
+   route and `europa` simply has none yet)*. The turn from a
    catalogue of pointers into a data layer. For each crosswalked indicator, fetch the series
    from its upstream API, normalise to one long-format schema (indicator, geography, period,
    value, unit, flag), and archive it on the same git-scraping cadence the harvest already
