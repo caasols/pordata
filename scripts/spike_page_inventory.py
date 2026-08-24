@@ -23,12 +23,12 @@ workflow artifact, never the repo.
 """
 
 import collections
-import html as html_mod
 import json
 import pathlib
 import re
 import time
 import urllib.request
+from html.parser import HTMLParser
 
 USER_AGENT = (
     "pordata-map research (github.com/caasols/pordata; "
@@ -40,22 +40,10 @@ REPORT = pathlib.Path("data/spikes/a6-page-inventory.md")
 DELAY_SECONDS = 20
 
 # Elements that hold page furniture rather than content.
-SKIP_TAGS = {"script", "style", "noscript", "svg", "path", "head"}
+SKIP_TAGS = {"script", "style", "noscript", "svg", "path", "head", "title"}
 # A run of digits with grouping is a data value; never record one.
-VALUE_LIKE = re.compile(r"\d[\d\s., ]{4,}\d")
-TEXT_BLOCK = re.compile(
-    r"<(?P<tag>h1|h2|h3|h4|h5|p|li|dt|dd|caption|figcaption|label|"
-    r"summary|legend|th|button|a|span|div)\b(?P<attrs>[^>]*)>"
-    r"(?P<inner>.*?)</(?P=tag)>",
-    re.I | re.S)
-CLASS = re.compile(r'class\s*=\s*"([^"]*)"', re.I)
-TAG = re.compile(r"<[^>]+>")
-
-
-def clean(fragment: str) -> str:
-    text = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", fragment)
-    text = html_mod.unescape(TAG.sub(" ", text))
-    return re.sub(r"\s+", " ", text).strip()
+VALUE_LIKE = re.compile(r"\d[\d\s., ]{4,}\d")
+MAX_TEXT = 400
 
 
 def redact(text: str) -> str:
@@ -63,34 +51,61 @@ def redact(text: str) -> str:
     return VALUE_LIKE.sub("<number>", text)
 
 
+class LeafText(HTMLParser):
+    """Collect each text node with the tag+class that encloses it.
+
+    A regex cannot do this: PORDATA's markup is deeply nested, so a
+    non-greedy `<div>.*?</div>` swallows whole subtrees and every block
+    lands over any sane length limit — the first version of this probe
+    reported 0 groups on a 169 KB page, which said nothing about PORDATA
+    and everything about the tool. A real parser walks to the leaves.
+    """
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.skip_depth = 0
+        self.groups = collections.defaultdict(list)
+
+    def handle_starttag(self, tag, attrs):
+        if self.skip_depth or tag in SKIP_TAGS:
+            self.skip_depth += 1
+            return
+        classes = dict(attrs).get("class") or ""
+        first = classes.split()[0] if classes.split() else ""
+        self.stack.append(f"{tag}.{first}" if first else tag)
+
+    def handle_endtag(self, tag):
+        if self.skip_depth:
+            self.skip_depth -= 1
+            return
+        if self.stack:
+            self.stack.pop()
+
+    def handle_data(self, data):
+        if self.skip_depth:
+            return
+        text = re.sub(r"\s+", " ", data).strip()
+        if not text or len(text) > MAX_TEXT:
+            return
+        self.groups[self.stack[-1] if self.stack else "(root)"].append(text)
+
+
 def inventory(html: str) -> dict:
-    """Every text-bearing block, grouped by tag + first class token."""
-    groups = collections.defaultdict(list)
-    for m in TEXT_BLOCK.finditer(html):
-        tag = m.group("tag").lower()
-        if tag in SKIP_TAGS:
-            continue
-        text = clean(m.group("inner"))
-        # a block whose text is only its children's is noise at this level
-        if not text or len(text) > 400:
-            continue
-        classes = CLASS.search(m.group("attrs") or "")
-        first = (classes.group(1).split()[0] if classes
-                 and classes.group(1).strip() else "")
-        groups[f"{tag}.{first}" if first else tag].append(text)
-    return groups
+    parser = LeafText()
+    parser.feed(html)
+    return parser.groups
 
 
-def questions(html: str) -> list:
-    """Sentences ending in '?' — the field that prompted this probe."""
-    found, seen = [], set()
-    for m in TEXT_BLOCK.finditer(html):
-        text = clean(m.group("inner"))
-        if not text or len(text) > 240 or not text.rstrip().endswith("?"):
-            continue
-        if text not in seen:
-            seen.add(text)
-            found.append(text)
+def questions(groups: dict) -> list:
+    """Text nodes that read as a question — the field that prompted this."""
+    found, seen = [], []
+    for where, texts in groups.items():
+        for text in texts:
+            if (len(text) <= 240 and text.rstrip().endswith("?")
+                    and text not in seen):
+                seen.append(text)
+                found.append((where, text))
     return found
 
 
@@ -106,6 +121,7 @@ def probe(row: dict) -> dict:
     (RAW_DIR / f"{slug}.html").write_bytes(raw)
 
     groups = inventory(html)
+    found = questions(groups)
     # rank by how distinctive a group is: few instances, real text
     ranked = sorted(groups.items(), key=lambda kv: (len(kv[1]), -len(kv[1][0])))
     return {
@@ -113,7 +129,7 @@ def probe(row: dict) -> dict:
         "status": status, "bytes": len(raw),
         "name": row.get("title") or row["name"],
         "group_count": len(groups),
-        "questions": [redact(q) for q in questions(html)][:8],
+        "questions": [(w, redact(q)) for w, q in found][:10],
         "singletons": [(k, redact(v[0])[:150]) for k, v in ranked
                        if len(v) == 1][:22],
         "repeated": [(k, len(v), redact(v[0])[:80]) for k, v in
@@ -178,7 +194,7 @@ def main() -> None:
             "### Questions found on the page",
             "",
         ]
-        lines += ([f"- {q}" for q in r["questions"]]
+        lines += ([f"- `{w}` — {q}" for w, q in r["questions"]]
                   or ["- none matched"])
         lines += ["", "### One-of-a-kind blocks (candidate fields)", ""]
         lines += [f"- `{k}` — {v}" for k, v in r["singletons"]]
