@@ -1,0 +1,9448 @@
+{
+ "municipios/1": {
+  "candidates": [
+   "0009598",
+   "0013558",
+   "0001866"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, ERSAR, ERSARA, DREM, Sistemas públicos urbanos de serviços de águas / vertente física e de funcionamento",
+  "operation_share": 0.667,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Água"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/100": {
+  "candidates": [
+   "0008330",
+   "0008320",
+   "0013255",
+   "0000085",
+   "0013247",
+   "0000075",
+   "0008335",
+   "0013260",
+   "0003844",
+   "0008334",
+   "0003843",
+   "0013259"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008330",
+   "0008320",
+   "0013255",
+   "0000085",
+   "0013247",
+   "0000075"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 6,
+  "operation": "INE, Estatísticas das obras concluídas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Obras concluídas"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/1000": {
+  "candidates": [
+   "0010042",
+   "0012248",
+   "0012256",
+   "0010043"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à avaliação bancária na habitação",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Outros indicadores da construção e habitação"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/1003": {
+  "candidates": [
+   "0012892",
+   "0010244"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/1004": null,
+ "municipios/1009": null,
+ "municipios/101": {
+  "candidates": [
+   "0013220",
+   "0013219",
+   "0009107",
+   "0010247"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013220",
+   "0013219",
+   "0009107",
+   "0010247"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, População estrangeira com estatuto legal de residente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/102": {
+  "candidates": [
+   "0008335",
+   "0013260",
+   "0003844",
+   "0008334",
+   "0003843",
+   "0013259"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 6,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas das obras concluídas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Obras concluídas"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/103": null,
+ "municipios/104": null,
+ "municipios/105": null,
+ "municipios/106": {
+  "candidates": [
+   "0000094",
+   "0008307",
+   "0013242",
+   "0013234",
+   "0000086",
+   "0008315",
+   "0008317",
+   "0013244",
+   "0003846",
+   "0013245",
+   "0003847",
+   "0008318"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000094",
+   "0008307",
+   "0013242",
+   "0013234",
+   "0000086",
+   "0008315"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 6,
+  "operation": "INE, Inquérito aos projetos de obras de edificação e de demolição de edifícios",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Licenciamento de obras"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/107": {
+  "candidates": [
+   "0008317",
+   "0013244",
+   "0003846",
+   "0013245",
+   "0003847",
+   "0008318"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 6,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos projetos de obras de edificação e de demolição de edifícios",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Licenciamento de obras"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/108": null,
+ "municipios/109": null,
+ "municipios/11": null,
+ "municipios/111": null,
+ "municipios/112": null,
+ "municipios/114": null,
+ "municipios/116": null,
+ "municipios/117": null,
+ "municipios/118": null,
+ "municipios/119": {
+  "candidates": [
+   "0014581",
+   "0008615",
+   "0001355"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Estudo sobre o poder de compra concelhio",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ordenamento do território",
+   "Pobreza e desigualdade económica"
+  ],
+  "theme": "Território",
+  "theme_share": 0.667,
+  "truncated": false
+ },
+ "municipios/12": {
+  "candidates": [
+   "0004298",
+   "0002499",
+   "0012078",
+   "0008291"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas dos municípios em ambiente - série longa",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Proteção do ambiente"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/13": null,
+ "municipios/136": null,
+ "municipios/16": null,
+ "municipios/182": null,
+ "municipios/236": {
+  "candidates": [
+   "0007820",
+   "0007765",
+   "0007764",
+   "0007812",
+   "0008203",
+   "0002923",
+   "0000909",
+   "0008200"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007820",
+   "0007765",
+   "0007764",
+   "0007812",
+   "0008203",
+   "0002923",
+   "0000909",
+   "0008200"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 8,
+  "operation": "INE, Inquérito aos centros de saúde",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados de saúde primários",
+   "Infraestruturas e equipamentos"
+  ],
+  "theme": "Território",
+  "theme_share": 0.875,
+  "truncated": false
+ },
+ "municipios/239": {
+  "candidates": [
+   "0002924",
+   "0000910"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos centros de saúde",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Infraestruturas e equipamentos"
+  ],
+  "theme": "Território",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/240": null,
+ "municipios/241": null,
+ "municipios/242": null,
+ "municipios/244": {
+  "candidates": [
+   "0008100",
+   "0002898",
+   "0000070",
+   "0012859",
+   "0007428",
+   "0007420",
+   "0008111",
+   "0012893"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/245": {
+  "candidates": [
+   "0008103",
+   "0000506",
+   "0002904",
+   "0012862",
+   "0007430",
+   "0007422",
+   "0008113",
+   "0012895"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/246": null,
+ "municipios/247": {
+  "candidates": [
+   "0008110",
+   "0000358",
+   "0007539",
+   "0002900",
+   "0007569",
+   "0012885",
+   "0012860",
+   "0008101",
+   "0007540",
+   "0007570",
+   "0012902",
+   "0008121"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008110",
+   "0000358",
+   "0007539",
+   "0002900",
+   "0007569",
+   "0012885",
+   "0012860",
+   "0008101"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 8,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares",
+   "Infraestruturas e equipamentos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 0.667,
+  "truncated": false
+ },
+ "municipios/248": {
+  "candidates": [
+   "0002906",
+   "0007432"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/249": {
+  "candidates": [
+   "0004703",
+   "0008207",
+   "0004073",
+   "0000938",
+   "0002925"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 5,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos centros de saúde",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados de saúde primários"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/250": null,
+ "municipios/252": {
+  "candidates": [
+   "0002902",
+   "0000370",
+   "0008208",
+   "0013201"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0002902",
+   "0000370",
+   "0008208",
+   "0013201"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, Estatísticas das farmácias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Farmácias e medicamentos",
+   "Infraestruturas e equipamentos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 0.5,
+  "truncated": false
+ },
+ "municipios/253": {
+  "candidates": [
+   "0008102",
+   "0012861",
+   "0002903",
+   "0000505",
+   "0007421",
+   "0007429",
+   "0012894",
+   "0008112"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/256": {
+  "candidates": [
+   "0012884",
+   "0008109",
+   "0007567",
+   "0007537",
+   "0007538",
+   "0007568",
+   "0008120",
+   "0012901"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Partos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/267": null,
+ "municipios/268": null,
+ "municipios/270": null,
+ "municipios/271": null,
+ "municipios/272": null,
+ "municipios/274": null,
+ "municipios/275": null,
+ "municipios/278": null,
+ "municipios/3": null,
+ "municipios/30": null,
+ "municipios/32": null,
+ "municipios/346": null,
+ "municipios/35": null,
+ "municipios/353": null,
+ "municipios/354": null,
+ "municipios/356": null,
+ "municipios/357": {
+  "candidates": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Lugar",
+   "Município"
+  ],
+  "n_candidates": 233,
+  "n_exact": 82,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da habitação",
+   "Censos da população",
+   "Estimativas de população",
+   "Migrações e população estrangeira",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.927,
+  "truncated": true
+ },
+ "municipios/358": {
+  "candidates": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Lugar",
+   "Município"
+  ],
+  "n_candidates": 233,
+  "n_exact": 82,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da habitação",
+   "Censos da população",
+   "Estimativas de população",
+   "Migrações e população estrangeira",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.927,
+  "truncated": true
+ },
+ "municipios/359": {
+  "candidates": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Freguesia",
+   "Lugar",
+   "Município"
+  ],
+  "n_candidates": 233,
+  "n_exact": 0,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da habitação",
+   "Censos da população",
+   "Estimativas de população",
+   "Migrações e população estrangeira",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.927,
+  "truncated": true
+ },
+ "municipios/360": {
+  "candidates": [
+   "0008283",
+   "0013045",
+   "0000598"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/361": {
+  "candidates": [
+   "0000599",
+   "0008300",
+   "0013262"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/364": null,
+ "municipios/366": {
+  "candidates": [
+   "0008264",
+   "0000596",
+   "0013044"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008264",
+   "0000596",
+   "0013044"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Natalidade e fecundidade"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/367": {
+  "candidates": [
+   "0013046",
+   "0000597",
+   "0008265"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013046",
+   "0000597",
+   "0008265"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Mortalidade e esperança de vida"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/368": null,
+ "municipios/37": null,
+ "municipios/370": null,
+ "municipios/371": {
+  "candidates": [
+   "0000731",
+   "0002672",
+   "0013578",
+   "0008711"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Óbitos por causas de morte",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Mortalidade e esperança de vida",
+   "Mortalidade por causas de morte"
+  ],
+  "theme": "População",
+  "theme_share": 0.75,
+  "truncated": false
+ },
+ "municipios/373": null,
+ "municipios/376": null,
+ "municipios/377": null,
+ "municipios/38": null,
+ "municipios/383": null,
+ "municipios/385": null,
+ "municipios/386": null,
+ "municipios/39": null,
+ "municipios/390": {
+  "candidates": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0011755",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793",
+   "0014631",
+   "0011790",
+   "0011792",
+   "0011758",
+   "0006363",
+   "0006357",
+   "0011628",
+   "0011688",
+   "0011719"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Lugar",
+   "Município"
+  ],
+  "n_candidates": 233,
+  "n_exact": 82,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da habitação",
+   "Censos da população",
+   "Estimativas de população",
+   "Migrações e população estrangeira",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.927,
+  "truncated": true
+ },
+ "municipios/393": null,
+ "municipios/399": null,
+ "municipios/4": null,
+ "municipios/40": {
+  "candidates": [
+   "0008232",
+   "0013372"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008232",
+   "0013372"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 2,
+  "operation": "INE, Inquérito às entidades detentoras de corpos de bombeiros",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Floresta",
+   "Proteção do ambiente"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 0.5,
+  "truncated": false
+ },
+ "municipios/412": null,
+ "municipios/422": null,
+ "municipios/423": null,
+ "municipios/424": null,
+ "municipios/426": null,
+ "municipios/427": null,
+ "municipios/43": {
+  "candidates": [
+   "0013451",
+   "0008619",
+   "0003759"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos espetáculos ao vivo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura"
+  ],
+  "theme": "Cultura, desporto e lazer",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/434": null,
+ "municipios/435": {
+  "candidates": [
+   "0002093",
+   "0008228",
+   "0014162",
+   "0014163",
+   "0002092",
+   "0008229"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0002093",
+   "0008228",
+   "0014162"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 6,
+  "n_exact": 3,
+  "operation": "DGEG, Estatísticas do carvão, petróleo, energia elétrica e gás natural",
+  "operation_share": 0.667,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Energia"
+  ],
+  "theme": "Indústria e energia",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/438": {
+  "candidates": [
+   "0000480",
+   "0012765",
+   "0008657",
+   "0008660",
+   "0000483",
+   "0012767"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000480",
+   "0012765",
+   "0008657"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 6,
+  "n_exact": 3,
+  "operation": "INE, Estatísticas dos resíduos urbanos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Economia circular"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/439": {
+  "candidates": [
+   "0008660",
+   "0012767",
+   "0000483"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008660",
+   "0012767",
+   "0000483"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Estatísticas dos resíduos urbanos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Economia circular"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/441": null,
+ "municipios/442": null,
+ "municipios/443": {
+  "candidates": [
+   "0004072",
+   "0005964",
+   "0008201"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos centros de saúde",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados de saúde primários"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/444": {
+  "candidates": [
+   "0002909",
+   "0000698",
+   "0008106",
+   "0012866",
+   "0007433",
+   "0007425",
+   "0012899",
+   "0008117"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/446": null,
+ "municipios/449": null,
+ "municipios/45": null,
+ "municipios/452": null,
+ "municipios/453": null,
+ "municipios/457": null,
+ "municipios/458": null,
+ "municipios/459": null,
+ "municipios/460": null,
+ "municipios/461": null,
+ "municipios/462": null,
+ "municipios/463": null,
+ "municipios/464": null,
+ "municipios/465": null,
+ "municipios/466": null,
+ "municipios/484": null,
+ "municipios/485": {
+  "candidates": [
+   "0014565"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "DGEG, Direção-Geral de Energia e Geologia",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Energia"
+  ],
+  "theme": "Indústria e energia",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/487": null,
+ "municipios/489": null,
+ "municipios/490": null,
+ "municipios/491": null,
+ "municipios/495": null,
+ "municipios/498": null,
+ "municipios/5": null,
+ "municipios/51": null,
+ "municipios/511": null,
+ "municipios/52": {
+  "candidates": [
+   "0003760",
+   "0008620",
+   "0013452"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos espetáculos ao vivo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura"
+  ],
+  "theme": "Cultura, desporto e lazer",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/53": null,
+ "municipios/54": null,
+ "municipios/541": null,
+ "municipios/547": null,
+ "municipios/55": null,
+ "municipios/56": null,
+ "municipios/58": null,
+ "municipios/588": null,
+ "municipios/589": null,
+ "municipios/592": null,
+ "municipios/6": null,
+ "municipios/60": null,
+ "municipios/605": null,
+ "municipios/634": null,
+ "municipios/64": null,
+ "municipios/65": {
+  "candidates": [
+   "0012770",
+   "0009613",
+   "0012769",
+   "0009612",
+   "0012771",
+   "0009614",
+   "0000482",
+   "0005385",
+   "0008659",
+   "0006059",
+   "0008661",
+   "0006060"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas dos resíduos urbanos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Economia circular",
+   "Resíduos"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/66": null,
+ "municipios/67": {
+  "candidates": [
+   "0012770",
+   "0009613",
+   "0012769",
+   "0009612",
+   "0012771",
+   "0009614",
+   "0000482",
+   "0005385",
+   "0008659",
+   "0006059",
+   "0008661",
+   "0006060"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas dos resíduos urbanos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Economia circular",
+   "Resíduos"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/71": null,
+ "municipios/715": null,
+ "municipios/716": null,
+ "municipios/718": null,
+ "municipios/719": null,
+ "municipios/725": null,
+ "municipios/726": null,
+ "municipios/742": null,
+ "municipios/744": null,
+ "municipios/746": null,
+ "municipios/747": null,
+ "municipios/748": null,
+ "municipios/750": null,
+ "municipios/757": null,
+ "municipios/758": null,
+ "municipios/761": null,
+ "municipios/762": null,
+ "municipios/763": null,
+ "municipios/767": null,
+ "municipios/769": null,
+ "municipios/770": null,
+ "municipios/791": null,
+ "municipios/794": null,
+ "municipios/795": null,
+ "municipios/796": {
+  "candidates": [
+   "0013557",
+   "0010322"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao financiamento das atividades culturais, criativas e desportivas pelas câmaras municipais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura"
+  ],
+  "theme": "Cultura, desporto e lazer",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/797": null,
+ "municipios/798": null,
+ "municipios/799": null,
+ "municipios/801": {
+  "candidates": [
+   "0007139",
+   "0000978"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007139",
+   "0000978"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 2,
+  "n_exact": 2,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2011",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/802": null,
+ "municipios/803": null,
+ "municipios/804": null,
+ "municipios/806": {
+  "candidates": [
+   "0014635",
+   "0011638",
+   "0012305"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014635",
+   "0011638",
+   "0012305"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/807": {
+  "candidates": [
+   "0014635",
+   "0011638",
+   "0012305"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014635",
+   "0011638",
+   "0012305"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/808": {
+  "candidates": [
+   "0014635",
+   "0011638",
+   "0012305"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014635",
+   "0011638",
+   "0012305"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/809": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0006397",
+   "0006394"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 11,
+  "n_exact": 9,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/810": null,
+ "municipios/812": {
+  "candidates": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 46,
+  "n_exact": 27,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.543,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego"
+  ],
+  "theme": "População",
+  "theme_share": 0.826,
+  "truncated": true
+ },
+ "municipios/814": {
+  "candidates": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 46,
+  "n_exact": 27,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.543,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego"
+  ],
+  "theme": "População",
+  "theme_share": 0.826,
+  "truncated": true
+ },
+ "municipios/815": {
+  "candidates": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 46,
+  "n_exact": 27,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.543,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego"
+  ],
+  "theme": "População",
+  "theme_share": 0.826,
+  "truncated": true
+ },
+ "municipios/816": {
+  "candidates": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 46,
+  "n_exact": 27,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.543,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego"
+  ],
+  "theme": "População",
+  "theme_share": 0.826,
+  "truncated": true
+ },
+ "municipios/817": {
+  "candidates": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 46,
+  "n_exact": 27,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.543,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego"
+  ],
+  "theme": "População",
+  "theme_share": 0.826,
+  "truncated": true
+ },
+ "municipios/819": null,
+ "municipios/820": {
+  "candidates": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006387",
+   "0012307",
+   "0012354",
+   "0012344",
+   "0012308",
+   "0012370",
+   "0012306",
+   "0012365"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 46,
+  "n_exact": 27,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.543,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego"
+  ],
+  "theme": "População",
+  "theme_share": 0.826,
+  "truncated": true
+ },
+ "municipios/821": null,
+ "municipios/823": null,
+ "municipios/825": {
+  "candidates": [
+   "0011768",
+   "0011765",
+   "0011764",
+   "0011767",
+   "0011766",
+   "0014628",
+   "0014627",
+   "0011789",
+   "0011536",
+   "0011531",
+   "0011538",
+   "0011535",
+   "0011529",
+   "0011532",
+   "0011528",
+   "0011533",
+   "0011534",
+   "0012856",
+   "0012459",
+   "0012460",
+   "0012457",
+   "0012456",
+   "0012463",
+   "0012461",
+   "0012388"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0011768",
+   "0011765",
+   "0011764",
+   "0011767",
+   "0011766",
+   "0014628",
+   "0014627",
+   "0011789",
+   "0011536",
+   "0011531",
+   "0011538",
+   "0011535",
+   "0011529",
+   "0011532",
+   "0011528",
+   "0011533",
+   "0011534",
+   "0012856",
+   "0012459",
+   "0012460",
+   "0012457",
+   "0012456",
+   "0012463",
+   "0012461",
+   "0012388"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Lugar",
+   "Município"
+  ],
+  "n_candidates": 62,
+  "n_exact": 29,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.984,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "municipios/826": null,
+ "municipios/827": null,
+ "municipios/832": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0006397",
+   "0006394"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 11,
+  "n_exact": 9,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/833": {
+  "candidates": [
+   "0006394"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006394"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 1,
+  "n_exact": 1,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2011",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/834": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0006397",
+   "0006394"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 11,
+  "n_exact": 9,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/835": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0006397",
+   "0006394"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 11,
+  "n_exact": 9,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/836": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0006397",
+   "0006394"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 11,
+  "n_exact": 9,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.545,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/837": null,
+ "municipios/839": null,
+ "municipios/842": null,
+ "municipios/843": null,
+ "municipios/844": null,
+ "municipios/846": null,
+ "municipios/847": {
+  "candidates": [
+   "0012481",
+   "0011553"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012481",
+   "0011553"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 2,
+  "n_exact": 2,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/848": null,
+ "municipios/852": null,
+ "municipios/854": null,
+ "municipios/855": null,
+ "municipios/856": null,
+ "municipios/858": {
+  "candidates": [
+   "0012328",
+   "0006733",
+   "0008866",
+   "0011661",
+   "0000265"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012328",
+   "0006733",
+   "0008866",
+   "0011661"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 5,
+  "n_exact": 4,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.4,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/861": {
+  "candidates": [
+   "0012357",
+   "0011690",
+   "0000261"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012357",
+   "0011690",
+   "0000261"
+  ],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.667,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/872": null,
+ "municipios/873": null,
+ "municipios/877": null,
+ "municipios/88": {
+  "candidates": [
+   "0008328",
+   "0014136",
+   "0000083"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas das obras concluídas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Estimativas do parque habitacional"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/884": null,
+ "municipios/886": null,
+ "municipios/888": null,
+ "municipios/889": null,
+ "municipios/890": null,
+ "municipios/891": null,
+ "municipios/892": null,
+ "municipios/894": null,
+ "municipios/896": null,
+ "municipios/899": null,
+ "municipios/901": null,
+ "municipios/903": null,
+ "municipios/904": null,
+ "municipios/905": null,
+ "municipios/906": null,
+ "municipios/907": null,
+ "municipios/91": {
+  "candidates": [
+   "0006633",
+   "0008162",
+   "0012718",
+   "0005903",
+   "0008161",
+   "0008159",
+   "0005901",
+   "0005902",
+   "0008160",
+   "0012721",
+   "0012719",
+   "0012720"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006633",
+   "0008162",
+   "0012718"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 3,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/911": null,
+ "municipios/915": null,
+ "municipios/916": null,
+ "municipios/917": null,
+ "municipios/919": null,
+ "municipios/92": {
+  "candidates": [
+   "0014624",
+   "0011788",
+   "0006304",
+   "0006301",
+   "0000729",
+   "0003756",
+   "0011494",
+   "0011495",
+   "0012387",
+   "0013315",
+   "0013316",
+   "0012501",
+   "0012502",
+   "0012515",
+   "0011508",
+   "0006981",
+   "0000084",
+   "0014137",
+   "0008329",
+   "0006314",
+   "0014626",
+   "0014622",
+   "0014625",
+   "0011787",
+   "0006312"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014624",
+   "0011788",
+   "0006304",
+   "0006301",
+   "0000729",
+   "0003756",
+   "0011494",
+   "0011495",
+   "0012387",
+   "0013315",
+   "0013316",
+   "0012501",
+   "0012502"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Lugar",
+   "Município"
+  ],
+  "n_candidates": 95,
+  "n_exact": 13,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.684,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da habitação",
+   "Censos da população",
+   "Estimativas do parque habitacional"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 0.621,
+  "truncated": true
+ },
+ "municipios/920": null,
+ "municipios/924": null,
+ "municipios/93": {
+  "candidates": [
+   "0012684",
+   "0012682",
+   "0012688",
+   "0013338",
+   "0008122",
+   "0012691",
+   "0012680",
+   "0008123",
+   "0008126",
+   "0012685",
+   "0012689",
+   "0008124",
+   "0008133",
+   "0012692",
+   "0008129",
+   "0008135",
+   "0012679",
+   "0008125",
+   "0008131",
+   "0008132",
+   "0008134",
+   "0012690",
+   "0012686",
+   "0008128",
+   "0008127"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 98,
+  "n_exact": 0,
+  "operation": "INE, Casamentos",
+  "operation_share": 0.541,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.98,
+  "truncated": true
+ },
+ "municipios/934": null,
+ "municipios/936": null,
+ "municipios/938": null,
+ "municipios/94": {
+  "candidates": [
+   "0008322",
+   "0013249",
+   "0000077",
+   "0008321",
+   "0013248",
+   "0000076",
+   "0013253",
+   "0008326",
+   "0000081"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Freguesia",
+   "Município"
+  ],
+  "n_candidates": 9,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas das obras concluídas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Obras concluídas"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/946": null,
+ "municipios/95": {
+  "candidates": [
+   "0012695",
+   "0008137",
+   "0008138",
+   "0012694",
+   "0008217",
+   "0012709",
+   "0006084",
+   "0004892",
+   "0002146",
+   "0010246",
+   "0013275",
+   "0013271",
+   "0006625",
+   "0008365",
+   "0008162",
+   "0012718",
+   "0006633",
+   "0012684",
+   "0012682",
+   "0012688",
+   "0013338",
+   "0008122",
+   "0012691",
+   "0012680",
+   "0008123"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 133,
+  "n_exact": 0,
+  "operation": "INE, Casamentos",
+  "operation_share": 0.602,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.985,
+  "truncated": true
+ },
+ "municipios/954": null,
+ "municipios/955": null,
+ "municipios/956": null,
+ "municipios/957": null,
+ "municipios/958": null,
+ "municipios/959": null,
+ "municipios/96": null,
+ "municipios/97": null,
+ "municipios/970": null,
+ "municipios/972": null,
+ "municipios/973": null,
+ "municipios/974": {
+  "candidates": [
+   "0000704",
+   "0008302"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000704",
+   "0008302"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 2,
+  "operation": "INE, Inquérito anual à produção de azeite",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Produção vegetal"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/975": null,
+ "municipios/976": null,
+ "municipios/977": null,
+ "municipios/978": null,
+ "municipios/980": null,
+ "municipios/99": {
+  "candidates": [
+   "0013220",
+   "0013219",
+   "0009107",
+   "0010247"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013220",
+   "0013219",
+   "0009107",
+   "0010247"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, População estrangeira com estatuto legal de residente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/990": null,
+ "municipios/991": null,
+ "municipios/995": null,
+ "portugal/10": {
+  "candidates": [
+   "0001854",
+   "0008268",
+   "0004168",
+   "0001853",
+   "0007306",
+   "0012904",
+   "0012915",
+   "0002721"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0001854",
+   "0008268",
+   "0004168",
+   "0001853",
+   "0007306",
+   "0012904",
+   "0012915"
+  ],
+  "geo_levels": [
+   "Distrito",
+   "Município",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 8,
+  "n_exact": 7,
+  "operation": "INE, Estimativas anuais da população residente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Estimativas de população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1006": null,
+ "portugal/1008": {
+  "candidates": [
+   "0014635",
+   "0006383",
+   "0000669",
+   "0011638",
+   "0012305",
+   "0001301",
+   "0000245",
+   "0002667",
+   "0000235",
+   "0006136",
+   "0010400",
+   "0006424",
+   "0005543",
+   "0012111",
+   "0012148",
+   "0011224",
+   "0010654",
+   "0010057",
+   "0010056",
+   "0014357",
+   "0010401",
+   "0012216",
+   "0011438",
+   "0010064",
+   "0010065"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014635",
+   "0006383",
+   "0000669",
+   "0011638",
+   "0012305"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 27,
+  "n_exact": 5,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.37,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Atividade",
+   "Censos da população"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.778,
+  "truncated": true
+ },
+ "portugal/1072": {
+  "candidates": [
+   "0000753",
+   "0003318"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Conta satélite do ambiente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas satélite"
+  ],
+  "theme": "Contas nacionais e regionais",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1073": null,
+ "portugal/1077": {
+  "candidates": [
+   "0000753",
+   "0003318"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Conta satélite do ambiente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas satélite"
+  ],
+  "theme": "Contas nacionais e regionais",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1080": null,
+ "portugal/1081": null,
+ "portugal/1088": null,
+ "portugal/1091": null,
+ "portugal/1092": {
+  "candidates": [
+   "0007737",
+   "0000688",
+   "0000687",
+   "0002700",
+   "0013485"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007737"
+  ],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 5,
+  "n_exact": 1,
+  "operation": "INE, Inquérito às organizações não governamentais de ambiente",
+  "operation_share": 0.8,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Proteção do ambiente"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1097": null,
+ "portugal/11": null,
+ "portugal/1102": {
+  "candidates": [
+   "0000461"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1104": null,
+ "portugal/1105": {
+  "candidates": [
+   "0012770",
+   "0009613",
+   "0012769",
+   "0009612",
+   "0012771",
+   "0009614",
+   "0000482",
+   "0005385",
+   "0008659",
+   "0006059",
+   "0008661",
+   "0006060"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 12,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas dos resíduos urbanos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Economia circular",
+   "Resíduos"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1107": null,
+ "portugal/1108": {
+  "candidates": [
+   "0004298",
+   "0002499",
+   "0012078",
+   "0008291",
+   "0001129",
+   "0001130"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 6,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas dos municípios em ambiente - série longa",
+  "operation_share": 0.667,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura",
+   "Desporto e lazer",
+   "Proteção do ambiente"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 0.667,
+  "truncated": false
+ },
+ "portugal/1110": null,
+ "portugal/1132": {
+  "candidates": [
+   "0000697"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao ambiente - Acções dos corpos de bombeiros",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Proteção do ambiente"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1133": null,
+ "portugal/1139": null,
+ "portugal/1140": null,
+ "portugal/1141": null,
+ "portugal/1142": null,
+ "portugal/1143": null,
+ "portugal/1144": null,
+ "portugal/1145": null,
+ "portugal/1158": null,
+ "portugal/1178": null,
+ "portugal/1179": null,
+ "portugal/1180": null,
+ "portugal/1181": null,
+ "portugal/1187": null,
+ "portugal/1188": null,
+ "portugal/1191": {
+  "candidates": [
+   "0003720"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao tráfego por caminho de ferro",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1194": null,
+ "portugal/1196": null,
+ "portugal/12": null,
+ "portugal/1200": null,
+ "portugal/1225": null,
+ "portugal/1226": null,
+ "portugal/1228": null,
+ "portugal/1229": {
+  "candidates": [
+   "0000480",
+   "0012765",
+   "0008657",
+   "0008660",
+   "0000483",
+   "0012767"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000480",
+   "0012765",
+   "0008657"
+  ],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 6,
+  "n_exact": 3,
+  "operation": "INE, Estatísticas dos resíduos urbanos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Economia circular"
+  ],
+  "theme": "Ambiente",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1230": null,
+ "portugal/1256": null,
+ "portugal/1281": null,
+ "portugal/130": null,
+ "portugal/1308": null,
+ "portugal/1309": null,
+ "portugal/1386": null,
+ "portugal/1387": null,
+ "portugal/1388": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/14": null,
+ "portugal/142": null,
+ "portugal/1435": null,
+ "portugal/144": null,
+ "portugal/147": null,
+ "portugal/15": null,
+ "portugal/1509": {
+  "candidates": [
+   "0012884",
+   "0008109",
+   "0007567",
+   "0007537",
+   "0007538",
+   "0007568",
+   "0008120",
+   "0012901"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Partos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/1514": {
+  "candidates": [
+   "0008120",
+   "0012901"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Partos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/153": null,
+ "portugal/154": null,
+ "portugal/155": null,
+ "portugal/156": null,
+ "portugal/1561": null,
+ "portugal/157": {
+  "candidates": [
+   "0007000"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Distrito"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "Ministério da Saúde, Direção-Geral da Saúde, Direção do Programa Nacional para a Tuberculose",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Morbilidade"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/158": null,
+ "portugal/159": null,
+ "portugal/16": null,
+ "portugal/160": null,
+ "portugal/1719": null,
+ "portugal/176": null,
+ "portugal/177": null,
+ "portugal/179": {
+  "candidates": [
+   "0003670",
+   "0003672"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "Portugal"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos museus",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura"
+  ],
+  "theme": "Cultura, desporto e lazer",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/180": null,
+ "portugal/181": null,
+ "portugal/182": null,
+ "portugal/183": null,
+ "portugal/184": null,
+ "portugal/185": null,
+ "portugal/187": null,
+ "portugal/189": {
+  "candidates": [
+   "0008322",
+   "0013249",
+   "0012778",
+   "0000077",
+   "0008321",
+   "0013248",
+   "0000076",
+   "0003841",
+   "0013253",
+   "0008326",
+   "0000081",
+   "0011725"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 12,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas das obras concluídas",
+  "operation_share": 0.917,
+  "periodicities": [
+   "Anual",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Licenciamento de obras",
+   "Obras concluídas"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/19": {
+  "candidates": [
+   "0011768",
+   "0011765",
+   "0011764",
+   "0011767",
+   "0011766",
+   "0014628",
+   "0014627",
+   "0011789",
+   "0011536",
+   "0011531",
+   "0011538",
+   "0011535",
+   "0011529",
+   "0011532",
+   "0011528",
+   "0011533",
+   "0011534",
+   "0012856",
+   "0012459",
+   "0012460",
+   "0012457",
+   "0012456",
+   "0012463",
+   "0012461",
+   "0012388"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0011768",
+   "0011765",
+   "0011764",
+   "0011767",
+   "0011766",
+   "0014628",
+   "0014627",
+   "0011789",
+   "0011536",
+   "0011531",
+   "0011538",
+   "0011535",
+   "0011529",
+   "0011532",
+   "0011528",
+   "0011533",
+   "0011534",
+   "0012856",
+   "0012459",
+   "0012460",
+   "0012457",
+   "0012456",
+   "0012463",
+   "0012461",
+   "0012388"
+  ],
+  "geo_levels": [
+   "Distrito/ilha",
+   "Freguesia",
+   "Lugar",
+   "Município",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 90,
+  "n_exact": 29,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.678,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Quinquenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Pobreza e desigualdade económica",
+   "População residente",
+   "Sociedade da informação"
+  ],
+  "theme": "População",
+  "theme_share": 0.7,
+  "truncated": true
+ },
+ "portugal/1933": {
+  "candidates": [
+   "0012684",
+   "0012682",
+   "0012688",
+   "0013338",
+   "0005408",
+   "0008122",
+   "0012691",
+   "0012680",
+   "0005433",
+   "0008123",
+   "0005432",
+   "0008126",
+   "0012685",
+   "0012689",
+   "0008124",
+   "0008133",
+   "0012692",
+   "0012677",
+   "0008129",
+   "0008135",
+   "0012679",
+   "0008125",
+   "0008131",
+   "0008132",
+   "0005107"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III"
+  ],
+  "n_candidates": 109,
+  "n_exact": 0,
+  "operation": "INE, Casamentos",
+  "operation_share": 0.56,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.982,
+  "truncated": true
+ },
+ "portugal/195": null,
+ "portugal/196": null,
+ "portugal/1966": null,
+ "portugal/1985": null,
+ "portugal/1987": null,
+ "portugal/1990": null,
+ "portugal/1995": {
+  "candidates": [
+   "0007914",
+   "0008402",
+   "0013220",
+   "0013219",
+   "0001274",
+   "0001236",
+   "0009107",
+   "0010247",
+   "0001153",
+   "0001230",
+   "0008627",
+   "0009108",
+   "0013191",
+   "0013193",
+   "0001289"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Cidade",
+   "Município",
+   "NUTS I",
+   "Portugal"
+  ],
+  "n_candidates": 15,
+  "n_exact": 0,
+  "operation": "INE, População estrangeira com estatuto legal de residente",
+  "operation_share": 0.4,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.867,
+  "truncated": false
+ },
+ "portugal/20": null,
+ "portugal/2039": null,
+ "portugal/2040": null,
+ "portugal/2093": null,
+ "portugal/2101": {
+  "candidates": [
+   "0012183",
+   "0011265",
+   "0012131",
+   "0011264",
+   "0010695",
+   "0012132",
+   "0012168",
+   "0010694",
+   "0011301",
+   "0012169"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 10,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao emprego (Série - 2021)",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Anual",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ordenamento do território",
+   "População residente"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.9,
+  "truncated": false
+ },
+ "portugal/2102": null,
+ "portugal/2103": null,
+ "portugal/2166": null,
+ "portugal/2167": {
+  "candidates": [
+   "0001803",
+   "0004218"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0001803",
+   "0004218"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 2,
+  "n_exact": 2,
+  "operation": "INE, Inquérito às condições de vida e rendimento",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Pobreza e desigualdade económica"
+  ],
+  "theme": "Condições de vida e cidadania",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2168": null,
+ "portugal/2237": null,
+ "portugal/2239": null,
+ "portugal/2240": null,
+ "portugal/2266": null,
+ "portugal/2271": null,
+ "portugal/2280": null,
+ "portugal/2282": null,
+ "portugal/2283": null,
+ "portugal/2289": {
+  "candidates": [
+   "0013858",
+   "0006591",
+   "0006561",
+   "0006614",
+   "0008486",
+   "0002319",
+   "0001614",
+   "0001575",
+   "0004751",
+   "0004071",
+   "0004040",
+   "0008005",
+   "0009969",
+   "0014142"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 14,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.786,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas",
+   "Contas regionais"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.786,
+  "truncated": false
+ },
+ "portugal/2290": {
+  "candidates": [
+   "0013858",
+   "0006591",
+   "0006561",
+   "0006614",
+   "0008486",
+   "0002319",
+   "0001614",
+   "0001575",
+   "0004751",
+   "0004071",
+   "0004040",
+   "0008005",
+   "0009969",
+   "0014142"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 14,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.786,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas",
+   "Contas regionais"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.786,
+  "truncated": false
+ },
+ "portugal/2291": null,
+ "portugal/2292": null,
+ "portugal/2293": null,
+ "portugal/2296": {
+  "candidates": [
+   "0010095",
+   "0010096",
+   "0010097",
+   "0008843",
+   "0008020",
+   "0008006",
+   "0010241",
+   "0009970",
+   "0014114",
+   "0014116",
+   "0004180",
+   "0014071",
+   "0011422",
+   "0011423",
+   "0011424",
+   "0011472",
+   "0011473",
+   "0011474",
+   "0000161",
+   "0009071"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS 3",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 20,
+  "n_exact": 0,
+  "operation": "INE, Contas económicas regionais",
+  "operation_share": 0.35,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas regionais",
+   "Emprego",
+   "Proteção do ambiente"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.45,
+  "truncated": false
+ },
+ "portugal/2297": null,
+ "portugal/2298": null,
+ "portugal/23": {
+  "candidates": [
+   "0006050",
+   "0006053",
+   "0006052",
+   "0006051",
+   "0007304",
+   "0007302",
+   "0007305",
+   "0007303",
+   "0001269",
+   "0001270"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 10,
+  "n_exact": 0,
+  "operation": "INE, Estimativas anuais de emigração",
+  "operation_share": 0.8,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2303": {
+  "candidates": [
+   "0007388",
+   "0007400",
+   "0013864",
+   "0008548",
+   "0008008",
+   "0008838",
+   "0008022",
+   "0010237",
+   "0009972",
+   "0014130",
+   "0014110",
+   "0001615",
+   "0002325",
+   "0001576"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS 3",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 14,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas",
+   "Contas regionais"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.5,
+  "truncated": false
+ },
+ "portugal/2315": null,
+ "portugal/2323": null,
+ "portugal/2324": null,
+ "portugal/2326": null,
+ "portugal/2327": null,
+ "portugal/2328": null,
+ "portugal/2339": null,
+ "portugal/2340": null,
+ "portugal/2341": null,
+ "portugal/2345": {
+  "candidates": [
+   "0008168",
+   "0000008",
+   "0002740",
+   "0000010",
+   "0005717",
+   "0014678",
+   "0014676",
+   "0012348",
+   "0008563",
+   "0004169",
+   "0004170",
+   "0013379",
+   "0005715",
+   "0008561",
+   "0007927",
+   "0001397",
+   "0012346",
+   "0001396",
+   "0002741",
+   "0011476",
+   "0008075",
+   "0005719",
+   "0012086",
+   "0008595",
+   "0007835"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008168",
+   "0000008",
+   "0002740",
+   "0000010",
+   "0005717",
+   "0014678",
+   "0014676",
+   "0012348",
+   "0008563",
+   "0004169",
+   "0004170",
+   "0013379",
+   "0005715",
+   "0008561",
+   "0007927",
+   "0001397",
+   "0012346",
+   "0001396",
+   "0002741",
+   "0011476",
+   "0008075",
+   "0005719",
+   "0012086",
+   "0008595",
+   "0007835"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Município",
+   "NUTS 3",
+   "NUTS II",
+   "NUTS III"
+  ],
+  "n_candidates": 34,
+  "n_exact": 28,
+  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation_share": 0.941,
+  "periodicities": [
+   "Anual",
+   "Mensal",
+   "Mensal acumulado"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Comércio internacional",
+   "Pesca"
+  ],
+  "theme": "Comércio internacional",
+  "theme_share": 0.941,
+  "truncated": true
+ },
+ "portugal/2346": {
+  "candidates": [
+   "0014679",
+   "0001750",
+   "0004174",
+   "0008596",
+   "0011478",
+   "0007836",
+   "0008169",
+   "0007928",
+   "0001400",
+   "0008564",
+   "0005720",
+   "0012347",
+   "0000012",
+   "0002744",
+   "0012349",
+   "0002743",
+   "0013380",
+   "0000013",
+   "0004172",
+   "0005716",
+   "0012087",
+   "0008076",
+   "0005718",
+   "0014677",
+   "0008562"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014679",
+   "0001750",
+   "0004174",
+   "0008596",
+   "0011478",
+   "0007836",
+   "0008169",
+   "0007928",
+   "0001400",
+   "0008564",
+   "0005720",
+   "0012347",
+   "0000012",
+   "0002744",
+   "0012349",
+   "0002743",
+   "0013380",
+   "0000013",
+   "0004172",
+   "0005716",
+   "0012087",
+   "0008076",
+   "0005718",
+   "0014677",
+   "0008562"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Município",
+   "NUTS 3",
+   "NUTS II",
+   "NUTS III"
+  ],
+  "n_candidates": 34,
+  "n_exact": 28,
+  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation_share": 0.941,
+  "periodicities": [
+   "Anual",
+   "Mensal",
+   "Mensal acumulado"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Comércio internacional",
+   "Pesca"
+  ],
+  "theme": "Comércio internacional",
+  "theme_share": 0.941,
+  "truncated": true
+ },
+ "portugal/2347": null,
+ "portugal/2358": {
+  "candidates": [
+   "0006258",
+   "0014078",
+   "0011594",
+   "0014433"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006258"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 1,
+  "operation": "INE, Inquérito às condições de vida e rendimento",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Trienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Privação"
+  ],
+  "theme": "Condições de vida e cidadania",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2360": {
+  "candidates": [
+   "0006263"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006263"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 1,
+  "operation": "INE, Inquérito às condições de vida e rendimento",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Pobreza e desigualdade económica"
+  ],
+  "theme": "Condições de vida e cidadania",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2364": null,
+ "portugal/2366": null,
+ "portugal/2379": null,
+ "portugal/2380": {
+  "candidates": [
+   "0008014",
+   "0009978",
+   "0014133"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Contas económicas regionais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas regionais"
+  ],
+  "theme": "Contas nacionais e regionais",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2381": null,
+ "portugal/2382": null,
+ "portugal/2399": null,
+ "portugal/24": {
+  "candidates": [
+   "0013220",
+   "0013219",
+   "0001274",
+   "0001236",
+   "0009107",
+   "0010247"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013220",
+   "0013219",
+   "0001274",
+   "0001236",
+   "0009107",
+   "0010247"
+  ],
+  "geo_levels": [
+   "Município",
+   "NUTS I",
+   "Portugal"
+  ],
+  "n_candidates": 6,
+  "n_exact": 6,
+  "operation": "INE, População estrangeira com estatuto legal de residente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2404": {
+  "candidates": [
+   "0010224",
+   "0014132"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 3",
+   "NUTS III"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Contas económicas regionais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas regionais"
+  ],
+  "theme": "Contas nacionais e regionais",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2407": {
+  "candidates": [
+   "0008014",
+   "0009978",
+   "0014133"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Contas económicas regionais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas regionais"
+  ],
+  "theme": "Contas nacionais e regionais",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2416": null,
+ "portugal/25": {
+  "candidates": [
+   "0013220",
+   "0013219",
+   "0001274",
+   "0001236",
+   "0009107",
+   "0010247"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013220",
+   "0013219",
+   "0001274",
+   "0001236",
+   "0009107",
+   "0010247"
+  ],
+  "geo_levels": [
+   "Município",
+   "NUTS I",
+   "Portugal"
+  ],
+  "n_candidates": 6,
+  "n_exact": 6,
+  "operation": "INE, População estrangeira com estatuto legal de residente",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2512": null,
+ "portugal/2513": null,
+ "portugal/2522": {
+  "candidates": [
+   "0006050",
+   "0006051",
+   "0006053",
+   "0006052"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006050",
+   "0006051",
+   "0006053",
+   "0006052"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, Estimativas anuais de emigração",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2523": {
+  "candidates": [
+   "0007304",
+   "0007303",
+   "0007302",
+   "0007305"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0007304",
+   "0007303",
+   "0007302",
+   "0007305"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, Estimativas anuais de emigração",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2549": null,
+ "portugal/2550": null,
+ "portugal/2551": null,
+ "portugal/2552": null,
+ "portugal/2560": null,
+ "portugal/2561": null,
+ "portugal/2562": null,
+ "portugal/2563": null,
+ "portugal/2564": null,
+ "portugal/2566": null,
+ "portugal/2567": {
+  "candidates": [
+   "0001832",
+   "0001833",
+   "0013297"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de colonos nas colónias de férias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2568": null,
+ "portugal/2569": {
+  "candidates": [
+   "0001828",
+   "0013294",
+   "0001827"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de colonos nas colónias de férias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2570": null,
+ "portugal/2571": {
+  "candidates": [
+   "0001834",
+   "0001835",
+   "0013298"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de colonos nas colónias de férias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2572": {
+  "candidates": [
+   "0001829",
+   "0013295",
+   "0001830"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de colonos nas colónias de férias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2575": null,
+ "portugal/2577": {
+  "candidates": [
+   "0013306",
+   "0001822",
+   "0001823"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "NUTS II"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de campistas em parques de campismo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2578": null,
+ "portugal/2584": null,
+ "portugal/2588": null,
+ "portugal/2589": null,
+ "portugal/2606": null,
+ "portugal/2611": {
+  "candidates": [
+   "0002944",
+   "0013363"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas da capacidade e utilização de alojamento turístico coletivo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2612": {
+  "candidates": [
+   "0002944",
+   "0013363"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas da capacidade e utilização de alojamento turístico coletivo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2613": null,
+ "portugal/2614": null,
+ "portugal/2616": null,
+ "portugal/2617": null,
+ "portugal/2618": null,
+ "portugal/2619": null,
+ "portugal/2620": null,
+ "portugal/2621": null,
+ "portugal/2622": {
+  "candidates": [
+   "0001826",
+   "0013293"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de colonos nas colónias de férias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2623": {
+  "candidates": [
+   "0001831",
+   "0013296"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de colonos nas colónias de férias",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2624": {
+  "candidates": [
+   "0001819",
+   "0013303"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à permanência de campistas em parques de campismo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2625": null,
+ "portugal/2626": null,
+ "portugal/2627": null,
+ "portugal/2632": null,
+ "portugal/2633": null,
+ "portugal/2636": {
+  "candidates": [
+   "0002944",
+   "0013363"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas da capacidade e utilização de alojamento turístico coletivo",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Oferta turística"
+  ],
+  "theme": "Turismo",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2644": null,
+ "portugal/2645": null,
+ "portugal/2751": {
+  "candidates": [
+   "0008257",
+   "0012279",
+   "0011612",
+   "0001275",
+   "0008852",
+   "0014362",
+   "0000606",
+   "0012908",
+   "0006043",
+   "0006038",
+   "0013466",
+   "0001290",
+   "0008628",
+   "0010005",
+   "0013040",
+   "0012907",
+   "0008256",
+   "0000259"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008257",
+   "0012279",
+   "0011612",
+   "0001275",
+   "0008852",
+   "0014362",
+   "0000606",
+   "0012908",
+   "0006043",
+   "0006038"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 18,
+  "n_exact": 10,
+  "operation": "INE, Estimativas anuais da população residente",
+  "operation_share": 0.278,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Estimativas de população",
+   "Migrações e população estrangeira",
+   "Mortalidade por causas de morte",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.833,
+  "truncated": false
+ },
+ "portugal/2755": null,
+ "portugal/2783": null,
+ "portugal/2784": null,
+ "portugal/2785": null,
+ "portugal/2786": null,
+ "portugal/2788": null,
+ "portugal/2790": null,
+ "portugal/2791": null,
+ "portugal/2793": null,
+ "portugal/2795": null,
+ "portugal/2796": null,
+ "portugal/28": {
+  "candidates": [
+   "0014635",
+   "0006383",
+   "0000669",
+   "0011638",
+   "0012305",
+   "0001301",
+   "0000245",
+   "0002667",
+   "0000235",
+   "0006136",
+   "0010400",
+   "0006424",
+   "0005543",
+   "0012111",
+   "0012148",
+   "0011224",
+   "0010654",
+   "0010057",
+   "0010056",
+   "0014357",
+   "0010401",
+   "0012216",
+   "0011438",
+   "0010064",
+   "0010065"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014635",
+   "0006383",
+   "0000669",
+   "0011638",
+   "0012305"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 27,
+  "n_exact": 5,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.37,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Atividade",
+   "Censos da população"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.778,
+  "truncated": true
+ },
+ "portugal/2802": null,
+ "portugal/2809": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0001318",
+   "0001303",
+   "0000591",
+   "0000649",
+   "0000648",
+   "0000590",
+   "0000587",
+   "0002671",
+   "0000645",
+   "0000589",
+   "0000588",
+   "0001319",
+   "0000646",
+   "0005597",
+   "0006186",
+   "0006190"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 83,
+  "n_exact": 9,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.494,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.867,
+  "truncated": true
+ },
+ "portugal/2810": null,
+ "portugal/2814": null,
+ "portugal/2817": null,
+ "portugal/2820": null,
+ "portugal/2821": null,
+ "portugal/2825": null,
+ "portugal/2831": null,
+ "portugal/2833": null,
+ "portugal/2854": null,
+ "portugal/2855": {
+  "candidates": [
+   "0006569",
+   "0008466",
+   "0008511",
+   "0011728",
+   "0007342",
+   "0008508",
+   "0007224",
+   "0009819",
+   "0006541",
+   "0009800",
+   "0006592",
+   "0014063",
+   "0014064",
+   "0013838",
+   "0014061",
+   "0007449",
+   "0014043",
+   "0014449",
+   "0008589",
+   "0008583",
+   "0007083",
+   "0007084",
+   "0008590",
+   "0008586",
+   "0008584"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006569",
+   "0008466",
+   "0008511",
+   "0011728",
+   "0007342",
+   "0008508",
+   "0007224",
+   "0009819",
+   "0006541",
+   "0009800",
+   "0006592",
+   "0014063",
+   "0014064",
+   "0013838",
+   "0014061",
+   "0007449",
+   "0014043",
+   "0014449"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Região"
+  ],
+  "n_candidates": 114,
+  "n_exact": 18,
+  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation_share": 0.351,
+  "periodicities": [
+   "Anual",
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Comunicações",
+   "Comércio extra-UE",
+   "Comércio internacional",
+   "Comércio intra-UE",
+   "Contas integradas das empresas",
+   "Economia circular",
+   "Filiais de empresas estrangeiras",
+   "Proteção do ambiente"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.386,
+  "truncated": true
+ },
+ "portugal/2856": {
+  "candidates": [
+   "0006569",
+   "0008466",
+   "0008511",
+   "0011728",
+   "0007342",
+   "0008508",
+   "0007224",
+   "0009819",
+   "0006541",
+   "0009800",
+   "0006592",
+   "0014063",
+   "0014064",
+   "0013838",
+   "0014061",
+   "0007449",
+   "0014043",
+   "0014449",
+   "0008589",
+   "0008583",
+   "0007083",
+   "0007084",
+   "0008590",
+   "0008586",
+   "0008584"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006569",
+   "0008466",
+   "0008511",
+   "0011728",
+   "0007342",
+   "0008508",
+   "0007224",
+   "0009819",
+   "0006541",
+   "0009800",
+   "0006592",
+   "0014063",
+   "0014064",
+   "0013838",
+   "0014061",
+   "0007449",
+   "0014043",
+   "0014449"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Região"
+  ],
+  "n_candidates": 114,
+  "n_exact": 18,
+  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation_share": 0.351,
+  "periodicities": [
+   "Anual",
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Comunicações",
+   "Comércio extra-UE",
+   "Comércio internacional",
+   "Comércio intra-UE",
+   "Contas integradas das empresas",
+   "Economia circular",
+   "Filiais de empresas estrangeiras",
+   "Proteção do ambiente"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.386,
+  "truncated": true
+ },
+ "portugal/2857": {
+  "candidates": [
+   "0006569",
+   "0008466",
+   "0008511",
+   "0011728",
+   "0007342",
+   "0008508",
+   "0007224",
+   "0009819",
+   "0006541",
+   "0009800",
+   "0006592",
+   "0014063",
+   "0014064",
+   "0013838",
+   "0014061",
+   "0007449",
+   "0014043",
+   "0014449",
+   "0008589",
+   "0008583",
+   "0007083",
+   "0007084",
+   "0008590",
+   "0008586",
+   "0008584"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006569",
+   "0008466",
+   "0008511",
+   "0011728",
+   "0007342",
+   "0008508",
+   "0007224",
+   "0009819",
+   "0006541",
+   "0009800",
+   "0006592",
+   "0014063",
+   "0014064",
+   "0013838",
+   "0014061",
+   "0007449",
+   "0014043",
+   "0014449"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Região"
+  ],
+  "n_candidates": 114,
+  "n_exact": 18,
+  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation_share": 0.351,
+  "periodicities": [
+   "Anual",
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Comunicações",
+   "Comércio extra-UE",
+   "Comércio internacional",
+   "Comércio intra-UE",
+   "Contas integradas das empresas",
+   "Economia circular",
+   "Filiais de empresas estrangeiras",
+   "Proteção do ambiente"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.386,
+  "truncated": true
+ },
+ "portugal/2858": null,
+ "portugal/2859": null,
+ "portugal/2860": null,
+ "portugal/2873": null,
+ "portugal/2874": null,
+ "portugal/2875": null,
+ "portugal/2877": null,
+ "portugal/2878": null,
+ "portugal/2880": null,
+ "portugal/2881": null,
+ "portugal/2883": null,
+ "portugal/2884": {
+  "candidates": [
+   "0006566",
+   "0007144",
+   "0014085",
+   "0009192",
+   "0007354",
+   "0008643",
+   "0002630",
+   "0002650",
+   "0005872",
+   "0000421",
+   "0002638",
+   "0002639"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006566",
+   "0007144",
+   "0014085",
+   "0009192",
+   "0007354",
+   "0008643"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 12,
+  "n_exact": 6,
+  "operation": "INE, Demografia das empresas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Demografia das empresas"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2885": {
+  "candidates": [
+   "0006566",
+   "0007144",
+   "0014085",
+   "0009192",
+   "0007354",
+   "0008643",
+   "0002630",
+   "0002650",
+   "0005872",
+   "0000421",
+   "0002638",
+   "0002639"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006566",
+   "0007144",
+   "0014085",
+   "0009192",
+   "0007354",
+   "0008643"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 12,
+  "n_exact": 6,
+  "operation": "INE, Demografia das empresas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Demografia das empresas"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2887": {
+  "candidates": [
+   "0008645",
+   "0007145",
+   "0007355",
+   "0014087",
+   "0006567",
+   "0005873",
+   "0002631",
+   "0002652",
+   "0000422",
+   "0002640"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008645",
+   "0007145",
+   "0007355",
+   "0014087",
+   "0006567"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 10,
+  "n_exact": 5,
+  "operation": "INE, Demografia das empresas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Demografia das empresas"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2888": {
+  "candidates": [
+   "0008645",
+   "0007145",
+   "0007355",
+   "0014087",
+   "0006567",
+   "0005873",
+   "0002631",
+   "0002652",
+   "0000422",
+   "0002640"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008645",
+   "0007145",
+   "0007355",
+   "0014087",
+   "0006567"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 10,
+  "n_exact": 5,
+  "operation": "INE, Demografia das empresas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Demografia das empresas"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2890": {
+  "candidates": [
+   "0002641",
+   "0002645",
+   "0002644"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II",
+   "NUTS III"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Demografia das empresas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Demografia das empresas"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2891": null,
+ "portugal/2893": {
+  "candidates": [
+   "0013839",
+   "0006570",
+   "0014044",
+   "0013861",
+   "0006593",
+   "0008509",
+   "0007343",
+   "0008467",
+   "0007226",
+   "0008512",
+   "0007225",
+   "0006542",
+   "0007399",
+   "0014093",
+   "0007398",
+   "0008633",
+   "0007744",
+   "0007745",
+   "0013872",
+   "0007743",
+   "0008560",
+   "0008833",
+   "0007117",
+   "0007118",
+   "0014120"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Sistema de metropolitano"
+  ],
+  "n_candidates": 54,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.481,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Contas integradas das empresas",
+   "Demografia das empresas",
+   "Filiais de empresas estrangeiras",
+   "Seguros e resseguros",
+   "Transportes terrestres"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.741,
+  "truncated": true
+ },
+ "portugal/2894": {
+  "candidates": [
+   "0013839",
+   "0006570",
+   "0014044",
+   "0013861",
+   "0006593",
+   "0008509",
+   "0007343",
+   "0008467",
+   "0007226",
+   "0008512",
+   "0007225",
+   "0006542",
+   "0007399",
+   "0014093",
+   "0007398",
+   "0008633",
+   "0007744",
+   "0007745",
+   "0013872",
+   "0007743",
+   "0008560",
+   "0008833",
+   "0007117",
+   "0007118",
+   "0014120"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Sistema de metropolitano"
+  ],
+  "n_candidates": 54,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.481,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Contas integradas das empresas",
+   "Demografia das empresas",
+   "Filiais de empresas estrangeiras",
+   "Seguros e resseguros",
+   "Transportes terrestres"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.741,
+  "truncated": true
+ },
+ "portugal/2895": {
+  "candidates": [
+   "0013839",
+   "0006570",
+   "0014044",
+   "0013861",
+   "0006593",
+   "0008509",
+   "0007343",
+   "0008467",
+   "0007226",
+   "0008512",
+   "0007225",
+   "0006542",
+   "0007399",
+   "0014093",
+   "0007398",
+   "0008633",
+   "0007744",
+   "0007745",
+   "0013872",
+   "0007743",
+   "0008560",
+   "0008833",
+   "0007117",
+   "0007118",
+   "0014120"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Sistema de metropolitano"
+  ],
+  "n_candidates": 54,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.481,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Contas integradas das empresas",
+   "Demografia das empresas",
+   "Filiais de empresas estrangeiras",
+   "Seguros e resseguros",
+   "Transportes terrestres"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.741,
+  "truncated": true
+ },
+ "portugal/2896": {
+  "candidates": [
+   "0013839",
+   "0006570",
+   "0014044",
+   "0013861",
+   "0006593",
+   "0008509",
+   "0007343",
+   "0008467",
+   "0007226",
+   "0008512",
+   "0007225",
+   "0006542",
+   "0007399",
+   "0014093",
+   "0007398",
+   "0008633",
+   "0007744",
+   "0007745",
+   "0013872",
+   "0007743",
+   "0008560",
+   "0008833",
+   "0007117",
+   "0007118",
+   "0014120"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Sistema de metropolitano"
+  ],
+  "n_candidates": 54,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.481,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Contas integradas das empresas",
+   "Demografia das empresas",
+   "Filiais de empresas estrangeiras",
+   "Seguros e resseguros",
+   "Transportes terrestres"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.741,
+  "truncated": true
+ },
+ "portugal/2898": null,
+ "portugal/2899": null,
+ "portugal/29": {
+  "candidates": [
+   "0014635",
+   "0006383",
+   "0000669",
+   "0011638",
+   "0012305",
+   "0001301",
+   "0000245",
+   "0002667",
+   "0000235",
+   "0006136",
+   "0010400",
+   "0006424",
+   "0005543",
+   "0012111",
+   "0012148",
+   "0011224",
+   "0010654",
+   "0010057",
+   "0010056",
+   "0014357",
+   "0010401",
+   "0012216",
+   "0011438",
+   "0010064",
+   "0010065"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014635",
+   "0006383",
+   "0000669",
+   "0011638",
+   "0012305"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 27,
+  "n_exact": 5,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.37,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Atividade",
+   "Censos da população"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.778,
+  "truncated": true
+ },
+ "portugal/2913": {
+  "candidates": [
+   "0013856",
+   "0013862",
+   "0006610",
+   "0006587",
+   "0008484",
+   "0007344",
+   "0008513",
+   "0006559",
+   "0000555",
+   "0002321",
+   "0001610",
+   "0001565",
+   "0004067",
+   "0004036",
+   "0004798",
+   "0010307",
+   "0014068",
+   "0008874",
+   "0000454",
+   "0010304",
+   "0014065",
+   "0006441",
+   "0011345",
+   "0011346",
+   "0012828"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013856",
+   "0013862",
+   "0006610",
+   "0006587",
+   "0008484",
+   "0007344",
+   "0008513",
+   "0006559"
+  ],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 31,
+  "n_exact": 8,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.613,
+  "periodicities": [
+   "Anual",
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Comunicações",
+   "Comércio interno",
+   "Contas integradas das empresas",
+   "Serviços especializados",
+   "Sociedade da informação"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.516,
+  "truncated": true
+ },
+ "portugal/2914": {
+  "candidates": [
+   "0013856",
+   "0013862",
+   "0006610",
+   "0006587",
+   "0008484",
+   "0007344",
+   "0008513",
+   "0006559",
+   "0000555",
+   "0002321",
+   "0001610",
+   "0001565",
+   "0004067",
+   "0004036",
+   "0004798",
+   "0010307",
+   "0014068",
+   "0008874",
+   "0000454",
+   "0010304",
+   "0014065",
+   "0006441",
+   "0011345",
+   "0011346",
+   "0012828"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013856",
+   "0013862",
+   "0006610",
+   "0006587",
+   "0008484",
+   "0007344",
+   "0008513",
+   "0006559"
+  ],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 31,
+  "n_exact": 8,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.613,
+  "periodicities": [
+   "Anual",
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Ciência e tecnologia",
+   "Comunicações",
+   "Comércio interno",
+   "Contas integradas das empresas",
+   "Serviços especializados",
+   "Sociedade da informação"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.516,
+  "truncated": true
+ },
+ "portugal/2915": {
+  "candidates": [
+   "0006589",
+   "0009174",
+   "0013857",
+   "0006612",
+   "0013863",
+   "0014606",
+   "0007345",
+   "0008485",
+   "0008514",
+   "0007227",
+   "0006560",
+   "0008831",
+   "0007113",
+   "0007114",
+   "0014118",
+   "0002307",
+   "0001612",
+   "0001573",
+   "0004800",
+   "0004069",
+   "0004038",
+   "0006199",
+   "0008875",
+   "0000455",
+   "0002662"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006589",
+   "0009174",
+   "0013857",
+   "0006612",
+   "0013863",
+   "0014606",
+   "0007345",
+   "0008485",
+   "0008514",
+   "0007227",
+   "0006560"
+  ],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 26,
+  "n_exact": 11,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.731,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas",
+   "Filiais de empresas estrangeiras"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/2916": {
+  "candidates": [
+   "0006589",
+   "0009174",
+   "0013857",
+   "0006612",
+   "0013863",
+   "0014606",
+   "0007345",
+   "0008485",
+   "0008514",
+   "0007227",
+   "0006560",
+   "0008831",
+   "0007113",
+   "0007114",
+   "0014118",
+   "0002307",
+   "0001612",
+   "0001573",
+   "0004800",
+   "0004069",
+   "0004038",
+   "0006199",
+   "0008875",
+   "0000455",
+   "0002662"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006589",
+   "0009174",
+   "0013857",
+   "0006612",
+   "0013863",
+   "0014606",
+   "0007345",
+   "0008485",
+   "0008514",
+   "0007227",
+   "0006560"
+  ],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 26,
+  "n_exact": 11,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.731,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas",
+   "Filiais de empresas estrangeiras"
+  ],
+  "theme": "Empresas",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/2917": null,
+ "portugal/2918": null,
+ "portugal/2919": null,
+ "portugal/2920": null,
+ "portugal/2927": null,
+ "portugal/2928": null,
+ "portugal/2931": null,
+ "portugal/2932": null,
+ "portugal/2933": null,
+ "portugal/2934": null,
+ "portugal/2935": null,
+ "portugal/2937": null,
+ "portugal/2942": null,
+ "portugal/2955": null,
+ "portugal/2958": null,
+ "portugal/2959": null,
+ "portugal/2960": {
+  "candidates": [
+   "0004255"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à caraterização da habitação social",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Habitação social"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/2962": null,
+ "portugal/2965": null,
+ "portugal/2968": null,
+ "portugal/30": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/3002": null,
+ "portugal/3004": null,
+ "portugal/3005": null,
+ "portugal/3008": {
+  "candidates": [
+   "0009821",
+   "0004206",
+   "0014079",
+   "0001794",
+   "0004219",
+   "0005382",
+   "0001813",
+   "0014080",
+   "0009882",
+   "0012257",
+   "0013330",
+   "0004211",
+   "0005395",
+   "0001846"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0009821",
+   "0004206",
+   "0014079",
+   "0001794",
+   "0004219",
+   "0005382",
+   "0001813"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 14,
+  "n_exact": 7,
+  "operation": "INE, Inquérito às condições de vida e rendimento",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Pobreza e desigualdade económica"
+  ],
+  "theme": "Condições de vida e cidadania",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3009": null,
+ "portugal/3010": null,
+ "portugal/3018": {
+  "candidates": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0002192",
+   "0002194",
+   "0002399",
+   "0002193",
+   "0002202",
+   "0011755",
+   "0001716",
+   "0001706",
+   "0001717",
+   "0001710",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014526",
+   "0014353",
+   "0000536",
+   "0002192",
+   "0002194",
+   "0002399",
+   "0002193",
+   "0002202",
+   "0011755",
+   "0001716",
+   "0001706",
+   "0001717",
+   "0001710",
+   "0006347",
+   "0006351",
+   "0014630",
+   "0014637",
+   "0006355",
+   "0014633",
+   "0005979",
+   "0014632",
+   "0014634",
+   "0011791",
+   "0006364",
+   "0011793"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito",
+   "Freguesia",
+   "Lugar",
+   "Município",
+   "NUTS I",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 590,
+  "n_exact": 107,
+  "operation": "INE, Inquérito nacional de saúde",
+  "operation_share": 0.447,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da habitação",
+   "Censos da população",
+   "Cuidados hospitalares",
+   "Determinantes de saúde",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Estimativas de população",
+   "Formação",
+   "Migrações e população estrangeira",
+   "Morbilidade",
+   "Ordenamento do território"
+  ],
+  "theme": "Saúde",
+  "theme_share": 0.461,
+  "truncated": true
+ },
+ "portugal/3057": null,
+ "portugal/3086": null,
+ "portugal/3087": null,
+ "portugal/3088": null,
+ "portugal/3089": null,
+ "portugal/3090": null,
+ "portugal/3091": null,
+ "portugal/3092": null,
+ "portugal/3099": null,
+ "portugal/31": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/3100": null,
+ "portugal/3101": null,
+ "portugal/3102": null,
+ "portugal/3104": null,
+ "portugal/3105": null,
+ "portugal/3106": null,
+ "portugal/3107": null,
+ "portugal/3108": {
+  "candidates": [
+   "0014169",
+   "0006639",
+   "0003713",
+   "0003714"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Inquérito à infraestrutura ferroviária",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3109": null,
+ "portugal/3110": null,
+ "portugal/3111": null,
+ "portugal/3112": null,
+ "portugal/3113": null,
+ "portugal/3115": null,
+ "portugal/3116": {
+  "candidates": [
+   "0000898",
+   "0000901",
+   "0000899",
+   "0000902"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal",
+   "Sistema de metropolitano"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao transporte por metropolitano",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Mensal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3117": {
+  "candidates": [
+   "0003718"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao tráfego por caminho de ferro",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3118": {
+  "candidates": [
+   "0003718"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao tráfego por caminho de ferro",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3120": {
+  "candidates": [
+   "0013815",
+   "0007775",
+   "0007776",
+   "0007777",
+   "0007778",
+   "0013816"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Continente",
+   "NUTS II"
+  ],
+  "n_candidates": 6,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao transporte rodoviário de passageiros",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3121": null,
+ "portugal/3125": null,
+ "portugal/3126": null,
+ "portugal/3128": null,
+ "portugal/3167": null,
+ "portugal/3168": null,
+ "portugal/3169": null,
+ "portugal/3170": null,
+ "portugal/3172": null,
+ "portugal/3173": null,
+ "portugal/3174": null,
+ "portugal/3175": null,
+ "portugal/3176": null,
+ "portugal/3177": null,
+ "portugal/3191": null,
+ "portugal/3192": null,
+ "portugal/3193": null,
+ "portugal/3194": null,
+ "portugal/3195": null,
+ "portugal/3196": null,
+ "portugal/3198": null,
+ "portugal/3199": null,
+ "portugal/32": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/3200": null,
+ "portugal/3202": null,
+ "portugal/321": null,
+ "portugal/323": null,
+ "portugal/3230": null,
+ "portugal/3234": null,
+ "portugal/3235": null,
+ "portugal/3240": null,
+ "portugal/3245": null,
+ "portugal/3246": null,
+ "portugal/3248": null,
+ "portugal/3249": {
+  "candidates": [
+   "0008368",
+   "0008370",
+   "0008369"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008368",
+   "0008370",
+   "0008369"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Aquisição e atribuição da nacionalidade portuguesa",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3250": {
+  "candidates": [
+   "0008368",
+   "0008370",
+   "0008369"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008368",
+   "0008370",
+   "0008369"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Aquisição e atribuição da nacionalidade portuguesa",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3251": {
+  "candidates": [
+   "0008368",
+   "0008370",
+   "0008369"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008368",
+   "0008370",
+   "0008369"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Aquisição e atribuição da nacionalidade portuguesa",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3252": null,
+ "portugal/3253": null,
+ "portugal/3254": null,
+ "portugal/3255": {
+  "candidates": [
+   "0006056",
+   "0006057",
+   "0006055",
+   "0006054",
+   "0006058"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006056",
+   "0006057",
+   "0006055",
+   "0006054",
+   "0006058"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 5,
+  "n_exact": 5,
+  "operation": "INE, Estimativas anuais de imigração",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3256": {
+  "candidates": [
+   "0006056",
+   "0006057",
+   "0006055",
+   "0006054",
+   "0006058"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006056",
+   "0006057",
+   "0006055",
+   "0006054",
+   "0006058"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 5,
+  "n_exact": 5,
+  "operation": "INE, Estimativas anuais de imigração",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/33": null,
+ "portugal/3319": {
+  "candidates": [
+   "0003718"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao tráfego por caminho de ferro",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Transportes terrestres"
+  ],
+  "theme": "Transportes e comunicações",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/332": null,
+ "portugal/3321": null,
+ "portugal/3322": null,
+ "portugal/3324": null,
+ "portugal/333": null,
+ "portugal/3341": null,
+ "portugal/3342": null,
+ "portugal/3343": null,
+ "portugal/3344": {
+  "candidates": [
+   "0004084"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0004084"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 1,
+  "operation": "INE, Estatísticas dos indicadores agroambientais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Agroambientais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3345": {
+  "candidates": [
+   "0004086"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas dos indicadores agroambientais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Agroambientais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3346": {
+  "candidates": [
+   "0003506",
+   "0000254",
+   "0004953",
+   "0010847",
+   "0005825",
+   "0010846",
+   "0004945",
+   "0004947",
+   "0013154",
+   "0010828",
+   "0013759",
+   "0003507",
+   "0010845",
+   "0005631",
+   "0004076",
+   "0004075",
+   "0005628",
+   "0005632",
+   "0013669",
+   "0003525",
+   "0010565",
+   "0009730",
+   "0004950",
+   "0004938",
+   "0010557"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0003506",
+   "0000254",
+   "0004953",
+   "0010847",
+   "0005825",
+   "0010846",
+   "0004945",
+   "0004947",
+   "0013154",
+   "0010828",
+   "0013759",
+   "0003507",
+   "0010845",
+   "0005631",
+   "0004076",
+   "0004075",
+   "0005628",
+   "0005632",
+   "0013669",
+   "0003525",
+   "0010565",
+   "0009730",
+   "0004950",
+   "0004938",
+   "0010557"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Portugal",
+   "Região agrária"
+  ],
+  "n_candidates": 64,
+  "n_exact": 53,
+  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation_share": 0.422,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Agroambientais",
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/3347": {
+  "candidates": [
+   "0013675",
+   "0003021",
+   "0003520",
+   "0002875",
+   "0013151",
+   "0003496",
+   "0005618",
+   "0002766",
+   "0005624",
+   "0013764",
+   "0005621",
+   "0002763",
+   "0002863",
+   "0005620",
+   "0005615",
+   "0005619",
+   "0005835",
+   "0002862",
+   "0002764",
+   "0005837",
+   "0000255",
+   "0013670",
+   "0002866",
+   "0002873",
+   "0002864"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013675",
+   "0003021",
+   "0003520",
+   "0002875",
+   "0013151",
+   "0003496",
+   "0005618",
+   "0002766",
+   "0005624",
+   "0013764",
+   "0005621",
+   "0002763",
+   "0002863",
+   "0005620",
+   "0005615",
+   "0005619",
+   "0005835",
+   "0002862",
+   "0002764",
+   "0005837",
+   "0000255",
+   "0013670",
+   "0002866",
+   "0002873",
+   "0002864"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 400,
+  "n_exact": 132,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.4,
+  "periodicities": [
+   "Bienal",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/3348": {
+  "candidates": [
+   "0003036",
+   "0013679",
+   "0010534",
+   "0010830",
+   "0003035"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 5,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.6,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3349": {
+  "candidates": [
+   "0009643"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0009643"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 1,
+  "n_exact": 1,
+  "operation": "INE, Estatísticas dos indicadores agroambientais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Agroambientais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3351": null,
+ "portugal/3352": {
+  "candidates": [
+   "0013080",
+   "0000019",
+   "0000018"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0013080",
+   "0000019",
+   "0000018"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Estatísticas da produção vegetal",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Produção vegetal"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3357": {
+  "candidates": [
+   "0000020",
+   "0013082",
+   "0000021"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000020",
+   "0013082",
+   "0000021"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Estatísticas da produção vegetal",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Produção vegetal"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3361": {
+  "candidates": [
+   "0000023",
+   "0000022",
+   "0013081"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000023",
+   "0000022",
+   "0013081"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 3,
+  "n_exact": 3,
+  "operation": "INE, Estatísticas da produção vegetal",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Produção vegetal"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3362": null,
+ "portugal/3363": {
+  "candidates": [
+   "0001341",
+   "0001342",
+   "0001339",
+   "0001340"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "Região agrária"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "IVV, Arranques e Novas Plantações de Vinha",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Produção vegetal"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3364": null,
+ "portugal/3365": null,
+ "portugal/3372": null,
+ "portugal/3373": null,
+ "portugal/3374": null,
+ "portugal/3375": null,
+ "portugal/3376": null,
+ "portugal/3377": null,
+ "portugal/3379": null,
+ "portugal/3380": null,
+ "portugal/3381": null,
+ "portugal/3382": {
+  "candidates": [
+   "0005363",
+   "0013510",
+   "0001146",
+   "0011867",
+   "0013515",
+   "0013513",
+   "0011880",
+   "0011882",
+   "0008387",
+   "0001149",
+   "0011828",
+   "0001148",
+   "0001470",
+   "0001472",
+   "0007926",
+   "0008390",
+   "0007444",
+   "0008350",
+   "0007822",
+   "0011866",
+   "0001235",
+   "0002642",
+   "0010847",
+   "0005825",
+   "0010846"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Cidade",
+   "Freguesia",
+   "Município",
+   "NUTS 3",
+   "NUTS I",
+   "NUTS II",
+   "NUTS III",
+   "Portugal",
+   "Região agrária",
+   "Área protegida"
+  ],
+  "n_candidates": 251,
+  "n_exact": 0,
+  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation_share": 0.231,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Agroambientais",
+   "Floresta",
+   "Geografia física",
+   "Licenciamento de obras",
+   "Obras concluídas",
+   "Ordenamento do território",
+   "Pesca",
+   "Produção vegetal",
+   "Proteção do ambiente",
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 0.833,
+  "truncated": true
+ },
+ "portugal/3384": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/3385": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/3394": {
+  "candidates": [
+   "0012684",
+   "0012682",
+   "0012688",
+   "0013338",
+   "0005408",
+   "0008122",
+   "0012691",
+   "0012680",
+   "0005433",
+   "0008123",
+   "0005432",
+   "0008126",
+   "0012685",
+   "0012689",
+   "0008124",
+   "0008133",
+   "0012692",
+   "0012677",
+   "0008129",
+   "0008135",
+   "0012679",
+   "0008125",
+   "0008131",
+   "0008132",
+   "0005107"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III"
+  ],
+  "n_candidates": 109,
+  "n_exact": 0,
+  "operation": "INE, Casamentos",
+  "operation_share": 0.56,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.982,
+  "truncated": true
+ },
+ "portugal/3395": {
+  "candidates": [
+   "0012684",
+   "0012682",
+   "0012688",
+   "0013338",
+   "0005408",
+   "0008122",
+   "0012691",
+   "0012680",
+   "0005433",
+   "0008123",
+   "0005432",
+   "0008126",
+   "0012685",
+   "0012689",
+   "0008124",
+   "0008133",
+   "0012692",
+   "0012677",
+   "0008129",
+   "0008135",
+   "0012679",
+   "0008125",
+   "0008131",
+   "0008132",
+   "0005107"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município",
+   "NUTS II",
+   "NUTS III"
+  ],
+  "n_candidates": 109,
+  "n_exact": 0,
+  "operation": "INE, Casamentos",
+  "operation_share": 0.56,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Nupcialidade e divorcialidade",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.982,
+  "truncated": true
+ },
+ "portugal/34": null,
+ "portugal/3403": null,
+ "portugal/3408": null,
+ "portugal/3409": null,
+ "portugal/3417": null,
+ "portugal/3420": null,
+ "portugal/3421": null,
+ "portugal/3422": {
+  "candidates": [
+   "0010612",
+   "0013757",
+   "0010902",
+   "0002887",
+   "0010905",
+   "0002881",
+   "0004267",
+   "0010904",
+   "0010613",
+   "0002878",
+   "0005669",
+   "0002885",
+   "0005668",
+   "0010903",
+   "0002883",
+   "0002871",
+   "0002886",
+   "0004994",
+   "0002877",
+   "0002882",
+   "0005667",
+   "0010611",
+   "0002880",
+   "0009734",
+   "0002876"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0010612",
+   "0013757",
+   "0010902",
+   "0002887",
+   "0010905",
+   "0002881",
+   "0004267",
+   "0010904",
+   "0010613",
+   "0002878",
+   "0005669",
+   "0002885",
+   "0005668",
+   "0010903",
+   "0002883",
+   "0002871",
+   "0002886",
+   "0004994",
+   "0002877",
+   "0002882",
+   "0005667",
+   "0010611",
+   "0002880",
+   "0009734",
+   "0002876"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 56,
+  "n_exact": 45,
+  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation_share": 0.464,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/3424": {
+  "candidates": [
+   "0010612",
+   "0013757",
+   "0010902",
+   "0002887",
+   "0010905",
+   "0002881",
+   "0004267",
+   "0010904",
+   "0010613",
+   "0002878",
+   "0005669",
+   "0002885",
+   "0005668",
+   "0010903",
+   "0002883",
+   "0002871",
+   "0002886",
+   "0004994",
+   "0002877",
+   "0002882",
+   "0005667",
+   "0010611",
+   "0002880",
+   "0009734",
+   "0002876"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0010612",
+   "0013757",
+   "0010902",
+   "0002887",
+   "0010905",
+   "0002881",
+   "0004267",
+   "0010904",
+   "0010613",
+   "0002878",
+   "0005669",
+   "0002885",
+   "0005668",
+   "0010903",
+   "0002883",
+   "0002871",
+   "0002886",
+   "0004994",
+   "0002877",
+   "0002882",
+   "0005667",
+   "0010611",
+   "0002880",
+   "0009734",
+   "0002876"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 56,
+  "n_exact": 45,
+  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation_share": 0.464,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/3434": {
+  "candidates": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631",
+   "0004266"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 8,
+  "n_exact": 7,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3435": {
+  "candidates": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631",
+   "0004266"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 8,
+  "n_exact": 7,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3436": {
+  "candidates": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631",
+   "0004266"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 8,
+  "n_exact": 7,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3437": {
+  "candidates": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631",
+   "0004266"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 8,
+  "n_exact": 7,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3438": {
+  "candidates": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631",
+   "0004266"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000058",
+   "0002825",
+   "0010881",
+   "0009735",
+   "0000032",
+   "0013746",
+   "0004631"
+  ],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 8,
+  "n_exact": 7,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3439": {
+  "candidates": [
+   "0008301",
+   "0000703",
+   "0013163",
+   "0000702"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008301",
+   "0000703",
+   "0013163",
+   "0000702"
+  ],
+  "geo_levels": [
+   "Município",
+   "Região agrária"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, Inquérito anual à produção de azeite",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Produção vegetal"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3441": null,
+ "portugal/3443": null,
+ "portugal/3444": null,
+ "portugal/3445": {
+  "candidates": [
+   "0013014",
+   "0001067"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Porto principal"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos pescadores matriculados por segmento de pesca - Estatística anual da pesca",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Pesca"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3456": {
+  "candidates": [
+   "0000049",
+   "0002781",
+   "0013158",
+   "0010882",
+   "0004634",
+   "0004265",
+   "0000074",
+   "0009736"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Agrupamento/País",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "Região agrária"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas agrícolas de base",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Decenal",
+   "Não periódica"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Recenseamento agrícola e inquéritos estruturais"
+  ],
+  "theme": "Agricultura, floresta e pescas",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3458": null,
+ "portugal/3459": null,
+ "portugal/3460": null,
+ "portugal/3477": null,
+ "portugal/3495": null,
+ "portugal/3496": null,
+ "portugal/3497": null,
+ "portugal/3499": null,
+ "portugal/35": {
+  "candidates": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0014374",
+   "0007001",
+   "0006385",
+   "0014636",
+   "0006384",
+   "0006389",
+   "0011698",
+   "0000670",
+   "0000834",
+   "0011687",
+   "0011640",
+   "0011639",
+   "0000672",
+   "0000833",
+   "0011641",
+   "0008394",
+   "0008400",
+   "0007905",
+   "0007872",
+   "0011703",
+   "0006386",
+   "0011608",
+   "0011679",
+   "0006381",
+   "0006387"
+  ],
+  "geo_levels": [
+   "Cidade",
+   "Distrito/ilha",
+   "Freguesia",
+   "Município",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 384,
+  "n_exact": 34,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.49,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Quinquenal",
+   "Sexenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Estado de saúde e cuidados de saúde autorreferidos",
+   "Ordenamento do território",
+   "Remunerações",
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.865,
+  "truncated": true
+ },
+ "portugal/3500": null,
+ "portugal/3508": {
+  "candidates": [
+   "0008671",
+   "0008669",
+   "0010920",
+   "0010918",
+   "0010964",
+   "0010966",
+   "0010967",
+   "0008672",
+   "0010921",
+   "0010965",
+   "0008670",
+   "0010919"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 12,
+  "n_exact": 0,
+  "operation": "INE, Inquérito nacional de saúde",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Sexenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Estado de saúde e cuidados de saúde autorreferidos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3509": null,
+ "portugal/3510": null,
+ "portugal/3512": null,
+ "portugal/355": null,
+ "portugal/356": null,
+ "portugal/357": null,
+ "portugal/358": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0001318",
+   "0001303",
+   "0000591",
+   "0000649",
+   "0000648",
+   "0000590",
+   "0000587",
+   "0002671",
+   "0000645",
+   "0000589",
+   "0000588",
+   "0001319",
+   "0000646",
+   "0005597",
+   "0006186",
+   "0006190"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 83,
+  "n_exact": 9,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.494,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.867,
+  "truncated": true
+ },
+ "portugal/359": null,
+ "portugal/36": null,
+ "portugal/360": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0001318",
+   "0001303",
+   "0000591",
+   "0000649",
+   "0000648",
+   "0000590",
+   "0000587",
+   "0002671",
+   "0000645",
+   "0000589",
+   "0000588",
+   "0001319",
+   "0000646",
+   "0005597",
+   "0006186",
+   "0006190"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 83,
+  "n_exact": 9,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.494,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.867,
+  "truncated": true
+ },
+ "portugal/361": null,
+ "portugal/362": null,
+ "portugal/3666": {
+  "candidates": [
+   "0012892",
+   "0010244"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 2,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3667": null,
+ "portugal/3676": null,
+ "portugal/3690": null,
+ "portugal/3691": null,
+ "portugal/3692": null,
+ "portugal/3693": null,
+ "portugal/3694": null,
+ "portugal/3699": null,
+ "portugal/37": null,
+ "portugal/3707": null,
+ "portugal/3715": null,
+ "portugal/3741": null,
+ "portugal/3742": null,
+ "portugal/3749": null,
+ "portugal/3760": {
+  "candidates": [
+   "0009821",
+   "0004206",
+   "0014079",
+   "0001794",
+   "0004219",
+   "0005382",
+   "0001813",
+   "0014080",
+   "0009882",
+   "0012257",
+   "0013330",
+   "0004211",
+   "0005395",
+   "0001846"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0009821",
+   "0004206",
+   "0014079",
+   "0001794",
+   "0004219",
+   "0005382",
+   "0001813"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 14,
+  "n_exact": 7,
+  "operation": "INE, Inquérito às condições de vida e rendimento",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Pobreza e desigualdade económica"
+  ],
+  "theme": "Condições de vida e cidadania",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3787": {
+  "candidates": [
+   "0006258",
+   "0014078",
+   "0011594",
+   "0014433"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006258"
+  ],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 1,
+  "operation": "INE, Inquérito às condições de vida e rendimento",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual",
+   "Trienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Privação"
+  ],
+  "theme": "Condições de vida e cidadania",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3794": null,
+ "portugal/3795": {
+  "candidates": [
+   "0006056",
+   "0006057",
+   "0006055",
+   "0006054",
+   "0006058"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006056",
+   "0006057",
+   "0006055",
+   "0006054",
+   "0006058"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 5,
+  "n_exact": 5,
+  "operation": "INE, Estimativas anuais de imigração",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/3797": {
+  "candidates": [
+   "0006050",
+   "0006051",
+   "0006053",
+   "0006052"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006050",
+   "0006051",
+   "0006053",
+   "0006052"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, Estimativas anuais de emigração",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Migrações e população estrangeira"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/38": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0001318",
+   "0001303",
+   "0000591",
+   "0000649",
+   "0000648",
+   "0000590",
+   "0000587",
+   "0002671",
+   "0000645",
+   "0000589",
+   "0000588",
+   "0001319",
+   "0000646",
+   "0005597",
+   "0006186",
+   "0006190"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 83,
+  "n_exact": 9,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.494,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.867,
+  "truncated": true
+ },
+ "portugal/3827": {
+  "candidates": [
+   "0012357",
+   "0011690",
+   "0000261",
+   "0001313",
+   "0000630",
+   "0008791",
+   "0000420",
+   "0006174",
+   "0008794",
+   "0006404",
+   "0006403",
+   "0009611",
+   "0009610",
+   "0005581",
+   "0012191",
+   "0012190",
+   "0012137",
+   "0012192",
+   "0011315",
+   "0011276",
+   "0010706",
+   "0012174",
+   "0011313",
+   "0011314",
+   "0011312"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012357",
+   "0011690",
+   "0000261"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 45,
+  "n_exact": 3,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.4,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Emprego",
+   "Ordenamento do território"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.844,
+  "truncated": true
+ },
+ "portugal/389": null,
+ "portugal/392": null,
+ "portugal/399": null,
+ "portugal/40": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0001318",
+   "0001303",
+   "0000591",
+   "0000649",
+   "0000648",
+   "0000590",
+   "0000587",
+   "0002671",
+   "0000645",
+   "0000589",
+   "0000588",
+   "0001319",
+   "0000646",
+   "0005597",
+   "0006186",
+   "0006190"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 83,
+  "n_exact": 9,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.494,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.867,
+  "truncated": true
+ },
+ "portugal/400": null,
+ "portugal/401": null,
+ "portugal/402": null,
+ "portugal/41": null,
+ "portugal/415": null,
+ "portugal/416": null,
+ "portugal/417": {
+  "candidates": [
+   "0012967",
+   "0006197",
+   "0008215",
+   "0001291",
+   "0000097",
+   "0012966",
+   "0008219"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012967",
+   "0006197",
+   "0008215"
+  ],
+  "geo_levels": [
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 7,
+  "n_exact": 3,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Natalidade e fecundidade"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/418": null,
+ "portugal/419": null,
+ "portugal/42": null,
+ "portugal/420": null,
+ "portugal/421": null,
+ "portugal/43": null,
+ "portugal/433": null,
+ "portugal/434": null,
+ "portugal/435": null,
+ "portugal/436": null,
+ "portugal/438": {
+  "candidates": [
+   "0006394",
+   "0000569",
+   "0000568",
+   "0001664",
+   "0000567",
+   "0001665",
+   "0005575",
+   "0006167",
+   "0006169",
+   "0006168",
+   "0005576",
+   "0005574"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006394"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 12,
+  "n_exact": 1,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.917,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.917,
+  "truncated": false
+ },
+ "portugal/5": null,
+ "portugal/502": null,
+ "portugal/511": {
+  "candidates": [
+   "0012481",
+   "0011553",
+   "0014404"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012481",
+   "0011553"
+  ],
+  "geo_levels": [
+   "Distrito/ilha",
+   "Freguesia"
+  ],
+  "n_candidates": 3,
+  "n_exact": 2,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 0.667,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/513": {
+  "candidates": [
+   "0011701",
+   "0011759",
+   "0012872",
+   "0012368"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Freguesia"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/518": null,
+ "portugal/519": null,
+ "portugal/526": null,
+ "portugal/527": null,
+ "portugal/528": null,
+ "portugal/529": null,
+ "portugal/53": {
+  "candidates": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393",
+   "0001318",
+   "0001303",
+   "0000591",
+   "0000649",
+   "0000648",
+   "0000590",
+   "0000587",
+   "0002671",
+   "0000645",
+   "0000589",
+   "0000588",
+   "0001319",
+   "0000646",
+   "0005597",
+   "0006186",
+   "0006190"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0012367",
+   "0011637",
+   "0006382",
+   "0011700",
+   "0011643",
+   "0006392",
+   "0012310",
+   "0012304",
+   "0006393"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 83,
+  "n_exact": 9,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.494,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Desemprego"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.867,
+  "truncated": true
+ },
+ "portugal/530": null,
+ "portugal/532": null,
+ "portugal/54": null,
+ "portugal/547": {
+  "candidates": [
+   "0000979",
+   "0000264",
+   "0011650",
+   "0012317",
+   "0006732",
+   "0007917",
+   "0008409",
+   "0001298",
+   "0010395",
+   "0012172",
+   "0012184",
+   "0012135",
+   "0011273",
+   "0011302",
+   "0010703",
+   "0010061",
+   "0010060",
+   "0014384",
+   "0000631",
+   "0008790",
+   "0000504",
+   "0006175",
+   "0008793",
+   "0005582",
+   "0010396"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Cidade",
+   "Freguesia",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 45,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.267,
+  "periodicities": [
+   "Anual",
+   "Decenal",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Atividade",
+   "Censos da população",
+   "Demografia das empresas",
+   "Ordenamento do território"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 0.6,
+  "truncated": true
+ },
+ "portugal/549": null,
+ "portugal/55": null,
+ "portugal/550": null,
+ "portugal/551": null,
+ "portugal/583": null,
+ "portugal/584": null,
+ "portugal/585": null,
+ "portugal/588": null,
+ "portugal/589": null,
+ "portugal/590": null,
+ "portugal/591": null,
+ "portugal/592": null,
+ "portugal/593": null,
+ "portugal/594": null,
+ "portugal/595": null,
+ "portugal/596": null,
+ "portugal/597": null,
+ "portugal/6": null,
+ "portugal/602": null,
+ "portugal/607": null,
+ "portugal/608": null,
+ "portugal/610": null,
+ "portugal/616": {
+  "candidates": [
+   "0006893",
+   "0006894",
+   "0006891",
+   "0006892",
+   "0006890",
+   "0006897",
+   "0006898",
+   "0006899",
+   "0006896",
+   "0006895"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0006893",
+   "0006894",
+   "0006891",
+   "0006892",
+   "0006890"
+  ],
+  "geo_levels": [
+   "Portugal"
+  ],
+  "n_candidates": 10,
+  "n_exact": 5,
+  "operation": "MTSSS/GEP, Acidentes de trabalho",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Saúde e segurança no trabalho"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/618": null,
+ "portugal/619": null,
+ "portugal/620": null,
+ "portugal/621": {
+  "candidates": [
+   "0008257",
+   "0012279",
+   "0011612",
+   "0001275",
+   "0008852",
+   "0014362",
+   "0000606",
+   "0012908",
+   "0006043",
+   "0006038",
+   "0013466",
+   "0001290",
+   "0008628",
+   "0010005",
+   "0013040",
+   "0012907",
+   "0008256",
+   "0000259"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0008257",
+   "0012279",
+   "0011612",
+   "0001275",
+   "0008852",
+   "0014362",
+   "0000606",
+   "0012908",
+   "0006043",
+   "0006038"
+  ],
+  "geo_levels": [
+   "Freguesia",
+   "Município",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 18,
+  "n_exact": 10,
+  "operation": "INE, Estimativas anuais da população residente",
+  "operation_share": 0.278,
+  "periodicities": [
+   "Anual",
+   "Decenal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Censos da população",
+   "Estimativas de população",
+   "Migrações e população estrangeira",
+   "Mortalidade por causas de morte",
+   "Ordenamento do território"
+  ],
+  "theme": "População",
+  "theme_share": 0.833,
+  "truncated": false
+ },
+ "portugal/625": null,
+ "portugal/627": null,
+ "portugal/628": null,
+ "portugal/634": null,
+ "portugal/639": null,
+ "portugal/640": null,
+ "portugal/641": null,
+ "portugal/651": null,
+ "portugal/654": null,
+ "portugal/655": null,
+ "portugal/657": null,
+ "portugal/697": null,
+ "portugal/7": null,
+ "portugal/704": null,
+ "portugal/705": null,
+ "portugal/710": null,
+ "portugal/717": null,
+ "portugal/718": null,
+ "portugal/735": null,
+ "portugal/758": null,
+ "portugal/762": null,
+ "portugal/766": null,
+ "portugal/768": null,
+ "portugal/778": {
+  "candidates": [
+   "0012129",
+   "0012166",
+   "0010691",
+   "0011261"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao emprego (Série - 2021)",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Anual",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Inatividade"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/779": null,
+ "portugal/78": null,
+ "portugal/783": {
+  "candidates": [
+   "0012128",
+   "0012127",
+   "0012164",
+   "0012165",
+   "0010688",
+   "0011259",
+   "0010689",
+   "0011258",
+   "0000627",
+   "0000571",
+   "0005578",
+   "0006171",
+   "0000570",
+   "0000626",
+   "0006170",
+   "0005577",
+   "0010055",
+   "0010054",
+   "0007856",
+   "0007857",
+   "0007858",
+   "0007859",
+   "0012129",
+   "0012166",
+   "0010691"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 34,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.412,
+  "periodicities": [
+   "Anual",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Inatividade"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 1.0,
+  "truncated": true
+ },
+ "portugal/784": {
+  "candidates": [
+   "0012129",
+   "0012166",
+   "0010691",
+   "0011261"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao emprego (Série - 2021)",
+  "operation_share": 0.5,
+  "periodicities": [
+   "Anual",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Inatividade"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/790": {
+  "candidates": [
+   "0000628",
+   "0000572",
+   "0006172",
+   "0005579",
+   "0011277",
+   "0012175",
+   "0010707",
+   "0012138",
+   "0010058",
+   "0010059",
+   "0010066",
+   "0010067"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS II",
+   "Portugal"
+  ],
+  "n_candidates": 12,
+  "n_exact": 0,
+  "operation": "INE, Inquérito ao emprego",
+  "operation_share": 0.333,
+  "periodicities": [
+   "Anual",
+   "Mensal",
+   "Trimestral"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Inatividade"
+  ],
+  "theme": "Mercado de trabalho",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/8": null,
+ "portugal/805": {
+  "candidates": [
+   "0000097",
+   "0001291",
+   "0012966",
+   "0008219"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "0000097",
+   "0001291",
+   "0012966",
+   "0008219"
+  ],
+  "geo_levels": [
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 4,
+  "n_exact": 4,
+  "operation": "INE, Indicadores demográficos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Natalidade e fecundidade"
+  ],
+  "theme": "População",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/82": null,
+ "portugal/820": null,
+ "portugal/821": null,
+ "portugal/822": null,
+ "portugal/826": null,
+ "portugal/830": null,
+ "portugal/832": null,
+ "portugal/844": null,
+ "portugal/845": null,
+ "portugal/846": null,
+ "portugal/847": null,
+ "portugal/854": null,
+ "portugal/855": null,
+ "portugal/862": null,
+ "portugal/866": null,
+ "portugal/867": null,
+ "portugal/884": null,
+ "portugal/885": null,
+ "portugal/886": null,
+ "portugal/9": null,
+ "portugal/92": {
+  "candidates": [
+   "0008328",
+   "0014136",
+   "0000083"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Estatísticas das obras concluídas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Estimativas do parque habitacional"
+  ],
+  "theme": "Construção e habitação",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "portugal/938": null,
+ "portugal/940": null,
+ "portugal/942": null,
+ "portugal/987": null
+}

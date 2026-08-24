@@ -28,11 +28,17 @@ jobs:
       - name: Fetch and parse INE catalogue
         run: python3 scripts/fetch_ine_catalogue.py
 
+      # The crosswalk is built from this cache, so a refreshed catalogue
+      # that did not rebuild it would leave the routing pointing at the
+      # previous snapshot's ids with nothing saying so.
+      - name: Rebuild the INE crosswalk
+        run: python3 scripts/build_crosswalk.py --strict
+
       - name: Commit cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ine/
+          git add data/ine/ data/crosswalk/
           if git diff --cached --quiet; then
             echo "No change."
           else

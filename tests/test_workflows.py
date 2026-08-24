@@ -167,6 +167,20 @@ class HarvestSalvageTest(unittest.TestCase):
         self.assertIn("partial", commit)
         self.assertEqual(self.steps["Harvest chunk"]["id"], "fetch")
 
+    def test_the_crosswalk_is_rebuilt_after_the_qa_revert(self):
+        """It is built from docs/data/catalogue.json. Rebuilding before
+        the revert would derive the routing from a catalogue QA is about
+        to withdraw, and commit that instead."""
+        self.assertLess(index_of(self.job, "Withhold publish"),
+                        index_of(self.job, "Rebuild the INE crosswalk"))
+        self.assertEqual(self.steps["Rebuild the INE crosswalk"]["if"],
+                         "steps.qa.outputs.status == 'pass'")
+
+    def test_the_crosswalk_is_committed_with_the_harvest(self):
+        """A rebuild nothing stages is a rebuild that never happened."""
+        self.assertIn("data/crosswalk/",
+                      self.steps["Commit progress"]["run"])
+
     def test_qa_gate_reverts_before_the_commit(self):
         """The revert has to land before the commit or the degraded
         catalogue is what gets committed."""

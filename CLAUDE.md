@@ -40,12 +40,16 @@ The coverage line was hiding in the title, welded on with a colon: `split_breakd
 that tail on 54.5% of rows and **refuses** when the tail is the indicator itself, and
 `extract_unit` recovers a unit on 51.8%.
 
-**The INE catalogue landed 2026-08-24 and unblocked the crosswalk.** `data/ine/indicators.csv`
-holds **13,084 indicators** across 25 themes, each with a per-indicator `json` API URL (the
-route to values for item 14) and `geo_lastlevel` (granularity PORDATA never exposed). But
-spike A5 measured the relation and it is **one-to-many**: INE is series-level where PORDATA is
-indicator-level, so store candidate sets and defer series selection to fetch time — never a
-single `ine_id`.
+**The INE crosswalk landed 2026-08-24.** `data/crosswalk/ine.json` routes **206 of 839**
+in-scope rows (INE-sourced, portugal/municipios) to a candidate *family* of INE series — 113
+with an exact title inside it — and `null` for the other 633. The relation is one-to-many
+(spike A5), so each entry stores the set, its true size, the INE operation/theme, and the
+evidence; series selection is deferred to fetch time — never a single `ine_id`. **Family size
+is never a reason to refuse**: 62 candidates means INE publishes 62 of them. Four filters,
+each added after a specific wrong match — full containment, the INE head must be a word
+PORDATA used, derivation parity (a count is not a rate), negation parity. Gated at
+`--strict` with a 170-match floor. `europa` (638 rows) is unrouted: Eurostat and BPstat must
+be measured the same way before being specified.
 
 **Three fields we do not capture, with selectors** (spike A6, 2026-08-24, sampled across all
 9 structural fingerprints): the plain-language **question** under each title, in `<h2>`, on
@@ -57,10 +61,10 @@ a `<select>` picker, europa neither. The parser now captures all three — the
 revision note needed no fetch at all (203 rows carry it today, from windows already stored) —
 so future fetches pay for themselves; item **21** is the re-harvest that backfills the rest.
 
-**Next:** item **2** (the crosswalk) — unblocked and, after A5, specified: candidate sets,
-never a single `ine_id` — with **17** (the rename) alongside. **13** (three upstream licences,
-owner, ~30 min) is the only thing gating **14**. Full detail and execution order in
-`context.md`.
+**Next:** the crosswalk's remaining halves — **Eurostat/BPstat** (measure first, do not
+assume A5's shape carries over) and the 647 INE refusals in `data/crosswalk/REVIEW.md` — with
+**17** (the rename) alongside. **13** (three upstream licences, owner, ~30 min) is the only
+thing gating **14**. Full detail and execution order in `context.md`.
 
 **Waiting on the owner:** item 13, the item 17 name call, a ~20-record spot-check, curating
 `data/catalogue/FEATURED-UNMATCHED.md`, and ledger attempts.
@@ -95,12 +99,12 @@ Nine workflows on `main`, the first two a detector→worker pair:
 | workflow | when | what |
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
-| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, commit |
-| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 86%) + **mutmut gate** (floor 58%, at 62.9%) |
+| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, crosswalk, commit |
+| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 64.6%) |
 | `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
 | `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
-| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6) |
+| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue + crosswalk, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6) |
 
 Data-writing workflows check out the branch head at run time — never the trigger-time sha. A
 QA-gate breach reverts `docs/`, opens an issue and fails the job, so a degraded harvest never

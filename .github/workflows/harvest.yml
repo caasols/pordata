@@ -73,6 +73,15 @@ jobs:
           echo "QA gate breached - reverting docs/ so nothing bad publishes."
           git checkout -- docs/data || true
 
+      # After the QA gate and its revert, not before: the crosswalk is
+      # built from docs/data/catalogue.json, so building it on a
+      # catalogue that QA is about to withdraw would publish the
+      # degraded version's routing. `pass` only — a skipped rebuild
+      # means the catalogue did not change, and so neither can this.
+      - name: Rebuild the INE crosswalk
+        if: steps.qa.outputs.status == 'pass'
+        run: python3 scripts/build_crosswalk.py --strict
+
       # always(), because the harvester checkpoints every 25 pages and a
       # skipped commit throws all of it away: a crash or timeout used to
       # cost the whole chunk, which at 20s per page is hours of polite
@@ -84,7 +93,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catalogue/ docs/data/
+          git add data/catalogue/ data/crosswalk/ docs/data/
           if git diff --cached --quiet; then
             echo "No new pages harvested."
           else

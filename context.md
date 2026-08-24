@@ -240,6 +240,36 @@ The pipeline, end to end, all live on `main`:
   numeric id and nothing else — so **3,661** URLs counted as indicator updates that the
   harvester never treats as indicators (2,944 `/en`, 337 quadro+resumo, 380 other), and the
   CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
+- **The INE crosswalk** (roadmap 2, 2026-08-24). `data/crosswalk/ine.json` routes
+  **206 of the 839** in-scope PORDATA rows (INE-sourced, portugal/municipios) to a candidate
+  family of INE series — 113 with an exact title inside the family, 93 by containment — and
+  writes `null` for the other 633. **Coverage is not the goal.** The relation is one-to-many
+  (spike A5), so each entry stores the candidate set, its true size, the INE operation and
+  theme it sits in, the geographic levels and periodicities available, and the evidence that
+  selected it; picking a series is deferred to fetch time (item 14). Median family 8;
+  25 ids are stored and `n_candidates` keeps the true count. **Family size is never a reason to
+  refuse** — "Agregados domésticos privados" ties 62 entries because INE publishes 62 of them,
+  and refusing on size throws away the correct answer for being correct about a broad
+  indicator. Four filters, each added after a specific wrong match: full containment (rare
+  tokens alone let "Dimensão média das **empresas**" match "…das **famílias** clássicas"),
+  the INE title's head must be a word PORDATA used ("População residente…" matched "**Tempo
+  de acesso** a pé da população residente…"), derivation parity (a count is not a rate:
+  "Água distribuída" matched "Água distribuída **por habitante**"), and negation parity
+  ("alojamentos familiares **não** clássicos"). Two more the tests caught: the unit belongs to
+  a *different* comparison from the derivation words — INE suffixes it into the title
+  ("Taxa de desemprego (Série 2021 - %)") and PORDATA carries it in a field, so reading `%`
+  out of the raw title refused "Taxa de desemprego" against itself; and numbers are content,
+  because the two-character floor that filters prose noise also swallowed age brackets and let
+  "…com **16 a 64** anos" match "…com menos de **15** anos". **Two things that looked like good ideas and
+  were not:** PORDATA's `fontes` is bare "INE" with at most a period qualifier — it never
+  names the survey, so INE's 366 operation strings offer no join; and INE theme *purity* as a
+  refusal rule rejects exact matches, because INE files one series under two themes
+  ("Corpos de bombeiros", "Poder de compra per capita"). Purity is reported, not enforced.
+  Rebuilt by `harvest.yml` after the QA gate passes and by `ine-catalogue.yml` after a
+  snapshot, gated at `--strict` with a floor of 170 matches. Refusals sampled for a human in
+  `data/crosswalk/REVIEW.md`; reading it surfaced the unit defect above and a next lead —
+  PORDATA's colon prefix ("Farmácias: número de estabelecimentos", "SNS: hospitais gerais"),
+  which is a category label the way the breakdown clause was, and is untried.
 - **Failures nobody hears** (roadmap 6b, 2026-08-24). Five places where something broke and
   the pipeline stayed green. *(i)* The harvest commit step had no `if`, so a crash or timeout
   skipped it and threw away every 25-page checkpoint the harvester writes precisely so a dead
@@ -268,8 +298,8 @@ The pipeline, end to end, all live on `main`:
   step ids, notify-before-commit, `always()` on the salvage paths, the QA revert before the
   commit, the `docs/` gate after the build — and two cross-file contracts run the real script
   and compare the keys it emits against the ones the workflow reads. Each mechanical invariant
-  was verified by breaking it in the real files and confirming a red suite. **335 tests, 86%
-  coverage, kill rate 62.9%.** Two things the exercise taught: `tests.yml` only triggered on
+  was verified by breaking it in the real files and confirming a red suite. **417 tests, 88%
+  coverage, kill rate 64.6%.** Two things the exercise taught: `tests.yml` only triggered on
   its own workflow file, so tests *about* the other seven would not have run when they changed
   (now `.github/workflows/**`); and mutmut runs from a copied tree, so `.github/` had to join
   `also_copy` — caught by the suite's own "no workflows found" guard rather than by an empty
@@ -509,7 +539,8 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
    snippet. Several have no counterpart at all (derived aggregates PORDATA publishes only
    inside the quadro; a few quadro rows share one catalogue page), so a perfect score is not
    the goal and the QA floor is set accordingly.
-2. **The crosswalk** *(INE cache landed 2026-08-24; nothing gates this)*.
+2. **The crosswalk** *(INE half **done 2026-08-24** — see "What has been built";
+   Eurostat and BPstat still open, and 2a below)*.
    `data/ine/indicators.csv` holds 13,084 INE indicators across 25 themes, each with a
    per-indicator `json` API URL and `geo_lastlevel`. Match PORDATA's rows to upstream: INE for
    INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary.
@@ -521,11 +552,26 @@ reused — 10, 11, 12, 18, 19, 23 and 24 have shipped or been absorbed. Priority
    containment ties a median of 9 entries and a worst of 1,341. **Store the candidate set and
    the evidence that selected it, never a single winner**; defer picking a series to fetch time
    (item 14), where geography and period follow from the request; keep `crosswalk: null` where
-   no credible family exists. Constrain with INE's `theme`/`subtheme`/`keywords` before any
-   name comparison — unused so far and the cheapest precision available.
+   no credible family exists.
 
-   Measure Eurostat and BPstat the same way before specifying them; do not assume they share
-   this shape. The 2,195-to-13,084 ratio is also item 16's raw material.
+   *"Constrain with INE's `theme`/`subtheme` before any name comparison — the cheapest
+   precision available" was the plan here, and it was **tried and measured wrong**
+   (2026-08-24). Theme purity rejects exact matches, because INE files the same series under
+   two themes: "Corpos de bombeiros" and "Poder de compra per capita" are literal title
+   matches that a purity rule refuses. Theme and operation are reported as evidence instead.
+   `keywords` is INE's own field and mostly repeats the title's words plus the theme name;
+   nothing there is a constraint the title does not already give.*
+
+   **Still open: Eurostat and BPstat.** Measure each the same way before specifying it; do not
+   assume they share INE's shape. `europa` is 638 rows and entirely unrouted. The
+   2,195-to-13,084 ratio is also item 16's raw material.
+
+   **Also open on the INE half**: 633 in-scope rows refused, sampled in
+   `data/crosswalk/REVIEW.md`. Two categories are visible there and are worth separate work —
+   PORDATA rewording an indicator INE publishes under another name, and PORDATA computing a
+   ratio INE publishes only as its parts ("Acidentes de viação com vítimas **por mil
+   habitantes**" has no INE counterpart, but its numerator does). The second is a
+   `derived_from` tier the schema has room for and v1 does not attempt.
 
    **2a. Pilot: the dead page (id 1221).** "Despesas das administrações públicas em ambiente em
    % do total das despesas (1995-2013)". PORDATA's page is gone, so a successful crosswalk
