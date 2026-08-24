@@ -38,6 +38,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - name: Harvest chunk
+        id: fetch
         env:
           MAX_PAGES: ${{ inputs.max_pages }}
         run: python3 scripts/harvest_catalogue.py
@@ -72,7 +73,14 @@ jobs:
           echo "QA gate breached - reverting docs/ so nothing bad publishes."
           git checkout -- docs/data || true
 
+      # always(), because the harvester checkpoints every 25 pages and a
+      # skipped commit throws all of it away: a crash or timeout used to
+      # cost the whole chunk, which at 20s per page is hours of polite
+      # requests re-made for nothing. When the fetch died, build+QA never
+      # ran, so docs/data is untouched and only raw records are committed
+      # — a partial harvest can never publish a degraded catalogue.
       - name: Commit progress
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -80,7 +88,12 @@ jobs:
           if git diff --cached --quiet; then
             echo "No new pages harvested."
           else
-            git commit -m "data: catalogue harvest chunk $(date -u +%Y-%m-%dT%H:%M)"
+            if [ "${{ steps.fetch.outcome }}" = "success" ]; then
+              SUFFIX=""
+            else
+              SUFFIX=" (partial: the run did not finish)"
+            fi
+            git commit -m "data: catalogue harvest chunk $(date -u +%Y-%m-%dT%H:%M)${SUFFIX}"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push
           fi

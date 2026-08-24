@@ -56,6 +56,23 @@ jobs:
         id: diff
         run: python3 scripts/diff_sitemap.py --changelog | tee /tmp/sitemap-diff.md
 
+      # Before the commit, deliberately. The diff is computed against the
+      # *committed* snapshot, so advancing it first meant a failed
+      # `gh issue create` lost the add/remove notification for good — the
+      # next run compared against the new snapshot and saw nothing to
+      # report. Notifying first makes the failure self-healing: the
+      # snapshot stays put, and the next run re-detects and re-notifies.
+      # (The change record itself was never at risk: data/CHANGELOG.md is
+      # committed with the snapshot.)
+      - name: Open issue for added/removed pages
+        if: steps.diff.outputs.notify == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "PORDATA sitemap: +${{ steps.diff.outputs.added }} -${{ steps.diff.outputs.removed }} pages ($(date -u +%Y-%m-%d))" \
+            --body-file /tmp/sitemap-diff.md
+
       - name: Commit snapshot
         if: steps.diff.outputs.changed == 'true'
         run: |
@@ -69,22 +86,16 @@ jobs:
             git push
           fi
 
-      - name: Open issue for added/removed pages
-        if: steps.diff.outputs.notify == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh issue create \
-            --title "PORDATA sitemap: +${{ steps.diff.outputs.added }} -${{ steps.diff.outputs.removed }} pages ($(date -u +%Y-%m-%d))" \
-            --body-file /tmp/sitemap-diff.md
-
       # Detector -> worker: harvest exactly what the fresh snapshot says is
       # pending. Runs even when the sitemap is unchanged so stored error
       # records keep being retried. Main only - the paths-filtered push
       # trigger also runs this workflow on feature branches, and a harvest
       # dispatched there would commit data to the feature branch.
+      # always(): pending pages are worth fetching even if the notify or
+      # commit step above failed. The harvest job checks out the branch
+      # head, so it plans from the committed snapshot either way.
       - name: Dispatch harvest if work is pending
-        if: github.ref == 'refs/heads/main'
+        if: always() && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

@@ -2,9 +2,15 @@ name: site build
 
 # Quality gates for the React app in site/, mirroring the Python side:
 # typecheck + vite build, vitest with an 80% line-coverage gate, and
-# StrykerJS mutation testing over src/lib. The deployed bundle in docs/
-# is committed by whoever edits the UI (npm run build writes ../docs);
-# this workflow proves the source, it commits nothing.
+# StrykerJS mutation testing over src/lib.
+#
+# The deployed bundle in docs/ is committed by whoever edits the UI
+# (npm run build writes ../docs). This workflow proves the source and
+# commits nothing — but it does check that the committed bundle actually
+# matches that source, because otherwise the live site can lag its own
+# repo indefinitely and nothing says so. The build is byte-deterministic
+# (verified: two consecutive builds of the same tree leave docs/
+# unchanged), so a diff means a stale commit, not build noise.
 
 on:
   push:
@@ -31,6 +37,18 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm run build
+      - name: Committed docs/ bundle matches this source
+        # `npm run build` above rewrote ../docs; if that changes anything
+        # tracked, whoever edited site/ did not rebuild before committing
+        working-directory: .
+        run: |
+          if git diff --quiet -- docs/; then
+            echo "docs/ bundle is current"
+          else
+            echo "::error::docs/ is stale — run 'npm run build' in site/ and commit the result"
+            git diff --stat -- docs/
+            exit 1
+          fi
       - name: Unit tests + coverage gate (80% lines)
         run: npm run test:coverage
 
