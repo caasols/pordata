@@ -1,0 +1,54 @@
+name: ine availability probe
+
+# Roadmap 22: characterise when INE serves us.
+#
+# One HEAD (or a 2 KB Range request) per day at 09:45 UTC = 10:45 Lisbon
+# while Portugal is on WEST. Deliberately not a catalogue pull: four
+# 21 MB pulls inside 45 minutes are what got the runner blocked on
+# 2026-08-22, and this probe exists to measure that, not to repeat it.
+#
+# Minute 45 for two reasons: GitHub skips or delays top-of-hour crons,
+# and it keeps a clear 38 minutes behind the sitemap watcher at 09:07.
+#
+# The probe retires itself after MAX_SAMPLES days (see the script). When
+# it does, record the finding in context.md item 22 and delete this file
+# — a probe with no end date is a heartbeat nobody agreed to.
+
+on:
+  schedule:
+    - cron: "45 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ine-availability
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # branch head at RUN time, never the trigger-time sha, so a
+          # delayed run appends to the current log rather than a stale one
+          ref: ${{ github.ref_name }}
+
+      - name: Probe INE availability
+        run: python3 scripts/probe_ine_availability.py
+
+      - name: Commit the sample
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ine/availability.csv
+          if git diff --cached --quiet; then
+            echo "No new sample (before start date, already sampled today, or retired)."
+          else
+            git commit -m "data: INE availability sample $(date -u +%Y-%m-%d)"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          fi

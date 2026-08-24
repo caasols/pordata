@@ -107,7 +107,7 @@ harvest that could have been captured during it.
 
 ## How it runs
 
-Seven workflows on `main`, the first two a detector→worker pair:
+Eight workflows on `main`, the first two a detector→worker pair:
 
 | workflow | when | what |
 |---|---|---|
@@ -115,7 +115,8 @@ Seven workflows on `main`, the first two a detector→worker pair:
 | `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, commit |
 | `tests.yml` | push to scripts/tests | unittest + coverage gate + mutmut |
 | `site.yml` | push to site/ | typecheck, build, vitest + coverage gate, StrykerJS (break 85) |
-| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes |
+| `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
+| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue, one-off probes (`spikes.yml` takes a probe input: a1–a4) |
 
 Data-writing workflows check out the branch head at run time — never the trigger-time sha. A
 QA-gate breach reverts `docs/`, opens an issue and fails the job, so a degraded harvest never

@@ -893,18 +893,32 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    n=7 cannot see. Every attempt so far is confounded by the ones before it, so the honest
    position is **we do not know**.
 
-   **Design the probe to be cheaper than the problem.** Do *not* re-pull 21 MB to test
-   availability — that is what caused this. A `HEAD`, or a `Range` request for the first few
-   KB, distinguishes "blocked" from "serving" at a fraction of the cost, so a handful of
-   samples a day for two weeks stays far politer than that one Saturday burst. Log
-   `timestamp, weekday, hour, http_status, bytes` to a small CSV and analyse for a weekday
-   effect, an hour effect, and a recovery time after a known block.
+   **Built and armed 2026-08-24** (owner picked the cadence): `ine-availability.yml`, cron
+   `45 9 * * *` = 09:45 UTC = **10:45 Lisbon** while Portugal is on WEST, 38 minutes clear of
+   the sitemap watcher and away from the top of the hour GitHub skips.
+   `scripts/probe_ine_availability.py` sends **one `HEAD` a day** — falling back to a 2 KB
+   `Range` request if the endpoint refuses HEAD — and appends
+   `date, time, weekday, method, status, ok, bytes, elapsed` to `data/ine/availability.csv`.
+   It is deliberately not a catalogue pull: re-pulling 21 MB to test availability is what
+   caused the block.
 
-   Two guards, since this is a scheduled probe against someone else's infrastructure:
-   **stop on success-with-no-question-left** (the point is a pattern, not a heartbeat — retire
-   it once the answer is recorded), and **back off on repeated 403s** rather than sampling
-   through a block, which would both pollute the measurement and be the same rudeness that
-   started this.
+   The log is **seeded with the seven attempts above** (`method=full-pull`), so the analysis
+   starts from real history rather than zero, and those rows are excluded from the probe's own
+   counts — counting them would retire it before it ever ran.
+
+   Three guards, since this is a scheduled job against someone else's infrastructure:
+   - **`START_DATE` = 2026-08-25.** The catalogue was pulled in full at 07:34 on the 24th, so a
+     probe at 09:45 the same day would sit ~2 h behind a 21 MB request — the exact confound
+     that makes the existing seven attempts uninterpretable. Owner's call, and the right one.
+   - **One sample per day**, so a re-dispatch or a delayed cron cannot double up.
+   - **`MAX_SAMPLES` = 21, then it retires itself** and says so, rather than running for ever.
+     A probe with no end date is a heartbeat nobody agreed to. When it retires: record the
+     finding here and delete the workflow.
+
+   **No back-off on failure, and that reverses this item's first draft.** The original note
+   said to back off on repeated 403s. At one request a day that is wrong — a block is exactly
+   when the interesting measurement is happening, and skipping it would hide the recovery the
+   probe exists to observe. The lifetime cap is what guards against nuisance instead.
 
    The payoff is item 14: the archive needs sustained, repeated INE access, and its refresh
    cadence is a guess until this is known. It also tells item 21 whether a full re-harvest can
