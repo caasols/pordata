@@ -435,12 +435,35 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    Largest themes: Agricultura/floresta/pescas 1,686 · População 1,537 · Mercado de trabalho
    1,251 · Inovação e conhecimento 1,236 · Empresas 1,058 · Saúde 922.
 
-   **Next, and now unblocked:** match each catalogue entry to its upstream series —
-   name-match against INE's 13,084 for INE-sourced indicators, Eurostat dataset codes for
-   `europa`, BPstat for monetary. Store match + confidence; unmatched entries stay honest with
-   `crosswalk: null`. Note the ratio while designing it: 2,195 PORDATA rows against 13,084 INE
-   indicators is the raw material for item 16, and the reason 16 insists on selection rather
-   than enumeration.
+   **The crosswalk is one-to-many, and that changes this item's spec.** It was written as
+   "match each catalogue entry to its upstream **series**", which presumes 1:1. Measured
+   against the cache the day it landed (`data/spikes/a5-crosswalk-shape.md`, reproducible via
+   `scripts/analyse_crosswalk.py`), the presumption fails:
+
+   - 839 PORDATA rows cite INE and sit in `portugal`/`municipios`.
+   - **Exact title matching is a dead end**: 84.6% never match a literal INE title, and
+     scoping by the expected geography resolves **7 rows**. PORDATA rewrites names for
+     readability; INE suffixes units and keeps survey phrasing.
+   - Token containment matches far more often — 27.5% fully contained — but does not match
+     *one*: median tie **9** INE entries, worst **1,341**.
+
+   Those ties are not matcher noise, they are the relation's shape. **INE's catalogue is
+   series-level; PORDATA's is indicator-level.** "Alojamentos familiares clássicos" is one
+   PORDATA indicator and a family of INE series split by geography, periodicity,
+   census-vs-estimate and breakdown. A crosswalk storing one `ine_id` per row would be
+   choosing arbitrarily and recording the choice as fact — the exact failure the featured
+   matcher was rewritten to avoid.
+
+   **Revised spec.** Store the **candidate set** and the evidence that selected it, not a
+   winner; defer picking a series to fetch time (item 14), where the geography and period are
+   known from what the user actually asked for; keep `crosswalk: null` where no credible
+   family exists. Constrain the family with INE's `theme`/`subtheme`/`keywords` *before* any
+   name comparison — unused so far, and the cheapest precision available. Eurostat dataset
+   codes for `europa` and BPstat for monetary remain to be measured the same way before being
+   specified; do not assume they share this shape.
+
+   Note the ratio while designing it: 2,195 PORDATA rows against 13,084 INE indicators is the
+   raw material for item 16, and the reason 16 insists on selection rather than enumeration.
 
    **2a. Pilot: find the upstream of the dead page (id 1221).** "Despesas das administrações
    públicas em ambiente em % do total das despesas (1995-2013)" is the ideal first case —
