@@ -66,6 +66,11 @@ INE_JSON = ("https://www.ine.pt/ine/json_indicador/pindica.jsp"
 # generator asserts both blocks exist rather than falling back to a copy.
 ROOT_TOKENS = re.compile(r"^:root\s*\{(.*?)^\}", re.S | re.M)
 DARK_TOKENS = re.compile(r"^\.dark\s*\{(.*?)^\}", re.S | re.M)
+# The radius scale lives in the @theme inline block, not in :root, and
+# `rounded-sm` / `rounded-lg` are what the Badge and Card use. Lifted
+# rather than re-derived: writing calc(var(--radius) - 4px) here again
+# would be a second copy of a number that has already moved once.
+RADIUS_SCALE = re.compile(r"^\s*(--radius-(?:sm|md|lg):[^;]+;)", re.M)
 
 AREA_LABELS = {
     "portugal": ("Portugal", "Portugal"),
@@ -132,6 +137,19 @@ LABELS = {
 }
 
 STYLESHEET = """
+/* Every value below is lifted from the component the card already uses,
+   so the two read as one design rather than two. The sources:
+     .chip      <- components/ui/badge.tsx, `secondary` variant
+                   (rounded-sm px-2 py-0.5 text-xs font-medium)
+     .field .k  <- App.tsx Meta label  (9.5px, .1em, muted-foreground/75)
+     .field .v  <- App.tsx Meta value  (text-xs), stepped up one size
+                   because this is a page to read, not a row to scan
+     .card      <- components/ui/card.tsx
+                   (rounded-lg border-border bg-card shadow-xs)
+     .chart     <- App.tsx ChartSlot
+                   (dashed border-border/70, bg-muted/30, 9.5px label)
+   A hand-written approximation is how the first version ended up with
+   an orange pill where the card has a grey one. */
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--background);color:var(--foreground);
  font:16px/1.55 "Public Sans",ui-sans-serif,system-ui,sans-serif;
@@ -139,44 +157,64 @@ body{margin:0;background:var(--background);color:var(--foreground);
 main{max-width:46rem;margin:0 auto;padding:1.5rem 1.15rem 4rem}
 a{color:inherit}
 h1{font-size:1.6rem;line-height:1.25;margin:.2rem 0 .35rem;font-weight:650}
-h2{font-size:1rem;margin:2.2rem 0 .7rem;font-weight:650}
-.back{display:inline-block;margin-bottom:1.1rem;font-size:.87rem;
+h2{font-size:.95rem;margin:2rem 0 .6rem;font-weight:600}
+h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
+.back{display:inline-block;margin-bottom:1.1rem;font-size:.8rem;
  color:var(--muted-foreground);text-decoration:none}
 .back:hover{color:var(--foreground)}
-.coverage{margin:0 0 .9rem;color:var(--muted-foreground);font-size:.93rem}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.9rem 0 1.4rem}
-.chip{font-size:.75rem;padding:.16rem .55rem;border-radius:999px;
- background:var(--primary);color:var(--primary-foreground)}
-.chip.muted{background:var(--secondary);color:var(--secondary-foreground)}
-.grid{display:grid;gap:.9rem 1.4rem;
- grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}
-.field .k{font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;
- color:var(--muted-foreground)}
-.field .v{margin-top:.1rem;overflow-wrap:anywhere}
-.card{border:1px solid var(--border);border-radius:var(--radius);
- padding:1rem 1.1rem;background:var(--card);color:var(--card-foreground)}
-.note{border-left:3px solid var(--primary);padding:.15rem 0 .15rem .9rem;
- margin:.6rem 0}
-.why{color:var(--muted-foreground);font-size:.85rem;margin:.35rem 0 0}
-ol.series{list-style:none;padding:0;margin:.6rem 0 0}
-ol.series li{padding:.5rem 0;border-top:1px solid var(--border);
- font-size:.92rem}
+.coverage{margin:0 0 .9rem;color:var(--muted-foreground);font-size:.9rem}
+
+/* badge.tsx: rounded-sm px-2 py-0.5 text-xs font-medium, secondary */
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.85rem 0 1.5rem}
+.chip{display:inline-flex;align-items:center;border-radius:var(--radius-sm);
+ padding:.125rem .5rem;font-size:.75rem;line-height:1rem;font-weight:500;
+ background:var(--secondary);color:var(--secondary-foreground)}
+.chip.gone{background:var(--destructive);color:var(--destructive-foreground)}
+
+/* card.tsx */
+.card{border:1px solid var(--border);border-radius:var(--radius-lg);
+ background:var(--card);color:var(--card-foreground);
+ box-shadow:0 1px 2px -1px rgb(0 0 0 / .08);padding:1rem 1.1rem}
+
+/* App.tsx Meta: the label is the card's exactly; the value steps from
+   text-xs to .8125rem because a page is read, not scanned */
+.grid{display:grid;gap:.85rem 1.25rem;
+ grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}
+.field{min-width:0}
+.field .k{display:block;font-size:9.5px;text-transform:uppercase;
+ letter-spacing:.1em;color:var(--muted-foreground);opacity:.75}
+.field .v{display:block;margin-top:.15rem;font-size:.8125rem;
+ line-height:1.45;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+
+.note{border-left:2px solid var(--border);padding:.1rem 0 .1rem .85rem;
+ margin:.5rem 0;font-size:.875rem;line-height:1.5}
+.why{color:var(--muted-foreground);font-size:.8rem;margin:.3rem 0 0;
+ line-height:1.5}
+
+ol.series{list-style:none;padding:0;margin:.5rem 0 0}
+ol.series li{padding:.45rem 0;border-top:1px solid var(--border);
+ font-size:.8125rem;line-height:1.45}
 ol.series li:first-child{border-top:0}
-h3{font-size:.95rem;margin:1.4rem 0 .2rem;font-weight:650}
-a.api{margin-left:.5rem;font-size:.72rem;letter-spacing:.03em;
- color:var(--muted-foreground);text-decoration:none;border:1px solid
- var(--border);border-radius:999px;padding:.05rem .4rem}
-a.api:hover{color:var(--foreground)}
 ol.series .id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
- font-size:.8rem;color:var(--muted-foreground);margin-right:.5rem}
-.chart{border:1px dashed var(--border);border-radius:var(--radius);
- padding:2rem 1.1rem;text-align:center;color:var(--muted-foreground);
- background:var(--muted)}
-.cta{display:inline-block;margin-top:.8rem;padding:.5rem .95rem;
- border-radius:var(--radius);background:var(--primary);
- color:var(--primary-foreground);text-decoration:none;font-size:.9rem}
+ font-size:.7rem;color:var(--muted-foreground);margin-right:.45rem}
+a.api{margin-left:.4rem;font-size:9.5px;letter-spacing:.08em;
+ text-transform:uppercase;color:var(--muted-foreground);
+ text-decoration:none;border:1px solid var(--border);
+ border-radius:var(--radius-sm);padding:.05rem .35rem}
+a.api:hover{color:var(--foreground)}
+
+/* App.tsx ChartSlot: same dashed idiom and same 9.5px label, taller
+   because on this page it is the focal point rather than a footnote */
+.chart{border:1px dashed var(--border);border-radius:var(--radius-lg);
+ padding:1.6rem 1.1rem;text-align:center;background:var(--muted)}
+.chart .slot{display:block;font-size:9.5px;text-transform:uppercase;
+ letter-spacing:.08em;color:var(--muted-foreground);opacity:.7}
+.cta{display:inline-block;margin-top:.9rem;padding:.4rem .85rem;
+ border-radius:var(--radius-md);background:var(--primary);
+ color:var(--primary-foreground);text-decoration:none;font-size:.8125rem;
+ font-weight:500}
 footer{margin-top:3rem;border-top:1px solid var(--border);padding-top:1rem;
- color:var(--muted-foreground);font-size:.83rem}
+ color:var(--muted-foreground);font-size:.8rem}
 [data-en]{display:none}
 html[lang="en"] [data-pt]{display:none}
 html[lang="en"] [data-en]{display:revert}
@@ -203,7 +241,8 @@ def theme_tokens(path: pathlib.Path = None) -> str:
             f"blocks in {path or THEME_CSS}. They are the single source of "
             "truth for the detail pages' colours — failing rather than "
             "shipping a stale copy.")
-    return (f":root{{{root.group(1).strip()}}}\n"
+    radius = "\n".join(RADIUS_SCALE.findall(css))
+    return (f":root{{{root.group(1).strip()}\n{radius}}}\n"
             f".dark{{{dark.group(1).strip()}}}\n")
 
 
@@ -319,9 +358,9 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
     sources = ", ".join(row.get("fontes") or [])
     chips = [f'<span class="chip">{area_pt}</span>']
     if row.get("featured"):
-        chips.append(f'<span class="chip muted">{both("featured")}</span>')
+        chips.append(f'<span class="chip">{both("featured")}</span>')
     if row.get("removed"):
-        chips.append(f'<span class="chip muted">{both("discontinued")}</span>')
+        chips.append(f'<span class="chip gone">{both("discontinued")}</span>')
     revision = ""
     if row.get("revision"):
         revision = (f'<h2>{both("revision")}</h2>'
@@ -348,15 +387,15 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 <h1>{esc(title)}</h1>
 {f'<p class="coverage">{esc(coverage)}</p>' if coverage else ''}
 <div class="chips">{"".join(chips)}</div>
-<div class="grid">
+<div class="card"><div class="grid">
 {field("sources", esc(sources))}
 {field("updated", esc(row.get("ultima_atualizacao")))}
 {field("unit", esc(row.get("unit")))}
 {field("area", f'<span data-pt>{area_pt}</span><span data-en>{area_en}</span>')}
 {field("nameEn", esc(row.get("name_en")))}
-</div>
+</div></div>
 {revision}
-<div class="chart">{both("chartSoon")}
+<div class="chart"><span class="slot">{both("chartSoon")}</span>
 <p class="why">{both("chartWhy")}</p>
 <a class="cta" href="{esc(row['url'])}" rel="noopener">{both("openAt")}</a>
 </div>

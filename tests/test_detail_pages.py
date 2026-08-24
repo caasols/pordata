@@ -271,6 +271,73 @@ class ThemeTest(RepoCase):
             d.theme_tokens(css)
 
 
+class DesignSystemTest(unittest.TestCase):
+    """The detail page and the card have to read as one design.
+
+    The first version of this stylesheet was hand-written from memory
+    rather than from the components, and it showed on a phone: the card's
+    area badge is a grey `secondary` pill and the detail page's was
+    primary orange, the card's meta value is 12px and the page's was the
+    16px body size. These assert against the components themselves, so a
+    variant changing in `badge.tsx` fails here instead of quietly leaving
+    two designs on one site.
+    """
+
+    SITE = pathlib.Path(__file__).resolve().parents[1] / "site" / "src"
+
+    def sheet(self):
+        return d.STYLESHEET
+
+    def test_the_chip_uses_the_badge_default_variant(self):
+        badge = (self.SITE / "components" / "ui" / "badge.tsx").read_text(
+            encoding="utf-8")
+        # the variant the component falls back to when none is passed,
+        # which is what the card's area badge renders as
+        self.assertIn('defaultVariants: { variant: "secondary" }', badge)
+        self.assertIn("bg-secondary text-secondary-foreground", badge)
+        self.assertIn("background:var(--secondary)", self.sheet())
+        self.assertIn("color:var(--secondary-foreground)", self.sheet())
+
+    def test_the_chip_is_not_a_primary_pill(self):
+        """What the screenshot caught: orange where the card is grey."""
+        chip = self.sheet().split(".chip{")[1].split("}")[0]
+        self.assertNotIn("--primary", chip)
+        self.assertNotIn("999px", chip)
+
+    def test_the_meta_label_matches_the_card_exactly(self):
+        app = (self.SITE / "App.tsx").read_text(encoding="utf-8")
+        self.assertIn("text-[9.5px] uppercase tracking-[0.1em]", app)
+        label = self.sheet().split(".field .k{")[1].split("}")[0]
+        self.assertIn("font-size:9.5px", label)
+        self.assertIn("letter-spacing:.1em", label)
+
+    def test_the_meta_value_is_near_the_card_not_body_size(self):
+        """A page is read rather than scanned, so one step up from the
+        card's text-xs is deliberate — the 16px body size was not."""
+        value = self.sheet().split(".field .v{")[1].split("}")[0]
+        self.assertIn("font-size:.8125rem", value)
+
+    def test_radii_come_from_the_lifted_scale(self):
+        """`rounded-sm` and `rounded-lg` are what Badge and Card use, so
+        the page has to speak the same scale rather than pick numbers."""
+        for token in ("--radius-sm", "--radius-lg"):
+            self.assertIn(f"var({token})", self.sheet())
+
+    def test_the_radius_scale_is_lifted_not_recomputed(self):
+        tokens = d.theme_tokens()
+        for name in ("--radius-sm", "--radius-md", "--radius-lg"):
+            self.assertIn(name, tokens)
+
+    def test_the_card_wrapper_matches_the_component(self):
+        card = (self.SITE / "components" / "ui" / "card.tsx").read_text(
+            encoding="utf-8")
+        self.assertIn("rounded-lg border border-border bg-card", card)
+        block = self.sheet().split(".card{")[1].split("}")[0]
+        self.assertIn("var(--radius-lg)", block)
+        self.assertIn("var(--border)", block)
+        self.assertIn("var(--card)", block)
+
+
 class ChurnTest(RepoCase):
     """2,195 files rewritten nightly is megabytes of identical HTML in
     git history for nothing."""
