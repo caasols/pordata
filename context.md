@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-23
+updated: 2026-08-24
 ---
 
 # pordata: context
@@ -35,7 +35,7 @@ hang off it. See Roadmap; execution order is in its header.
 | `LICENSE` / `LICENSE-DATA` | MIT for the code; CC BY 4.0 for the catalogue metadata, with PORDATA/FFMS attribution |
 | `scripts/` | Python package: sitemap watcher, harvester, catalogue build, QA, featured sets, spikes |
 | `tests/` | Python unittest suite, coverage-gated, mutation-tested via mutmut (`setup.cfg`). Site tests live in `site/src/**/*.test.*` (vitest + StrykerJS) |
-| `.github/workflows/` | Seven: sitemap watch (detector), catalogue harvest (worker, QA-gated), tests.yml and site.yml (per push), featured-sets / ine-catalogue / spikes (manual). Table in `CLAUDE.md` |
+| `.github/workflows/` | Eight: sitemap watch (detector), catalogue harvest (worker, QA-gated), tests.yml and site.yml (per push), ine-availability (daily probe, self-retiring), featured-sets / ine-catalogue / spikes (manual). Table in `CLAUDE.md` |
 | `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA (gated), `catalogue/abandoned.txt`, spike reports, `audits/` |
 | `site/` | The search UI source: React + Vite + Tailwind + shadcn-style components (TypeScript). `npm run build` → `docs/` |
 | `docs/` | The GitHub Pages site: built UI bundle (from `site/`, committed) + `data/` (catalogue.json/csv/stats — the static "API") |
@@ -44,7 +44,7 @@ hang off it. See Roadmap; execution order is in its header.
 | `graphify-out/` | Derived code graph, gitignored |
 | `.claude/commands/` | `/mega-audit`: the cross-consistency deep-audit prompt (decision 7) |
 
-## What has been built (2026-08-21 → 2026-08-23)
+## What has been built (2026-08-21 → 2026-08-24)
 
 The pipeline, end to end, all live on `main`:
 
@@ -171,6 +171,30 @@ The pipeline, end to end, all live on `main`:
   en dash belongs in 37 names; our decoding is clean and their own slug drops the character,
   so it is theirs. Repaired at build time, anchored mid-string so "Onde existem mais Vilas?"
   (a real question) survives.
+- **Unit vocabulary translated** (roadmap 18, 2026-08-23). The unit rendered in Portuguese
+  whatever the UI language. It was cheap because PORDATA writes units compositionally: the 148
+  distinct strings are **108 measures × 14 scales**, so translating the parts covers the whole
+  vocabulary and any future combination. `site/src/lib/unit-terms.json` is the single source of
+  truth — the site renders from it and the QA gate measures coverage against the same file, so
+  the two cannot drift. Unknown terms fall back to Portuguese, never to a blank. EN complete;
+  ES/FR/DE/IT deliberately left to item 7, when those UIs are actually selectable. The `pt`
+  table holds *repairs*: the caption loses superscripts, so `m 3` was wrong in Portuguese too.
+- **The INE catalogue landed** (2026-08-24), unblocking the crosswalk. The fetch succeeded from
+  an Actions runner on the **fourth** attempt, retiring the recorded belief that INE "blocks
+  cloud IP ranges persistently" — the log shows two successful Saturday pulls and failures only
+  after a third and fourth 21 MB request inside 45 minutes. We throttled ourselves.
+  `data/ine/indicators.csv` holds **13,084 indicators** across 25 themes, each carrying a
+  per-indicator **`json` API URL** (the concrete route to values for item 14) and
+  **`geo_lastlevel`** (the geographic granularity PORDATA's markup never exposed). The owner's
+  `raw.xml` upload is no longer needed.
+- **The crosswalk turned out to be one-to-many** (spike A5, `data/spikes/`). Item 2 had been
+  written as "match each entry to its upstream **series**", presuming 1:1. Measured: exact title
+  matching leaves 84.6% unmatched and geography scoping resolves 7 rows; token containment
+  matches 27.5% but with a median tie of **9** INE entries and a worst of **1,341**. INE's
+  catalogue is series-level where PORDATA's is indicator-level, so one indicator maps to a
+  *family* split by geography, periodicity and census-vs-estimate. Storing one `ine_id` per row
+  would have recorded an arbitrary choice as fact — the failure the featured matcher was
+  rewritten to avoid. Spec revised to store candidate sets and defer selection to fetch time.
 - **FFMS emailed** 2026-08-21 (text in `outreach/`), disclosing exactly this plan and asking:
   API planned? catalogue shareable / polite harvest acceptable? open to a conversation?
 
@@ -371,37 +395,24 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
 (referenced from code and docs), **not** priority order.
 
-**Execution order (2026-08-23, after the audit).** Ids are stable and never reused — a
-retired id stays retired (11), and a promoted one keeps its own (12). Priority:
+**Execution order (2026-08-24).** Ids are stable and never reused — a retired id stays
+retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
 
-1. **2 — the crosswalk.** The INE cache landed 2026-08-24, so the roadmap's biggest lever is
-   live and nothing gates it. **17 — name the project** runs alongside: cheap, and it gets more
-   expensive once Phase D publishes a package name or FFMS replies. *Done 2026-08-23/24:
-   **18**, **19's spikes A3 and A4** — the unit half solved outright at zero request cost, and
-   period extraction now specified for all three areas.*
-2. **2 + 2a — INE cache and the crosswalk** the moment the upload lands. Strategically the
-   largest item on the board and the gateway to everything below it; blocked only on a laptop.
-   **13** rides along in the same laptop session — it is reading, not building, and it gates 14.
-3. **14 → 15 — the series archive, then per-indicator detail pages.** The direction set by the
-   owner 2026-08-23: pull from the sources, archive, and build the UI PORDATA does not have.
-   Both are hard-gated on 2; 14 is additionally gated on 13.
-4. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is
-   what turns the project from a mirror of PORDATA into something more complete than it.
-   **21** (one full re-harvest) is deliberately last: its value grows with everything the
-   parser learns from 15, so firing it early means doing it twice.
-5. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-6. Background, in any order: **6b–6f**, **7**, and **3** as evidence accumulates.
+1. **2 — the crosswalk.** The INE cache landed 2026-08-24, so the biggest lever is live and
+   nothing gates it. **17 — name the project** runs alongside: cheap, and more expensive once
+   Phase D publishes a package name or FFMS replies.
+2. **13, then 14 → 15** — read the three upstream licences (owner, ~30 min), then the series
+   archive, then per-indicator detail pages. 13 is now the only thing gating 14.
+3. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is what
+   turns the project from a mirror of PORDATA into something more complete than it.
+4. **8b/c, then 9** — labels from sources and recency, then blended relevance.
+5. Background, in any order: **6b–6f**, **7**, **3** as evidence accumulates, and **20** once
+   19's units have accrued. **21** is deliberately last: its value grows with everything the
+   parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
+   until it retires.
 
-*Done 2026-08-23: **12** (summary pill + rename), **6a** (parse-time shape assertions) and
-**10** (the card design pass — coverage line, unit, month freshness, reserved chart slot).*
-
-Items 4 (calendar) and 5 (gated on 2 + owner go) unchanged.
-
-**Waiting on the owner:** the three upstream licence texts (item 13 — now the *only* thing
-gating item 14), the ~20-record spot-check, curating `data/catalogue/FEATURED-UNMATCHED.md`
-(item 1), the item 17 name call, and ledger attempts (3). *Cleared: the INE `raw.xml` upload —
-the fourth Actions fetch succeeded on 2026-08-24, so item 2 is unblocked without it; the
-id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
+*Shipped 2026-08-23/24: **6a**, **10**, **12**, **18**, and **19's spikes A3/A4** — see
+"What has been built".*
 
 1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
    upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
@@ -412,76 +423,32 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    snippet. Several have no counterpart at all (derived aggregates PORDATA publishes only
    inside the quadro; a few quadro rows share one catalogue page), so a perfect score is not
    the goal and the QA floor is set accordingly.
-2. **INE catalogue snapshot — *landed 2026-08-24* — then the crosswalk.** The gateway to
-   Extraction and Phase D, and **no longer blocked**.
+2. **The crosswalk** *(INE cache landed 2026-08-24; nothing gates this)*.
+   `data/ine/indicators.csv` holds 13,084 INE indicators across 25 themes, each with a
+   per-indicator `json` API URL and `geo_lastlevel`. Match PORDATA's rows to upstream: INE for
+   INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary.
 
-   **The fetch finally worked from an Actions runner on the fourth attempt** (run
-   32702104416, ~10 min). The recorded conclusion had been that INE "likely blocks cloud IP
-   ranges **persistently**, not temporarily". That was **wrong**, and the full timeline says
-   why: the catalogue was served successfully **twice on a Saturday morning** (09:00 and
-   09:16) and only started failing after a third and fourth 21 MB pull inside 45 minutes. We
-   throttled ourselves. The owner's `raw.xml` upload path stays documented in
-   `data/ine/README.md` as the fallback, but is no longer needed. What the block's *duration*
-   depends on is still unknown — see item 22.
+   **It is one-to-many — measured, not assumed** (`data/spikes/a5-crosswalk-shape.md`,
+   reproducible via `scripts/analyse_crosswalk.py`). INE's catalogue is series-level and
+   PORDATA's is indicator-level, so one indicator maps to a *family* split by geography,
+   periodicity and census-vs-estimate: exact title matching leaves 84.6% unmatched, and token
+   containment ties a median of 9 entries and a worst of 1,341. **Store the candidate set and
+   the evidence that selected it, never a single winner**; defer picking a series to fetch time
+   (item 14), where geography and period follow from the request; keep `crosswalk: null` where
+   no credible family exists. Constrain with INE's `theme`/`subtheme`/`keywords` before any
+   name comparison — unused so far and the cheapest precision available.
 
-   **What landed:** `data/ine/indicators.csv` — **13,084 indicators** (13,084 distinct ids)
-   across 25 themes, plus `catalogue.xml.gz` as the durable raw cache. Fields per entry:
-   `theme`, `subtheme`, `keywords`, `periodicity`, `source`, `dates` (last period available
-   and last update), `varcd`, and **two that matter more than the rest**:
-   - **`json`** — a per-indicator INE API URL. This is the route to actual values, so it is
-     the concrete starting point for item 14, not a thing to be designed from scratch.
-   - **`geo_lastlevel`** — the finest geography each indicator is published at. That is the
-     geographic-granularity field item 19 could not find in PORDATA's markup, stated plainly
-     upstream, exactly where it was predicted to be.
+   Measure Eurostat and BPstat the same way before specifying them; do not assume they share
+   this shape. The 2,195-to-13,084 ratio is also item 16's raw material.
 
-   Largest themes: Agricultura/floresta/pescas 1,686 · População 1,537 · Mercado de trabalho
-   1,251 · Inovação e conhecimento 1,236 · Empresas 1,058 · Saúde 922.
-
-   **The crosswalk is one-to-many, and that changes this item's spec.** It was written as
-   "match each catalogue entry to its upstream **series**", which presumes 1:1. Measured
-   against the cache the day it landed (`data/spikes/a5-crosswalk-shape.md`, reproducible via
-   `scripts/analyse_crosswalk.py`), the presumption fails:
-
-   - 839 PORDATA rows cite INE and sit in `portugal`/`municipios`.
-   - **Exact title matching is a dead end**: 84.6% never match a literal INE title, and
-     scoping by the expected geography resolves **7 rows**. PORDATA rewrites names for
-     readability; INE suffixes units and keeps survey phrasing.
-   - Token containment matches far more often — 27.5% fully contained — but does not match
-     *one*: median tie **9** INE entries, worst **1,341**.
-
-   Those ties are not matcher noise, they are the relation's shape. **INE's catalogue is
-   series-level; PORDATA's is indicator-level.** "Alojamentos familiares clássicos" is one
-   PORDATA indicator and a family of INE series split by geography, periodicity,
-   census-vs-estimate and breakdown. A crosswalk storing one `ine_id` per row would be
-   choosing arbitrarily and recording the choice as fact — the exact failure the featured
-   matcher was rewritten to avoid.
-
-   **Revised spec.** Store the **candidate set** and the evidence that selected it, not a
-   winner; defer picking a series to fetch time (item 14), where the geography and period are
-   known from what the user actually asked for; keep `crosswalk: null` where no credible
-   family exists. Constrain the family with INE's `theme`/`subtheme`/`keywords` *before* any
-   name comparison — unused so far, and the cheapest precision available. Eurostat dataset
-   codes for `europa` and BPstat for monetary remain to be measured the same way before being
-   specified; do not assume they share this shape.
-
-   Note the ratio while designing it: 2,195 PORDATA rows against 13,084 INE indicators is the
-   raw material for item 16, and the reason 16 insists on selection rather than enumeration.
-
-   **2a. Pilot: find the upstream of the dead page (id 1221).** "Despesas das administrações
-   públicas em ambiente em % do total das despesas (1995-2013)" is the ideal first case —
-   PORDATA's page is gone, so a successful crosswalk demonstrates the whole value
-   proposition: *the curation layer still routes you to living data*. It also strengthens the
-   FFMS follow-up (item 4) from "your page is broken" to "your page is broken, here is where
-   the series lives, and here is a user still citing it in 2022".
-   **Hypothesis, unverified** (asserted from memory 2026-08-23; this sandbox cannot reach
-   Eurostat or INE, so it has *not* been checked against a primary source — decision 7): this
-   looks like COFOG data, environmental protection = division GF05, which Eurostat publishes
-   in `gov_10a_exp` (general government expenditure by function) and INE mirrors in national
-   accounts under "Despesas das Administrações Públicas por funções"; the 2013 cut-off is
-   consistent with the ESA 95 → ESA 2010 changeover. **Verify before recording it anywhere as
-   fact** — dataset code, the exact "% of total expenditure" measure, and whether the series
-   is Portugal-only or EU-wide. Do it when the INE cache lands, or sooner from any machine
-   with open internet.
+   **2a. Pilot: the dead page (id 1221).** "Despesas das administrações públicas em ambiente em
+   % do total das despesas (1995-2013)". PORDATA's page is gone, so a successful crosswalk
+   demonstrates the whole proposition: *the curation still routes you to living data*. It also
+   strengthens the FFMS follow-up (item 4). **Hypothesis, unverified** (asserted from memory
+   2026-08-23, never checked against a primary source — decision 7): COFOG environmental
+   protection = GF05, which Eurostat publishes in `gov_10a_exp`. **Verify before recording it
+   as fact** — dataset code, the exact "% of total expenditure" measure, and whether the series
+   is Portugal-only or EU-wide.
 3. **Attempt the ledger questions** (owner, browser, spare moments): 100 questions in
    `ledger/questions.csv` per `ledger/README.md`. The evidence base for what to build next and
    the acceptance tests for everything built so far.
@@ -514,14 +481,7 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
 6. **Hardening backlog** *(absorbs the old item 11; sources: the 2026-08-23 `/mega-audit`,
    full report in `data/audits/`)*. Ordered by what breaks if ignored, not by effort.
 
-   **(a) Silent data corruption** — *done 2026-08-23.* Three shape assertions now run at
-   parse time in `pordata_lib`: `valid_date` (ISO, real calendar date, 1990 → today+2, since
-   the site's default sort trusts this field), `plausible_fontes` (length and words-per-part,
-   because the boundary vocabulary is circular and cannot catch UI text it has never seen) and
-   `name_from_title` (requires the `<Area>: <Name> | Pordata` template). A value that fails
-   its shape is **dropped rather than published**, and the record carries `parse_warnings`, so
-   a PORDATA template change trips the gate by name (`parse_warnings_max: 0`) instead of
-   quietly serving junk. Verified against all 2,195 records: zero false positives.
+   *(a) Silent data corruption — **done**; see "What has been built".)*
 
    **(b) Failures nobody hears** — the harvest commit step is skipped on crash/timeout, so
    in-run checkpoints protect nothing in Actions; `sitemap.yml` commits its snapshot before
@@ -566,10 +526,13 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    - **(b) source entity** from `fontes`, already harvested: 165 distinct source strings
      (measured 2026-08-23) to normalise to ~30 organisations (INE, Eurostat, OCDE, DGEEC…).
    - **(c) recency** buckets from `ultima_atualizacao` (updated this year / stale >5y).
-   - **(d) status** — featured and descontinuado. Split out as **item 12**, which ships first.
+   - **(d) status** — featured and descontinuado. *Shipped 2026-08-23 as the Resumo pill and
+     the descontinuado badge; see "What has been built".*
 
-   Order: 12, then (b)+(c) — both zero new requests — then design (a)'s harvest, then the
-   full label UI. Design it with item 10, not twice: labels add chips to the same card.
+   Order: (b)+(c) first — both zero new requests — then design (a)'s harvest, then the full
+   label UI. **The card design pass has already shipped**, so labels must fit the design that
+   exists rather than prompt a second one: a `Badge` means *a facet you can filter on* and
+   nothing else, and the chip row needs an overflow rule before it gains more chips.
 
 9. **Relevance / recommended sorting** *(owner ask 2026-08-23)*. The fuzzy-score
    "relevance" option was **removed from the sort pill** the same day (owner call: not
@@ -580,70 +543,6 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    the Phase D embeddings for semantic closeness. The `sortRelevance` i18n strings remain
    in `site/src/lib/i18n.ts` for its return. Design after the label system, since labels
    and ranking share the same signal inventory.
-10. **Card design review — information hierarchy** — *done 2026-08-23.* The card stopped
-   being a summary and became a **routing decision**: it answers *is this the row I meant?*,
-   not *what is this indicator?* Owner picked the data-forward variant with a coverage line
-   ("C+") from a specimen page rendering nine real awkward rows — the 178-character title,
-   the 194-character source list, a bare title with no cue — in the app's own tokens.
-
-   Shipped: PORDATA's description **dropped** (measured: 96.3% of descriptions are exactly
-   the SEO template "Conheça as estatísticas atualizadas de «título»… Saiba mais!", 1.6% free
-   of marketing verbs, 0.5% definitional — so on ~99% of cards it restated the title inside a
-   call to action); the English alt name dropped from the card but **kept for search and
-   sort**; a `Badge` now means *a facet you can filter on* and nothing else, which is what
-   keeps the card from becoming a wall of pills when item 8's labels land; sources and
-   freshness demoted to labelled micro-columns; freshness at month precision; long source
-   lists collapsed to first entity + count; the whole card one tap target with a visible focus
-   ring; and a **reserved, inert, muted chart slot** — no values exist until item 14, and
-   PORDATA's are never redistributed, so it is an empty slot rather than a fake curve. The
-   click still leaves for pordata.pt until item 15 lands.
-
-   **The coverage line, and where it came from.** The descriptive half was already in the
-   catalogue, welded to the title with a colon at equal weight — that *was* the hierarchy bug.
-   `split_breakdown` demotes that tail on **1,196 rows (54.5%)** and **refuses** when the tail
-   is the indicator itself ("Administrações Públicas: dívida bruta em % do PIB" keeps its
-   colon). `extract_unit` reads the chart caption already captured in `marker_windows` —
-   **1,138 rows (51.8%)** — which is what rescues a title with no cue at all ("Águas marinhas
-   afetadas pela eutrofização" gains "Proporção - %"). Together **78.4%** of rows carry a real
-   coverage line, and the card renders correctly without one. Windows are searched slice by
-   slice, never joined: joining spliced two truncated fragments into a plausible-but-corrupt
-   unit. All four derived metrics are QA thresholds (`breakdown_ratio`, `unit_ratio`,
-   `separator_repairs`, `unit_contamination`), because a derived field degrades silently.
-
-   **An upstream defect found on the way:** PORDATA serves a literal `?` where an en dash
-   belongs in **37 names** ("… a tempo completo e parcial ? Homens"). Our decoding is clean —
-   é ç ã all intact — and their own slug drops the character (`…parcial+++homens-1604`), so it
-   is theirs. Repaired at build time, anchored mid-string so "Onde existem mais Vilas?" (id 53,
-   a real question) is untouched. This is the **second concrete upstream bug** for the FFMS
-   follow-up (item 4), next to the dead page 1221.
-
-   **10a. Spike: is the period even in the HTML?** — *promoted to **item 19**, because a
-   spike buried inside a completed item is a spike nobody runs.* Summary kept here for
-   context: *(needs Actions — this sandbox cannot reach pordata.pt)* The two coverage facts still missing are the **period** (first and last
-   year: only 1.9% of titles state it) and the **geographic granularity**. Both live in the
-   page's data table, and the harvested pages contain `A carregar conteúdo…`, so the table may
-   be client-rendered and absent from the HTML entirely. Re-fetch a handful of pages, dump the
-   full HTML, and *measure* before committing to anything. If the period is there, a full
-   re-harvest (~12 h at the polite pace) turns the line into
-   `1960–2024 · 308 municípios · total e por sexo`, which is the line actually wanted. If it is
-   not, the period comes from upstream with item 14 instead, and this spike saves 12 hours.
-
-   *Known gaps, now tracked properly:* the unit renders in Portuguese in every language
-   (**item 18**), and the coverage line reaches only 78.4% of rows (**item 20**).
-
-
-12. **Summary pill + rename** — *done 2026-08-23.* Owner picked **"Resumo" / "Summary"**
-   after establishing what the quadro-resumo actually is: not an aggregation across
-   municipalities but PORDATA's **per-location overview** — one page per município (308) and
-   per country (28), each showing the same fixed set (37 / 56) filled in for that place. So
-   the badge means "PORDATA shows this indicator in every location's summary", which is
-   Discovery's own question — *what should I look at first?* — answered by PORDATA.
-   Shipped: a `Resumo` filter pill as a separate axis (ANDs with the area pills), the card
-   badge changed from the raw internal `★ quadro_resumo` to an attributed, localized
-   **"Resumo"** — the same word as the filter pill, one i18n key for both so they cannot
-   drift — with the PORDATA attribution in its tooltip; six languages, `aria-pressed`, and
-   clear-filters releasing it. 43 badged rows; ANDed with Europa, 26.
-
 13. **Upstream reuse terms — read and record** *(owner, laptop, ~30 min; gates item 14)*. Before
    a single upstream value is archived, read and record the actual reuse licence of each source
    the archive would draw on: **Eurostat** (Commission reuse policy), **INE** (Statistics
@@ -687,9 +586,9 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
      project's stated purpose.
    - **A metadata-only version can ship before 14.** A detail page with no chart still beats
      bouncing to a page from the year 2000, and it de-risks the routing decision early.
-   Knock-on to item 10: once the click target is internal, the card is a routing decision, not
-   a summary, so it should get *smaller*. A sparkline is the one element that would later earn
-   a place on it — gated on 14, so design the card without it and leave the slot.
+   The card already assumes this: it was rebuilt as a routing decision with a reserved, inert
+   chart slot, so the detail page inherits a card that expects it. A sparkline is the one
+   element that would later earn a place on the card — gated on 14, and the slot is waiting.
 
 16. **Coverage gap: what INE and Eurostat have that PORDATA does not** *(owner ask
    2026-08-23; gated on 2)*. The goal stated plainly: **be more complete than PORDATA**.
@@ -740,84 +639,29 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    Constraint on candidates: the name must survive the scope change — it should describe
    *Portuguese public statistics made reachable*, not *a wrapper around PORDATA*.
 
-18. **Translate the unit vocabulary** — *done 2026-08-23.* The unit rendered in Portuguese
-   whatever language the UI was in. It was cheap for the reason measured when the item was
-   written: PORDATA writes units compositionally, so the 148 distinct strings are really
-   **108 measures × 14 scales**, and translating the parts covers the whole vocabulary plus
-   any combination PORDATA invents later.
+19. **Recover the period, and the units portugal is missing** *(spikes A3 and A4 run
+   2026-08-23/24; reports in `data/spikes/`)*.
 
-   Shipped: `site/src/lib/unit-terms.json` as the **single source of truth** — the site renders
-   from it and `qa_catalogue.py` gates coverage against the same file, so the vocabulary and
-   its check cannot drift. `formatUnit()` splits on the separator, translates part by part and
-   **falls back to Portuguese for an unknown term, never to a blank**, which is the behaviour
-   from before the file existed. 100% of the current vocabulary is covered in EN.
+   **The unit half is solved and already shipped.** The chart caption is present in 7 of 7
+   sampled pages including portugal, so its 0% was a missing marker, not a missing template.
+   `"ampliado"` added to `MARKER_WORDS` fixes it at **zero extra requests** — units accrue as
+   pages go stale. A forced re-harvest would complete it in one pass; that is item 21.
 
-   The `pt` table holds **repairs, not translations**: the chart caption loses the superscript,
-   so `m 3` and `t CO 2 eq` were wrong in Portuguese too and now render as `m³` and `t CO₂ eq`.
-   Scope note: EN only, which is what `AVAILABLE` actually offers. ES/FR/DE/IT have no table
-   yet and fall back to repaired Portuguese — filling them belongs with item 7, when those UIs
-   are enabled; generating four languages of unverified statistical vocabulary that nobody can
-   select would be exactly the kind of unmeasured claim decision 7 exists to prevent.
-   Gate: `unit_translated_ratio_min` at 0.99 — a single new PORDATA unit is *reported* in
-   `QA.md` with its row count rather than blocking the publish, while a template change
-   producing many new units trips it.
+   **The period is specified for all three areas but not yet captured.** Years sit in `<table>`
+   headers on portugal and europa, and in a `<select>` year picker on municipios (17–18
+   `<option value="YYYY">` per page — structured, so first/last are min/max of the options).
+   The catch: `marker_windows` runs on *stripped* text, so the tags carrying that structure are
+   gone before a window is cut. The period therefore needs a parse against unstripped HTML at
+   harvest time plus a fetch to populate — **it belongs to item 21**, and it is the second field
+   found after the harvest that could have been captured during it.
 
+   **Geography is not in PORDATA's markup** (2 selects, 19 options — not the ~308 a município
+   list needs) and does not need to be: INE's `geo_lastlevel` states it directly, so it comes
+   with item 14.
 
-19. **Recover period, geography and the missing units** *(was 10a; spike **run**
-   2026-08-23, report in `data/spikes/a3-coverage-fields.md`, run 32670893125)*.
-
-   **Spike verdict — the unit half is solved, and it is free.** Seven pages sampled
-   deliberately: three portugal rows *without* a unit as the case under test, four
-   europa/municipios rows *with* one as the control. The chart caption is present in **7 of
-   7**, portugal included. So portugal's 0% was never a missing template — no marker reached
-   it. `MARKER_WORDS` carried `"Unidade"`, a word that never appears in the page text, and not
-   the caption anchor.
-
-   *Shipped the same evening:* `"ampliado"` added to `MARKER_WORDS`, anchoring ahead of the
-   unit rather than behind it (the leading window is 60 chars and the trailing one 220, so
-   `"ver tabela completa"` as the marker would cut a long unit off). **This costs zero extra
-   requests** — every future fetch captures it, so portugal units accrue as pages go stale on
-   the normal cadence. A forced re-harvest (~12 h) would complete it in one pass instead of
-   over months; **owner's call**, and no longer a prerequisite for anything.
-
-   **A hypothesis of mine that the spike killed.** I read `A carregar conteúdo…` in the stored
-   marker windows and inferred the data table might be client-rendered. It is not: that string
-   appears **0 times** in all seven pages, alongside 12–18 `<table>` elements and no
-   `/screenservices/`, no `OutSystems`, no `application/json`. The pages are server-rendered.
-   The 12-hour re-harvest was never at risk of fetching nothing.
-
-   **Period: the split is by area, and both halves are now answered.** A3 found years inside
-   `<table>` on **5 of 7** — all three portugal and both europa pages (1981–2025, 1991–2006,
-   2007–2023, 1989–2020, 2002–2024) — and on **neither municipios page**, though both carried
-   years elsewhere. A3 could not say where, because it counted years by container type without
-   recording *which* container.
-
-   **Spike A4 (run 2026-08-24, `data/spikes/a4-municipios-period.md`) named it: a `<select>`
-   year picker.** Three municipios pages, 17–18 `<option>` elements each carrying a year, the
-   year repeated in `value=`. That is *better* than the table case — `<option value="2019">` is
-   structured, so first/last are the min and max of the option values rather than a header
-   parse. Period extraction is therefore fully specified:
-
-   | area | where the period lives | extractor |
-   |---|---|---|
-   | portugal, europa | year headers inside `<table>` | parse table headers |
-   | municipios | `<select>` year picker | min/max of `<option value>` |
-
-   **Both need raw HTML, which is the catch.** `marker_windows` runs on `strip_text(html)`, so
-   the tags carrying the structure are already gone by the time a window is cut — the years
-   survive as bare text with nothing to distinguish a picker from a copyright notice. So the
-   period cannot be recovered from stored records: it needs a parse at harvest time against
-   the unstripped HTML, storing `period_start`/`period_end`, and a fetch to populate it. That
-   is item **21**, and it is the clearest argument yet for doing 21 *once*, late, with every
-   such field known — this is the second field discovered after the harvest that could have
-   been captured during it.
-
-   **Geography: still unanswered, and now known not to be inline.** Municipios pages carry 2
-   `<select>` and 19 `<option>` — not the ~308 a município list would need. Their 251–359 KB
-   weight is something else. Whatever names the geographic granularity is not sitting in the
-   markup we have looked at; leave it to item 14, where upstream states it directly.
-
-
+   *Killed hypothesis, worth not re-running:* `A carregar conteúdo…` suggested the data table
+   was client-rendered. It appears **0 times** across all seven pages, which carry 12–18
+   server-rendered tables.
 20. **Raise the coverage line past 78.4%** *(owner ask 2026-08-23; unblocked by 19)*. 475 rows
    (21.6%) carry neither a breakdown nor a unit, and **471 of the 475 are `portugal`** — 3 are
    europa, 1 is municipios. Spike A3 established the cause and the fix landed the same evening
@@ -868,61 +712,30 @@ id-1221 browser check; and the item 12 name call ("Resumo"/"Summary").*
    afterwards and raise the floors, `unit_ratio[portugal]` first: that floor sitting at 0.0 is
    the marker for this whole thread being finished.
 
-22. **Characterise INE's availability window** *(owner question 2026-08-24; gates nothing, but
-   item 14 is guesswork without it)*. The owner asked whether INE lowers capacity at weekends.
-   The attempt log says no — and says something more useful.
+22. **Characterise INE's availability window** *(armed 2026-08-24; gates nothing, but item 14
+   is guesswork without it)*. The owner asked whether INE lowers capacity at weekends. The
+   attempt log says no: the catalogue was served **twice on a Saturday morning** and only began
+   failing after a third and fourth 21 MB pull inside 45 minutes. But a simple cooldown does not
+   fit either — a 22.6 h gap failed while an 11.3 h gap succeeded — and with n=7, every attempt
+   confounded by the ones before it, the honest position is **we do not know**.
 
-   | when (UTC) | day | gap | result |
-   |---|---|---|---|
-   | 2026-08-22 09:00 | Sat | — | **success** |
-   | 2026-08-22 09:16 | Sat | 0.3 h | **success** |
-   | 2026-08-22 09:31 | Sat | 0.3 h | failure |
-   | 2026-08-22 09:45 | Sat | 0.2 h | failure |
-   | 2026-08-23 08:19 | Sun | 22.6 h | failure |
-   | 2026-08-23 20:17 | Sun | 12.0 h | failure |
-   | 2026-08-24 07:34 | Mon | 11.3 h | **success** |
-
-   Two successful Saturday pulls kill the weekend hypothesis outright. The visible cause is
-   self-inflicted: **four 21 MB pulls in 45 minutes**, blocked after the second — which
-   `data/spikes/a2-ine-catalogue.md` already warned about on the day ("retry later rather than
-   harder, and keep requests sparse").
-
-   **But a simple cooldown does not fit either**: a 22.6 h gap still failed while an 11.3 h gap
-   succeeded. Candidate explanations, none yet distinguished — each failed attempt re-arms the
-   block; the block is per runner IP and the IP changed; or something time-of-day shaped that
-   n=7 cannot see. Every attempt so far is confounded by the ones before it, so the honest
-   position is **we do not know**.
-
-   **Built and armed 2026-08-24** (owner picked the cadence): `ine-availability.yml`, cron
-   `45 9 * * *` = 09:45 UTC = **10:45 Lisbon** while Portugal is on WEST, 38 minutes clear of
-   the sitemap watcher and away from the top of the hour GitHub skips.
-   `scripts/probe_ine_availability.py` sends **one `HEAD` a day** — falling back to a 2 KB
-   `Range` request if the endpoint refuses HEAD — and appends
-   `date, time, weekday, method, status, ok, bytes, elapsed` to `data/ine/availability.csv`.
-   It is deliberately not a catalogue pull: re-pulling 21 MB to test availability is what
+   Running: `ine-availability.yml`, cron `45 9 * * *` = 09:45 UTC = **10:45 Lisbon** on WEST.
+   One `HEAD` a day (2 KB `Range` fallback), appended to `data/ine/availability.csv`, which is
+   seeded with the seven attempts above as `full-pull` rows so analysis starts from real
+   history. Deliberately not a catalogue pull — re-pulling 21 MB to test availability is what
    caused the block.
 
-   The log is **seeded with the seven attempts above** (`method=full-pull`), so the analysis
-   starts from real history rather than zero, and those rows are excluded from the probe's own
-   counts — counting them would retire it before it ever ran.
+   Guards, since this is scheduled against someone else's infrastructure: `START_DATE`
+   2026-08-25 (a probe hours behind the 24th's full pull would inherit the same confound), one
+   sample per day, and `MAX_SAMPLES` 21 after which it **retires itself** — then record the
+   finding here and delete the workflow. **No back-off on failure**, reversing this item's first
+   draft: at one request a day, a block is exactly when the measurement matters, and skipping it
+   would hide the recovery being observed.
 
-   Three guards, since this is a scheduled job against someone else's infrastructure:
-   - **`START_DATE` = 2026-08-25.** The catalogue was pulled in full at 07:34 on the 24th, so a
-     probe at 09:45 the same day would sit ~2 h behind a 21 MB request — the exact confound
-     that makes the existing seven attempts uninterpretable. Owner's call, and the right one.
-   - **One sample per day**, so a re-dispatch or a delayed cron cannot double up.
-   - **`MAX_SAMPLES` = 21, then it retires itself** and says so, rather than running for ever.
-     A probe with no end date is a heartbeat nobody agreed to. When it retires: record the
-     finding here and delete the workflow.
-
-   **No back-off on failure, and that reverses this item's first draft.** The original note
-   said to back off on repeated 403s. At one request a day that is wrong — a block is exactly
-   when the interesting measurement is happening, and skipping it would hide the recovery the
-   probe exists to observe. The lifetime cap is what guards against nuisance instead.
-
-   The payoff is item 14: the archive needs sustained, repeated INE access, and its refresh
-   cadence is a guess until this is known. It also tells item 21 whether a full re-harvest can
-   safely share a window with INE traffic.
+   Read it with `python3 scripts/probe_ine_availability.py --summary`. Caveat to apply at the
+   end: 21 days is only ~3 of each weekday — enough for a strong weekend effect, not a subtle
+   one. If it is ambiguous at day 21, say so rather than extending on autopilot; Lisbon leaves
+   WEST in late October, which would silently shift the sampled hour.
 
 ## Verification
 
