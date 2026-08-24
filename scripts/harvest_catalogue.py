@@ -211,6 +211,37 @@ def parse(url: str, status: int, body: bytes) -> dict:
     return record
 
 
+def is_stale(url: str, rec: dict, mods: dict) -> bool:
+    """Has PORDATA touched this page since we last fetched it?
+
+    The old test was `lastmod > harvested_at`, and both are date-only.
+    That loses any update published on the same day the page was
+    harvested — permanently, not just once: the next run compares the
+    same two equal dates and skips again, so the record stays wrong for
+    ever. It is the freshness loop's one silent data-loss path.
+
+    Comparing against the lastmod we *stored* fixes it exactly. Any
+    change to the value re-fetches once, and after that the stored value
+    matches again, so there is no loop — which a `>=` comparison would
+    have caused, re-fetching every same-day page on every run.
+
+    Records harvested before this field existed fall back to the old
+    comparison. Without that, the first run after this change would call
+    all 2,195 pages stale and fire a full re-harvest by accident — which
+    is roadmap 21, and not something a bug fix should trigger.
+
+    Still undetectable, and inherent to a date-only sitemap: PORDATA
+    editing a page without moving `lastmod` at all.
+    """
+    current = mods.get(url)
+    if not current:
+        return False
+    stored = rec.get("sitemap_lastmod")
+    if stored:
+        return current != stored
+    return bool(rec.get("harvested_at")) and current > rec["harvested_at"]
+
+
 def plan(all_targets: list[str], records: dict[str, dict]) -> dict[str, list[str]]:
     mods = lib.lastmods()
     dead = lib.abandoned()
@@ -223,8 +254,7 @@ def plan(all_targets: list[str], records: dict[str, dict]) -> dict[str, list[str
             missing.append(u)
         elif "error" in rec:
             errored.append(u)
-        elif mods.get(u) and rec.get("harvested_at") \
-                and mods[u] > rec["harvested_at"]:
+        elif is_stale(u, rec, mods):
             stale.append(u)
     return {"missing": missing, "errored": errored, "stale": stale}
 
@@ -264,6 +294,7 @@ def main() -> None:
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     all_targets = lib.targets()
     records = lib.load_records()
+    lastmods = lib.lastmods()
     todo_plan = plan(all_targets, records)
     todo = todo_plan["missing"] + todo_plan["errored"] + todo_plan["stale"]
     print(f"{len(all_targets)} targets | "
@@ -286,6 +317,9 @@ def main() -> None:
         try:
             with urllib.request.urlopen(req, timeout=120) as resp:
                 record = parse(url, resp.status, resp.read())
+            # what the sitemap said when this copy was taken, so the next
+            # run can tell "changed" from "same day" (see is_stale)
+            record["sitemap_lastmod"] = lastmods.get(url, "")
         except Exception as exc:
             # A failed re-fetch must never erase a good record: the build
             # skips error records, so overwriting would silently drop a
