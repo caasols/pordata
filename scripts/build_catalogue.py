@@ -283,6 +283,46 @@ def name_from_slug(slug: str) -> str:
     return text[:1].upper() + text[1:]
 
 
+# Roadmap 8b: 159 distinct source strings normalise to ~30 organisations,
+# and two mechanical rules do nearly all of it.
+#
+# **A trailing parenthetical carrying a year is a period qualifier**, not
+# part of the name: PORDATA writes "INE (a partir de 2001)" where a
+# series changed hands or method. Five INE variants and three IGFSS ones
+# collapse this way.
+#
+# **A slash separates the body from its ministry** — "DGEEC/MECI",
+# "GEP/MTSSS", "DGS/MS". The body is the organisation and the ministry is
+# whichever government reorganised last, so "DGEEC/MECI" and "DGEEC/MEd"
+# are one source under two cabinets, as are "GEP/MTSSS" and "GEP/MSESS".
+# Only slashes *outside* parentheses count: three sources carry an
+# acronym in brackets ("… (ETC/BD)", "… (ITF / OCDE)") and splitting
+# those would cut the name in half.
+SOURCE_QUALIFIER = re.compile(r"\s*\([^)]*\b(?:19|20)\d\d\b[^)]*\)\s*$")
+
+# On every one of the 2,195 rows, so it cannot separate any of them. The
+# curator is still named in `fontes`; this field is a filter facet, and a
+# facet that matches everything is not one.
+UNIVERSAL_SOURCE = "PORDATA"
+
+
+def source_org(fonte: str) -> str:
+    """The organisation behind one `fontes` entry."""
+    head = SOURCE_QUALIFIER.sub("", fonte.split(" - ")[0].strip()).strip()
+    outside = head.split("(")[0]
+    return outside.split("/")[0].strip() if "/" in outside else head
+
+
+def source_orgs(fontes: list[str]) -> list[str]:
+    """Distinct organisations for a row, in first-seen order."""
+    out: list[str] = []
+    for fonte in fontes:
+        org = source_org(fonte)
+        if org and org != UNIVERSAL_SOURCE and org not in out:
+            out.append(org)
+    return out
+
+
 def split_fontes(fontes: str) -> list[str]:
     # defensive re-trim: records harvested before the parser fix may still
     # carry trailing UI text; repair_pages.py cleans the stored JSONL
@@ -476,6 +516,9 @@ def main() -> None:
             "url": rec["url"],
             "harvested_at": rec.get("harvested_at", ""),
         }
+        orgs = source_orgs(row["fontes"])
+        if orgs:
+            row["orgs"] = orgs
         if title != name:
             row["title"] = title
         if breakdown:

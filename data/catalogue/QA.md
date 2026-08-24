@@ -47,8 +47,8 @@ Skipped by the harvest plan and tombstoned at build time; see `data/catalogue/ab
 
 Gzipped KB a first visit downloads before it can search: the page, its bundle and the whole catalogue. Levers, measured, for when a ceiling breaks: `url` is ~25% of the gzipped catalogue and derivable from area+slug; `description` is ~12% for a field the UI never renders.
 
-- first load: **261.1 KB** (ceiling 400)
-- of which catalogue.json: **148.1 KB** (ceiling 250)
+- first load: **264.9 KB** (ceiling 400)
+- of which catalogue.json: **151.7 KB** (ceiling 250)
 
 ## Gate
 
@@ -77,7 +77,9 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - unit_translated_ratio: 1
 - featured_collisions: 0
 - featured_rows: 43
-- first_load_gzip_kb: 261.1
-- catalogue_gzip_kb: 148.1
+- orgs_coverage: 0.9941
+- distinct_orgs: 127
+- first_load_gzip_kb: 264.9
+- catalogue_gzip_kb: 151.7
 
 - all thresholds pass

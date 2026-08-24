@@ -1,6 +1,6 @@
 # INE crosswalk — refusals worth a human eye
 
-633 rows in scope found no candidate that survived full containment plus head, derivation and negation parity. Refusing beats guessing, but a refusal is not evidence that no upstream series exists — most of these are PORDATA rewording the indicator, or computing a ratio INE publishes only as its parts.
+627 rows in scope found no candidate that survived full containment plus head, derivation and negation parity. Refusing beats guessing, but a refusal is not evidence that no upstream series exists — most of these are PORDATA rewording the indicator, or computing a ratio INE publishes only as its parts.
 
 A sample of 40, spread across the list rather than taken from the front, so it is not all one letter of the alphabet:
 
@@ -8,39 +8,39 @@ A sample of 40, spread across the list rather than taken from the front, so it i
 - `municipios` — Número de Casamentos por região
 - `municipios` — Contributo dos saldos natural e migratório para a variação populacional anual (%)
 - `municipios` — Dias de internamento nos centros de saúde (1993-2012)
-- `municipios` — Espetáculos ao vivo: espectadores por mil habitantes
+- `municipios` — espectadores por mil habitantes
 - `municipios` — Habitantes por pessoal ao serviço nos centros de saúde (1999-2012)
-- `municipios` — Número de Lagares de azeite
-- `municipios` — Nascimentos de empresas não financeiras
-- `municipios` — Pescadores matriculados
-- `municipios` — População residente do sexo feminino
-- `municipios` — PIB - Criação de Riqueza
-- `municipios` — SNS: dias de internamento nos hospitais
-- `municipios` — Taxa de inatividade
-- `municipios` — Valor da produção agrícola
-- `portugal` — Aeroportos e aeródromos
-- `portugal` — Caixa Geral de Aposentações: receitas e despesas em % do PIB
-- `portugal` — Volume de cirurgias em Portugal por dia
-- `portugal` — Desigualdade na distribuição do rendimento (S80/S20)
-- `portugal` — Despesas das Administrações Públicas em saúde
-- `portugal` — Divórcios entre pessoas do sexo oposto
-- `portugal` — Empresas com presença na Internet em % do total de empresas
-- `portugal` — Esperança de vida à nascença: total e por sexo (base: triénio a partir de 2001)
-- `portugal` — Extensão da rede de autoestradas - Continente
-- `portugal` — Gastos com pessoal por trabalhador
-- `portugal` — Evolução do índice de Gini em Portugal
-- `portugal` — Jornais e outras publicações periódicas: títulos publicados por tipo de publicação
-- `portugal` — Mercadorias transportadas pelas empresas de transporte rodoviário
-- `portugal` — Nados-vivos fora do casamento, com coabitação e sem coabitação dos pais (%)
-- `portugal` — Óbitos infantis de mães residentes em Portugal: perinatais e neonatais
-- `portugal` — Pensões da Segurança Social em % do PIB: despesa total e por tipo
-- `portugal` — PIB na ótica da despesa em Portugal
-- `portugal` — População empregada do sexo feminino em % da população empregada
-- `portugal` — População residente com 30 a 34 anos com o ensino superior completo em % da população residente
-- `portugal` — População residente em idade ativa
-- `portugal` — Poupança e ordenados/salários no total do rendimento disponível das famílias (%)
-- `portugal` — Receitas das Administrações Públicas
-- `portugal` — Saldo da balança de bens
-- `portugal` — Sociedades não financeiras com 10 ou mais pessoas remuneradas de elevado crescimento
-- `portugal` — Taxa de fecundidade geral em Portugal
-- `portugal` — Taxa real de escolarização
+- `municipios` — Lotação dos centros de saúde (1993-2012)
+- `municipios` — Bombeiros- profissionais e voluntários
+- `municipios` — Pessoal ao serviço nas empresas não financeiras
+- `municipios` — População residente do sexo masculino com idade entre 16 e 89 anos
+- `municipios` — médicos, dentistas, enfermeiros e farmacêuticos
+- `municipios` — hospitais gerais e especializados
+- `municipios` — Taxa de sobrevivência a 1 ano das empresas não financeiras
+- `portugal` — água captada, água tratada e água distribuída/consumida (1991-2006)
+- `portugal` — Agregados domésticos unipessoais de indivíduos com 65 ou mais anos em % do total de agregados
+- `portugal` — Dados sobre os casamentos em Portugal
+- `portugal` — Consumo de energia elétrica per capita
+- `portugal` — Despesa corrente em cuidados de saúde
+- `portugal` — Despesas em atividades de investigação e desenvolvimento (I&D) em % do PIB
+- `portugal` — Duração média semanal do trabalho efetivo dos trabalhadores do sexo masculino por conta de outrem
+- `portugal` — Empresas mortas
+- `portugal` — consultas, internamentos e urgências por mil habitantes
+- `portugal` — Farmácias por 10 mil habitantes
+- `portugal` — Idade média ao primeiro casamento, por sexo
+- `portugal` — Indivíduos com 16 e mais anos que utilizam computador e Internet em % do total de indivíduos
+- `portugal` — não especialistas e especialistas por especialidade
+- `portugal` — espectadores por mil habitantes
+- `portugal` — Número de sociedades constituídas por escritura pública por número de sociedades dissolvidas
+- `portugal` — sessões e espectadores
+- `portugal` — Pessoal ao serviço nas empresas da Pesca e Aquicultura
+- `portugal` — População ativa por inativa em Portugal
+- `portugal` — População empregada do sexo masculino
+- `portugal` — População residente do sexo feminino com idade entre 16 e 89 anos por nível de escolaridade completo mais elevado (%)
+- `portugal` — População residente que viajou em turismo
+- `portugal` — Produtividade do trabalho em Portugal
+- `portugal` — Remuneração anual dos empregados da agricultura
+- `portugal` — urgências nos hospitais em Portugal
+- `portugal` — Taxa bruta de escolarização do sexo feminino por nível de ensino
+- `portugal` — Taxa de mortalidade infantil em Portugal
+- `portugal` — Trabalhadores do sexo feminino em % dos trabalhadores por conta de outrem

@@ -263,6 +263,89 @@ class FilterRegressionTest(unittest.TestCase):
                                     ["Óbitos por causas de morte (N.º)"]), [])
 
 
+class CategoryPrefixTest(unittest.TestCase):
+    """PORDATA's colon prefix, and the case where taking it off is wrong.
+
+    Colon prefixes are 6x over-represented among refusals — 15.5% of the
+    633, against 2.4% of matches — because INE names the indicator alone
+    and full containment cannot forgive a word the title never had. But
+    a colon does not always mean a category, so the tests that matter
+    are the ones where the rule has to decline.
+    """
+
+    def heads(self, *names):
+        return x.category_heads([{"name": n} for n in names])
+
+    def test_a_repeated_head_is_a_category(self):
+        """Measured, not listed: `sns` heads 20 rows, `cinema` 14,
+        `administrações públicas` 13. A hand-written vocabulary would be
+        one more thing to maintain and would miss the next one."""
+        got = self.heads("Cinema: ecrãs", "Cinema: sessões", "Óbitos: total")
+        self.assertIn("cinema", got)
+
+    def test_a_head_that_appears_once_is_the_indicator(self):
+        """"Densidade populacional: estatísticas por município" has the
+        indicator in front and boilerplate behind. Taking the tail would
+        throw the indicator away."""
+        got = self.heads("Densidade populacional: estatísticas por município",
+                         "Cinema: ecrãs", "Cinema: sessões")
+        self.assertNotIn("densidade populacional", got)
+
+    def test_the_threshold_is_two(self):
+        self.assertEqual(x.MIN_CATEGORY_ROWS, 2)
+
+    def test_a_category_is_split_off(self):
+        got = x.split_category("SNS: internamentos nos hospitais", {"sns"})
+        self.assertEqual(got, ("internamentos nos hospitais", "SNS"))
+
+    def test_a_phrase_with_no_colon_passes_through(self):
+        self.assertEqual(x.split_category("Casamentos", {"sns"}),
+                         ("Casamentos", ""))
+
+    def test_an_unrepeated_head_passes_through_whole(self):
+        phrase = "Densidade populacional: estatísticas por município"
+        self.assertEqual(x.split_category(phrase, {"sns"}), (phrase, ""))
+
+    def test_a_contentless_tail_is_a_breakdown_not_an_indicator(self):
+        """"População residente: total" and "Pessoal ao serviço nas
+        empresas: total" both have heads repeated often enough to look
+        like categories, and both *lost* their match before this guard
+        existed — `total` is a stopword, so the phrase reduced to
+        nothing to match on."""
+        phrase = "População residente: total"
+        self.assertEqual(x.split_category(phrase, {"populacao residente"}),
+                         (phrase, ""))
+
+    def test_the_accent_stripped_head_is_what_is_compared(self):
+        got = x.split_category("Espetáculos ao vivo: sessões",
+                               {"espetaculos ao vivo"})
+        self.assertEqual(got[0], "sessões")
+
+    def test_phrase_of_applies_it_only_when_categories_are_given(self):
+        """`phrase_of` is called in places that have no catalogue to
+        derive categories from; it must not guess there."""
+        row = {"name": "SNS: internamentos nos hospitais"}
+        self.assertEqual(x.phrase_of(row), "SNS: internamentos nos hospitais")
+        self.assertEqual(x.phrase_of(row, {"sns"}),
+                         "internamentos nos hospitais")
+
+    def test_the_category_reaches_the_entry_as_evidence(self):
+        """A reader should be able to see that "SNS" was set aside before
+        the titles were compared."""
+        entries = [entry("Internamentos (N.º) nos hospitais")]
+        rows = [row("SNS: internamentos nos hospitais", rid=1),
+                row("SNS: partos nos hospitais", rid=2)]
+        crosswalk, stats = x.build(rows, entries)
+        self.assertEqual(crosswalk["municipios/1"]["category"], "SNS")
+        self.assertEqual(stats["decategorised"], 1)
+        self.assertEqual(stats["categories"], 1)
+
+    def test_a_row_with_no_category_carries_no_category_key(self):
+        entries = [entry("Casamentos (N.º)")]
+        crosswalk, _ = x.build([row("Casamentos", rid=1)], entries)
+        self.assertNotIn("category", crosswalk["municipios/1"])
+
+
 class FamilyOrderTest(unittest.TestCase):
     def test_exact_titles_lead_the_family(self):
         """Stored candidates are truncated, so the order decides what

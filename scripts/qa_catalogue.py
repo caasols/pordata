@@ -110,6 +110,13 @@ THRESHOLDS = {
     # `description` is another 12% for a field the UI never renders —
     # 96.3% of them are PORDATA's SEO template, so they add almost
     # nothing to the search haystack they exist for.
+    # Roadmap 8b. Both floors guard the *normalisation*, not the field:
+    # coverage catches the extractor dying, and the distinct-count
+    # ceiling catches the two collapsing rules silently stopping, which
+    # would leave 159 raw strings where 127 organisations belong and make
+    # every filter facet a near-singleton. Measured: 99.4% and 127.
+    "orgs_coverage_min": 0.97,
+    "distinct_orgs_max": 140,
     "first_load_gzip_kb_max": 400,
     "catalogue_gzip_kb_max": 250,
 }
@@ -405,6 +412,12 @@ def main(strict: bool = False) -> None:
             g.get("collisions", 0) for g in featured_stats.values())
         metrics["featured_rows"] = sum(
             g.get("distinct_rows", 0) for g in featured_stats.values())
+    metrics["orgs_coverage"] = (
+        sum(1 for r in published if r.get("orgs")) / len(published)
+        if published else 0.0)
+    metrics["distinct_orgs"] = len(
+        {o for r in published for o in r.get("orgs", [])})
+
     payload = payload_metrics()
     metrics.update(payload)
     if payload:

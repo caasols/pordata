@@ -654,12 +654,105 @@
  },
  "municipios/267": null,
  "municipios/268": null,
- "municipios/270": null,
+ "municipios/270": {
+  "candidates": [
+   "0008103",
+   "0000506",
+   "0002904",
+   "0012862",
+   "0007430",
+   "0007422",
+   "0008113",
+   "0012895"
+  ],
+  "category": "SNS",
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
  "municipios/271": null,
  "municipios/272": null,
  "municipios/274": null,
- "municipios/275": null,
- "municipios/278": null,
+ "municipios/275": {
+  "candidates": [
+   "0008102",
+   "0012861",
+   "0002903",
+   "0000505",
+   "0007421",
+   "0007429",
+   "0012894",
+   "0008112"
+  ],
+  "category": "SNS",
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cuidados hospitalares"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
+ "municipios/278": {
+  "candidates": [
+   "0012884",
+   "0008109",
+   "0007567",
+   "0007537",
+   "0007538",
+   "0007568",
+   "0008120",
+   "0012901"
+  ],
+  "category": "SNS",
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 8,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos hospitais",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Partos"
+  ],
+  "theme": "Saúde",
+  "theme_share": 1.0,
+  "truncated": false
+ },
  "municipios/3": null,
  "municipios/30": null,
  "municipios/32": null,
@@ -1163,9 +1256,10 @@
  "municipios/43": {
   "candidates": [
    "0013451",
-   "0008619",
-   "0003759"
+   "0003759",
+   "0008619"
   ],
+  "category": "Espetáculos ao vivo",
   "confidence": "family",
   "exact_title": [],
   "geo_levels": [
@@ -1397,6 +1491,7 @@
    "0008620",
    "0013452"
   ],
+  "category": "Espetáculos ao vivo",
   "confidence": "family",
   "exact_title": [],
   "geo_levels": [
@@ -1422,7 +1517,33 @@
  "municipios/541": null,
  "municipios/547": null,
  "municipios/55": null,
- "municipios/56": null,
+ "municipios/56": {
+  "candidates": [
+   "0013229",
+   "0008941",
+   "0006066"
+  ],
+  "category": "Recintos culturais",
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 3,
+  "n_exact": 0,
+  "operation": "INE, Inquérito aos recintos de espetáculos",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Bienal"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura"
+  ],
+  "theme": "Cultura, desporto e lazer",
+  "theme_share": 1.0,
+  "truncated": false
+ },
  "municipios/58": null,
  "municipios/588": null,
  "municipios/589": null,
@@ -1468,7 +1589,34 @@
   "theme_share": 1.0,
   "truncated": false
  },
- "municipios/66": null,
+ "municipios/66": {
+  "candidates": [
+   "0008631",
+   "0003770",
+   "0013502",
+   "0012074"
+  ],
+  "category": "Jornais e outras publicações periódicas",
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "Município"
+  ],
+  "n_candidates": 4,
+  "n_exact": 0,
+  "operation": "INE, Inquérito às publicações periódicas",
+  "operation_share": 1.0,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Cultura"
+  ],
+  "theme": "Cultura, desporto e lazer",
+  "theme_share": 1.0,
+  "truncated": false
+ },
  "municipios/67": {
   "candidates": [
    "0012770",
@@ -3498,6 +3646,7 @@
   "candidates": [
    "0007000"
   ],
+  "category": "Tuberculose",
   "confidence": "family",
   "exact_title": [],
   "geo_levels": [
@@ -5055,7 +5204,48 @@
  "portugal/2820": null,
  "portugal/2821": null,
  "portugal/2825": null,
- "portugal/2831": null,
+ "portugal/2831": {
+  "candidates": [
+   "0013858",
+   "0006591",
+   "0006561",
+   "0006614",
+   "0008486",
+   "0002319",
+   "0001614",
+   "0001575",
+   "0004751",
+   "0004071",
+   "0004040",
+   "0008005",
+   "0009969",
+   "0014142"
+  ],
+  "category": "Investimento",
+  "confidence": "family",
+  "exact_title": [],
+  "geo_levels": [
+   "NUTS 2",
+   "NUTS II",
+   "NUTS III",
+   "Portugal"
+  ],
+  "n_candidates": 14,
+  "n_exact": 0,
+  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation_share": 0.786,
+  "periodicities": [
+   "Anual"
+  ],
+  "source": "INE",
+  "subthemes": [
+   "Contas integradas das empresas",
+   "Contas regionais"
+  ],
+  "theme": "Empresas",
+  "theme_share": 0.786,
+  "truncated": false
+ },
  "portugal/2833": null,
  "portugal/2854": null,
  "portugal/2855": {

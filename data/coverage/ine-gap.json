@@ -1,8 +1,8 @@
 {
  "crosswalk_reach": {
-  "named_ids": 1062,
+  "named_ids": 1069,
   "total_series": 13084,
-  "share": 0.0812
+  "share": 0.0817
  },
  "pordata_vocabulary": 2687,
  "min_series": 8,

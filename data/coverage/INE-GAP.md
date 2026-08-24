@@ -4,7 +4,7 @@ Rebuilt by `scripts/coverage_gap.py`. **This is a selection, not an inventory.**
 
 ## What this does not claim
 
-The **series-level** complement is not computable and is not attempted. The crosswalk names 1062 of 13084 INE ids (8.1%) because it refuses rather than guesses, so subtracting it from INE's catalogue would present some twelve thousand series as "missing" when most are indicators PORDATA covers under a name the matcher declines to claim. That number would be enormous, precise and wrong.
+The **series-level** complement is not computable and is not attempted. The crosswalk names 1069 of 13084 INE ids (8.2%) because it refuses rather than guesses, so subtracting it from INE's catalogue would present some twelve thousand series as "missing" when most are indicators PORDATA covers under a name the matcher declines to claim. That number would be enormous, precise and wrong.
 
 The unit here is the **concept**: a content word INE uses that none of PORDATA's 2195 indicator names uses once (2687 distinct words, PT and EN). That question survives a matcher with a quarter of the recall, because it asks whether PORDATA has *any* indicator touching a subject.
 

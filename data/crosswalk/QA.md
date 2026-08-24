@@ -3,13 +3,13 @@
 Rebuilt by `scripts/build_crosswalk.py`. Every figure here is counted from the run that wrote it (decision 7).
 
 - PORDATA rows in scope (INE-sourced, portugal/municipios): **839**
-- matched to a candidate family: **206** (24.6%)
-- refused (`null` — no candidate survived the filters): **633** (75.4%)
+- matched to a candidate family: **212** (25.3%)
+- refused (`null` — no candidate survived the filters): **627** (74.7%)
 
 ## Confidence
 
 - `exact` — an INE title normalises to the indicator's own phrase: **113**
-- `family` — containment plus head, derivation and negation parity: **93**
+- `family` — containment plus head, derivation and negation parity: **99**
 
 ## Family size
 

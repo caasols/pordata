@@ -124,6 +124,29 @@ NEGATION = re.compile(r"\b(nao|sem|exceto|excepto|excluindo|fora)\b")
 # parenthesis: "(Série 2021 - %)" is a percentage and a 12-character cap
 # cannot see it.
 TRAILING_UNIT = re.compile(r"\s*\([^)]{1,12}\)\s*$")
+
+# PORDATA writes a category ahead of a colon — "Cinema: nº de ecrãs",
+# "SNS: hospitais gerais e especializados". INE names the indicator
+# alone, so the category is a word the title can never contain and full
+# containment refuses the row. Colon prefixes are **6x over-represented
+# among refusals** (15.5% of 633, against 2.4% of matches), which is
+# what made this worth chasing.
+#
+# The trap is that a colon does not always mean a category: "Densidade
+# populacional: estatísticas por município" has the indicator in *front*
+# and boilerplate behind, so taking the tail would throw the indicator
+# away. The two are separable by a measured property rather than a
+# guess — **a category repeats and an indicator does not**. Measured
+# across the catalogue: 36 heads are shared by two or more rows (sns 20,
+# cinema 14, administrações públicas 13, teatro 4) and every one reads
+# as a category; 45 appear once (abortos, dívida pública, óbitos
+# infantis) and every one reads as the indicator itself.
+#
+# Same shape as `split_breakdown`, mirrored: demote the tail there, the
+# head here, and refuse in the case where the part being demoted is the
+# indicator.
+CATEGORY_COLON = re.compile(r"^([^:]{2,40}):\s*(.+)$")
+MIN_CATEGORY_ROWS = 2
 TRAILING_PAREN = re.compile(r"\(([^)]*)\)\s*$")
 
 
@@ -206,12 +229,53 @@ def geo_ok(area: str, geo_lastlevel: str) -> bool:
     return True
 
 
-def phrase_of(row: dict) -> str:
+def category_heads(rows: list) -> set:
+    """Colon heads that behave like categories, from the catalogue.
+
+    Derived, not listed: a hand-written vocabulary would be one more
+    thing to maintain and would miss whatever PORDATA adds next."""
+    counts: collections.Counter = collections.Counter()
+    for row in rows:
+        match = CATEGORY_COLON.match(row.get("title") or row.get("name") or "")
+        if match:
+            counts[strip_accents(match.group(1)).strip()] += 1
+    return {head for head, n in counts.items() if n >= MIN_CATEGORY_ROWS}
+
+
+def split_category(phrase: str, categories: set) -> tuple[str, str]:
+    """(indicator, category) — the category is "" when there is none.
+
+    Refuses in the direction that matters: an unrepeated head is the
+    indicator, so the phrase passes through whole rather than being
+    reduced to a qualifier like "estatísticas por município"."""
+    match = CATEGORY_COLON.match(phrase)
+    if not match:
+        return phrase, ""
+    head = strip_accents(match.group(1)).strip()
+    if head not in categories:
+        return phrase, ""
+    tail = match.group(2).strip()
+    # A tail with no content words is a breakdown, not an indicator.
+    # "População residente: total" and "Pessoal ao serviço nas empresas:
+    # total" both have heads that repeat often enough to look like
+    # categories, and both lost their match to this rule before the
+    # guard existed — because `total` is a stopword and reducing the
+    # phrase to it leaves nothing to match on at all.
+    if not content_tokens(tail):
+        return phrase, ""
+    return tail, match.group(1).strip()
+
+
+def phrase_of(row: dict, categories: set | None = None) -> str:
     """The indicator without its breakdown clause where `split_breakdown`
     found one: "Casamentos – total e por sexo" is asking about
     casamentos, and the tail is a slicing instruction INE expresses as
-    separate series."""
-    return row.get("title") or row.get("name") or ""
+    separate series. And without its category prefix where one repeats
+    across the catalogue, since INE names the indicator alone."""
+    phrase = row.get("title") or row.get("name") or ""
+    if categories:
+        phrase, _category = split_category(phrase, categories)
+    return phrase
 
 
 def ine_entities(row: dict) -> list[str]:
@@ -271,9 +335,10 @@ def normalised_title(title: str) -> str:
                          TRAILING_UNIT.sub("", strip_accents(title)))).strip()
 
 
-def candidates(row: dict, entries: list[dict], index: dict) -> list[dict]:
+def candidates(row: dict, entries: list[dict], index: dict,
+               categories: set | None = None) -> list[dict]:
     """The family, closest first. Empty means refuse."""
-    phrase = phrase_of(row)
+    phrase = phrase_of(row, categories)
     wanted = content_tokens(phrase)
     if not wanted:
         return []
@@ -320,13 +385,14 @@ def candidates(row: dict, entries: list[dict], index: dict) -> list[dict]:
     return [entry for entry, _extra in matched]
 
 
-def entry_summary(row: dict, family: list[dict]) -> dict:
+def entry_summary(row: dict, family: list[dict],
+                  categories: set | None = None) -> dict:
     """What was matched, how, and how confident to be about it."""
     themes = collections.Counter(e["theme"] for e in family)
     sources = collections.Counter(e["source"] for e in family)
     theme, theme_n = themes.most_common(1)[0]
     source, source_n = sources.most_common(1)[0]
-    target = normalised_title(phrase_of(row))
+    target = normalised_title(phrase_of(row, categories))
     exact = [e["id"] for e in family if normalised_title(e["title"]) == target]
     stored = family[:MAX_STORED]
     stored_ids = {e["id"] for e in stored}
@@ -355,21 +421,32 @@ def entry_summary(row: dict, family: list[dict]) -> dict:
 
 def build(rows: list[dict], entries: list[dict]) -> tuple[dict, dict]:
     index = build_index(entries)
+    # derived from the whole catalogue, so a head only counts as a
+    # category when it actually repeats across it
+    categories = category_heads(rows)
     crosswalk: dict = {}
-    stats = {"in_scope": 0, "matched": 0, "refused": 0,
-             "exact": 0, "family": 0, "sizes": [], "refusals": []}
+    stats = {"in_scope": 0, "matched": 0, "refused": 0, "exact": 0,
+             "family": 0, "sizes": [], "refusals": [],
+             "categories": len(categories), "decategorised": 0}
     for row in rows:
         if not in_scope(row):
             continue
         stats["in_scope"] += 1
         key = f"{row['area']}/{row['id']}"
-        family = candidates(row, entries, index)
+        _phrase, category = split_category(
+            row.get("title") or row.get("name") or "", categories)
+        family = candidates(row, entries, index, categories)
         if not family:
             crosswalk[key] = None
             stats["refused"] += 1
-            stats["refusals"].append((phrase_of(row), row["area"]))
+            stats["refusals"].append((phrase_of(row, categories), row["area"]))
             continue
-        summary = entry_summary(row, family)
+        summary = entry_summary(row, family, categories)
+        if category:
+            # recorded as evidence: the reader should be able to see that
+            # "Cinema" was set aside before the title was compared
+            summary["category"] = category
+            stats["decategorised"] += 1
         crosswalk[key] = summary
         stats["matched"] += 1
         stats[summary["confidence"]] += 1
