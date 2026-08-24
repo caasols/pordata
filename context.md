@@ -406,10 +406,12 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
 3. **16 — the coverage gap**, once the crosswalk makes the complement computable. This is what
    turns the project from a mirror of PORDATA into something more complete than it.
 4. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-5. Background, in any order: **6b–6f**, **7**, **3** as evidence accumulates, and **20** once
+5. **24 — widen the harvest parse** (question, revision note, period) so every future fetch
+   captures what A6 found. No new requests, and it is 21's precondition.
+6. Background, in any order: **6b–6f**, **7**, **3** as evidence accumulates, and **20** once
    19's units have accrued. **21** is deliberately last: its value grows with everything the
-   parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
-   until it retires.
+   parser learns from 15 and 24, so firing it early means doing it twice. **22** runs itself
+   daily until it retires.
 
 *Shipped 2026-08-23/24: **6a**, **10**, **12**, **18**, and **19's spikes A3/A4** — see
 "What has been built".*
@@ -695,6 +697,18 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    parser understood in August 2026. Raw HTML is not kept (`bytes` is recorded, the body is
    not), so every field added after the fact needs the pages fetched again.
 
+   **The known-missing list, as of 2026-08-24** — this is what 21 exists to collect, and the
+   parser must be widened to capture it *before* 21 runs, not after:
+
+   | field | where it lives | coverage |
+   |---|---|---|
+   | unit | chart caption, `ampliado` marker | shipped; accrues as pages go stale |
+   | **question** | `<h2>` | **15/15 sampled pages, every fingerprint** |
+   | **revision note** | `revis` marker window | 215 pages |
+   | period (portugal) | `div.YearCurrentText` / `div.YearOtherText` | 5/5 portugal pages |
+   | period (municipios) | `<select>` year picker, `<option value>` | A4, 3/3 pages |
+   | period (europa) | **unknown** | neither mechanism present |
+
    Known already-missed, and the reason to expect more: `"ampliado"` was added to
    `MARKER_WORDS` after the harvest, so 1,053 portugal records carry no unit. Whatever items
    14 and 15 need from the page — the period, geographic granularity, a chart caption, a
@@ -789,6 +803,28 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
 
    The general rule this earns: **a probe's sampling frame must be derived from measured
    variation, never from a dimension that seems obvious** — area seemed obvious and was wrong.
+
+24. **Widen the harvest parse before re-harvesting** *(precondition for 21; no new requests)*.
+   A6 named three fields and their selectors. Capturing them is not another probe — it is a
+   change to `harvest_catalogue.py` that makes **every future fetch pay for itself**, because
+   the freshness loop already re-fetches pages as their sitemap `lastmod` moves.
+
+   Add to `parse()`: the **question** from `<h2>`, the **revision note** from the `revis`
+   window, and the **period** via the per-area mechanism (portugal's named year elements,
+   municipios' `<option value>` picker; europa pending). Each needs a roadmap-6a shape
+   assertion so a template change drops the value and raises `parse_warnings` rather than
+   publishing junk, and a **per-area** QA floor (roadmap 23's lesson: a catalogue-wide mean
+   hid a 100/100/0 split).
+
+   **Why this beats sampling more pages.** A wider sample tells you about the pages you
+   sampled; the parser plus the QA gate tells you about all 2,195, continuously, for free.
+   Coverage climbing toward its expected ceiling *is* the validation, and a selector that
+   fails on some template surfaces as a named `parse_warnings` breach in the area it broke —
+   which is stronger evidence than any hand-picked frame can give.
+
+   Sequence: widen the parse → let the freshness loop accrue and watch the per-area coverage →
+   answer europa's period (one small probe, not a frame) → then fire 21 with a parser that is
+   actually complete.
 
 ## Verification
 

@@ -47,9 +47,18 @@ spike A5 measured the relation and it is **one-to-many**: INE is series-level wh
 indicator-level, so store candidate sets and defer series selection to fetch time — never a
 single `ine_id`.
 
-**Next:** item **2** (the crosswalk) with **17** (the rename) alongside; **13** (three upstream
-licences, owner, ~30 min) is the only thing gating **14**. Full detail and execution order in
-`context.md`.
+**Three fields we do not capture, with selectors** (spike A6, 2026-08-24, sampled across all
+9 structural fingerprints): the plain-language **question** under each title, in `<h2>`, on
+**15/15** pages — phrased per area (`portugal` "Quantas…", `municipios` "Onde há mais e
+menos…", `europa` "Que países…"), which makes it a better search and embedding input than the
+name; a **revision note** in the `revis` window on 215 pages, which is decision 5's caveat; and
+the **period**, whose mechanism differs by area — portugal has named year elements, municipios
+a `<select>` picker, europa neither. Item **24** widens the parser so future fetches capture
+them; item **21** is the re-harvest that backfills the rest.
+
+**Next:** item **2** (the crosswalk) with **17** (the rename) alongside; **24** (widen the
+parse — no new requests); **13** (three upstream licences, owner, ~30 min) is the only thing
+gating **14**. Full detail and execution order in `context.md`.
 
 **Waiting on the owner:** item 13, the item 17 name call, a ~20-record spot-check, curating
 `data/catalogue/FEATURED-UNMATCHED.md`, and ledger attempts.
