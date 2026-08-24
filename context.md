@@ -659,9 +659,12 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    list needs) and does not need to be: INE's `geo_lastlevel` states it directly, so it comes
    with item 14.
 
-   *Killed hypothesis, worth not re-running:* `A carregar conteúdo…` suggested the data table
-   was client-rendered. It appears **0 times** across all seven pages, which carry 12–18
-   server-rendered tables.
+   *Corrected 2026-08-24:* A3 reported `A carregar conteúdo…` appearing **0 times** and I
+   recorded the client-rendering hypothesis as killed. Spike A6 found it — `div.Text_Note`.
+   A3 searched for the literal string in entity-encoded HTML while A6 decodes entities, so
+   A3's zero was a false negative, not evidence. The conclusion still holds for the **main
+   table** (42 `td.ValueCell` and 16 `td.YearCell` are server-rendered on the sampled page),
+   but there *is* a lazily-loaded section, and the binary framing was wrong.
 20. **Raise the coverage line past 78.4%** *(owner ask 2026-08-23; unblocked by 19)*. 475 rows
    (21.6%) carry neither a breakdown nor a unit, and **471 of the 475 are `portugal`** — 3 are
    europa, 1 is municipios. Spike A3 established the cause and the fix landed the same evening
@@ -736,6 +739,41 @@ retired (10, 11, 12, 18 have shipped; 11 was absorbed into 6). Priority:
    end: 21 days is only ~3 of each weekday — enough for a strong weekend effect, not a subtle
    one. If it is ambiguous at day 21, say so rather than extending on autopilot; Lisbon leaves
    WEST in late October, which would silently shift the sampled hour.
+
+23. **Sample by page template, not by area** *(owner correction 2026-08-24)*. Spike A6 was
+   dispatched as a "full inventory" of one page per area. That was the wrong sampling frame,
+   and the owner named it: *PORDATA's detail pages are not all the same, and we do not know how
+   many variants exist.* Three pages is a sample; calling it an inventory hid the assumption
+   rather than testing it.
+
+   **The variant count is measurable offline, from records we already hold.** Every harvested
+   record carries which marker keys matched and how big the page was — a structural fingerprint
+   never used. Measured 2026-08-24, at zero request cost:
+
+   - **9 distinct `(area, marker-key-set)` fingerprints**, not 3.
+   - `Unidade` matched on **494** pages and not on ~1,700 — and it is a **false positive**,
+     matching "Nomenclatura das **Unidade**s Territoriais" (NUTS), never a unit label. So the
+     earlier note that "'Unidade' never appears in the page text" was wrong: it appears, and
+     never means what the marker assumed.
+   - `revis` matched on **215** pages (140 portugal, 71 municipios, 3 europa, 1 more) and holds
+     a **revision note** — "Os valores foram revistos pela entidade oficial. (01/02/2024)".
+     That is decision 5's revision caveat, which the project requires rendered *with* the
+     series, and we capture none of it.
+   - **municipios pages span 174 KB to 2.2 MB** — a 12× range within one area. A6 sampled a
+     359 KB page and would never have seen whatever the 2.2 MB one is.
+
+   Two fields were also found *in windows we already stored*, needing no fetch at all: a year
+   run (127 records, e.g. 2005–2025) and **the question itself** on 14 records — "Onde há mais
+   e menos empregadores a contribuir para a Segurança Social?", "Quantos empregadores ou
+   trabalhadores domésticos descontam para a Segurança Social?". Only 14 because the windows
+   are narrow slices around `Fontes`; the question usually falls outside them.
+
+   **What to do before any further probing:** build the sampling frame from the fingerprints —
+   one page per fingerprint (9), plus the size extremes within `municipios` (min, median, max),
+   which is ~12 pages rather than 3 and still one polite pass. Then re-run the inventory
+   against *that* frame. The general rule this earns: **a probe's sampling frame must be
+   derived from measured variation, never from a dimension that seems obvious** — area seemed
+   obvious and was wrong.
 
 ## Verification
 

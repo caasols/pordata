@@ -61,9 +61,14 @@ licences, owner, ~30 min) is the only thing gating **14**. Full detail and execu
 - **Raw HTML is not stored**, so any field the parser learns about after a harvest needs the
   pages fetched again. Two such fields already exist (the unit marker, the period). That is why
   item 21 is last on the board — fire it once 15 has stopped teaching the parser new things.
-- **Killed hypotheses stay killed.** `A carregar conteúdo…` suggested client-rendered tables:
-  it appears **0 times** across seven sampled pages. INE "blocks cloud IPs persistently": it
-  served twice on a Saturday and we throttled ourselves with four 21 MB pulls in 45 minutes.
+- **A sampling frame must come from measured variation, not an obvious-looking dimension.**
+  Spike A6 sampled one page per area and called it an inventory; the stored records actually
+  hold **9 distinct structural fingerprints**, and municipios pages span 174 KB to 2.2 MB.
+  Roadmap 23 has the frame to use instead.
+- **Check a "0 occurrences" result before believing it.** A3 reported `A carregar conteúdo…`
+  0 times and it went into the docs as a killed hypothesis; A6 found it — A3 matched a literal
+  string against entity-encoded HTML. The INE "persistent block" reading died the same way:
+  it served twice on a Saturday and we throttled ourselves with four 21 MB pulls in 45 minutes.
 - **Refusing beats guessing.** The featured matcher, `split_breakdown` and the crosswalk all
   converged on the same rule: be right or be absent.
 
