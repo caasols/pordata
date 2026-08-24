@@ -7,7 +7,11 @@ on:
       - "tests/**"
       - "setup.cfg"
       - "conftest.py"
-      - ".github/workflows/tests.yml"
+      # every workflow, not just this one: tests/test_workflows.py asserts
+      # invariants across all eight, so an edit to any of them is exactly
+      # when those assertions need to run. Data commits touch data/ and
+      # docs/ only, so this does not fire on every harvest.
+      - ".github/workflows/**"
   pull_request:
 
 permissions:
@@ -22,9 +26,12 @@ jobs:
 
       - name: Run unit tests with coverage
         # spike_*, fetch_ine_catalogue and fetch_sitemap are network
-        # fetchers exercised by live Actions runs rather than unit tests
+        # fetchers exercised by live Actions runs rather than unit tests.
+        # pyyaml is for tests/test_workflows.py only - the scripts this
+        # repo actually runs stay on the standard library, so a harvest
+        # never depends on an install step succeeding.
         run: |
-          pip install --quiet coverage
+          pip install --quiet coverage pyyaml
           coverage run --source=scripts -m unittest discover -s tests -v
           coverage report -m \
             --omit="scripts/spike_*,scripts/fetch_ine_catalogue.py,scripts/fetch_sitemap.py,scripts/__init__.py" \

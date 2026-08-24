@@ -42,6 +42,11 @@ concurrency:
 jobs:
   watch:
     runs-on: ubuntu-latest
+    # One sitemap fetch, a diff and a dispatch. Without a bound this
+    # inherits GitHub's 6-hour default, so a stalled fetch holds the
+    # concurrency group all day and the detector silently stops
+    # detecting - the queued runs behind it never start.
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:

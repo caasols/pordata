@@ -36,8 +36,16 @@ concurrency:
 jobs:
   spikes:
     runs-on: ubuntu-latest
+    # The longest probe is A6: 15 pages 20s apart, some of them 2 MB.
+    # 45 minutes is generous for that and still bounded, where the
+    # 6-hour default is not.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          # branch head, not the trigger-time sha: this job pushes,
+          # and a detached checkout of a stale sha cannot fast-forward
+          ref: ${{ github.ref_name }}
 
       - name: "Spike A1: PORDATA indicator page probe"
         if: inputs.probe == 'a1'
