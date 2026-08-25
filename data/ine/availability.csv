@@ -6,3 +6,4 @@ date_utc,time_utc,weekday,method,http_status,ok,bytes_read,elapsed_s,note
 2026-08-23,08:19:05,Sun,full-pull,,no,,,22.6 h gap - still failing
 2026-08-23,20:17:16,Sun,full-pull,,no,,,12.0 h gap - still failing
 2026-08-24,07:34:27,Mon,full-pull,200,yes,,,"11.3 h gap - served, 13084 indicators"
+2026-08-25,10:15:21,Tue,HEAD,,no,0,120.4,URLError: <urlopen error timed out>
