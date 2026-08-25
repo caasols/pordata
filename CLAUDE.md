@@ -53,14 +53,35 @@ PORDATA used, derivation parity (a count is not a rate), negation parity — plu
 caught: the unit is a *separate* comparison (INE suffixes it into the title, PORDATA carries it
 in a field, so reading `%` out of the raw title refused "Taxa de desemprego" against itself),
 and numbers are content (the two-character floor swallowed age brackets). Gated at
-`--strict` with a 170-match floor. `europa` (638 rows) is unrouted: Eurostat and BPstat must
-be measured the same way before being specified.
+`--strict` with a 170-match floor. Since 2026-08-25 the colon prefix is demoted too
+(`category_heads` derives the repeating heads from the catalogue itself): **212 matched**,
+6 gained, 0 lost.
+
+**The Eurostat crosswalk landed 2026-08-25, and the shape is not INE's.**
+`data/eurostat/datasets.csv` caches **7,572** datasets; `data/crosswalk/eurostat.json` routes
+**118 of 616** in-scope `europa` rows (35 exact, 37 single, 46 family) and `null` for the rest,
+floored at 100. Eurostat publishes multi-dimensional **cubes**, not pre-sliced series, so a
+PORDATA row wants one dataset **plus a filter over its dimensions** — and INE's rule reverses:
+these candidates are *rivals* of which one is right, so **a large set is an open question, not
+a fact about the upstream**. The operator strips PORDATA's unit parenthetical (Eurostat carries
+the unit as a dimension, so `percentage` alone blocked 35 rows), splits both sides at the `by`
+that opens the breakdown, and requires **identical heads** — plain containment reaches 18.3%
+because it asks a cube's name to contain the words for its own dimensions. **The breakdown is a
+veto, never a ranking**: ranking on it picked a winner on 10 of 83 ties and one of the first
+eight sampled was a non-EU geography; as a veto it refuses 18 head matches, every hand-read one
+correctly. A content-token floor on the head is recorded as **rejected with the number that
+rejected it** — it drops 38 matches including one whose Eurostat title is identical.
+`filter_resolved` is **false on every entry** and the detail page shows the wanted breakdown as
+unverified: the catalogue has titles, not dimension names. **BPstat** is the remaining half —
+measure it; neither INE's shape nor Eurostat's is safe to assume.
 
 **Every indicator now has a page** (item 15, metadata half). `/indicador/<area>/<id>/` —
 **2,195 pre-rendered**, each with `Dataset` JSON-LD, listed in `docs/sitemap-indicadores.xml`,
 and carrying the two things PORDATA's page does not: the revision note **with** the indicator
-(decision 5) and the crosswalk as provenance, candidate series linked to INE's page *and* its
-JSON endpoint. No JS bundle — ~4 KB of HTML against one shared stylesheet. Pages are written
+(decision 5) and the crosswalk as provenance — **330 pages, 212 INE and 118 Eurostat** —
+candidates linked to the upstream page *and* its machine-readable endpoint. The panel
+dispatches on the entry's `source`, not the row's area, because the two crosswalks answer
+differently shaped questions and a single panel would misreport both. No JS bundle — ~4 KB of HTML against one shared stylesheet. Pages are written
 only when their bytes change (the whole set packs to 4.45 MiB); theme tokens are read from
 `site/src/index.css` and the build **fails** if that block moves; `--strict` asserts every row
 has a page, because every card links here now. The chart slot stays inert until item 14.
@@ -95,17 +116,18 @@ a `<select>` picker, europa neither. The parser now captures all three — the
 revision note needed no fetch at all (203 rows carry it today, from windows already stored) —
 so future fetches pay for themselves; item **21** is the re-harvest that backfills the rest.
 
-**Next: the owner's queue, then the crosswalk's remaining halves.** Four things are blocked on
+**Next: the owner's queue, then BPstat and the refusals.** Four things are blocked on
 a human and nothing else, and all four unblock work that is otherwise ready — **25** (curate
 `data/coverage/INE-GAP.md`, ~45 min: the accept/reject record *is* the curation rule, and it
 closes 16), **13** (upstream licences — now ~10 min: Eurostat is answered as CC BY 4.0 in
 `data/spikes/licences.md`, INE and BPstat need a browser that is not a cloud IP; the only
 thing gating **14**), **17** (the rename), and item **1**'s residual checks (a ~20-record spot-check, plus curating
-`data/catalogue/FEATURED-UNMATCHED.md`). Then **Eurostat/BPstat** (measure first — do not
-assume A5's shape carries over) and the 633 INE refusals in `data/crosswalk/REVIEW.md`. Full
+`data/catalogue/FEATURED-UNMATCHED.md`). Then **BPstat** (measure first — neither INE's shape
+nor Eurostat's is safe to assume) and the refusals: 480 Eurostat rows where no head matched
+(`data/crosswalk/EUROSTAT-REVIEW.md`) and the INE ones in `data/crosswalk/REVIEW.md`. Full
 detail and execution order in `context.md`.
 
-**Eight things worth not re-learning:**
+**Nine things worth not re-learning:**
 - **Coverage thresholds for markup-parsed fields are per-area.** A catalogue-wide mean passed a
   100/100/0 unit split without complaint. The areas are separate PORDATA templates; a mean
   cannot say "each still works".
@@ -123,8 +145,19 @@ detail and execution order in `context.md`.
   0 times and it went into the docs as a killed hypothesis; A6 found it — A3 matched a literal
   string against entity-encoded HTML. The INE "persistent block" reading died the same way:
   it served twice on a Saturday and we throttled ourselves with four 21 MB pulls in 45 minutes.
-- **Refusing beats guessing.** The featured matcher, `split_breakdown` and the crosswalk all
-  converged on the same rule: be right or be absent.
+- **An upstream theme tree is a set of views, not a partition** — and it misleads in *both*
+  directions. INE files one series under two themes, so theme *purity* rejected exact matches.
+  Eurostat files one dataset under up to eight, so emitting a row per appearance gave 10,313
+  rows for 7,572 datasets and multiplied every candidate count derived from the file. Fixing it
+  moved the measured median from 3 to 1: the inflation was hiding the one thing the analysis
+  existed to see. Count the *entity*, and store the themes as the set they are.
+- **Refusing beats guessing** — and the first guard you reach for is usually measuring the
+  wrong thing. The featured matcher, `split_breakdown` and both crosswalks converged on
+  "be right or be absent". But a *content-token floor* on the Eurostat head, the obvious way to
+  stop a generic name like "Exports" matching an input-output table, also deleted "Obesity rate
+  by body mass index" — whose Eurostat title is identical. The failure was contradiction, not
+  length; a tail *veto* caught both cases with no collateral. Audit a filter against what it
+  removes, not against the case that suggested it.
 - **Derive from the component; do not write what looks right.** The detail pages' stylesheet
   was hand-written from memory of the card and shipped as a visibly different design — an
   orange pill where the card has a grey `secondary` Badge, a 16 px meta value against an 11 px
@@ -145,17 +178,17 @@ detail and execution order in `context.md`.
 
 ## How it runs
 
-Nine workflows on `main`, the first two a detector→worker pair:
+Ten workflows on `main`, the first two a detector→worker pair:
 
 | workflow | when | what |
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
-| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, crosswalk, coverage gap, detail pages, commit |
+| `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, both crosswalks, coverage gap, detail pages, commit |
 | `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 65.3%) |
 | `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
 | `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
-| `featured-sets.yml`, `ine-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue + crosswalk, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6, `licences`) |
+| `featured-sets.yml`, `ine-catalogue.yml`, `eurostat-catalogue.yml`, `spikes.yml` | manual | quadro names, INE catalogue + crosswalk, Eurostat catalogue, one-off probes (`spikes.yml` takes a probe input: a1–a4, a6, `licences`, `eurostat-toc`, `ine-series`, `europa-period`) |
 
 Data-writing workflows check out the branch head at run time — never the trigger-time sha. A
 QA-gate breach reverts `docs/`, opens an issue and fails the job, so a degraded harvest never

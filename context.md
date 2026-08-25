@@ -44,7 +44,7 @@ hang off it. See Roadmap; execution order is in its header.
 | `graphify-out/` | Derived code graph, gitignored |
 | `.claude/commands/` | `/mega-audit`: the cross-consistency deep-audit prompt (decision 7) |
 
-## What has been built (2026-08-21 → 2026-08-24)
+## What has been built (2026-08-21 → 2026-08-25)
 
 The pipeline, end to end, all live on `main`:
 
@@ -376,6 +376,50 @@ The pipeline, end to end, all live on `main`:
   `data/crosswalk/REVIEW.md`; reading it surfaced the unit defect above and a next lead —
   PORDATA's colon prefix ("Farmácias: número de estabelecimentos", "SNS: hospitais gerais"),
   which is a category label the way the breakdown clause was, and is untried.
+  *(The colon prefix landed 2026-08-25: `category_heads` derives the repeating heads from the
+  catalogue itself and `split_category` demotes them, 206 → 212 matched, 6 gained, 0 lost. A
+  head only counts as a category when it repeats, and a tail with no content word is a
+  breakdown rather than an indicator — the guard that stopped "População residente: total"
+  becoming "total".)*
+- **The Eurostat crosswalk** (roadmap 2, Eurostat half, 2026-08-25). `data/eurostat/
+  datasets.csv` caches **7,572** datasets, `data/crosswalk/eurostat.json` routes **118 of 616**
+  in-scope `europa` rows (35 exact, 37 single, 46 family), and the 118 now carry provenance on
+  their detail pages. **The point of measuring first was that the shape is not INE's.** Eurostat
+  publishes multi-dimensional *cubes*, not pre-sliced series, so a PORDATA row wants one dataset
+  **plus a filter over its dimensions** — and INE's "family size is never a reason to refuse"
+  reverses: these candidates are *rivals* of which one is right, so a large set is an open
+  question, and the QA report says the opposite of INE's on purpose.
+
+  The operator (`data/spikes/eurostat-crosswalk-shape.md`): strip PORDATA's unit parenthetical,
+  split both sides at the `by` that opens the breakdown, require identical heads. Plain
+  containment reaches 18.3% because it asks a cube's name to contain the words for its own
+  dimensions — `percentage` blocked 35 rows and `euro` 23, which is the INE unit lesson at the
+  opposite polarity (there PORDATA held the unit in a field and INE suffixed it into the title).
+
+  **The breakdown is a veto, never a ranking.** Ranking on it picked a single winner on 10 of 83
+  tied rows and one of the first eight sampled was *Employment by professional status —
+  ENP-South countries*, a non-EU geography. As a veto it refuses 18 head matches and every
+  hand-read one is correct: *Exports total and by type of energy product* is not *Exports by
+  industry (FIGARO application)*; *expenditure by category* is not *by function (COFOG)*.
+  A content-token floor on the head was the first idea and is recorded as **rejected with the
+  number that rejected it** — it drops 38 matches including *Obesity rate by body mass index*,
+  whose Eurostat title is identical. It measures length where the failure is contradiction.
+
+  **`filter_resolved` is `false` on every entry**, and the detail page shows the wanted
+  breakdown as unverified rather than omitting it. The catalogue has titles, not dimension
+  names; item 14 resolves the filter against the real structure at fetch time or refuses.
+  URLs are stored as codes against a template measured across all 7,572 rows and asserted on
+  every build — 184 KB → 106 KB, and a build failure rather than dead links the day the
+  pattern changes.
+
+  **The bug worth not re-learning: the TOC is a tree, and a dataset hangs off up to eight
+  branches of it.** The first parse emitted a row per appearance — 10,313 rows for 7,572
+  datasets — and every candidate count derived from it was multiplied by how many themes the
+  dataset happened to sit under. Fixing it moved the measured median candidate count from 3 to
+  **1** and resolves-to-one from 36 to 57, i.e. it was hiding the one thing the analysis
+  existed to see. This is INE's theme lesson from the other direction: there, theme *purity*
+  rejected correct matches; here, theme *multiplicity* inflated the counts. An upstream theme
+  tree is a set of views, not a partition.
 - **Failures nobody hears** (roadmap 6b, 2026-08-24). Five places where something broke and
   the pipeline stayed green. *(i)* The harvest commit step had no `if`, so a crash or timeout
   skipped it and threw away every 25-page checkpoint the harvester writes precisely so a dead
@@ -643,10 +687,10 @@ to run.
    series and the response shape is unmeasured.
 6. **15's charts**, on the archive. The layer is chosen and measured (`@tanstack/charts`,
    pre-rendered SVG plus interactive-on-demand); the slot is already shaped for it.
-7. **2 — the crosswalk's remaining halves.** Eurostat and BPstat (638 `europa` rows, entirely
-   unrouted — measure each before specifying it, A5's shape must not be assumed to carry
-   over), and the 633 INE refusals in `data/crosswalk/REVIEW.md`, where the untried lead is
-   PORDATA's colon prefix.
+7. **2 — the crosswalk's remaining half.** BPstat (measure it before specifying it; neither
+   INE's shape nor Eurostat's is safe to assume), and the refusals: 480 Eurostat rows where no
+   head matched, in `data/crosswalk/EUROSTAT-REVIEW.md`, and the INE ones in
+   `data/crosswalk/REVIEW.md`.
 8. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
    out the whole field-capture thread.
 9. **8b/c, then 9** — labels from sources and recency, then blended relevance.
@@ -665,8 +709,8 @@ to run.
    snippet. Several have no counterpart at all (derived aggregates PORDATA publishes only
    inside the quadro; a few quadro rows share one catalogue page), so a perfect score is not
    the goal and the QA floor is set accordingly.
-2. **The crosswalk** *(INE half **done 2026-08-24** — see "What has been built";
-   Eurostat and BPstat still open, and 2a below)*.
+2. **The crosswalk** *(INE half **done 2026-08-24**, Eurostat half **done 2026-08-25** — see
+   "What has been built"; BPstat still open, and 2a below)*.
    `data/ine/indicators.csv` holds 13,084 INE indicators across 25 themes, each with a
    per-indicator `json` API URL and `geo_lastlevel`. Match PORDATA's rows to upstream: INE for
    INE-sourced indicators, Eurostat dataset codes for `europa`, BPstat for monetary.
@@ -688,9 +732,34 @@ to run.
    `keywords` is INE's own field and mostly repeats the title's words plus the theme name;
    nothing there is a constraint the title does not already give.*
 
-   **Still open: Eurostat and BPstat.** Measure each the same way before specifying it; do not
-   assume they share INE's shape. `europa` is 638 rows and entirely unrouted. The
-   2,195-to-13,084 ratio is also item 16's raw material.
+   **Eurostat: done 2026-08-25, and the measurement was worth taking.** `data/eurostat/
+   datasets.csv` caches **7,572** datasets; `data/crosswalk/eurostat.json` routes **118 of
+   616** in-scope rows, `null` for the rest, gated at a floor of 100. The shape is *not* INE's,
+   which is why the roadmap said to measure rather than assume: Eurostat publishes
+   multi-dimensional **cubes**, not pre-sliced series, so a PORDATA row wants one dataset
+   **plus a filter over its dimensions**. The consequence is a rule reversal — INE's "family
+   size is never a reason to refuse" does not carry over, because Eurostat's candidates are
+   *rivals* of which one is right, so a large set is an open question rather than a fact about
+   the upstream, and the QA report says the opposite of INE's.
+
+   The operator, measured in `data/spikes/eurostat-crosswalk-shape.md`: strip PORDATA's unit
+   parenthetical (Eurostat carries the unit as a *dimension*, so `percentage` alone blocked 35
+   rows — the INE unit lesson at the opposite polarity), split both sides at the `by` that
+   opens the breakdown, require the heads to be **identical**. Plain containment reaches only
+   18.3% because it asks a cube's name to contain the words for its own dimensions.
+
+   **The breakdown is a veto, never a ranking.** Ranking candidates by it picked a single
+   winner on 10 of 83 tied rows and one of the first eight sampled was *Employment by
+   professional status — ENP-South countries*, a non-EU geography. As a veto — two breakdowns
+   sharing no word are not the same slice, and silence on either side is not a contradiction —
+   it refuses 18 head matches and every hand-read one is correct.
+
+   **What the entry may not claim**: the catalogue carries titles, not dimension names, so
+   `filter_resolved` is `false` on every entry. Item 14 must resolve the breakdown against the
+   real structure at fetch time, or refuse to archive.
+
+   **Still open: BPstat.** Measure it the same way; neither INE's shape nor Eurostat's is
+   safe to assume. The 2,195-to-13,084 ratio is also item 16's raw material.
 
    **Also open on the INE half**: 627 in-scope rows refused, sampled in
    `data/crosswalk/REVIEW.md`. Two categories are visible there and are worth separate work —
