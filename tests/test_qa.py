@@ -1,3 +1,4 @@
+import re
 import pathlib
 import unittest
 
@@ -56,6 +57,40 @@ class ValueLeakTest(unittest.TestCase):
     def test_the_threshold_is_zero_and_not_a_ratio(self):
         """A leak budget is a licence violation budget."""
         self.assertEqual(qa.THRESHOLDS["jsonl_value_leak_max"], 0)
+
+
+class GateAttributionTest(unittest.TestCase):
+    """A report naming its own enforcer has to be right about it.
+
+    `EUROSTAT-QA.md` said "gated at `qa_catalogue.py --strict` with a
+    floor of 100 matches" while that module contained no crosswalk
+    threshold at all — so a refactorer could delete the real `SystemExit`
+    believing the line was held elsewhere. The two are not
+    interchangeable either: a `qa_catalogue` breach reverts `docs/` and
+    opens an issue, a builder breach only aborts its own step.
+
+    Both are true now, and this asserts they stay true."""
+
+    REPORTS = ["data/crosswalk/QA.md", "data/crosswalk/EUROSTAT-QA.md"]
+
+    def test_a_report_naming_qa_catalogue_has_a_threshold_there(self):
+        for name in self.REPORTS:
+            text = pathlib.Path(name).read_text(encoding="utf-8")
+            for key in re.findall(r"`([a-z_]+_(?:min|max))`", text):
+                self.assertIn(key, qa.THRESHOLDS,
+                              f"{name} names {key} which qa_catalogue "
+                              "does not define")
+
+    def test_the_registered_floors_match_the_builders(self):
+        """Two numbers for one floor drift. These are separate constants
+        by necessity — the builder must refuse before writing and the QA
+        gate must check the committed file — so they are asserted equal
+        rather than left to agree by habit."""
+        ine = load_script("build_crosswalk")
+        eurostat = load_script("build_eurostat_crosswalk")
+        self.assertEqual(qa.THRESHOLDS["ine_matched_min"], ine.MIN_MATCHED)
+        self.assertEqual(qa.THRESHOLDS["eurostat_matched_min"],
+                         eurostat.MIN_MATCHED)
 
 
 class QaMainTest(RepoCase):

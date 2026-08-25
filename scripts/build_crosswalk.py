@@ -86,6 +86,16 @@ REVIEW_SAMPLE = 40
 # clause would feed whole titles in and quietly halve this. Margin is
 # for the catalogue growing and rewording, the way the QA floors work.
 MIN_MATCHED = 170
+# A plurality is not a finding. `operation` and `theme` are the most
+# common values across the candidate family, and the detail page prints
+# them unhedged as "Operação estatística do INE" — so on 38 of 212
+# entries the page asserted an attribution that under half the family
+# agreed with, one of them naming a health survey for a resident
+# population series (portugal/3018, share 0.447). Below this the field
+# is null and the page omits the row: the same rule the rest of the
+# matcher follows, one level down. Measured share distribution: median
+# 1.0, 38 entries under 0.5, minimum 0.231.
+MIN_SHARE = 0.5
 
 # The finest level INE publishes at. A municipal question needs a series
 # that reaches municipalities; a national one can be served by any level,
@@ -392,6 +402,14 @@ def entry_summary(row: dict, family: list[dict],
     sources = collections.Counter(e["source"] for e in family)
     theme, theme_n = themes.most_common(1)[0]
     source, source_n = sources.most_common(1)[0]
+    theme_share = theme_n / len(family)
+    source_share = source_n / len(family)
+    # kept as evidence either way; nulled as a *claim* when the family
+    # does not support it
+    if source_share < MIN_SHARE:
+        source = None
+    if theme_share < MIN_SHARE:
+        theme = None
     target = normalised_title(phrase_of(row, categories))
     exact = [e["id"] for e in family if normalised_title(e["title"]) == target]
     stored = family[:MAX_STORED]
@@ -407,9 +425,9 @@ def entry_summary(row: dict, family: list[dict],
         "exact_title": [i for i in exact if i in stored_ids],
         "n_exact": len(exact),
         "operation": source,
-        "operation_share": round(source_n / len(family), 3),
+        "operation_share": round(source_share, 3),
         "theme": theme,
-        "theme_share": round(theme_n / len(family), 3),
+        "theme_share": round(theme_share, 3),
         "subthemes": sorted({e["subtheme"] for e in family})[:10],
         "geo_levels": sorted({e["geo"] for e in family}),
         "periodicities": sorted({e["periodicity"] for e in family}),

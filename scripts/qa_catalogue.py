@@ -100,6 +100,15 @@ THRESHOLDS = {
     # stay page-less indefinitely with nothing re-checking. This is a
     # filesystem comparison, which means it runs on *every* path.
     "detail_pages_missing_max": 0,
+    # `name_en` is derived entirely from one regex over the `/en/` slug,
+    # and that URL shape has already broken once (205 wrong names). It
+    # drives the card title in every non-PT language, a quarter of the
+    # search haystack, and JSON-LD `alternateName` — and nothing gated
+    # it: rewriting `/en/` to `/en-gb/` gives 0 of 2,195 names with the
+    # gate still green. Per-area as well as overall, because rewriting
+    # only `/en/municipalities/` loses 504 names and a catalogue-wide
+    # mean does not notice. Measured: 99.9% overall.
+    "name_en_coverage_min": 0.98,
     # The crosswalks' own floors abort their builders, but only on the
     # runs where those builders execute. Registered here too so the claim
     # `EUROSTAT-QA.md` makes — "gated at qa_catalogue.py --strict" — is
@@ -168,6 +177,14 @@ PER_AREA_THRESHOLDS = {
     # selector that fails on one template gets named.
     "question_ratio": {"portugal": 0.0, "europa": 0.0, "municipios": 0.0},
     "period_ratio": {"portugal": 0.0, "europa": 0.0, "municipios": 0.0},
+    # Per-area because the failure is per-area: the `/en` slug carries
+    # the area in it (`portugal` / `municipalities` / `europe`), so a
+    # rename breaks one template and leaves the other two at 100%.
+    # Rewriting only `/en/municipalities/` loses 504 names while the
+    # catalogue-wide mean stays at 77% — comfortably over any floor
+    # worth setting. Measured: 100 / 100 / 99.7.
+    "name_en_coverage": {"portugal": 0.97, "europa": 0.97,
+                         "municipios": 0.97},
     "breakdown_ratio": {"portugal": 0.50, "europa": 0.44,
                         "municipios": 0.55},
 }
@@ -485,6 +502,11 @@ def main(strict: bool = False) -> None:
     if published:
         metrics["orgs_coverage"] = (
             sum(1 for r in published if r.get("orgs")) / len(published))
+        metrics["name_en_coverage"] = coverage(published, "name_en")
+        metrics["name_en_coverage_by_area"] = {
+            area: coverage([r for r in published if r.get("area") == area],
+                           "name_en")
+            for area in sorted({r.get("area") for r in published if r.get("area")})}
         metrics["distinct_orgs"] = len(
             {o for r in published for o in r.get("orgs", [])})
         # Only when there is a published catalogue to compare against: on

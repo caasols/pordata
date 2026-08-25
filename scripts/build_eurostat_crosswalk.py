@@ -312,9 +312,12 @@ def qa_report(stats: dict) -> str:
     return "\n".join([
         "# Eurostat crosswalk QA",
         "",
-        "Rebuilt by `scripts/build_eurostat_crosswalk.py` and gated at "
-        f"`qa_catalogue.py --strict` with a floor of {MIN_MATCHED} "
-        "matches. Offline and reproducible.",
+        "Rebuilt by `scripts/build_eurostat_crosswalk.py`, which refuses "
+        f"to overwrite this file below {MIN_MATCHED} matches — before "
+        "writing, so a collapsed build leaves the previous one in place. "
+        "`qa_catalogue.py --strict` re-checks the committed count as "
+        "`eurostat_matched_min`, which catches a crosswalk that shrank on "
+        "a run that never rebuilt it. Offline and reproducible.",
         "",
         "## Coverage",
         "",

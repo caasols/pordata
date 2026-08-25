@@ -1,6 +1,6 @@
 # Eurostat crosswalk QA
 
-Rebuilt by `scripts/build_eurostat_crosswalk.py` and gated at `qa_catalogue.py --strict` with a floor of 100 matches. Offline and reproducible.
+Rebuilt by `scripts/build_eurostat_crosswalk.py`, which refuses to overwrite this file below 100 matches — before writing, so a collapsed build leaves the previous one in place. `qa_catalogue.py --strict` re-checks the committed count as `eurostat_matched_min`, which catches a crosswalk that shrank on a run that never rebuilt it. Offline and reproducible.
 
 ## Coverage
 

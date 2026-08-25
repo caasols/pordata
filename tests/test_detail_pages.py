@@ -17,6 +17,7 @@ would look fine and be wrong.
 
 import json
 import pathlib
+import re
 import unittest
 from unittest import mock
 
@@ -44,6 +45,14 @@ def entry(**over):
             "confidence": "exact"}
     base.update(over)
     return base
+
+
+TABLES = d.unit_tables()
+
+
+def ld(r=None, e=None):
+    """json_ld with the shared vocabulary the builder loads once."""
+    return json.loads(d.json_ld(r or row(), e, TABLES))
 
 
 def eurostat_entry(**over):
@@ -282,22 +291,29 @@ class EurostatProvenanceTest(unittest.TestCase):
 
 class StructuredDataTest(unittest.TestCase):
     def test_each_page_describes_itself_as_a_dataset(self):
-        data = json.loads(d.json_ld(row(), None))
+        data = ld(row(), None)
         self.assertEqual(data["@type"], "Dataset")
         self.assertEqual(data["name"], "Taxa de natalidade")
         self.assertIn("pordata.pt", data["isBasedOn"][0])
 
     def test_the_provider_is_the_ine_operation_when_one_is_known(self):
-        data = json.loads(d.json_ld(row(), entry()))
+        data = ld(row(), entry())
         self.assertEqual(data["provider"]["name"], "INE, Censos 2021")
 
     def test_an_unmatched_row_claims_no_provider(self):
-        self.assertNotIn("provider", json.loads(d.json_ld(row(), None)))
+        self.assertNotIn("provider", ld(row(), None))
+
+    def test_the_measured_variable_survives_a_missing_unit(self):
+        """It names the indicator, which is known whether or not the unit
+        is — only `unitText` depends on the unit."""
+        data = ld(row(name_en="", unit=""), None)
+        self.assertEqual(data["variableMeasured"]["name"],
+                         "Taxa de natalidade")
+        self.assertNotIn("unitText", data["variableMeasured"])
 
     def test_empty_fields_are_omitted_rather_than_serialised_as_null(self):
-        data = json.loads(d.json_ld(row(name_en="", unit=""), None))
+        data = ld(row(name_en="", unit=""), None)
         self.assertNotIn("alternateName", data)
-        self.assertNotIn("variableMeasured", data)
 
     def test_the_json_ld_block_is_valid_json_in_the_page(self):
         html = render(e=entry())
@@ -336,6 +352,64 @@ class ProviderTest(unittest.TestCase):
                       html)
 
 
+class RequiredStructuredDataTest(unittest.TestCase):
+    """What must be present, enumerated.
+
+    The previous shape asserted four properties that *were* present and
+    never said what a Dataset needs, which is a shape that can only ever
+    catch a corruption and never an omission — all 2,195 blocks shipped
+    without `description` (which Google requires for eligibility at all)
+    and without `license`, on pages pre-rendered specifically to be
+    machine-readable."""
+
+    REQUIRED = ["@context", "@type", "name", "description", "url",
+                "license", "isBasedOn", "creator", "spatialCoverage",
+                "variableMeasured", "isAccessibleForFree"]
+
+    @staticmethod
+    def block(**over):
+        html = render(**over)
+        raw = re.search(r'application/ld\+json">(.*?)</script>', html, re.S)
+        return json.loads(raw.group(1).replace("\\u003c", "<")
+                          .replace("\\u003e", ">"))
+
+    def test_every_required_key_is_present(self):
+        data = self.block()
+        for key in self.REQUIRED:
+            self.assertIn(key, data)
+
+    def test_a_row_with_no_unit_still_carries_every_required_key(self):
+        """The sparse row is where an omission hides."""
+        bare = row(unit="", name_en="", breakdown="", fontes=[])
+        data = self.block(r=bare)
+        for key in self.REQUIRED:
+            self.assertIn(key, data)
+
+    def test_the_measured_variable_is_the_indicator_not_its_unit(self):
+        """Assigning the unit directly told crawlers the measured
+        variable was "Indivíduo" or "%" on 1,138 pages."""
+        data = self.block(r=row(unit="Indivíduo"))
+        self.assertEqual(data["variableMeasured"]["@type"], "PropertyValue")
+        self.assertEqual(data["variableMeasured"]["name"], "Taxa de natalidade")
+        self.assertEqual(data["variableMeasured"]["unitText"], "Indivíduo")
+
+    def test_the_licence_is_the_one_the_catalogue_ships_under(self):
+        self.assertEqual(self.block()["license"],
+                         "https://creativecommons.org/licenses/by/4.0/")
+
+    def test_the_description_names_the_area_and_the_sources(self):
+        data = self.block()
+        self.assertIn("Portugal", data["description"])
+        self.assertIn("INE", data["description"])
+
+    def test_the_description_does_not_reuse_pordatas_seo_template(self):
+        """96.3% of PORDATA's descriptions are the same template, so
+        copying it would add nothing a crawler can use."""
+        data = self.block(r=row(description="Conheça as estatísticas "
+                                            "atualizadas de X na Y."))
+        self.assertNotIn("Conheça as estatísticas", data["description"])
+
+
 class EscapingTest(unittest.TestCase):
     """Every value here came out of someone else's HTML."""
 
@@ -363,7 +437,7 @@ class ScriptContextTest(unittest.TestCase):
     escaped and this block was not."""
 
     def test_a_name_cannot_close_the_script_element(self):
-        payload = d.json_ld(row(name="x </script><img src=q onerror=1>"), None)
+        payload = d.json_ld(row(name="x </script><img src=q onerror=1>"), None, TABLES)
         self.assertNotIn("</script>", payload)
         self.assertNotIn("<img", payload)
 
@@ -371,7 +445,7 @@ class ScriptContextTest(unittest.TestCase):
         """Escaping that changed the data would trade one bug for
         another: the structured data is the machine-readable claim."""
         name = "x </script> y"
-        self.assertEqual(json.loads(d.json_ld(row(name=name), None))["name"],
+        self.assertEqual(ld(row(name=name), None)["name"],
                          name)
 
     def test_line_separators_are_escaped_too(self):
@@ -669,6 +743,14 @@ class BuildTest(RepoCase):
                                   pathlib.Path("site/src/index.css"))
         patch.start()
         self.addCleanup(patch.stop)
+        pathlib.Path("site/src/lib").mkdir(parents=True)
+        pathlib.Path("site/src/lib/unit-terms.json").write_text(
+            json.dumps({"pt": {"m 3": "m³"}, "en": {"Milhões": "Millions"}}),
+            encoding="utf-8")
+        terms = mock.patch.object(
+            d, "UNIT_TERMS", pathlib.Path("site/src/lib/unit-terms.json"))
+        terms.start()
+        self.addCleanup(terms.stop)
         self.rows = [row(id=1, area="portugal"), row(id=1, area="municipios")]
         self.crosswalk = {"portugal/1": entry()}
 

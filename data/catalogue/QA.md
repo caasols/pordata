@@ -79,6 +79,8 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - featured_collisions: 0
 - featured_rows: 43
 - orgs_coverage: 0.9941
+- name_en_coverage: 1
+- name_en_coverage_by_area: europa 100%, municipios 100%, portugal 100%
 - distinct_orgs: 127
 - detail_pages_missing: 0
 - ine_matched: 212

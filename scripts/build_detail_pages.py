@@ -353,6 +353,50 @@ def raw_both(key: str) -> str:
     return f'<span data-pt>{pt}</span><span data-en>{en}</span>'
 
 
+UNIT_TERMS = pathlib.Path("site/src/lib/unit-terms.json")
+UNIT_SEPARATOR = " - "
+
+
+def unit_tables() -> dict:
+    """The same vocabulary the SPA renders from.
+
+    Read rather than reimplemented, and read from the file the SPA
+    imports and `qa_catalogue.py` gates against, because a second copy is
+    a second thing to keep true. The page and the card disagreed on
+    1,111 rows for an English reader — `m³ - Millions` on the card,
+    `m 3 - Milhões` on the page it opens — which is a contradiction one
+    click apart on the canonical URL people share."""
+    return json.loads(UNIT_TERMS.read_text(encoding="utf-8"))
+
+
+def format_unit(unit: str, lang: str, tables: dict) -> str:
+    """A port of `site/src/lib/units.ts formatUnit`.
+
+    Portuguese passes through its table too: those entries are repairs,
+    not translations — the chart caption loses superscripts, so `m 3` is
+    wrong in Portuguese as well. An unknown term falls back rather than
+    blanking."""
+    if not unit:
+        return ""
+    table = tables.get(lang) or {}
+    repair = tables.get("pt") or {}
+    parts = [p.strip() for p in unit.split(UNIT_SEPARATOR) if p.strip()]
+    return UNIT_SEPARATOR.join(table.get(p) or repair.get(p) or p
+                               for p in parts)
+
+
+def unit_cell(unit: str, tables: dict) -> str:
+    """The unit in both languages, so the switch reaches it like every
+    other visible string."""
+    if not unit:
+        return ""
+    pt = esc(format_unit(unit, "pt", tables))
+    en = esc(format_unit(unit, "en", tables))
+    if pt == en:
+        return pt
+    return f'<span data-pt>{pt}</span><span data-en>{en}</span>'
+
+
 def field(key: str, value: str, wide: bool = False) -> str:
     """One cell — label above value, exactly like the card's `Meta`, and
     **always rendered**.
@@ -383,7 +427,31 @@ def page_url(row: dict) -> str:
     return f"{SITE}/indicador/{row['area']}/{row['id']}/"
 
 
-def json_ld(row: dict, entry: dict | None) -> str:
+def dataset_description(row: dict, tables: dict) -> str:
+    """A sentence built from fields already in hand.
+
+    Google requires `description` for a Dataset to be eligible at all,
+    and all 2,195 blocks omitted it — on pages whose stated reason for
+    being pre-rendered is machine discoverability. Synthesised rather
+    than invented: every clause is a field, so it cannot say more than
+    the catalogue knows. PORDATA's own `description` is not used — 96.3%
+    of them are its SEO template."""
+    name = row.get("title") or row.get("name") or ""
+    area = AREA_LABELS.get(row["area"], (row["area"],))[0]
+    parts = [f"{name} — {area}."]
+    if row.get("breakdown"):
+        parts.append(f"Cobertura: {row['breakdown']}.")
+    unit = format_unit(row.get("unit") or "", "pt", tables)
+    if unit:
+        parts.append(f"Unidade: {unit}.")
+    if row.get("fontes"):
+        parts.append(f"Fontes: {', '.join(row['fontes'])}.")
+    parts.append("Metadados apenas; os valores estão na PORDATA e nas "
+                 "fontes oficiais.")
+    return " ".join(parts)
+
+
+def json_ld(row: dict, entry: dict | None, tables: dict) -> str:
     """A `Dataset` per indicator.
 
     `isBasedOn` points at PORDATA's page and, where the crosswalk is
@@ -398,19 +466,38 @@ def json_ld(row: dict, entry: dict | None) -> str:
         route = (EUROSTAT_BROWSER if entry.get("source") == "Eurostat"
                  else INE_PAGE)
         based_on += [route.format(i) for i in entry.get("exact_title", [])]
+    # The variable measured is the indicator; the unit is a property of
+    # it. Assigning the unit directly told crawlers the measured variable
+    # was "Indivíduo" or "%" on 1,138 pages.
+    measured = {
+        "@type": "PropertyValue",
+        "name": row.get("title") or row.get("name"),
+    }
+    unit = format_unit(row.get("unit") or "", "pt", tables)
+    if unit:
+        measured["unitText"] = unit
     data = {
         "@context": "https://schema.org",
         "@type": "Dataset",
         "name": row.get("title") or row.get("name"),
         "alternateName": row.get("name_en") or None,
+        "description": dataset_description(row, tables),
         "url": page_url(row),
         "isBasedOn": based_on,
         "creator": {"@type": "Organization", "name": "PORDATA"},
+        # The metadata on this page is the thing being licensed, and it
+        # is the same CC BY 4.0 the catalogue ships under. Stating it
+        # here rather than only in a file makes it machine-readable,
+        # which is the whole argument for pre-rendering these.
+        "license": "https://creativecommons.org/licenses/by/4.0/",
         "spatialCoverage": AREA_LABELS.get(row["area"], (row["area"],))[0],
         "dateModified": row.get("ultima_atualizacao") or None,
-        "variableMeasured": row.get("unit") or None,
+        "variableMeasured": measured,
         "isAccessibleForFree": True,
     }
+    keywords = [AREA_LABELS.get(row["area"], (row["area"],))[0]]
+    keywords += [o for o in (row.get("orgs") or [])]
+    data["keywords"] = keywords
     # `operation` is INE's field and Eurostat entries have no equivalent,
     # so naming the provider from it emitted `{"name": null}` on every
     # europa page. A provider without a name is not a provider.
@@ -514,13 +601,15 @@ def eurostat_provenance(entry: dict) -> str:
         f'<div class="meta">'
         + field("theme", esc(entry.get("theme")), wide=True)
         + field("period", esc(", ".join(entry.get("period") or [])))
-        + field("unit", esc(entry.get("unit")))
+        + field("unit", unit_cell(entry.get("unit") or "", unit_tables()))
         + f'</div>{caveat}<h3>{both("datasets")}</h3>'
         f'<p class="why">{raw_both("datasetsWhy")}</p>'
         f'<ol class="series">{rows}</ol>{more}</div>')
 
 
-def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
+def render(row: dict, entry: dict | None, titles: dict, css_ref: str,
+           tables: dict | None = None) -> str:
+    tables = unit_tables() if tables is None else tables
     title = row.get("title") or row.get("name") or ""
     coverage = row.get("breakdown") or ""
     area_pt, area_en = AREA_LABELS.get(row["area"], (row["area"], row["area"]))
@@ -549,7 +638,7 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 {FONT_LINKS}
 <link rel="stylesheet" href="{css_ref}">
 {BOOT}
-<script type="application/ld+json">{json_ld(row, entry)}</script>
+<script type="application/ld+json">{json_ld(row, entry, tables)}</script>
 </head>
 <body>
 <main>
@@ -560,7 +649,7 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 <div class="card"><div class="meta">
 {field("sources", esc(sources), wide=True)}
 {field("updated", esc(row.get("ultima_atualizacao")))}
-{field("unit", esc(row.get("unit")))}
+{field("unit", unit_cell(row.get("unit") or "", tables))}
 {field("area", f'<span data-pt>{area_pt}</span><span data-en>{area_en}</span>')}
 {field("nameEn", esc(row.get("name_en")), wide=True)}
 </div></div>
@@ -607,6 +696,7 @@ def build(rows: list, crosswalk: dict, titles: dict,
           root: pathlib.Path = None) -> dict:
     out = root or OUT_ROOT
     css = theme_tokens() + STYLESHEET
+    tables = unit_tables()
     digest = hashlib.sha256(css.encode("utf-8")).hexdigest()[:8]
     written = int(write_if_changed(out / "style.css", css))
     stats = {"pages": 0, "written": written, "with_crosswalk": 0,
@@ -614,7 +704,8 @@ def build(rows: list, crosswalk: dict, titles: dict,
     for row in rows:
         entry = crosswalk.get(f"{row['area']}/{row['id']}")
         # ../../style.css from indicador/<area>/<id>/index.html
-        html_text = render(row, entry, titles, f"../../style.css?v={digest}")
+        html_text = render(row, entry, titles, f"../../style.css?v={digest}",
+                           tables)
         stats["pages"] += 1
         stats["with_crosswalk"] += 1 if entry else 0
         if entry:

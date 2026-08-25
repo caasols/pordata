@@ -2675,7 +2675,7 @@
   ],
   "n_candidates": 5,
   "n_exact": 4,
-  "operation": "INE, Recenseamento da população e habitação - Censos 2021",
+  "operation": null,
   "operation_share": 0.4,
   "periodicities": [
    "Decenal"
@@ -3176,7 +3176,7 @@
   ],
   "n_candidates": 27,
   "n_exact": 5,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.37,
   "periodicities": [
    "Anual",
@@ -3552,7 +3552,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -3916,7 +3916,7 @@
   ],
   "n_candidates": 15,
   "n_exact": 0,
-  "operation": "INE, População estrangeira com estatuto legal de residente",
+  "operation": null,
   "operation_share": 0.4,
   "periodicities": [
    "Anual",
@@ -4129,7 +4129,7 @@
   ],
   "n_candidates": 20,
   "n_exact": 0,
-  "operation": "INE, Contas económicas regionais",
+  "operation": null,
   "operation_share": 0.35,
   "periodicities": [
    "Anual"
@@ -4140,7 +4140,7 @@
    "Emprego",
    "Proteção do ambiente"
   ],
-  "theme": "Mercado de trabalho",
+  "theme": null,
   "theme_share": 0.45,
   "truncated": false
  },
@@ -5044,7 +5044,7 @@
   ],
   "n_candidates": 18,
   "n_exact": 10,
-  "operation": "INE, Estimativas anuais da população residente",
+  "operation": null,
   "operation_share": 0.278,
   "periodicities": [
    "Anual",
@@ -5116,7 +5116,7 @@
   ],
   "n_candidates": 27,
   "n_exact": 5,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.37,
   "periodicities": [
    "Anual",
@@ -5181,7 +5181,7 @@
   ],
   "n_candidates": 83,
   "n_exact": 9,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.494,
   "periodicities": [
    "Anual",
@@ -5307,7 +5307,7 @@
   ],
   "n_candidates": 114,
   "n_exact": 18,
-  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation": null,
   "operation_share": 0.351,
   "periodicities": [
    "Anual",
@@ -5325,7 +5325,7 @@
    "Filiais de empresas estrangeiras",
    "Proteção do ambiente"
   ],
-  "theme": "Empresas",
+  "theme": null,
   "theme_share": 0.386,
   "truncated": true
  },
@@ -5388,7 +5388,7 @@
   ],
   "n_candidates": 114,
   "n_exact": 18,
-  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation": null,
   "operation_share": 0.351,
   "periodicities": [
    "Anual",
@@ -5406,7 +5406,7 @@
    "Filiais de empresas estrangeiras",
    "Proteção do ambiente"
   ],
-  "theme": "Empresas",
+  "theme": null,
   "theme_share": 0.386,
   "truncated": true
  },
@@ -5469,7 +5469,7 @@
   ],
   "n_candidates": 114,
   "n_exact": 18,
-  "operation": "INE, Estatísticas do comércio internacional de bens",
+  "operation": null,
   "operation_share": 0.351,
   "periodicities": [
    "Anual",
@@ -5487,7 +5487,7 @@
    "Filiais de empresas estrangeiras",
    "Proteção do ambiente"
   ],
-  "theme": "Empresas",
+  "theme": null,
   "theme_share": 0.386,
   "truncated": true
  },
@@ -5739,7 +5739,7 @@
   ],
   "n_candidates": 54,
   "n_exact": 0,
-  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation": null,
   "operation_share": 0.481,
   "periodicities": [
    "Anual"
@@ -5796,7 +5796,7 @@
   ],
   "n_candidates": 54,
   "n_exact": 0,
-  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation": null,
   "operation_share": 0.481,
   "periodicities": [
    "Anual"
@@ -5853,7 +5853,7 @@
   ],
   "n_candidates": 54,
   "n_exact": 0,
-  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation": null,
   "operation_share": 0.481,
   "periodicities": [
    "Anual"
@@ -5910,7 +5910,7 @@
   ],
   "n_candidates": 54,
   "n_exact": 0,
-  "operation": "INE, Sistema de contas integradas das empresas",
+  "operation": null,
   "operation_share": 0.481,
   "periodicities": [
    "Anual"
@@ -5973,7 +5973,7 @@
   ],
   "n_candidates": 27,
   "n_exact": 5,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.37,
   "periodicities": [
    "Anual",
@@ -6360,7 +6360,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -6503,7 +6503,7 @@
   ],
   "n_candidates": 590,
   "n_exact": 107,
-  "operation": "INE, Inquérito nacional de saúde",
+  "operation": null,
   "operation_share": 0.447,
   "periodicities": [
    "Anual",
@@ -6526,7 +6526,7 @@
    "Morbilidade",
    "Ordenamento do território"
   ],
-  "theme": "Saúde",
+  "theme": null,
   "theme_share": 0.461,
   "truncated": true
  },
@@ -6606,7 +6606,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -6865,7 +6865,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -7209,7 +7209,7 @@
   ],
   "n_candidates": 64,
   "n_exact": 53,
-  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation": null,
   "operation_share": 0.422,
   "periodicities": [
    "Anual",
@@ -7290,7 +7290,7 @@
   ],
   "n_candidates": 400,
   "n_exact": 132,
-  "operation": "INE, Estatísticas agrícolas de base",
+  "operation": null,
   "operation_share": 0.4,
   "periodicities": [
    "Bienal",
@@ -7541,7 +7541,7 @@
   ],
   "n_candidates": 251,
   "n_exact": 0,
-  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation": null,
   "operation_share": 0.231,
   "periodicities": [
    "Anual",
@@ -7632,7 +7632,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -7722,7 +7722,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -7919,7 +7919,7 @@
   ],
   "n_candidates": 56,
   "n_exact": 45,
-  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation": null,
   "operation_share": 0.464,
   "periodicities": [
    "Decenal",
@@ -7998,7 +7998,7 @@
   ],
   "n_candidates": 56,
   "n_exact": 45,
-  "operation": "INE, Recenseamento agrícola - séries históricas",
+  "operation": null,
   "operation_share": 0.464,
   "periodicities": [
    "Decenal",
@@ -8404,7 +8404,7 @@
   ],
   "n_candidates": 384,
   "n_exact": 34,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.49,
   "periodicities": [
    "Anual",
@@ -8516,7 +8516,7 @@
   ],
   "n_candidates": 83,
   "n_exact": 9,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.494,
   "periodicities": [
    "Anual",
@@ -8582,7 +8582,7 @@
   ],
   "n_candidates": 83,
   "n_exact": 9,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.494,
   "periodicities": [
    "Anual",
@@ -8831,7 +8831,7 @@
   ],
   "n_candidates": 83,
   "n_exact": 9,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.494,
   "periodicities": [
    "Anual",
@@ -8889,7 +8889,7 @@
   ],
   "n_candidates": 45,
   "n_exact": 3,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.4,
   "periodicities": [
    "Anual",
@@ -8957,7 +8957,7 @@
   ],
   "n_candidates": 83,
   "n_exact": 9,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.494,
   "periodicities": [
    "Anual",
@@ -9179,7 +9179,7 @@
   ],
   "n_candidates": 83,
   "n_exact": 9,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.494,
   "periodicities": [
    "Anual",
@@ -9238,7 +9238,7 @@
   ],
   "n_candidates": 45,
   "n_exact": 0,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.267,
   "periodicities": [
    "Anual",
@@ -9363,7 +9363,7 @@
   ],
   "n_candidates": 18,
   "n_exact": 10,
-  "operation": "INE, Estimativas anuais da população residente",
+  "operation": null,
   "operation_share": 0.278,
   "periodicities": [
    "Anual",
@@ -9470,7 +9470,7 @@
   ],
   "n_candidates": 34,
   "n_exact": 0,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.412,
   "periodicities": [
    "Anual",
@@ -9536,7 +9536,7 @@
   ],
   "n_candidates": 12,
   "n_exact": 0,
-  "operation": "INE, Inquérito ao emprego",
+  "operation": null,
   "operation_share": 0.333,
   "periodicities": [
    "Anual",
