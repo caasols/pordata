@@ -23,7 +23,13 @@ permissions:
   issues: write  # QA-gate breach opens an issue
 
 concurrency:
-  group: catalogue-harvest
+  # One group across every workflow that writes the derived artifacts —
+  # harvest, both catalogue refreshes and the featured rebuild all stage
+  # `docs/` or `data/crosswalk/`. They sat in four separate groups, so a
+  # manual dispatch overlapping the nightly could discard one side's work
+  # behind a red run that opens no issue. Serialised rather than
+  # cancelled: each of these produces something worth waiting for.
+  group: repo-data-write
   cancel-in-progress: false
 
 jobs:

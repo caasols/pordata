@@ -272,6 +272,46 @@ class PublishGateTest(unittest.TestCase):
                 self.assertIn(f"steps.{ident}.outputs", later,
                               f"{wf}:{name} never inspects {ident}")
 
+    def test_every_push_rebases_first(self):
+        """Six workflows write to one branch. `sitemap.yml` was the last
+        bare push — missed when harvest.yml gained its rebase and again
+        when spikes.yml was fixed — and it is the likeliest to collide,
+        since it can dispatch the harvester and then race the commit that
+        dispatch produces."""
+        for wf, name, job in self.jobs():
+            body = self.script(job)
+            if "git push" not in body:
+                continue
+            self.assertIn("git pull --rebase", body,
+                          f"{wf}:{name} pushes without rebasing first")
+
+    def test_two_workflows_do_not_stage_the_same_path(self):
+        """Or if they do, they share a concurrency group. Six of them
+        staged overlapping paths under six distinct groups."""
+        staged = {}
+        for wf, name, job in self.jobs():
+            paths = set()
+            for line in self.script(job).splitlines():
+                if line.strip().startswith("git add"):
+                    paths |= {p.rstrip("/") for p in
+                              line.split("git add", 1)[1].split()
+                              if not p.startswith("-") and p != "\\"}
+            if paths:
+                staged[wf] = (paths, load(WF_DIR / wf)
+                              .get("concurrency", {}).get("group"))
+        for a, (pa, ga) in staged.items():
+            for b, (pb, gb) in staged.items():
+                if a >= b:
+                    continue
+                overlap = {x for x in pa for y in pb
+                           if x == y or x.startswith(y + "/")
+                           or y.startswith(x + "/")}
+                if overlap:
+                    self.assertEqual(
+                        ga, gb,
+                        f"{a} and {b} both stage {sorted(overlap)} but sit "
+                        f"in different concurrency groups ({ga} / {gb})")
+
     def test_the_harvest_gate_runs_on_the_path_it_usually_takes(self):
         """The steady-state nightly finds no new records and used to exit
         the QA step before running it at all — so the one recurring job
@@ -346,6 +386,58 @@ class TriggerCoverageTest(unittest.TestCase):
         as though the coupling holds."""
         for path in self.also_copy():
             self.assertTrue((REPO / path).exists(), path)
+
+
+class MutationScopeTest(unittest.TestCase):
+    """A gate's own scope is a claim.
+
+    `paths_to_mutate` omitted `build_eurostat_crosswalk.py` — the newest
+    and least settled matcher — while the docs said "full mutation
+    testing on every push". Its INE sibling was listed and both sit at
+    99% line coverage, which is what made the gap invisible: the score
+    was computed over a denominator that excluded the risky part."""
+
+    # Scripts deliberately outside the mutation gate, each with a reason.
+    # Kept here rather than in setup.cfg so the reason has to be written
+    # down where the assertion can see it.
+    EXEMPT = {
+        "__init__.py": "package marker",
+        "fetch_ine_catalogue.py": "network fetcher, no unit tests",
+        "fetch_sitemap.py": "network fetcher, no unit tests",
+        "analyse_crosswalk.py": "one-shot measurement tool; output is a report",
+        "analyse_eurostat_crosswalk.py": "same",
+        "probe_ine_availability.py": "one sample a day; the log is the output",
+    }
+
+    @staticmethod
+    def mutated():
+        import configparser
+        parser = configparser.ConfigParser()
+        parser.read(REPO / "setup.cfg")
+        return {line.strip().split("/")[-1]
+                for line in parser["mutmut"]["paths_to_mutate"].splitlines()
+                if line.strip()}
+
+    def test_every_script_is_mutated_or_exempt_with_a_reason(self):
+        on_disk = {p.name for p in (REPO / "scripts").glob("*.py")
+                   if not p.name.startswith("spike_")}
+        for name in on_disk - self.mutated():
+            self.assertIn(name, self.EXEMPT,
+                          f"scripts/{name} is neither mutated nor exempt")
+
+    def test_the_exemption_list_names_files_that_exist(self):
+        """An entry excusing a script that was deleted or renamed
+        silently widens the exemption."""
+        for name in self.EXEMPT:
+            self.assertTrue((REPO / "scripts" / name).exists(), name)
+
+    def test_nothing_mutated_is_also_exempt(self):
+        self.assertEqual(self.mutated() & set(self.EXEMPT), set())
+
+    def test_both_crosswalk_builders_are_in_scope(self):
+        """The specific pairing that drifted: one sibling in, one out."""
+        self.assertIn("build_crosswalk.py", self.mutated())
+        self.assertIn("build_eurostat_crosswalk.py", self.mutated())
 
 
 class SiteBundleTest(unittest.TestCase):

@@ -1,0 +1,14 @@
+# CI tooling, pinned to the versions the gates were measured against.
+#
+# The scripts this repo actually runs stay on the standard library, so a
+# harvest never depends on an install step succeeding. These are for the
+# quality gates only — and they were unpinned, which means the 58%
+# mutation floor was measured against whatever mutmut resolved to that
+# morning. A gate whose threshold floats and whose tool floats too is
+# measuring the weather.
+#
+# Measured with these: 759 tests, 90% coverage, 65.4% mutation kill rate.
+coverage==7.15.4
+PyYAML==6.0.1
+mutmut==3.7.0
+pytest==9.1.1

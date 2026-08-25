@@ -11,7 +11,13 @@ permissions:
   contents: write
 
 concurrency:
-  group: ine-catalogue
+  # One group across every workflow that writes the derived artifacts —
+  # harvest, both catalogue refreshes and the featured rebuild all stage
+  # `docs/` or `data/crosswalk/`. They sat in four separate groups, so a
+  # manual dispatch overlapping the nightly could discard one side's work
+  # behind a red run that opens no issue. Serialised rather than
+  # cancelled: each of these produces something worth waiting for.
+  group: repo-data-write
   cancel-in-progress: false
 
 jobs:
@@ -40,7 +46,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ine/ data/crosswalk/ data/coverage/
+          # The three files this fetcher writes, not all of data/ine/:
+          # the daily availability probe owns availability.csv in
+          # the same directory, and a broad add makes two
+          # workflows writers of one file for no reason.
+          git add data/ine/catalogue.xml.gz data/ine/indicators.csv \
+                  data/ine/SUMMARY.md data/crosswalk/ data/coverage/
           if git diff --cached --quiet; then
             echo "No change."
           else

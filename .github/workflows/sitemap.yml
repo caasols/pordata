@@ -83,11 +83,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
+          # The three files this workflow actually writes, not all of
+          # data/. Six workflows stage overlapping paths under six
+          # distinct concurrency groups, so a broad `git add` here made
+          # this job a writer of the harvest's and the crosswalks'
+          # output too — a lock nobody wants, or a race nobody sees.
+          git add data/sitemap-urls.txt data/sitemap-lastmod.tsv \
+                  data/CHANGELOG.md
           if git diff --cached --quiet; then
             echo "Nothing staged; skipping commit."
           else
             git commit -m "data: sitemap snapshot $(date -u +%Y-%m-%d) (+${{ steps.diff.outputs.added }} -${{ steps.diff.outputs.removed }} ~${{ steps.diff.outputs.updated }})"
+            # The last bare push in the repo. harvest.yml has rebased
+            # since it was written and spikes.yml was fixed in 3fabbc9;
+            # this one was missed both times, and it is the workflow most
+            # likely to collide, since it can dispatch the harvester and
+            # then race the commit it triggers.
+            git pull --rebase origin "${GITHUB_REF_NAME}"
             git push
           fi
 

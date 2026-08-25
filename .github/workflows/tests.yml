@@ -36,6 +36,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      # `pordata_lib` uses `datetime.UTC`, which is 3.11+, and nothing
+      # declared a version anywhere — the runner's default was the only
+      # thing keeping this working.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Run unit tests with coverage
         # spike_*, fetch_ine_catalogue and fetch_sitemap are network
@@ -44,7 +50,7 @@ jobs:
         # repo actually runs stay on the standard library, so a harvest
         # never depends on an install step succeeding.
         run: |
-          pip install --quiet coverage pyyaml
+          pip install --quiet -r requirements-dev.txt
           coverage run --source=scripts -m unittest discover -s tests -v
           coverage report -m \
             --omit="scripts/spike_*,scripts/fetch_ine_catalogue.py,scripts/fetch_sitemap.py,scripts/__init__.py" \
@@ -71,7 +77,7 @@ jobs:
         # normal, so its status is ignored and the floor is enforced by
         # mutation_gate.py reading the tallies from the run log.
         run: |
-          pip install --quiet mutmut pytest
+          pip install --quiet -r requirements-dev.txt
           python3 -m mutmut run > mutmut-run.log 2>&1 || true
           {
             echo "## Mutation testing (mutmut)"
@@ -85,3 +91,38 @@ jobs:
             echo "</details>"
           } >> "$GITHUB_STEP_SUMMARY"
           python3 scripts/mutation_gate.py mutmut-run.log
+
+  # Every Python-generated artifact rebuilds byte-identically from a
+  # clean checkout — measured, and asserted nowhere until now. The
+  # committed `docs/indicador/` had no equivalent of site.yml's
+  # bundle-freshness check, so the repo could hold a crosswalk and a page
+  # set that disagreed, with the pages being what visitors and crawlers
+  # see, while `--strict` reported "every row has a page".
+  reproducibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebuild every derived artifact
+        run: |
+          python3 scripts/build_catalogue.py
+          python3 scripts/build_crosswalk.py
+          python3 scripts/build_eurostat_crosswalk.py
+          python3 scripts/coverage_gap.py
+          python3 scripts/build_detail_pages.py --strict
+
+      - name: The committed artifacts match what the builders produce
+        run: |
+          # stats.json carries a build timestamp and is expected to move.
+          git checkout -- docs/data/stats.json
+          if git diff --quiet; then
+            echo "Every derived artifact reproduces byte-identically."
+          else
+            echo "::error::Committed artifacts do not match a fresh build"
+            git diff --stat
+            exit 1
+          fi
