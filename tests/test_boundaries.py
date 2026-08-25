@@ -256,3 +256,36 @@ class RefutedPremiseTest(unittest.TestCase):
                 self.PATTERN.search(text),
                 f"{path.name} still says europa has neither period "
                 "mechanism; the spike's own table refutes it")
+
+
+class SpikeCorrectionTest(unittest.TestCase):
+    """A spike report older than the code it describes needs saying so.
+
+    Three did. `a6-page-inventory.md` records "none matched" for a
+    selector fixed seven minutes after the report was written;
+    `a3-coverage-fields.md` records a marker count of 0 that was a false
+    negative from matching a literal against entity-encoded HTML;
+    `europa-period.md` opened with a conclusion its own table refuted.
+    A stale spike is not harmless — each of these propagated into
+    CLAUDE.md or a roadmap item as a settled fact."""
+
+    STALE = {
+        "a6-page-inventory.md": "the h2 selector was fixed after this ran",
+        "a3-coverage-fields.md": "the marker count was a false negative",
+        "europa-period.md": "the opening sentence contradicted its table",
+    }
+
+    def test_each_known_stale_report_carries_a_correction(self):
+        root = pathlib.Path(__file__).resolve().parents[1] / "data" / "spikes"
+        for name, why in self.STALE.items():
+            path = root / name
+            if not path.exists():
+                continue
+            self.assertIn(
+                "Correction", path.read_text(encoding="utf-8")[:2000],
+                f"{name} is known stale ({why}) and carries no correction")
+
+    def test_the_list_names_reports_that_exist(self):
+        root = pathlib.Path(__file__).resolve().parents[1] / "data" / "spikes"
+        for name in self.STALE:
+            self.assertTrue((root / name).exists(), name)

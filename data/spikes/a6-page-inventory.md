@@ -1,5 +1,7 @@
 # Spike A6 - full page inventory
 
+> **Correction, 2026-08-25.** The two "none matched" lines below are stale. The `<h2>` question selector was fixed in `8eaa9d2` at 13:37, seven minutes *after* this report was generated (`c8d706a`, 13:30), so the report records the pre-fix run while its own repeated-blocks lists show the questions present. The corrected figure is **15/15**, which is what CLAUDE.md and context.md cite; re-run the a6 probe to regenerate this file against the fixed parser.
+
 Two fields were discovered *after* the harvest that could have been captured during it (the unit caption, the period), and the owner spotted a third: the plain-language **question** under each title. Raw HTML is not stored, so each late discovery costs another full fetch.
 
 So this does not search for questions. It inventories every text-bearing element by tag and class, so the next reader sees what is on the page rather than what someone thought to look for. Item 21 fires once "what else should we pull off these pages?" stops changing; this is how that gets answered.

@@ -1,5 +1,7 @@
 # Spike A3 - period, geography and unit in the page HTML
 
+> **Correction, 2026-08-25.** The `A carregar conteúdo: 0` counts below are a false negative, not a result. This probe matched a literal string against entity-encoded HTML, so the marker could not have been found whether or not it was there; spike A6 later found it. CLAUDE.md names this as a standing lesson — check a "0 occurrences" result before believing it — and the killed-hypothesis reading that came from these lines is withdrawn.
+
 Roadmap 19. Answers whether a re-harvest can recover the coverage fields the card is missing, or whether they have to come from upstream instead.
 
 Structure and counts only - no PORDATA cell values are extracted or recorded here (decision 1). Raw HTML is a workflow artifact, never committed.
