@@ -268,6 +268,34 @@ def recoverable_from_windows(rec: dict, field: str) -> bool:
     return False
 
 
+# Thresholds whose metric is legitimately absent on some runs, each for
+# a named reason. Everything else missing is a breach: a threshold that
+# quietly skips when its metric is misspelled or renamed disarms exactly
+# the check someone thought they were adding.
+OPTIONAL_METRICS = {
+    # measured from the built bundle, which a data-only run has not built
+    "first_load_gzip_kb", "catalogue_gzip_kb",
+    # written by their own builders; absent before the first run of each
+    "ine_matched", "eurostat_matched",
+}
+
+
+def unmeasured_thresholds(metrics: dict) -> list[str]:
+    """Thresholds with no metric behind them, on a full run.
+
+    Separate from `gate` on purpose: `gate` is a pure comparison and
+    callers legitimately hand it one metric at a time, so an absent value
+    there means "not asked about". Only `main` knows it measured
+    everything — and there a threshold whose metric never arrives is a
+    check somebody thought they added. A rename or a typo on either side
+    disarms it in silence, which is how the rest of this audit's findings
+    happened."""
+    return sorted(
+        key for key in THRESHOLDS
+        if key.rsplit("_", 1)[0] not in OPTIONAL_METRICS
+        and metrics.get(key.rsplit("_", 1)[0]) is None)
+
+
 def gate(metrics: dict) -> list[str]:
     """Compare measured metrics against THRESHOLDS and, for markup-parsed
     fields, against PER_AREA_THRESHOLDS; return breaches."""
@@ -539,6 +567,14 @@ def main(strict: bool = False) -> None:
                   f"(ceiling {THRESHOLDS['catalogue_gzip_kb_max']})"]
 
     breaches = gate(metrics)
+    # Only when there is a published catalogue: most metrics are derived
+    # from it, so on a run without one "not measured" is the truth rather
+    # than a disarmed check.
+    unmeasured = unmeasured_thresholds(metrics) if published else []
+    if unmeasured:
+        breaches += [f"{k}: set, but its metric was never measured — a "
+                     "threshold nothing feeds gates nothing"
+                     for k in unmeasured]
     lines += ["", "## Gate", "",
               "Thresholds are machine-checked (decision 7b); `--strict` "
               "exits non-zero on breach so a bad harvest never publishes.", ""]

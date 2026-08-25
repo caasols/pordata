@@ -6,7 +6,7 @@ Rebuilt by `scripts/coverage_gap.py`. **This is a selection, not an inventory.**
 
 The **series-level** complement is not computable and is not attempted. The crosswalk names 1069 of 13084 INE ids (8.2%) because it refuses rather than guesses, so subtracting it from INE's catalogue would present some twelve thousand series as "missing" when most are indicators PORDATA covers under a name the matcher declines to claim. That number would be enormous, precise and wrong.
 
-The unit here is the **concept**: a content word INE uses that none of PORDATA's 2195 indicator names uses once (2687 distinct words, PT and EN). That question survives a matcher with a quarter of the recall, because it asks whether PORDATA has *any* indicator touching a subject.
+The unit here is the **concept**: a content word INE uses that none of PORDATA's 2196 indicator names uses once (2687 distinct words, PT and EN). That question survives a matcher with a quarter of the recall, because it asks whether PORDATA has *any* indicator touching a subject.
 
 Ranked by how many **distinct** INE indicators use the word, not by series count: INE republishes one title across geographies and vintages, so a series count measures how widely a title was cut rather than how much INE has to say. Distinct titles are its own investment in the subject, the closest thing to demand available before the ledger (item 3) exists. Floor of 8 series; 302 concepts clear it, and the 40 largest are below.
 

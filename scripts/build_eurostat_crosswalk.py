@@ -248,14 +248,27 @@ def entry_summary(row: dict, family: list[dict], filter_hint: str) -> dict:
         "titles": {d["code"]: d["title"] for d in stored},
         "theme": theme,
         "theme_share": round(theme_n / len(family), 3) if family else 0.0,
+        # Over the whole family, not the stored slice. Every other
+        # whole-family statistic here (`theme`, `theme_share`,
+        # `n_candidates`, `n_exact`) already is, and this one silently
+        # was not: europa/2970 has 73 candidates and published 2016-2023
+        # against a family spanning 2007-2024.
         "period": sorted({f"{d['data_start']}-{d['data_end']}"
-                          for d in stored if d["data_start"]}),
+                          for d in family if d["data_start"]}),
         # NOT a satisfied filter. The catalogue carries titles, not
         # dimension names, so whether a candidate cube can be sliced this
         # way is unknown offline and item 14 must resolve it or refuse.
         "filter": filter_hint,
         "filter_resolved": False,
-        "unit": row.get("unit", ""),
+        # PORDATA's unit, named as PORDATA's. It sat here as plain
+        # `unit` and the detail page rendered it between the
+        # Eurostat-derived theme and period, so the panel headed "where
+        # the numbers come from" presented our own field as upstream
+        # provenance — on the one panel that gets `filter_resolved`
+        # right on the adjacent line. Eurostat carries the unit as a
+        # dimension, so there is nothing upstream to compare it against
+        # until the filter resolves.
+        "wanted_unit": row.get("unit", ""),
         # one dataset whose title is exactly the indicator's is the
         # strongest evidence available offline
         "confidence": ("exact" if exact

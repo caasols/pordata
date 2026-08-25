@@ -1,6 +1,7 @@
 import json
 import pathlib
 import unittest
+from unittest import mock
 
 from helpers import PT, RepoCase, load_script, record
 
@@ -419,3 +420,77 @@ class SourceOrganisationTest(unittest.TestCase):
     def test_no_sources_gives_no_organisations(self):
         self.assertEqual(b.source_orgs([]), [])
         self.assertEqual(b.source_orgs([""]), [])
+
+
+class TombstoneTest(RepoCase):
+    """A page abandoned upstream becomes a row saying so.
+
+    This path had never run. `if "error" in rec: continue` came before
+    the `removed` branch, and the one abandoned record carries no `id`
+    or `area` to key on — so the catalogue went 2,196 to 2,195 with no
+    machine-readable trace, which is the outcome the docstring says the
+    tombstone exists to prevent. A render path across three files and
+    six languages had never fired either.
+    """
+
+    URL = ("https://www.pordata.pt/portugal/despesas+das+administracoes"
+           "+publicas+em+ambiente-1221")
+
+    def setUp(self):
+        super().setUp()
+        pathlib.Path("data/catalogue").mkdir(parents=True, exist_ok=True)
+        pathlib.Path("data/catalogue/pages.jsonl").write_text(
+            json.dumps({"url": self.URL, "error": "HTTP Error 500",
+                        "harvested_at": "2026-08-23"}) + "\n",
+            encoding="utf-8")
+        pathlib.Path("data/sitemap-urls.txt").write_text(
+            self.URL + "\n", encoding="utf-8")
+        pathlib.Path("data/catalogue/abandoned.txt").write_text(
+            "# dead upstream\n" + self.URL + "\n", encoding="utf-8")
+
+    def rows(self):
+        with mock.patch("builtins.print"):
+            b.main()
+        return json.loads(
+            pathlib.Path("docs/data/catalogue.json").read_text("utf-8"))
+
+    def test_an_abandoned_errored_record_is_published_as_removed(self):
+        rows = self.rows()
+        self.assertEqual(len(rows), 1)
+        self.assertIs(rows[0]["removed"], True)
+
+    def test_it_recovers_the_area_and_id_from_the_url(self):
+        row = self.rows()[0]
+        self.assertEqual(row["area"], "portugal")
+        self.assertEqual(row["id"], 1221)
+
+    def test_it_carries_a_name_derived_from_the_slug(self):
+        self.assertIn("espesas", self.rows()[0]["name"])
+
+    def test_an_errored_record_nobody_abandoned_is_still_skipped(self):
+        """Only a deliberate abandonment tombstones. A transient 500 is
+        retried next run and must not publish as withdrawn."""
+        pathlib.Path("data/catalogue/abandoned.txt").write_text(
+            "# none\n", encoding="utf-8")
+        self.assertEqual(self.rows(), [])
+
+
+class StripMarkupTest(unittest.TestCase):
+    def test_real_tags_are_removed(self):
+        self.assertEqual(b.strip_markup("<em>per capita</em> rendimento"),
+                         "per capita rendimento")
+
+    def test_sub_and_sup_digits_become_unicode(self):
+        self.assertEqual(b.strip_markup("CO<sub>2</sub>"), "CO₂")
+        self.assertEqual(b.strip_markup("km<sup>2</sup>"), "km²")
+
+    def test_a_comparison_operator_is_not_a_tag(self):
+        """`<[^>]+>` also ate everything between a bare less-than and the
+        next greater-than, so this came out as `PIB 2021)` — with no
+        shape validator on `name` to notice."""
+        self.assertEqual(b.strip_markup("PIB < 5% (2020 > 2021)"),
+                         "PIB < 5% (2020 > 2021)")
+
+    def test_a_lone_angle_bracket_survives(self):
+        self.assertEqual(b.strip_markup("a < b"), "a < b")
+        self.assertEqual(b.strip_markup("c > d"), "c > d")

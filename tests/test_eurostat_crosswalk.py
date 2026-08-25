@@ -241,6 +241,29 @@ class EntryTest(unittest.TestCase):
         self.assertEqual(got["exact_title"], [])
         self.assertEqual(got["n_exact"], 1)
 
+    def test_whole_family_statistics_ignore_the_stored_cap(self):
+        """`period` was computed over `family[:MAX_STORED]` while every
+        other whole-family figure used `family` — so europa/2970, with 73
+        candidates, published a span narrower than its own set."""
+        wide = [dataset(f"Population by dimension {n}", code=f"D{n}",
+                        start=str(1990 + n), end=str(2000 + n))
+                for n in range(x.MAX_STORED + 5)]
+        _head, tail = x.split_tail("Population", x.PORDATA_TAIL)
+        got = x.entry_summary(row("Population"), wide, tail)
+        self.assertEqual(got["n_candidates"], x.MAX_STORED + 5)
+        self.assertIn(f"{1990 + x.MAX_STORED + 4}-{2000 + x.MAX_STORED + 4}",
+                      got["period"])
+
+    def test_the_pordata_unit_is_named_as_pordatas(self):
+        """It sat here as plain `unit` and the detail page rendered it
+        between the Eurostat theme and period, so the panel headed "where
+        the numbers come from" showed our own field as upstream."""
+        _head, tail = x.split_tail("Crude divorce rate", x.PORDATA_TAIL)
+        got = x.entry_summary(row("Crude divorce rate", unit="Taxa"),
+                              [dataset("Crude divorce rate")], tail)
+        self.assertEqual(got["wanted_unit"], "Taxa")
+        self.assertNotIn("unit", got)
+
     def test_titles_are_stored_and_urls_are_not(self):
         """URLs are the code in a template — measured across all 7,572
         datasets — so storing them per candidate repeats the template."""

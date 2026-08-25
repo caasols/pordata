@@ -1,9 +1,12 @@
 """The mutation gate is itself gated: a scoring bug would either hide a
 regression or block every push, and both are worse than no gate."""
 
+import pathlib
+import sys
 import unittest
+from unittest import mock
 
-from helpers import load_script
+from helpers import RepoCase, load_script
 
 gate = load_script("mutation_gate")
 
@@ -97,3 +100,45 @@ class FloorTest(unittest.TestCase):
     def test_a_rate_below_the_floor_fails(self):
         self.assertLess(gate.kill_rate({"killed": 57, "survived": 43}),
                         gate.FLOOR)
+
+
+class VolumeFloorTest(RepoCase):
+    """A run where mutmut exercised nothing scores 1.0 by construction —
+    killed over killable with killable at zero — and printed "100.0%
+    killed … passes". That is exactly the state a missing `also_copy`
+    entry or a trigger that never fires produces, so the gate reported
+    perfect health for the failure it exists to catch. `mutmut run`'s own
+    exit status is discarded upstream by `|| true`, so this is the only
+    place that can notice."""
+
+    def run_gate(self, line):
+        log = pathlib.Path("run.log")
+        log.write_text(line, encoding="utf-8")
+        with mock.patch("builtins.print"), \
+                mock.patch.object(sys, "argv", ["x", str(log)]):
+            try:
+                gate.main()
+            except SystemExit as exit_info:
+                return exit_info.code or 0
+        return 0
+
+    def test_a_run_that_tested_nothing_fails(self):
+        self.assertEqual(
+            self.run_gate("x 🎉 0 🫥 250 ⏰ 0 🤔 0 🙁 0 🔇 0 🧙 0\n"), 1)
+
+    def test_a_handful_of_mutants_is_not_a_run(self):
+        self.assertEqual(
+            self.run_gate("x 🎉 9 🫥 0 ⏰ 0 🤔 0 🙁 1 🔇 0 🧙 0\n"), 1)
+
+    def test_a_real_run_above_the_floor_passes(self):
+        self.assertEqual(
+            self.run_gate("x 🎉 3595 🫥 186 ⏰ 0 🤔 0 🙁 1901 🔇 0 🧙 0\n"), 0)
+
+    def test_a_real_run_below_the_kill_floor_still_fails(self):
+        self.assertEqual(
+            self.run_gate("x 🎉 100 🫥 0 ⏰ 0 🤔 0 🙁 5000 🔇 0 🧙 0\n"), 1)
+
+    def test_the_volume_floor_sits_far_under_the_measured_run(self):
+        """It only has to separate "ran" from "did not run", so it never
+        needs re-baselining as the corpus grows."""
+        self.assertLess(gate.MIN_KILLABLE, 5000)

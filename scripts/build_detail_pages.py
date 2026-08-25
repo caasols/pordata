@@ -604,7 +604,6 @@ def eurostat_provenance(entry: dict) -> str:
         f'<div class="meta">'
         + field("theme", esc(entry.get("theme")), wide=True)
         + field("period", esc(", ".join(entry.get("period") or [])))
-        + field("unit", unit_cell(entry.get("unit") or "", unit_tables()))
         + f'</div>{caveat}<h3>{both("datasets")}</h3>'
         f'<p class="why">{raw_both("datasetsWhy")}</p>'
         f'<ol class="series">{rows}</ol>{more}</div>')

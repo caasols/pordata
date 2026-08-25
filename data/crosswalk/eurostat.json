@@ -24,7 +24,7 @@
    "TPS00199": "Total fertility rate"
   },
   "truncated": false,
-  "unit": "Indivíduo - Média"
+  "wanted_unit": "Indivíduo - Média"
  },
  "europa/1252": null,
  "europa/1253": null,
@@ -56,7 +56,7 @@
    "TPS00208": "Life expectancy at birth by sex"
   },
   "truncated": false,
-  "unit": "Ano (idade) - Média"
+  "wanted_unit": "Ano (idade) - Média"
  },
  "europa/1262": null,
  "europa/1264": {
@@ -87,7 +87,7 @@
    "DEMO_NMSTA2": "Marriages by previous legal union status of bride and groom"
   },
   "truncated": false,
-  "unit": "Registos"
+  "wanted_unit": "Registos"
  },
  "europa/1270": {
   "candidates": [
@@ -114,7 +114,7 @@
    "DEMO_NDIVDUR": "Divorces by duration of marriage (reached during the year)"
   },
   "truncated": false,
-  "unit": "Registos"
+  "wanted_unit": "Registos"
  },
  "europa/1271": null,
  "europa/1274": null,
@@ -154,7 +154,7 @@
    "HSW_N2_02": "Fatal Accidents at work by NACE Rev. 2 activity"
   },
   "truncated": false,
-  "unit": "Acidente de trabalho"
+  "wanted_unit": "Acidente de trabalho"
  },
  "europa/1315": null,
  "europa/1319": null,
@@ -193,7 +193,7 @@
    "TGS00064": "Available beds in hospitals by NUTS 2 region"
   },
   "truncated": false,
-  "unit": "Cama"
+  "wanted_unit": "Cama"
  },
  "europa/1335": null,
  "europa/1342": null,
@@ -222,7 +222,7 @@
    "EDUC_UOE_FINE08": "Public expenditure on education by education level and programme orientation - as % of public expenditure or % of GNI"
   },
   "truncated": false,
-  "unit": "PPC - Milhões"
+  "wanted_unit": "PPC - Milhões"
  },
  "europa/1352": null,
  "europa/1353": null,
@@ -270,7 +270,7 @@
    "TEN00124": "Final energy consumption by sector"
   },
   "truncated": false,
-  "unit": "tep (tonelada equivalente de petróleo) - Milhares"
+  "wanted_unit": "tep (tonelada equivalente de petróleo) - Milhares"
  },
  "europa/1402": null,
  "europa/1406": null,
@@ -315,7 +315,7 @@
    "TEN00123": "Final energy consumption by product"
   },
   "truncated": false,
-  "unit": "tep (tonelada equivalente de petróleo) - Milhares"
+  "wanted_unit": "tep (tonelada equivalente de petróleo) - Milhares"
  },
  "europa/1477": null,
  "europa/1478": null,
@@ -384,7 +384,7 @@
    "HLTH_DPEH040": "Population by sex, age, disability status and household type"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/1533": null,
  "europa/1535": null,
@@ -415,7 +415,7 @@
    "ILC_LVHO04H": "Average number of rooms per person by type of household and income group until 2001"
   },
   "truncated": false,
-  "unit": "Rácio"
+  "wanted_unit": "Rácio"
  },
  "europa/1537": null,
  "europa/1538": null,
@@ -446,7 +446,7 @@
    "SDG_17_40": "General government gross debt"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/1551": null,
  "europa/1553": null,
@@ -474,7 +474,7 @@
    "TPS00206": "Crude marriage rate"
   },
   "truncated": false,
-  "unit": "Taxa - ‰"
+  "wanted_unit": "Taxa - ‰"
  },
  "europa/1565": {
   "candidates": [
@@ -498,7 +498,7 @@
    "TPS00216": "Crude divorce rate"
   },
   "truncated": false,
-  "unit": "Taxa - ‰"
+  "wanted_unit": "Taxa - ‰"
  },
  "europa/1568": null,
  "europa/1570": null,
@@ -533,7 +533,7 @@
    "LFSQ_AGAN": "Labour force by citizenship - quarterly data"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1589": {
   "candidates": [
@@ -560,7 +560,7 @@
    "TPS00027": "Infant mortality rate"
   },
   "truncated": false,
-  "unit": "Taxa - ‰"
+  "wanted_unit": "Taxa - ‰"
  },
  "europa/1590": null,
  "europa/1592": null,
@@ -589,7 +589,7 @@
    "URT_LFE3EMP": "Employment by sex, age and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1598": null,
  "europa/1601": {
@@ -621,7 +621,7 @@
    "LFSI_EDUC_Q_H": "Employment by educational attainment level - quarterly data (1998–2020)"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1602": {
   "candidates": [
@@ -643,7 +643,7 @@
    "ENPS_LFSA_EGAPS": "Employment by professional status - ENP-South countries"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1603": null,
  "europa/1604": null,
@@ -703,7 +703,7 @@
    "LFST_HHNHWHTC": "Private households by household composition, number of children and labour status within households"
   },
   "truncated": false,
-  "unit": "Agregado doméstico privado - Milhares"
+  "wanted_unit": "Agregado doméstico privado - Milhares"
  },
  "europa/1615": {
   "candidates": [
@@ -730,7 +730,7 @@
    "LFST_HHNHWHTC": "Private households by household composition, number of children and labour status within households"
   },
   "truncated": false,
-  "unit": "Agregado doméstico privado - Milhares"
+  "wanted_unit": "Agregado doméstico privado - Milhares"
  },
  "europa/1616": null,
  "europa/1617": {
@@ -798,7 +798,7 @@
    "LFSQ_EEGAED": "Employees by educational attainment level - quarterly data"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1618": null,
  "europa/1619": null,
@@ -830,7 +830,7 @@
    "LFST_R_E2TGAEDNU": "Temporary employees by educational attainment level, citizenship and degree of urbanisation"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1622": null,
  "europa/1623": {
@@ -856,7 +856,7 @@
    "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1624": null,
  "europa/1625": {
@@ -882,7 +882,7 @@
    "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1626": null,
  "europa/1627": null,
@@ -934,7 +934,7 @@
    "LFST_HHNHWHTC": "Private households by household composition, number of children and labour status within households"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/1630": {
   "candidates": [
@@ -981,7 +981,7 @@
    "URT_LFU3PERS": "Unemployment by sex, age and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1633": null,
  "europa/1634": null,
@@ -1032,7 +1032,7 @@
    "ENPS_LFSA_EGAPS": "Employment by professional status - ENP-South countries"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1739": {
   "candidates": [
@@ -1054,7 +1054,7 @@
    "ENPS_LFSA_EGAPS": "Employment by professional status - ENP-South countries"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1740": null,
  "europa/1742": {
@@ -1080,7 +1080,7 @@
    "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1743": {
   "candidates": [
@@ -1105,7 +1105,7 @@
    "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1744": {
   "candidates": [
@@ -1130,7 +1130,7 @@
    "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1745": {
   "candidates": [
@@ -1155,7 +1155,7 @@
    "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1750": null,
  "europa/1751": null,
@@ -1181,7 +1181,7 @@
    "TEPSR_WC130": "Activity rate by sex"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/1755": null,
  "europa/1758": {
@@ -1210,7 +1210,7 @@
    "TIPSLM100": "Employment rate"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/1762": null,
  "europa/1763": null,
@@ -1262,7 +1262,7 @@
    "URT_LFU3PERS": "Unemployment by sex, age and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1798": null,
  "europa/1800": null,
@@ -1301,7 +1301,7 @@
    "URT_LFE3EMP": "Employment by sex, age and other typologies"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1865": null,
  "europa/1866": null,
@@ -1351,7 +1351,7 @@
    "URT_LFU3PERS": "Unemployment by sex, age and other typologies"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/1888": null,
  "europa/1913": null,
@@ -1380,7 +1380,7 @@
    "TEC00013": "Compensation of employees"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/1918": {
   "candidates": [
@@ -1407,7 +1407,7 @@
    "TEC00013": "Compensation of employees"
   },
   "truncated": false,
-  "unit": "PPC - Milhões"
+  "wanted_unit": "PPC - Milhões"
  },
  "europa/1925": null,
  "europa/1926": null,
@@ -1435,7 +1435,7 @@
    "TPS00198": "Old-age-dependency ratio"
   },
   "truncated": false,
-  "unit": "Rácio - %"
+  "wanted_unit": "Rácio - %"
  },
  "europa/1930": null,
  "europa/1934": null,
@@ -1482,7 +1482,7 @@
    "LFST_R_LFP2ACT": "Labour force by NUTS 2 region"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/1951": null,
  "europa/1953": null,
@@ -1522,7 +1522,7 @@
    "TPS00184": "At-risk-of-poverty rate after social transfers by sex"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2264": {
   "candidates": [
@@ -1547,7 +1547,7 @@
    "TESEM130": "Long-term unemployment rate by sex"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2265": null,
  "europa/2330": null,
@@ -1572,7 +1572,7 @@
    "ILC_MDDD11": "Severe material deprivation rate by age and sex"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2333": {
   "candidates": [
@@ -1598,7 +1598,7 @@
    "ILC_MDDD16": "Severe material deprivation rate by group of country of birth (population aged 18 and over)"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2335": {
   "candidates": [
@@ -1620,7 +1620,7 @@
    "SDG_10_30": "Relative median at-risk-of-poverty gap"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2336": {
   "candidates": [
@@ -1642,7 +1642,7 @@
    "SDG_10_30": "Relative median at-risk-of-poverty gap"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2386": null,
  "europa/2387": null,
@@ -1703,7 +1703,7 @@
    "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
   },
   "truncated": false,
-  "unit": "Dormida"
+  "wanted_unit": "Dormida"
  },
  "europa/2443": {
   "candidates": [
@@ -1738,7 +1738,7 @@
    "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
   },
   "truncated": false,
-  "unit": "Dormida"
+  "wanted_unit": "Dormida"
  },
  "europa/2444": null,
  "europa/2445": null,
@@ -1785,7 +1785,7 @@
    "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/2484": null,
  "europa/2489": {
@@ -1811,7 +1811,7 @@
    "REG_AREA3": "Area by NUTS 3 region"
   },
   "truncated": false,
-  "unit": "Km²"
+  "wanted_unit": "Km²"
  },
  "europa/2520": null,
  "europa/2521": null,
@@ -1851,7 +1851,7 @@
    "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/2534": null,
  "europa/2538": null,
@@ -1885,7 +1885,7 @@
    "TEINA080": "Gross national income"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/2678": null,
  "europa/2680": null,
@@ -1912,7 +1912,7 @@
    "TEINA090": "Gross disposable income"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/2692": null,
  "europa/2696": null,
@@ -1936,7 +1936,7 @@
    "AVIA_IF_ARP": "Commercial airports by type"
   },
   "truncated": false,
-  "unit": "Aeroporto"
+  "wanted_unit": "Aeroporto"
  },
  "europa/2699": null,
  "europa/2700": null,
@@ -1968,7 +1968,7 @@
    "RAIL_GO_TOTAL": "Goods transported"
   },
   "truncated": false,
-  "unit": "t (tonelada)"
+  "wanted_unit": "t (tonelada)"
  },
  "europa/2713": {
   "candidates": [
@@ -1990,7 +1990,7 @@
    "RAIL_GO_TOTAL": "Goods transported"
   },
   "truncated": false,
-  "unit": "t (tonelada)"
+  "wanted_unit": "t (tonelada)"
  },
  "europa/2714": {
   "candidates": [
@@ -2012,7 +2012,7 @@
    "RAIL_PA_TOTAL": "Passengers transported"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/2715": null,
  "europa/2720": null,
@@ -2038,7 +2038,7 @@
    "RAIL_AC_CATNMBR": "Railway accidents by type of accident - annual data (2004-2015)"
   },
   "truncated": false,
-  "unit": "Acidente"
+  "wanted_unit": "Acidente"
  },
  "europa/2742": null,
  "europa/2743": null,
@@ -2065,7 +2065,7 @@
    "TEINA090": "Gross disposable income"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/2967": null,
  "europa/2969": null,
@@ -2104,11 +2104,20 @@
   "n_candidates": 73,
   "n_exact": 0,
   "period": [
+   "2007-2007",
+   "2008-2008",
+   "2011-2011",
+   "2012-2012",
+   "2014-2014",
    "2016-2016",
    "2018-2018",
    "2020-2020",
+   "2021-2021",
+   "2021-2023",
+   "2021-2024",
    "2022-2022",
-   "2023-2023"
+   "2023-2023",
+   "2023-2024"
   ],
   "source": "Eurostat",
   "theme": "Science, technology, digital society / Science and technology / Community innovation survey / Community innovation survey 2020 (CIS2020) / Information on enterprises",
@@ -2141,7 +2150,7 @@
    "INN_CIS13_CLIM": "Enterprises by type and importance of factors related to climate change, NACE Rev. 2 activity and size class (CIS2022)"
   },
   "truncated": true,
-  "unit": "Empresa"
+  "wanted_unit": "Empresa"
  },
  "europa/2973": null,
  "europa/2974": null,
@@ -2182,7 +2191,7 @@
    "RAIL_PA_TOTAL": "Passengers transported"
   },
   "truncated": false,
-  "unit": "Indivíduo - Milhares"
+  "wanted_unit": "Indivíduo - Milhares"
  },
  "europa/3055": null,
  "europa/3066": null,
@@ -2235,7 +2244,7 @@
    "INN_CIS13_MRKT": "Turnover of enterprises by market place, NACE Rev. 2 activity and size class (CIS2022)"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/3179": null,
  "europa/3181": null,
@@ -2297,7 +2306,7 @@
    "CRIM_PRIS_OFF": "Prisoners by offence category and sex"
   },
   "truncated": false,
-  "unit": "Indivíduo"
+  "wanted_unit": "Indivíduo"
  },
  "europa/3313": {
   "candidates": [
@@ -2319,7 +2328,7 @@
    "CRIM_PRIS_CTZ": "Prisoners by citizenship"
   },
   "truncated": false,
-  "unit": "Indivíduo"
+  "wanted_unit": "Indivíduo"
  },
  "europa/3314": {
   "candidates": [
@@ -2343,7 +2352,7 @@
    "CRIM_PRIS_TRI": "Prisoners by legal status of the trial process"
   },
   "truncated": false,
-  "unit": "Indivíduo"
+  "wanted_unit": "Indivíduo"
  },
  "europa/3318": null,
  "europa/3330": null,
@@ -2393,8 +2402,11 @@
   "n_candidates": 50,
   "n_exact": 0,
   "period": [
+   "1991-1991",
+   "1991-2001",
    "2001-2001",
    "2011-2011",
+   "2012-2012",
    "2021-2021"
   ],
   "source": "Eurostat",
@@ -2428,7 +2440,7 @@
    "CENS_21CTZA_R2": "Population by groups of country of citizenship, age groups, groups of current activity status and NUTS 2 region"
   },
   "truncated": true,
-  "unit": "Valor Absoluto"
+  "wanted_unit": "Valor Absoluto"
  },
  "europa/3393": {
   "candidates": [
@@ -2453,7 +2465,7 @@
    "DEMO_FABORTORD": "Legally induced abortions by mother's age and number of previous live births"
   },
   "truncated": false,
-  "unit": "Registos"
+  "wanted_unit": "Registos"
  },
  "europa/3396": null,
  "europa/3400": null,
@@ -2491,7 +2503,7 @@
    "TESSI164": "Housing cost overburden rate by tenure status - EU-SILC survey"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3423": null,
  "europa/3425": null,
@@ -2516,7 +2528,7 @@
    "CEI_WM020": "Recycling rate of packaging waste by type of packaging"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3468": null,
  "europa/3476": null,
@@ -2567,7 +2579,7 @@
    "TESPM030": "Severe material and social deprivation rate"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3532": null,
  "europa/3533": null,
@@ -2623,7 +2635,7 @@
    "TESSI250": "In-work at-risk-of-poverty rate by working time - EU-SILC survey"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3535": null,
  "europa/3536": null,
@@ -2649,7 +2661,7 @@
    "SDG_02_40": "Area under organic farming"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3539": {
   "candidates": [
@@ -2673,7 +2685,7 @@
    "SDG_02_60": "Ammonia emissions from agriculture"
   },
   "truncated": false,
-  "unit": "Rácio"
+  "wanted_unit": "Rácio"
  },
  "europa/3540": null,
  "europa/3541": {
@@ -2698,7 +2710,7 @@
    "SDG_06_40": "Nitrate in groundwater"
   },
   "truncated": false,
-  "unit": "Rácio"
+  "wanted_unit": "Rácio"
  },
  "europa/3542": {
   "candidates": [
@@ -2720,7 +2732,7 @@
    "SDG_02_10": "Obesity rate by body mass index (BMI)"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3543": {
   "candidates": [
@@ -2744,7 +2756,7 @@
    "SDG_06_60": "Water exploitation index, plus (WEI+)"
   },
   "truncated": false,
-  "unit": "Rácio - %"
+  "wanted_unit": "Rácio - %"
  },
  "europa/3545": null,
  "europa/3546": null,
@@ -2770,7 +2782,7 @@
    "SDG_03_20": "Share of people with good or very good perceived health by sex"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3548": {
   "candidates": [
@@ -2794,7 +2806,7 @@
    "SDG_03_60": "Self-reported unmet need for medical examination and care by sex"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3549": null,
  "europa/3551": {
@@ -2819,7 +2831,7 @@
    "SDG_07_20": "Final energy consumption in households per capita"
   },
   "truncated": false,
-  "unit": "kgep (kg equivalente de petróleo) - Rácio"
+  "wanted_unit": "kgep (kg equivalente de petróleo) - Rácio"
  },
  "europa/3554": null,
  "europa/3556": {
@@ -2842,7 +2854,7 @@
    "SDG_04_31": "Participation in early childhood education by sex (children aged 3 and over)"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3557": {
   "candidates": [
@@ -2864,7 +2876,7 @@
    "SDG_04_60": "Adult participation in learning by sex"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3559": {
   "candidates": [
@@ -2886,7 +2898,7 @@
    "SDG_05_11": "Physical and sexual violence to women by age group"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3560": null,
  "europa/3561": {
@@ -2918,7 +2930,7 @@
    "TESEM060": "Gender employment gap"
   },
   "truncated": false,
-  "unit": "Pontos percentuais"
+  "wanted_unit": "Pontos percentuais"
  },
  "europa/3562": null,
  "europa/3565": {
@@ -2941,7 +2953,7 @@
    "SDG_06_10": "Population having neither a bath, nor a shower, nor indoor flushing toilet in their household by poverty status"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3566": {
   "candidates": [
@@ -2963,7 +2975,7 @@
    "SDG_07_60": "Population unable to keep home adequately warm by poverty status"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3567": {
   "candidates": [
@@ -2991,7 +3003,7 @@
    "TIPSNA40": "Real GDP per capita"
   },
   "truncated": false,
-  "unit": "Euro - Rácio"
+  "wanted_unit": "Euro - Rácio"
  },
  "europa/3568": {
   "candidates": [
@@ -3013,7 +3025,7 @@
    "SDG_08_11": "Investment share of GDP by institutional sectors"
   },
   "truncated": false,
-  "unit": "Rácio - %"
+  "wanted_unit": "Rácio - %"
  },
  "europa/3569": null,
  "europa/3572": null,
@@ -3043,7 +3055,7 @@
    "SDG_10_60": "Asylum applications by state of procedure"
   },
   "truncated": false,
-  "unit": ""
+  "wanted_unit": ""
  },
  "europa/3586": {
   "candidates": [
@@ -3065,7 +3077,7 @@
    "SDG_11_20": "Population living in households considering that they suffer from noise, by poverty status"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3587": {
   "candidates": [
@@ -3087,7 +3099,7 @@
    "SDG_16_20": "Population reporting occurrence of crime, violence or vandalism in their area by poverty status"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3589": {
   "candidates": [
@@ -3109,7 +3121,7 @@
    "SDG_16_10": "Standardised death rate due to homicide by sex"
   },
   "truncated": false,
-  "unit": "Taxa - Por cem mil"
+  "wanted_unit": "Taxa - Por cem mil"
  },
  "europa/3590": null,
  "europa/3591": null,
@@ -3139,7 +3151,7 @@
    "SDG_07_30": "Energy productivity"
   },
   "truncated": false,
-  "unit": "Rácio"
+  "wanted_unit": "Rácio"
  },
  "europa/3600": {
   "candidates": [
@@ -3161,7 +3173,7 @@
    "SDG_07_40": "Share of renewable energy in gross final energy consumption by sector"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3601": {
   "candidates": [
@@ -3183,7 +3195,7 @@
    "SDG_07_50": "Energy import dependency by products"
   },
   "truncated": false,
-  "unit": "Rácio - %"
+  "wanted_unit": "Rácio - %"
  },
  "europa/3602": null,
  "europa/3605": null,
@@ -3212,7 +3224,7 @@
    "SDG_11_60": "Recycling rate of municipal waste"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3611": {
   "candidates": [
@@ -3236,7 +3248,7 @@
    "SDG_13_31": "Average CO2 emissions per km from new passenger cars"
   },
   "truncated": false,
-  "unit": "Rácio"
+  "wanted_unit": "Rácio"
  },
  "europa/3612": {
   "candidates": [
@@ -3268,7 +3280,7 @@
    "SDG_12_41": "Circular material use rate"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3613": {
   "candidates": [
@@ -3292,7 +3304,7 @@
    "SDG_12_51": "Generation of waste by hazardousness"
   },
   "truncated": false,
-  "unit": "Rácio"
+  "wanted_unit": "Rácio"
  },
  "europa/3615": null,
  "europa/3616": null,
@@ -3316,7 +3328,7 @@
    "CLI_IAD_LOSS": "Climate related economic losses by type of event"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/3620": null,
  "europa/3621": {
@@ -3341,7 +3353,7 @@
    "SDG_13_50": "Contribution to the international 100bn USD commitment on climate related expending"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/3624": null,
  "europa/3626": null,
@@ -3367,7 +3379,7 @@
    "SDG_17_50": "Share of environmental taxes in total tax revenues"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3628": {
   "candidates": [
@@ -3391,7 +3403,7 @@
    "SDG_15_20": "Surface of the terrestrial protected areas"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3632": null,
  "europa/3633": null,
@@ -3415,7 +3427,7 @@
    "AEI_PR_SOILER": "Estimated soil erosion by water, by erosion level, land cover and NUTS 3 region"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3639": {
   "candidates": [
@@ -3437,7 +3449,7 @@
    "ENV_AC_TAX": "Environmental tax revenues"
   },
   "truncated": false,
-  "unit": "Euro - Milhões"
+  "wanted_unit": "Euro - Milhões"
  },
  "europa/3640": null,
  "europa/3641": null,
@@ -3463,7 +3475,7 @@
    "SDG_14_60": "Marine waters affected by eutrophication"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3644": {
   "candidates": [
@@ -3485,7 +3497,7 @@
    "TAG00025": "Utilised agricultural area by categories"
   },
   "truncated": false,
-  "unit": "Hectare (ha)"
+  "wanted_unit": "Hectare (ha)"
  },
  "europa/3646": null,
  "europa/3647": null,
@@ -3518,7 +3530,7 @@
    "TPS00150": "Healthy life years at birth by sex"
   },
   "truncated": false,
-  "unit": "Ano (idade) - Média"
+  "wanted_unit": "Ano (idade) - Média"
  },
  "europa/3655": {
   "candidates": [
@@ -3542,7 +3554,7 @@
    "SDG_04_70": "Share of individuals having at least basic digital skills, by sex"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3656": {
   "candidates": [
@@ -3564,7 +3576,7 @@
    "SDG_17_60": "High-speed internet coverage, by type of area"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3659": null,
  "europa/3661": null,
@@ -3601,7 +3613,7 @@
    "SDG_02_53": "Use and risk of chemical pesticides"
   },
   "truncated": false,
-  "unit": "Número Índice"
+  "wanted_unit": "Número Índice"
  },
  "europa/3745": null,
  "europa/3746": {
@@ -3626,7 +3638,7 @@
    "SDG_13_21": "Net greenhouse gas emissions of the Land use, Land use change and Forestry (LULUCF) sector"
   },
   "truncated": false,
-  "unit": "(A) Rácio (B) t CO 2 eq - Milhares"
+  "wanted_unit": "(A) Rácio (B) t CO 2 eq - Milhares"
  },
  "europa/3750": {
   "candidates": [
@@ -3664,7 +3676,7 @@
    "TEPSR_LM440": "Severe housing deprivation rate by tenure status"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3788": {
   "candidates": [
@@ -3693,7 +3705,7 @@
    "TESPM030": "Severe material and social deprivation rate"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3789": {
   "candidates": [
@@ -3724,7 +3736,7 @@
    "TESPM030": "Severe material and social deprivation rate"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  },
  "europa/3807": null,
  "europa/3815": null,
@@ -3750,7 +3762,7 @@
    "SDG_05_40": "Persons outside the labour force due to caring responsibilities by sex"
   },
   "truncated": false,
-  "unit": "Proporção - %"
+  "wanted_unit": "Proporção - %"
  },
  "europa/3828": {
   "candidates": [
@@ -3772,6 +3784,6 @@
    "TEPSR_WC160": "Activity rate by age"
   },
   "truncated": false,
-  "unit": "Taxa - %"
+  "wanted_unit": "Taxa - %"
  }
 }

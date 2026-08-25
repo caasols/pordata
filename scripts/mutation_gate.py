@@ -35,6 +35,10 @@ import pathlib
 import re
 import sys
 
+# The measured run produces ~5,400 killable mutants. A floor three
+# orders of magnitude under that only has to separate "ran" from
+# "did not run", so it never needs re-baselining.
+MIN_KILLABLE = 100
 FLOOR = 0.58
 
 # mutmut's progress line carries the tallies, and `mutmut results` does
@@ -86,6 +90,22 @@ def main() -> None:
     counts = tally(log.read_text(encoding="utf-8", errors="replace"))
     if not counts:
         print("mutation gate: no tallies in the run output")
+        sys.exit(1)
+    killable = (counts.get("killed", 0) + counts.get("timeout", 0)
+                + counts.get("survived", 0) + counts.get("suspicious", 0))
+    # A run where mutmut exercised nothing scores 1.0 by construction —
+    # killed/killable with killable at zero — and printed "100.0% killed
+    # … passes". That is the exact state a missing `also_copy` entry or a
+    # trigger that never fires produces, so the gate reported perfect
+    # health for the failure it exists to catch. `mutmut run`'s own exit
+    # status is discarded upstream by `|| true`, so this is the only
+    # place that can notice.
+    if killable < MIN_KILLABLE:
+        print(f"mutation gate: only {killable} killable mutants "
+              f"({counts.get('no_tests', 0)} untested) — under the floor "
+              f"of {MIN_KILLABLE}. The suite did not run against the "
+              "mutants; check `also_copy` in setup.cfg and the run log "
+              "before believing a score.")
         sys.exit(1)
     rate = kill_rate(counts)
     print(f"mutation gate: {rate * 100:.1f}% killed "

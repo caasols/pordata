@@ -63,7 +63,7 @@ def eurostat_entry(**over):
             "theme": "Population and social conditions / Demography",
             "theme_share": 1.0, "period": ["1960-2024"],
             "filter": "total and by sex", "filter_resolved": False,
-            "unit": "Ano (idade) - Média", "confidence": "exact"}
+            "wanted_unit": "Ano (idade) - Média", "confidence": "exact"}
     base.update(over)
     return base
 
@@ -239,13 +239,21 @@ class EurostatProvenanceTest(unittest.TestCase):
         self.assertIn("rivais", html)
         self.assertIn("pergunta em aberto", html)
 
-    def test_the_meta_row_carries_theme_period_and_unit(self):
-        """Three figures a reader uses to judge whether a candidate is
-        the right cube before clicking through to Eurostat."""
+    def test_the_meta_row_carries_theme_and_period(self):
+        """Both derived from the candidate set, which is what a reader
+        judges the match on."""
         html = self.page()
         self.assertIn("Population and social conditions / Demography", html)
         self.assertIn("1960-2024", html)
-        self.assertIn("Ano (idade) - Média", html)
+
+    def test_the_panel_shows_nothing_pordata_supplied_as_provenance(self):
+        """The unit sat between the Eurostat theme and period, so the
+        panel headed "where the numbers come from" presented our own
+        field as if it came from upstream — on the one panel that gets
+        `filter_resolved` right on the adjacent line."""
+        html = self.page(wanted_unit="Ano (idade) - Média")
+        panel = html.split("De onde vêm os números")[1]
+        self.assertNotIn("Ano (idade) - Média", panel)
 
     def test_several_covered_periods_are_all_listed(self):
         """Rival cubes rarely share a span, and showing only one would

@@ -265,13 +265,24 @@ def build_en_names(sitemap_text: str) -> dict[tuple, str]:
     return en_names
 
 
+# An opening or closing tag with a name, not "anything between angle
+# brackets".
+TAG = re.compile(r"</?[A-Za-z][A-Za-z0-9]*(?:\s[^<>]*)?/?>")
+
+
 def strip_markup(s: str) -> str:
     """PORDATA titles carry inline HTML (<em>per capita</em>,
     CO<sub>2</sub>, km<sup>2</sup>). Digits in sub/sup become their
     Unicode forms (shared with the harvester via `lib`); every other tag
     is dropped."""
     s = lib.scripts_to_unicode(s)
-    s = re.sub(r"<[^>]+>", "", s)
+    # Only real tags. `<[^>]+>` also ate everything between a bare
+    # less-than and the next greater-than, so `PIB < 5% (2020 > 2021)`
+    # came out as `PIB 2021)` — silently, with no shape validator on
+    # `name` to notice. Nothing in the corpus triggers it today; the
+    # names that carry `<` all carry genuine tags. A comparison operator
+    # in a statistical title is not an exotic input.
+    s = TAG.sub("", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
@@ -495,6 +506,25 @@ def main() -> None:
     for url in sorted(records):
         rec = records[url]
         if "error" in rec:
+            # A record that errored carries only url/error/harvested_at,
+            # so it has no name to publish — but if the URL is one we
+            # deliberately abandoned, the catalogue should say the page
+            # is gone rather than quietly shrink. This branch had never
+            # run: `continue` came before the tombstone below, and the
+            # one abandoned record has no `id` or `area` to key on, so
+            # the corpus went 2,196 -> 2,195 with no machine-readable
+            # trace of why — the outcome the tombstone exists to prevent.
+            identity = lib.area_and_id(url) if url in lib.abandoned() else None
+            if not identity:
+                continue
+            area, ident = identity
+            rows.append({
+                "url": url, "area": area, "id": ident,
+                "name": name_from_slug(url.rsplit("/", 1)[-1]),
+                "name_en": en_names.get((area, ident), ""),
+                "fontes": [], "ultima_atualizacao": "",
+                "removed": True,
+            })
             continue
         name = fix_separator(strip_markup(rec.get("name", ""))
                              or name_from_slug(rec.get("slug", "")))
@@ -553,8 +583,10 @@ def main() -> None:
         writer.writerow(["id", "area", "name", "name_en", "fontes",
                          "ultima_atualizacao", "url", "removed", "featured"])
         for r in rows:
-            writer.writerow([r["id"], r["area"], r["name"], r["name_en"],
-                             " | ".join(r["fontes"]), r["ultima_atualizacao"],
+            writer.writerow([r["id"], r["area"], r["name"],
+                             r.get("name_en", ""),
+                             " | ".join(r.get("fontes") or []),
+                             r.get("ultima_atualizacao", ""),
                              r["url"], "yes" if r.get("removed") else "",
                              ",".join(r.get("featured", []))])
 

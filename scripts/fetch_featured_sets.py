@@ -90,6 +90,11 @@ def extract_names(html: str) -> list[str]:
     return names
 
 
+# What this fetcher owns and therefore may overwrite. Everything else in
+# the file survives a run.
+FETCHED_KEYS = {"fetched_at", "note"}
+
+
 def main() -> None:
     urls = URLS_FILE.read_text(encoding="utf-8").split()
     groups = {
@@ -99,12 +104,27 @@ def main() -> None:
             [u for u in urls if "europa/quadro+resumo" in u][:1],
     }
 
-    result = {
+    # Anything already in the file that this fetcher does not produce is
+    # the owner's. `data/catalogue/FEATURED-UNMATCHED.md` instructs them
+    # to add an `overrides` block here by hand, and a fetcher that built
+    # `result` from scratch would delete it on the next dispatch — a
+    # workflow whose own worksheet tells someone to write into the file
+    # it overwrites. Carried forward rather than merged key-by-key, so a
+    # key added to the worksheet later needs no change here.
+    result: dict = {}
+    if OUT_FILE.exists():
+        try:
+            previous = json.loads(OUT_FILE.read_text(encoding="utf-8"))
+        except ValueError:
+            previous = {}
+        result = {k: v for k, v in previous.items()
+                  if k not in FETCHED_KEYS and k not in groups}
+    result.update({
         "fetched_at": time.strftime("%Y-%m-%d", time.gmtime()),
         "note": ("Quadro rows are postbacks without ids; names are matched "
                  "to catalogue entries at build time. Retratos pages are "
                  "e-book publications with no per-indicator list."),
-    }
+    })
     first = True
     for group, sample_urls in groups.items():
         per_page = []

@@ -69,3 +69,83 @@ class CleanFontesTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class UrlHostTest(unittest.TestCase):
+    """`is_indicator_url` looked for "pordata.pt/" as a substring, so the
+    host was mentioned rather than checked. A sitemap is precisely an
+    input we do not control."""
+
+    def test_a_real_indicator_url_passes(self):
+        self.assertTrue(lib.is_indicator_url(
+            "https://www.pordata.pt/portugal/taxa+de+natalidade-1"))
+
+    def test_the_apex_domain_passes(self):
+        self.assertTrue(lib.is_indicator_url(
+            "https://pordata.pt/municipios/casamentos-5"))
+
+    def test_a_foreign_host_mentioning_pordata_is_refused(self):
+        self.assertFalse(lib.is_indicator_url(
+            "https://evil.example/redir?u=pordata.pt/portugal/x-999"))
+
+    def test_a_javascript_url_is_refused(self):
+        self.assertFalse(lib.is_indicator_url(
+            "javascript:pordata.pt/portugal/x-1"))
+
+    def test_a_non_https_scheme_is_refused(self):
+        self.assertFalse(lib.is_indicator_url(
+            "ftp://x/pordata.pt/municipios/y-5"))
+        self.assertFalse(lib.is_indicator_url(
+            "http://www.pordata.pt/portugal/taxa-1"))
+
+    def test_a_lookalike_domain_is_refused(self):
+        self.assertFalse(lib.is_indicator_url(
+            "https://pordata.pt.evil.example/portugal/x-1"))
+
+    def test_userinfo_cannot_smuggle_the_host(self):
+        self.assertFalse(lib.is_indicator_url(
+            "https://pordata.pt@evil.example/portugal/x-1"))
+
+
+class RecordUrlTest(RepoCase):
+    """`jsonl_skipped_lines_max: 0` gates a count that a null url never
+    reached: the key existed, so nothing raised, and the record went into
+    the dict under `None` — then died much later in `sorted(records)` as
+    an unattributed TypeError."""
+
+    def write(self, *lines):
+        path = pathlib.Path("data/catalogue/pages.jsonl")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    def test_a_null_url_is_counted_as_skipped(self):
+        self.write('{"url": null, "id": 1}',
+                   '{"url": "https://www.pordata.pt/portugal/a-1"}')
+        got = lib.load_records()
+        self.assertEqual(len(got), 1)
+        self.assertEqual(lib.SKIPPED_LINES, 1)
+
+    def test_a_non_string_url_is_counted_as_skipped(self):
+        self.write('{"url": 42}')
+        lib.load_records()
+        self.assertEqual(lib.SKIPPED_LINES, 1)
+
+    def test_an_empty_url_is_counted_as_skipped(self):
+        self.write('{"url": "   "}')
+        lib.load_records()
+        self.assertEqual(lib.SKIPPED_LINES, 1)
+
+
+class AreaAndIdTest(unittest.TestCase):
+    """Identity from the URL, for the one record that has nothing else:
+    an errored fetch carries only url/error/harvested_at, and that is
+    exactly the abandoned page the tombstone path exists for."""
+
+    def test_it_reads_the_area_and_the_trailing_id(self):
+        self.assertEqual(
+            lib.area_and_id("https://www.pordata.pt/portugal/despesas-1221"),
+            ("portugal", 1221))
+
+    def test_it_refuses_a_url_that_is_not_an_indicator(self):
+        self.assertIsNone(lib.area_and_id("https://www.pordata.pt/portugal/"))
+        self.assertIsNone(lib.area_and_id("https://evil.example/portugal/x-1"))

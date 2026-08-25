@@ -607,9 +607,10 @@ class MainTest(RepoCase):
         # The floor is a production number (170) and this fixture is
         # three rows, so it is lowered rather than bypassed — the point
         # of the other tests is that the floor cannot be bypassed.
-        floor = mock.patch.object(x, "MIN_MATCHED", 1)
-        floor.start()
-        self.addCleanup(floor.stop)
+        for name, value in (("MIN_MATCHED", 1), ("MIN_CANDIDATES", 1)):
+            floor = mock.patch.object(x, name, value)
+            floor.start()
+            self.addCleanup(floor.stop)
         with mock.patch("builtins.print"):
             x.main()
         self.written = json.loads(
@@ -703,6 +704,22 @@ class FloorTest(RepoCase):
         self.run_main("--strict")
         self.assertFalse(pathlib.Path("o/i.json").exists())
         self.assertFalse(pathlib.Path("o/QA.md").exists())
+
+    def test_a_shrunken_family_set_refuses_even_at_a_healthy_match_count(self):
+        """`MUNICIPAL_LEVELS` is matched by exact string equality against
+        a field that already shows drift (`NUTS II` beside `NUTS 2`).
+        Simulated: rename the 1,457 `Freguesia` rows and the build still
+        exits 0 at 199/839 — above the 170 floor — while 13 entries
+        vanish, 15 shrink and the candidate total falls 14.9%. A match
+        count cannot see that."""
+        stats = {"matched": x.MIN_MATCHED + 10,
+                 "sizes": [1] * (x.MIN_MATCHED + 10)}
+        self.assertLess(sum(stats["sizes"]), x.MIN_CANDIDATES)
+
+    def test_the_candidate_floor_leaves_margin_below_the_measurement(self):
+        """8,452 today."""
+        self.assertLess(x.MIN_CANDIDATES, 8452)
+        self.assertGreater(x.MIN_CANDIDATES, 7196)   # what the drift gave
 
     def test_the_floor_leaves_margin_below_the_measurement(self):
         """192 matched when this was written. A floor at the measurement

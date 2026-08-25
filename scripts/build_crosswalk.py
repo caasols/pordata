@@ -100,7 +100,17 @@ MIN_SHARE = 0.5
 # The finest level INE publishes at. A municipal question needs a series
 # that reaches municipalities; a national one can be served by any level,
 # since a finer series aggregates upward.
+# A closed vocabulary matched by exact string equality against INE's
+# `geo_lastlevel`, a field that already shows drift ('NUTS II' beside
+# 'NUTS 2', 'Região agrária' beside 'região agrária'). Simulated: rename
+# the 1,457 'Freguesia' rows and the build still exits 0 at 199/839 —
+# above the 170 floor — while 13 entries vanish, 15 shrink, and the
+# total candidate count falls 14.9%. A match count cannot see that,
+# which is why the floor below counts candidates too.
 MUNICIPAL_LEVELS = {"Município", "Freguesia", "Lugar", "Freguesia/Agregação"}
+# Measured 8,452 today. A vocabulary member that stops matching takes
+# thousands of candidates with it while leaving the match count healthy.
+MIN_CANDIDATES = 7500
 
 STOPWORDS = {
     "de", "da", "do", "das", "dos", "e", "em", "no", "na", "nos", "nas",
@@ -564,6 +574,15 @@ def main() -> None:
     # The Eurostat sibling has always refused before writing. Same rule
     # here now: a degraded crosswalk never reaches the working tree, so
     # there is nothing to revert.
+    total_candidates = sum(stats["sizes"])
+    if total_candidates < MIN_CANDIDATES:
+        raise SystemExit(
+            f"build_crosswalk: {stats['matched']} rows matched but only "
+            f"{total_candidates} candidates in total, under the floor of "
+            f"{MIN_CANDIDATES}. Families have shrunk without the match "
+            "count moving — check MUNICIPAL_LEVELS against the "
+            "`geo_lastlevel` values in the INE snapshot before lowering "
+            "this.")
     if stats["matched"] < MIN_MATCHED:
         raise SystemExit(
             f"build_crosswalk: only {stats['matched']} rows matched, "

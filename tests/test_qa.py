@@ -93,6 +93,40 @@ class GateAttributionTest(unittest.TestCase):
                          eurostat.MIN_MATCHED)
 
 
+class UnmeasuredThresholdTest(unittest.TestCase):
+    """A threshold whose metric never arrives gates nothing.
+
+    `gate` maps key to metric by stripping the `_min`/`_max` suffix, so a
+    rename or typo on either side made the check vanish rather than fail.
+    The assertion lives at the call site, not in `gate`: callers
+    legitimately hand `gate` one metric at a time, and only `main` knows
+    it measured everything."""
+
+    def test_a_full_metric_set_reports_nothing(self):
+        metrics = {k.rsplit("_", 1)[0]: 0 for k in qa.THRESHOLDS}
+        self.assertEqual(qa.unmeasured_thresholds(metrics), [])
+
+    def test_a_missing_metric_is_named(self):
+        metrics = {k.rsplit("_", 1)[0]: 0 for k in qa.THRESHOLDS}
+        del metrics["name_coverage"]
+        self.assertEqual(qa.unmeasured_thresholds(metrics),
+                         ["name_coverage_min"])
+
+    def test_the_optional_ones_are_allowed_to_be_absent(self):
+        """Each for a named reason: the payload metrics need a built
+        bundle, the crosswalk counts need their builders to have run."""
+        self.assertEqual(qa.unmeasured_thresholds({}),
+                         sorted(k for k in qa.THRESHOLDS
+                                if k.rsplit("_", 1)[0]
+                                not in qa.OPTIONAL_METRICS))
+
+    def test_every_optional_metric_has_a_threshold(self):
+        """An entry here excusing a threshold that no longer exists
+        silently widens the exemption."""
+        keys = {k.rsplit("_", 1)[0] for k in qa.THRESHOLDS}
+        self.assertTrue(qa.OPTIONAL_METRICS <= keys)
+
+
 class QaMainTest(RepoCase):
     def test_writes_report_with_findings(self):
         self.write_records([

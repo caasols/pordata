@@ -7,6 +7,7 @@ build all import from here so the definition cannot drift.
 
 import datetime
 import json
+import urllib.parse
 import os
 import pathlib
 import re
@@ -16,6 +17,7 @@ LASTMOD_FILE = pathlib.Path("data/sitemap-lastmod.tsv")
 PAGES_FILE = pathlib.Path("data/catalogue/pages.jsonl")
 ABANDONED_FILE = pathlib.Path("data/catalogue/abandoned.txt")
 
+PORDATA_HOST = "pordata.pt"
 AREA_PREFIXES = ("portugal", "municipios", "europa")
 
 # UI text that marks the end of the real Fontes/Entidades value on a page.
@@ -129,8 +131,37 @@ def is_indicator_url(url: str) -> bool:
     if not INDICATOR_ID.search(url) or "/en/" in url \
             or "quadro+resumo" in url:
         return False
-    path = url.split("pordata.pt/", 1)[-1]
-    return path.split("/", 1)[0] in AREA_PREFIXES
+    # Split the URL properly rather than looking for "pordata.pt/" as a
+    # substring. The substring form said yes to
+    # `https://evil.example/redir?u=pordata.pt/portugal/x-999` and to
+    # `javascript:pordata.pt/portugal/x-1` — the host was never checked,
+    # only mentioned. Reaching it needs PORDATA to serve a hostile
+    # `<loc>`, so this is depth rather than a live hole, but a sitemap is
+    # exactly an input we do not control.
+    parts = urllib.parse.urlsplit(url)
+    if parts.scheme != "https":
+        return False
+    host = parts.netloc.split("@")[-1].split(":")[0].lower()
+    if host != PORDATA_HOST and not host.endswith("." + PORDATA_HOST):
+        return False
+    return parts.path.lstrip("/").split("/", 1)[0] in AREA_PREFIXES
+
+
+def area_and_id(url: str) -> tuple[str, int] | None:
+    """`(area, id)` from an indicator URL, or None.
+
+    The harvester writes these onto every record it fetches, so this
+    exists for the one case where it could not: a record that errored
+    before parsing carries only `url`, `error` and `harvested_at`. That
+    is exactly the abandoned page the tombstone path is for, and without
+    a way to read its identity out of the URL that path could never run.
+    """
+    if not is_indicator_url(url):
+        return None
+    path = urllib.parse.urlsplit(url).path.lstrip("/")
+    area, _, slug = path.partition("/")
+    match = INDICATOR_ID.search(slug)
+    return (area, int(match.group()[1:])) if match else None
 
 
 def targets(urls_file: pathlib.Path = URLS_FILE) -> list[str]:
@@ -183,7 +214,16 @@ def load_records(pages_file: pathlib.Path = PAGES_FILE) -> dict[str, dict]:
             continue
         try:
             rec = json.loads(line)
-            records[rec["url"]] = rec
+            url = rec["url"]
+            # A key that exists but holds null is not a key. `{"url":
+            # null}` neither raised nor counted, so it reached
+            # `sorted(records)` and died there as an unattributed
+            # TypeError — while the docstring promised nothing is ever
+            # dropped silently and `jsonl_skipped_lines_max: 0` reported
+            # a clean corpus.
+            if not isinstance(url, str) or not url.strip():
+                raise ValueError("record has no usable url")
+            records[url] = rec
         except (ValueError, KeyError, TypeError):
             # TypeError: a valid-JSON non-object line (null, 42, "x")
             SKIPPED_LINES += 1
