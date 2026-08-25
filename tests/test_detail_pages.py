@@ -562,9 +562,14 @@ class StableLayoutTest(unittest.TestCase):
         self.assertIn("n/d", html)
         self.assertIn("n/a", html)
 
-    def test_the_placeholder_is_dimmer_than_a_real_value(self):
+    def test_the_placeholder_is_distinguished_without_fading(self):
+        """It has to read as subordinate without becoming unreadable: at
+        50% opacity `n/d` was 1.97:1, functionally invisible, on the
+        1,057 rows that have no unit. Italics carry the same meaning at
+        full contrast."""
         na = d.STYLESHEET.split(".na{")[1].split("}")[0]
-        self.assertIn("opacity:.5", na)
+        self.assertIn("font-style:italic", na)
+        self.assertNotIn("opacity", na)
 
     def test_the_columns_are_fixed_not_auto_fitting(self):
         """`auto-fit` was the mechanism: it repacked the columns as soon
@@ -619,11 +624,30 @@ class DesignSystemTest(unittest.TestCase):
         self.assertNotIn("999px", chip)
 
     def test_the_meta_label_matches_the_card_exactly(self):
+        """11px, not the 9.5px both surfaces shipped: at that size the
+        label needed 4.5:1 and the `/75` modifier put it at 2.99:1 — the
+        least legible text on the page, carrying the whole information
+        architecture. `src/lib/contrast.test.ts` holds the arithmetic;
+        this holds the two surfaces to the same value."""
         app = (self.SITE / "App.tsx").read_text(encoding="utf-8")
-        self.assertIn("text-[9.5px] uppercase tracking-[0.1em]", app)
+        self.assertIn("text-[11px] uppercase tracking-[0.1em]", app)
+        self.assertNotIn("text-muted-foreground/75", app)
         label = self.sheet().split(".field .k{")[1].split("}")[0]
-        self.assertIn("font-size:9.5px", label)
+        self.assertIn("font-size:11px", label)
         self.assertIn("letter-spacing:.1em", label)
+        self.assertNotIn("opacity", label)
+
+    def test_neither_surface_fades_a_focus_ring(self):
+        """`ring-ring/30` computed to 1.29:1 against a 3:1 requirement,
+        with `outline-none` beside it — worse than shipping no focus
+        style at all."""
+        for name in ("App.tsx", "components/ui/button.tsx",
+                     "components/ui/input.tsx"):
+            text = (self.SITE / name).read_text(encoding="utf-8")
+            self.assertNotIn("ring-ring/", text, name)
+        ring = self.sheet().split("a:focus-visible{")[1].split("}")[0]
+        self.assertIn("var(--ring)", ring)
+        self.assertNotIn("color-mix", ring)
 
     def test_the_meta_value_is_near_the_card_not_body_size(self):
         """A page is read rather than scanned, so one step up from the

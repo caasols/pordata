@@ -199,7 +199,7 @@ STYLESHEET = """
    so the two read as one design rather than two. The sources:
      .chip      <- components/ui/badge.tsx, `secondary` variant
                    (rounded-sm px-2 py-0.5 text-xs font-medium)
-     .field .k  <- App.tsx Meta label  (9.5px, .1em, muted-foreground/75)
+     .field .k  <- App.tsx Meta label  (11px, .1em, muted-foreground)
      .field .v  <- App.tsx Meta value  (text-xs), stepped up one size
                    because this is a page to read, not a row to scan
      .card      <- components/ui/card.tsx
@@ -208,7 +208,7 @@ STYLESHEET = """
                    only button this site has; there is no filled primary
                    variant, so the orange CTA was inventing an idiom
      .chart     <- App.tsx ChartSlot
-                   (dashed border-border/70, bg-muted/30, 9.5px label)
+                   (dashed border-border/70, bg-muted/30, 11px label)
    A hand-written approximation is how the first version ended up with
    an orange pill where the card has a grey one. */
 *,*::before,*::after{box-sizing:border-box}
@@ -254,13 +254,13 @@ h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
  gap:1rem .9rem}
 .field{min-width:0;display:flex;flex-direction:column}
 .field.wide{grid-column:1/-1}
-.field .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
- color:var(--muted-foreground);opacity:.75;line-height:1.5}
+.field .k{font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+ color:var(--muted-foreground);line-height:1.5}
 .field .v{margin-top:.1rem;font-size:.8125rem;line-height:1.45;
  overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
 /* the card dims a missing value so the gap reads as deliberate; the
    unit is genuinely absent on 48% of rows */
-.na{color:var(--muted-foreground);opacity:.5}
+.na{color:var(--muted-foreground);font-style:italic}
 
 .note{border-left:2px solid var(--border);padding:.1rem 0 .1rem .85rem;
  margin:.5rem 0;font-size:.875rem;line-height:1.5}
@@ -273,18 +273,18 @@ ol.series li{padding:.45rem 0;border-top:1px solid var(--border);
 ol.series li:first-child{border-top:0}
 ol.series .id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
  font-size:.7rem;color:var(--muted-foreground);margin-right:.45rem}
-a.api{margin-left:.4rem;font-size:9.5px;letter-spacing:.08em;
+a.api{margin-left:.4rem;font-size:11px;letter-spacing:.08em;
  text-transform:uppercase;color:var(--muted-foreground);
  text-decoration:none;border:1px solid var(--border);
  border-radius:var(--radius-sm);padding:.05rem .35rem}
 a.api:hover{color:var(--foreground)}
 
-/* App.tsx ChartSlot: same dashed idiom and same 9.5px label, taller
+/* App.tsx ChartSlot: same dashed idiom and same 11px label, taller
    because on this page it is the focal point rather than a footnote */
 .chart{border:1px dashed var(--border);border-radius:var(--radius-lg);
  padding:1.6rem 1.1rem;text-align:center;background:var(--muted)}
-.chart .slot{display:block;font-size:9.5px;text-transform:uppercase;
- letter-spacing:.08em;color:var(--muted-foreground);opacity:.7}
+.chart .slot{display:block;font-size:11px;text-transform:uppercase;
+ letter-spacing:.08em;color:var(--muted-foreground)}
 .cta{display:inline-flex;align-items:center;justify-content:center;
  margin-top:.9rem;height:2rem;padding:0 .625rem;
  border-radius:var(--radius-md);border:1px solid var(--border);
@@ -295,9 +295,12 @@ footer{margin-top:3rem;border-top:1px solid var(--border);padding-top:1rem;
  color:var(--muted-foreground);font-size:.875rem}
 
 /* the SPA rings every focusable thing; these pages had the browser
-   default, which is both inconsistent and worse */
+   default, which is both inconsistent and worse. Full opacity and an
+   offset ring: at 30% the indicator computed to 1.29:1 against WCAG
+   1.4.11's 3:1, and `outline:none` beside it made that worse than
+   shipping no focus style at all — every link on 2,195 pages. */
 a:focus-visible{outline:none;border-radius:var(--radius-sm);
- box-shadow:0 0 0 3px color-mix(in oklab,var(--ring) 30%,transparent)}
+ box-shadow:0 0 0 2px var(--background),0 0 0 5px var(--ring)}
 [data-en]{display:none}
 html[lang="en"] [data-pt]{display:none}
 html[lang="en"] [data-en]{display:revert}

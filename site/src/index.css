@@ -25,7 +25,11 @@
   --destructive-foreground: lab(96.4152% 3.22586 1.14673);
   --border: oklch(0.923 0.003 48.717);
   --input: oklch(0.923 0.003 48.717);
-  --ring: oklch(0.709 0.01 56.259);
+  /* 0.709 computed to 2.59:1 against --background, under WCAG
+     1.4.11's 3:1 before the /30 modifier took it to 1.29.
+     0.62 is 3.65:1 — margin over the requirement, and the
+     smallest change that gets there. */
+  --ring: oklch(0.62 0.012 56.259);
   --radius: 0.45rem;
 }
 .dark {

@@ -38,7 +38,7 @@ const DEFAULT_SORT: SortMode = "new";
 
 function chipClass(on: boolean): string {
   return cn(
-    "flex-none cursor-pointer select-none whitespace-nowrap rounded-full border px-3 py-1 text-sm font-medium outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30",
+    "flex-none cursor-pointer select-none whitespace-nowrap rounded-full border px-3 py-1 text-sm font-medium outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     on
       ? "border-primary bg-primary text-primary-foreground"
       : "border-border bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground",
@@ -57,11 +57,11 @@ function Meta({ label, value, empty }:
     { label: string; value: string; empty: string }) {
   return (
     <div className="min-w-0">
-      <span className="block text-[9.5px] uppercase tracking-[0.1em]
-        text-muted-foreground/75">{label}</span>
+      <span className="block text-[11px] uppercase tracking-[0.1em]
+        text-muted-foreground">{label}</span>
       <span
         className={cn("block line-clamp-2 text-xs tabular-nums",
-          !value && "text-muted-foreground/50")}
+          !value && "italic text-muted-foreground")}
         title={value || undefined}
       >
         {value || empty}
@@ -78,8 +78,8 @@ function ChartSlot({ label }: { label: string }) {
     <div aria-hidden="true"
       className="mt-0.5 flex h-8 items-end rounded-sm border border-dashed
         border-border/70 bg-muted/30 px-2 pb-1">
-      <span className="text-[9.5px] uppercase tracking-[0.08em]
-        text-muted-foreground/60">{label}</span>
+      <span className="text-[11px] uppercase tracking-[0.08em]
+        text-muted-foreground">{label}</span>
     </div>
   );
 }
