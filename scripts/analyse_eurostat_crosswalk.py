@@ -28,6 +28,8 @@ questions, and the answers are what a matcher gets specified from:
 3. Is the relation one-to-one, one-to-many, or many-to-one?
 4. Does Eurostat's theme tree constrain it usefully, the way INE's
    themes turned out not to?
+5. Which match operator, and — the part that matters — which ones were
+   tried and rejected, with the number that rejected them.
 """
 
 import collections
@@ -123,7 +125,8 @@ def measure(rows: list, datasets: list) -> dict:
             tied = [datasets[p] for p, n in hits.items()
                     if n / len(want) >= 0.999]
             ties.append(len(tied))
-            theme_spread.append(len({d["theme"] for d in tied}))
+            theme_spread.append(len({t for d in tied
+                                     for t in d["themes"].split(" | ")}))
 
     return {
         "scope": len(scope),
@@ -136,6 +139,76 @@ def measure(rows: list, datasets: list) -> dict:
         "coverage": coverage,
         "distinct_titles": len(by_norm),
     }
+
+
+# PORDATA writes the unit into a trailing parenthetical and Eurostat
+# carries it as a *dimension* of the cube, so the word never appears in
+# an Eurostat title. `percentage` alone blocked 35 near-misses. This is
+# the INE unit lesson at the opposite polarity — there PORDATA held the
+# unit in a field and INE suffixed it into the title.
+UNIT_PAREN = re.compile(
+    r"\s*\((?:euro|percentage|pps|euro ecu|eu27 100|at current prices|"
+    r"\d{4}[^)]*|nace[^)]*|isced[^)]*)\)\s*$", re.I)
+# Both sides name their breakdown after a `by`, and neither puts it in
+# the same place: PORDATA writes "total and by sex", Eurostat "by sex,
+# age and metropolitan region".
+PORDATA_TAIL = re.compile(r"\s*[:,]?\s*\b(?:total and by|and by|by)\b.*$",
+                          re.I)
+EUROSTAT_TAIL = re.compile(r"\s*,?\s*\bby\b.*$", re.I)
+
+
+def strip_unit(text: str) -> str:
+    previous = None
+    while previous != text:
+        previous, text = text, UNIT_PAREN.sub("", text).strip()
+    return text
+
+
+def split_tail(text: str, pattern: re.Pattern) -> tuple[str, set]:
+    """The concept, and the words naming how it is broken down."""
+    found = pattern.search(text)
+    if not found:
+        return text.strip(), set()
+    return text[:found.start()].strip(), tokens(found.group(0))
+
+
+def operators(rows: list, datasets: list) -> dict:
+    """Head matching against the alternatives that were tried first.
+
+    Every number here rejected something. The token floor is the one
+    worth keeping in the report: it looked like the obvious way to stop
+    a generic head such as "Exports" matching an input-output table, and
+    it also deleted "Obesity rate by body mass index" — which matched its
+    Eurostat title exactly."""
+    scope = [r for r in rows if in_scope(r)]
+    heads = collections.defaultdict(list)
+    for dataset in datasets:
+        head, tail = split_tail(dataset["title"], EUROSTAT_TAIL)
+        dataset["tail"] = tail
+        heads[norm_title(head)].append(dataset)
+
+    out = {"scope": len(scope), "head": 0, "vetoed": 0, "survivors": [],
+           "floor_would_drop": 0, "veto_examples": []}
+    for row in scope:
+        clean = strip_unit(row["name_en"])
+        head, tail = split_tail(clean, PORDATA_TAIL)
+        found = heads.get(norm_title(head))
+        if not found:
+            continue
+        out["head"] += 1
+        if len(tokens(head)) < 2:
+            out["floor_would_drop"] += 1
+        # A veto needs two tails to disagree. Silence on either side is
+        # not a contradiction.
+        survivors = [d for d in found
+                     if not (tail and d["tail"] and not (tail & d["tail"]))]
+        if not survivors:
+            out["vetoed"] += 1
+            if len(out["veto_examples"]) < 6:
+                out["veto_examples"].append((row["name_en"], found[0]["title"]))
+            continue
+        out["survivors"].append(len(survivors))
+    return out
 
 
 def bucket(values: list, edges: list) -> list:
@@ -224,14 +297,91 @@ def render(m: dict) -> str:
     return "\n".join(lines)
 
 
+def render_operators(o: dict) -> str:
+    scope = o["scope"] or 1
+    kept = len(o["survivors"])
+    ones = sum(1 for s in o["survivors"] if s == 1)
+    lines = [
+        "## Which operator, and which ones were rejected",
+        "",
+        "Containment over the raw titles reaches 18.3% and the reason is "
+        "structural, not incidental. Diagnosing the near-misses named the "
+        "blocking words: `percentage` on 35 rows, `euro` on 23, then "
+        "`type`, `category`, `sex`, `sector`. **PORDATA's name is a "
+        "concept plus a slicing instruction plus a unit; Eurostat's title "
+        "is a cube name whose unit and dimensions are not in it.** Asking "
+        "a cube's name to contain the words for its own dimensions is "
+        "asking the wrong question.",
+        "",
+        "So the operator splits both sides at the `by` that opens the "
+        "breakdown and matches the **heads**, exactly:",
+        "",
+        f"- an exact head match exists for **{o['head']}** rows "
+        f"({o['head'] / scope:.1%})",
+        "",
+        "### The tail is a veto, not a ranking",
+        "",
+        "Ranking the tied candidates by how well PORDATA's breakdown "
+        "matches Eurostat's picked a single winner on only 10 of 83 tied "
+        "rows, and one of the first eight sampled was *Employment by "
+        "professional status — **ENP-South countries***, a non-EU "
+        "geography. As a discriminator it manufactures confidence.",
+        "",
+        "As a **veto** the same signal is sound: if both sides name a "
+        "breakdown and the two share no word, they are not the same "
+        "slice. Silence on either side is not a contradiction, so the "
+        "veto needs two tails to fire.",
+        "",
+        f"- head matches surviving the veto: **{kept}** "
+        f"(of {o['head']}; **{o['vetoed']}** refused outright)",
+        f"- surviving candidate sets resolving to exactly one dataset: "
+        f"**{ones}**",
+        "",
+        "Every outright refusal that was read by hand was correct:",
+        "",
+    ]
+    for name, title in o["veto_examples"]:
+        lines.append(f"- `{name}` ≠ *{title}*")
+    lines += [
+        "",
+        "### Rejected: a content-token floor on the head",
+        "",
+        f"The obvious guard against a generic head — *Exports* matching "
+        f"*Exports by industry (FIGARO application)* — is to require the "
+        f"head to carry two content words. It would drop "
+        f"**{o['floor_would_drop']}** head matches, and among them "
+        f"*Obesity rate by body mass index*, which matches its Eurostat "
+        f"title **exactly**, and *Total fertility rate*, whose only "
+        f"content word survives the stopword list. The floor measures "
+        f"length where the failure is contradiction; the veto catches "
+        f"the same two cases without the collateral. Recorded because it "
+        f"was the first idea and the numbers are what refuted it.",
+        "",
+        "### What the entry cannot claim",
+        "",
+        "The catalogue carries titles, not dimension names. When PORDATA "
+        "asks for *total and by sex* and the candidate cube's title says "
+        "nothing about sex, the cube may still have that dimension — "
+        "there is no way to tell without fetching each dataset's "
+        "structure, which is 7,572 requests and item 14's problem. So "
+        "the breakdown is stored as an **unresolved filter**, never as a "
+        "satisfied one.",
+        "",
+    ]
+    return "\n".join(lines)
+
+
 def main() -> None:
     rows, datasets = load()
     measured = measure(rows, datasets)
-    REPORT.write_text(render(measured), encoding="utf-8")
+    chosen = operators(rows, datasets)
+    REPORT.write_text(render(measured) + "\n" + render_operators(chosen),
+                      encoding="utf-8")
     print(f"eurostat shape: {measured['scope']} rows vs "
           f"{measured['datasets']} datasets; "
           f"{measured['exact']} exact, {measured['contained']} contained; "
-          f"report at {REPORT}")
+          f"{chosen['head']} head matches, {len(chosen['survivors'])} "
+          f"surviving the tail veto; report at {REPORT}")
 
 
 if __name__ == "__main__":
