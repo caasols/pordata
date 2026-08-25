@@ -218,6 +218,24 @@ class SiteBundleTest(unittest.TestCase):
         gate = next(i for i, n in enumerate(names) if "docs/ bundle" in n)
         self.assertLess(build, gate)
 
+    def test_the_bundle_it_gates_can_retrigger_it(self):
+        """The gate went red on a push that changed site/src without
+        rebuilding, and then nothing could clear it: the fix touches only
+        docs/, and docs/ was not a trigger. A gate you cannot clear by
+        fixing what it flagged stays red until an unrelated push."""
+        paths = load(WF_DIR / "site.yml")[True]["push"]["paths"]
+        self.assertIn("docs/index.html", paths)
+        self.assertIn("docs/assets/**", paths)
+
+    def test_the_nightly_harvest_does_not_drag_a_site_build_along(self):
+        """`docs/**` would have worked and would run this job on every
+        harvest — the harvest rewrites docs/data and docs/indicador every
+        night and neither is a site build output."""
+        paths = load(WF_DIR / "site.yml")[True]["push"]["paths"]
+        self.assertNotIn("docs/**", paths)
+        self.assertFalse([p for p in paths if p.startswith("docs/data")
+                          or p.startswith("docs/indicador")])
+
 
 class PagesHealthContractTest(unittest.TestCase):
     """The health workflow branches on strings the script produces.

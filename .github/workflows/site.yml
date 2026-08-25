@@ -12,10 +12,20 @@ name: site build
 # (verified: two consecutive builds of the same tree leave docs/
 # unchanged), so a diff means a stale commit, not build noise.
 
+# The bundle paths are in the trigger for a reason the gate itself
+# taught: it went red on a push that changed site/src without rebuilding,
+# and then nothing could turn it green again, because the fix touches
+# only docs/ and docs/ was not a trigger. A gate you cannot clear by
+# fixing what it flagged stays red until an unrelated push happens by.
+# Scoped to the two build outputs it actually compares, so the nightly
+# harvest — which rewrites docs/data and docs/indicador — does not drag
+# a site build along with it.
 on:
   push:
     paths:
       - "site/**"
+      - "docs/index.html"
+      - "docs/assets/**"
       - ".github/workflows/site.yml"
 
 permissions:
