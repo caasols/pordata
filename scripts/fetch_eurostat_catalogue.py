@@ -33,8 +33,6 @@ import collections
 import csv
 import io
 import pathlib
-import re
-import sys
 import urllib.request
 
 USER_AGENT = (
@@ -49,8 +47,10 @@ OUT_CSV = OUT_DIR / "datasets.csv"
 TIMEOUT = 300
 # The file inventory lists 7,412 dataset codes, so the TOC should reach
 # the same order of magnitude. Set under that, not at it: the two
-# endpoints need not agree exactly.
-MIN_DATASETS = 5000
+# endpoints need not agree exactly. The floor counts *codes*, not TOC
+# rows — see `collapse`, which is the whole reason that distinction
+# needed naming.
+MIN_DATASETS = 6000
 
 # The TOC indents the title to show depth — four spaces per level — and
 # marks each row as a folder or a table. Folders are the theme tree and
@@ -64,9 +64,10 @@ INDENT = 4
 # every type seen is counted and reported on both paths, so an unknown
 # one is named in the log instead of silently dropped.
 LEAF_TYPES = {"table", "dataset"}
-FIELDS = ["code", "title", "theme", "last_update", "last_structure_change",
-          "data_start", "data_end", "values", "tsv_url", "sdmx_url",
-          "browser_url"]
+FIELDS = ["code", "title", "themes", "theme_count", "last_update",
+          "last_structure_change", "data_start", "data_end", "values",
+          "tsv_url", "sdmx_url", "browser_url"]
+THEME_SEP = " | "
 
 
 def fetch(url: str) -> str:
@@ -126,6 +127,49 @@ def parse_toc(text: str) -> tuple[list[dict], collections.Counter]:
     return rows, seen
 
 
+def collapse(rows: list[dict]) -> list[dict]:
+    """One row per dataset code, with every theme path it hangs under.
+
+    The TOC is a *tree*, and Eurostat hangs one dataset off as many as
+    eight branches of it — `SDG_05_20`, the gender pay gap, appears under
+    six, and appears again as `TESEM180`. Emitting a row per appearance
+    gave 10,313 rows for 7,572 datasets, which silently multiplied every
+    candidate count a matcher derived from the file: a row tied to "one"
+    dataset filed under four themes counted as four.
+
+    This is INE's theme lesson arriving from the other direction. There,
+    theme *purity* rejected correct matches because INE files one series
+    under two themes; here, theme *multiplicity* inflated the counts. The
+    same underlying fact — an upstream theme tree is a set of views, not
+    a partition — so themes are stored as the set they are and the count
+    is kept as evidence rather than thrown away.
+
+    Deduping is only lossless if the appearances agree on everything but
+    the theme, so that is asserted rather than assumed."""
+    grouped: dict[str, list[dict]] = collections.OrderedDict()
+    for row in rows:
+        grouped.setdefault(row["code"], []).append(row)
+    out = []
+    for code, group in grouped.items():
+        head = group[0]
+        for field in head:
+            if field == "theme":
+                continue
+            if len({member[field] for member in group}) > 1:
+                raise SystemExit(
+                    f"fetch_eurostat_catalogue: {code} appears "
+                    f"{len(group)} times in the TOC with different "
+                    f"{field!r}. Collapsing on the code would lose data. "
+                    "Eurostat changed the format; look before folding "
+                    "them together as if it had not.")
+        themes = sorted({member["theme"] for member in group if member["theme"]})
+        merged = {k: v for k, v in head.items() if k != "theme"}
+        merged["themes"] = THEME_SEP.join(themes)
+        merged["theme_count"] = len(themes)
+        out.append(merged)
+    return out
+
+
 def parse_inventory(text: str) -> dict:
     """code -> the download URLs, which the TOC does not carry."""
     urls = {}
@@ -157,14 +201,15 @@ def main() -> None:
     inventory = fetch(INVENTORY_URL)
 
     parsed, seen = parse_toc(toc)
-    datasets = merge(parsed, parse_inventory(inventory))
+    datasets = merge(collapse(parsed), parse_inventory(inventory))
     census = ", ".join(f"{kind or '(blank)'}={count}"
                        for kind, count in seen.most_common())
     print(f"TOC row types: {census}")
     if len(datasets) < MIN_DATASETS:
         raise SystemExit(
             f"fetch_eurostat_catalogue: only {len(datasets)} datasets "
-            f"parsed, under the floor of {MIN_DATASETS}; the file "
+            f"parsed from {len(parsed)} TOC rows, under the floor of "
+            f"{MIN_DATASETS}; the file "
             "inventory lists 7,412. Refusing to overwrite the cache with "
             "a degraded pull — the same rule the sitemap corpus floor "
             f"follows.\n  row types seen: {census}\n  leaf types "
@@ -177,8 +222,10 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(sorted(datasets, key=lambda r: r["code"]))
     routed = sum(1 for r in datasets if r["tsv_url"])
-    print(f"eurostat catalogue: {len(datasets)} datasets, "
-          f"{routed} with a download URL -> {OUT_CSV}")
+    filed = sum(1 for r in datasets if r["theme_count"] > 1)
+    print(f"eurostat catalogue: {len(datasets)} datasets from "
+          f"{len(parsed)} TOC rows, {filed} filed under more than one "
+          f"theme, {routed} with a download URL -> {OUT_CSV}")
 
 
 if __name__ == "__main__":
