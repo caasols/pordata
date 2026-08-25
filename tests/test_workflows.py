@@ -209,6 +209,87 @@ class HarvestSalvageTest(unittest.TestCase):
                         index_of(self.job, "Commit progress"))
 
 
+class PublishGateTest(unittest.TestCase):
+    """Every path that publishes must pass the same gate.
+
+    `featured-sets.yml` rebuilt the whole catalogue and pushed `docs/data`
+    while running `qa_catalogue.py` without `--strict` — which prints a
+    breach and exits 0 — so a second publish path existed with the gate
+    disarmed, against a standing decision that nothing publishes past a
+    failing gate. Stated as a property over every workflow rather than
+    fixed in one, because the next one added would have the same hole."""
+
+    @staticmethod
+    def jobs():
+        for path in sorted(WF_DIR.glob("*.yml")):
+            for name, job in (load(path).get("jobs") or {}).items():
+                yield path.name, name, job
+
+    @staticmethod
+    def script(job):
+        return "\n".join(str(step.get("run", "")) for step in job["steps"])
+
+    def test_a_job_committing_docs_runs_the_gate_strictly(self):
+        for wf, name, job in self.jobs():
+            body = self.script(job)
+            if "git add" not in body or "docs/" not in body:
+                continue
+            self.assertIn("qa_catalogue.py --strict", body,
+                          f"{wf}:{name} commits docs/ without the gate")
+
+    def test_nothing_stages_docs_without_consulting_the_gate(self):
+        """Running the gate is not enough — `continue-on-error` keeps the
+        job going, so the commit must actually consult the result.
+
+        Consulting it in the step's `if:` and consulting it inside the
+        script are both fine, and harvest.yml has to do the second: that
+        step is `always()` so a dead run still commits its raw
+        checkpoints, and only the `docs/` half is conditional. What is
+        not fine is what was there — `git add … docs/` under `always()`
+        with the status referenced nowhere in the step at all."""
+        for wf, name, job in self.jobs():
+            for step in job["steps"]:
+                run = str(step.get("run", ""))
+                if "git add" not in run or "docs/" not in run:
+                    continue
+                consulted = " ".join([str(step.get("if", "")), run,
+                                      str(step.get("env", ""))])
+                self.assertRegex(
+                    consulted, r"steps\.qa\.outputs\.status|QA_STATUS",
+                    f"{wf}:{name} stages docs/ without consulting the gate")
+
+    def test_a_continue_on_error_step_is_never_the_last_word(self):
+        """`continue-on-error: true` keeps a job green, so something
+        later must read the outcome and decide."""
+        for wf, name, job in self.jobs():
+            for step in job["steps"]:
+                if not step.get("continue-on-error"):
+                    continue
+                ident = step.get("id")
+                self.assertIsNotNone(
+                    ident, f"{wf}:{name} has a continue-on-error step with no id")
+                later = "\n".join(str(s.get("if", "")) for s in job["steps"])
+                self.assertIn(f"steps.{ident}.outputs", later,
+                              f"{wf}:{name} never inspects {ident}")
+
+    def test_a_refreshed_upstream_cache_rebuilds_what_reads_it(self):
+        """A catalogue snapshot without its crosswalk leaves the routing
+        pointing at the previous snapshot's ids with nothing saying so —
+        the rule ine-catalogue.yml states and eurostat-catalogue.yml did
+        not follow."""
+        pairs = [("fetch_ine_catalogue.py", "build_crosswalk.py"),
+                 ("fetch_eurostat_catalogue.py", "build_eurostat_crosswalk.py")]
+        for wf, name, job in self.jobs():
+            body = self.script(job)
+            for producer, consumer in pairs:
+                # an invocation, not a mention: `fetch_ine_catalogue.py`
+                # also appears inside coverage's --omit list
+                if re.search(rf"python3?\s+scripts/{re.escape(producer)}", body):
+                    self.assertIn(consumer, body,
+                                  f"{wf}:{name} refreshes {producer} without "
+                                  f"rebuilding {consumer}")
+
+
 class TriggerCoverageTest(unittest.TestCase):
     """Whatever the suite reads off disk must also trigger the suite.
 

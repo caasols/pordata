@@ -80,6 +80,9 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - featured_rows: 43
 - orgs_coverage: 0.9941
 - distinct_orgs: 127
+- detail_pages_missing: 0
+- ine_matched: 212
+- eurostat_matched: 118
 - first_load_gzip_kb: 264.9
 - catalogue_gzip_kb: 151.7
 

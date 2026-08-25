@@ -28,16 +28,44 @@ jobs:
       - name: Fetch featured sets
         run: python3 scripts/fetch_featured_sets.py
 
+      # This is a *full* catalogue rebuild — it re-derives name, name_en,
+      # title/breakdown, unit, revision, orgs, fontes and the featured
+      # flags for all 2,195 rows — and it pushes straight to the branch
+      # Pages serves. It ran `qa_catalogue.py` without `--strict`, which
+      # prints a breach and exits 0, so this was a second publish path
+      # with the gate disarmed while "nothing publishes past a failing
+      # gate" stood as a decision. Contained the same way harvest.yml is.
       - name: Rebuild catalogue with flags
+        id: qa
+        continue-on-error: true
         run: |
+          trap 'echo "status=error" >> "$GITHUB_OUTPUT"' ERR
           python3 scripts/build_catalogue.py
-          python3 scripts/qa_catalogue.py
+          if python3 scripts/qa_catalogue.py --strict; then
+            echo "status=pass" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=fail" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+      - name: Withhold publish on QA breach
+        if: steps.qa.outputs.status != 'pass'
+        run: |
+          echo "QA gate breached or the build died - reverting docs/."
+          git checkout -- docs/ || true
+
+      # Every card links to a detail page, so a rebuild that changed a
+      # name must rewrite the pages carrying it or the two disagree.
+      - name: Rebuild the indicator detail pages
+        if: steps.qa.outputs.status == 'pass'
+        run: python3 scripts/build_detail_pages.py --strict
 
       - name: Commit
+        if: steps.qa.outputs.status == 'pass'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catalogue/ docs/data/
+          git add data/catalogue/ docs/
           if git diff --cached --quiet; then
             echo "No change."
           else
@@ -45,3 +73,7 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push
           fi
+
+      - name: Fail the job when the QA gate breached
+        if: steps.qa.outputs.status != 'pass'
+        run: exit 1

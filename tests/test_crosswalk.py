@@ -604,6 +604,12 @@ class MainTest(RepoCase):
             patch = mock.patch.object(x, name, pathlib.Path(value))
             patch.start()
             self.addCleanup(patch.stop)
+        # The floor is a production number (170) and this fixture is
+        # three rows, so it is lowered rather than bypassed — the point
+        # of the other tests is that the floor cannot be bypassed.
+        floor = mock.patch.object(x, "MIN_MATCHED", 1)
+        floor.start()
+        self.addCleanup(floor.stop)
         with mock.patch("builtins.print"):
             x.main()
         self.written = json.loads(
@@ -632,8 +638,16 @@ class MainTest(RepoCase):
                       pathlib.Path("out/REVIEW.md").read_text(encoding="utf-8"))
 
 
-class StrictTest(RepoCase):
-    """The floor, and that it only fires when asked."""
+class FloorTest(RepoCase):
+    """The floor, which used to fire after the writes and only under
+    `--strict`.
+
+    Both were wrong. A collapsed build landed on disk, and the harvest's
+    `always()` commit pushed it; the only issue-opening step is keyed on
+    the QA status, which reads `pass` in that case, so nothing said so.
+    The Eurostat sibling has always refused before writing — this asserts
+    the INE one now matches it, which is the shape the audit asked for.
+    """
 
     def setUp(self):
         super().setUp()
@@ -665,14 +679,30 @@ class StrictTest(RepoCase):
         finally:
             sys.argv = old
 
-    def test_zero_matches_breaches_the_floor_under_strict(self):
-        self.assertEqual(self.run_main("--strict"), 1)
+    def test_a_collapsed_build_refuses(self):
+        self.assertNotEqual(self.run_main("--strict"), 0)
 
-    def test_the_same_run_is_silent_without_strict(self):
-        """The floor is a CI gate, not a reason a local rebuild fails —
-        and the files are still written either way."""
-        self.assertEqual(self.run_main(), 0)
-        self.assertTrue(pathlib.Path("o/i.json").exists())
+    def test_it_refuses_without_strict_too(self):
+        """`--strict` used to be the difference between checking and not.
+        A degraded crosswalk is degraded on a laptop as well, and the
+        harvest ran the builder bare on one of its two paths."""
+        self.assertNotEqual(self.run_main(), 0)
+
+    def test_the_previous_crosswalk_is_left_untouched(self):
+        """The reason the order matters: the file on disk is what the
+        harvest commits, so writing before checking means the degraded
+        build is already published by the time anything objects."""
+        pathlib.Path("o").mkdir(parents=True, exist_ok=True)
+        pathlib.Path("o/i.json").write_text('{"kept": true}', encoding="utf-8")
+        self.run_main("--strict")
+        self.assertEqual(
+            pathlib.Path("o/i.json").read_text(encoding="utf-8"),
+            '{"kept": true}')
+
+    def test_nothing_is_written_at_all_on_a_first_run(self):
+        self.run_main("--strict")
+        self.assertFalse(pathlib.Path("o/i.json").exists())
+        self.assertFalse(pathlib.Path("o/QA.md").exists())
 
     def test_the_floor_leaves_margin_below_the_measurement(self):
         """192 matched when this was written. A floor at the measurement

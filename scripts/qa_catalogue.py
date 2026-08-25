@@ -93,6 +93,20 @@ THRESHOLDS = {
     # no code can falsify is not a promise, so this reads every window of
     # every record and any hit is a breach.
     "jsonl_value_leak_max": 0,
+    # Every card links to a detail page, so a published row without one
+    # is a 404 the visitor meets. The builders that write those pages run
+    # only when the QA status is `pass`, and the ordinary nightly is
+    # `skipped` — so a row that arrived while a builder was failing would
+    # stay page-less indefinitely with nothing re-checking. This is a
+    # filesystem comparison, which means it runs on *every* path.
+    "detail_pages_missing_max": 0,
+    # The crosswalks' own floors abort their builders, but only on the
+    # runs where those builders execute. Registered here too so the claim
+    # `EUROSTAT-QA.md` makes — "gated at qa_catalogue.py --strict" — is
+    # true, and so a crosswalk that silently shrank is caught on a run
+    # that never rebuilt it.
+    "ine_matched_min": 170,
+    "eurostat_matched_min": 100,
     # Roadmap 18: the unit renders in Portuguese unless its parts are in
     # the vocabulary. Falling back is safe, so this is a floor rather than
     # a zero — but a floor means a PORDATA unit we have never seen shows
@@ -262,6 +276,32 @@ def gate(metrics: dict) -> list[str]:
                 breaches.append(
                     f"{metric}[{area}]: {value:.4g} < required {floor}")
     return breaches
+
+
+DETAIL_ROOT = pathlib.Path("docs/indicador")
+CROSSWALKS = {
+    "ine_matched": pathlib.Path("data/crosswalk/ine.json"),
+    "eurostat_matched": pathlib.Path("data/crosswalk/eurostat.json"),
+}
+
+
+def missing_detail_pages(published: list) -> list:
+    """Published rows with no page on disk."""
+    return [f"{r['area']}/{r['id']}" for r in published
+            if not (DETAIL_ROOT / r["area"] / str(r["id"])
+                    / "index.html").exists()]
+
+
+def crosswalk_matched(path: pathlib.Path) -> int | None:
+    """Routed rows in a crosswalk, or None when it has not been built.
+
+    None rather than 0: a crosswalk that does not exist yet is a
+    different fact from one that collapsed, and reporting the second when
+    the first is true would block a first run."""
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return sum(1 for v in data.values() if v)
 
 
 def value_tokens(rec: dict) -> int:
@@ -447,6 +487,18 @@ def main(strict: bool = False) -> None:
             sum(1 for r in published if r.get("orgs")) / len(published))
         metrics["distinct_orgs"] = len(
             {o for r in published for o in r.get("orgs", [])})
+        # Only when there is a published catalogue to compare against: on
+        # a run with none, every page would read as missing and the
+        # breach would name the wrong problem.
+        orphans = missing_detail_pages(published)
+        metrics["detail_pages_missing"] = len(orphans)
+        if orphans:
+            lines.append(f"- published rows with no detail page: "
+                         f"{orphans[:20]}")
+    for metric, path in CROSSWALKS.items():
+        matched = crosswalk_matched(path)
+        if matched is not None:
+            metrics[metric] = matched
 
     payload = payload_metrics()
     metrics.update(payload)

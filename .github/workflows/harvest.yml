@@ -52,6 +52,15 @@ jobs:
         id: qa
         continue-on-error: true
         run: |
+          # Every path out of this step must name itself, including the
+          # ones nobody wrote. The runner uses `bash -e`, so an exception
+          # in build_catalogue.py below aborted the script before any
+          # `echo status=` — leaving the output unset, which is falsy for
+          # all seven `if:` conditions that read it. The result was the
+          # whole publish chain quietly doing nothing while
+          # `continue-on-error` kept the job green. An unnamed failure is
+          # the one state that must never be silent.
+          trap 'echo "status=error" >> "$GITHUB_OUTPUT"' ERR
           if git diff --quiet data/catalogue/; then
             echo "No records changed; skipping rebuild."
             echo "status=skipped" >> "$GITHUB_OUTPUT"
@@ -68,10 +77,14 @@ jobs:
       # The harvest itself is still worth keeping (raw records + the QA
       # report explaining the breach); only the publish is withheld.
       - name: Withhold publish on QA breach
-        if: steps.qa.outputs.status == 'fail'
+        if: steps.qa.outputs.status == 'fail' || steps.qa.outputs.status == 'error'
         run: |
-          echo "QA gate breached - reverting docs/ so nothing bad publishes."
-          git checkout -- docs/data || true
+          echo "QA gate breached or the build died - reverting docs/."
+          # docs/, not docs/data: build_catalogue.py writes catalogue.json
+          # and stats.json at different points, so a crash between them
+          # leaves a torn pair, and the detail pages under
+          # docs/indicador/ are derived from the same catalogue.
+          git checkout -- docs/ || true
 
       # After the QA gate and its revert, not before: the crosswalk is
       # built from docs/data/catalogue.json, so building it on a
@@ -104,6 +117,7 @@ jobs:
       # changed, so a harvest that touched five indicators commits five
       # files rather than 2,195.
       - name: Rebuild the indicator detail pages
+        id: pages
         if: steps.qa.outputs.status == 'pass'
         run: python3 scripts/build_detail_pages.py --strict
 
@@ -115,10 +129,25 @@ jobs:
       # — a partial harvest can never publish a degraded catalogue.
       - name: Commit progress
         if: always()
+        env:
+          QA_STATUS: ${{ steps.qa.outputs.status }}
+          PAGES_OUTCOME: ${{ steps.pages.outcome }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catalogue/ data/crosswalk/ data/coverage/ docs/
+          # Raw records always: they are the checkpoints this step exists
+          # to save. `docs/` only when the derived builders actually ran
+          # and succeeded — the four of them are gated on `pass`, so a
+          # floor breach in any one used to leave the catalogue published
+          # with its crosswalks and detail pages a run behind, and every
+          # card links to a page that would not be there.
+          git add data/catalogue/
+          if [ "$QA_STATUS" = "pass" ] && [ "$PAGES_OUTCOME" = "success" ]; then
+            git add data/crosswalk/ data/coverage/ docs/
+          else
+            echo "Derived artifacts incomplete (qa=$QA_STATUS pages=$PAGES_OUTCOME); committing raw records only."
+            git checkout -- docs/ || true
+          fi
           if git diff --cached --quiet; then
             echo "No new pages harvested."
           else
@@ -133,14 +162,16 @@ jobs:
           fi
 
       - name: Open an issue on QA breach
-        if: steps.qa.outputs.status == 'fail'
+        if: steps.qa.outputs.status == 'fail' || steps.qa.outputs.status == 'error'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create \
             --title "QA gate breached - publish withheld ($(date -u +%Y-%m-%d))" \
-            --body "$(printf 'The harvest QA gate failed, so `docs/` was NOT published; the raw harvest and the QA report were still committed.\n\nSee `data/catalogue/QA.md` (Gate section) and run %s/actions/runs/%s.\n' "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}")"
+            --body "$(printf 'The harvest QA gate failed or the build died, so `docs/` was NOT published; the raw harvest and the QA report were still committed.\n\nSee `data/catalogue/QA.md` (Gate section) and run %s/actions/runs/%s.\n' "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}")"
 
+      # 'error' as well as 'fail': a build that died is not a build that
+      # passed, and the job must not be green either way.
       - name: Fail the job when the QA gate breached
-        if: steps.qa.outputs.status == 'fail'
+        if: steps.qa.outputs.status == 'fail' || steps.qa.outputs.status == 'error'
         run: exit 1

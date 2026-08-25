@@ -33,11 +33,31 @@ jobs:
       - name: Fetch and parse the Eurostat catalogue
         run: python3 scripts/fetch_eurostat_catalogue.py
 
+      # The rule `ine-catalogue.yml` states in as many words and this one
+      # did not follow: a refreshed catalogue that did not rebuild the
+      # crosswalk leaves the routing pointing at the previous snapshot's
+      # codes with nothing saying so. The 118 published Eurostat panels
+      # render cached titles as live links, so the stale window was
+      # unbounded — `build_eurostat_crosswalk.py` runs nowhere else
+      # except behind harvest.yml's `pass`, which the ordinary nightly
+      # never reaches. Its own floor refuses to overwrite on a collapse.
+      - name: Rebuild the Eurostat crosswalk and the pages showing it
+        id: qa
+        run: |
+          python3 scripts/build_eurostat_crosswalk.py
+          python3 scripts/build_detail_pages.py --strict
+          # This job writes under docs/, so it passes the same gate every
+          # other publish path does — including the crosswalk floors it
+          # just rebuilt.
+          python3 scripts/qa_catalogue.py --strict
+          echo "status=pass" >> "$GITHUB_OUTPUT"
+
       - name: Commit cache
+        if: steps.qa.outputs.status == 'pass'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/eurostat/
+          git add data/eurostat/ data/crosswalk/ docs/
           if git diff --cached --quiet; then
             echo "No change."
           else

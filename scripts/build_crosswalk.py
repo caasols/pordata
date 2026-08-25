@@ -538,6 +538,22 @@ def main() -> None:
     entries = load_ine()
     crosswalk, stats = build(rows, entries)
 
+    # Checked before the writes, and unconditionally — both were wrong.
+    # The floor used to sit after three `write_text` calls and only under
+    # `--strict`, so a collapsed build landed on disk and the harvest's
+    # `always()` commit pushed it; the only issue-opening step is keyed on
+    # the QA status, which is `pass` in that case, so nothing said so.
+    # The Eurostat sibling has always refused before writing. Same rule
+    # here now: a degraded crosswalk never reaches the working tree, so
+    # there is nothing to revert.
+    if stats["matched"] < MIN_MATCHED:
+        raise SystemExit(
+            f"build_crosswalk: only {stats['matched']} rows matched, "
+            f"under the floor of {MIN_MATCHED}. Refusing to overwrite the "
+            "crosswalk with a degraded build — something upstream changed "
+            "shape; check the catalogue's `title` field and the INE "
+            "snapshot before lowering this.")
+
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(
         json.dumps(crosswalk, ensure_ascii=False, indent=1, sort_keys=True),
@@ -548,13 +564,6 @@ def main() -> None:
           f"({stats['exact']} exact, {stats['family']} family), "
           f"{stats['refused']} refused; median family "
           f"{median(stats['sizes']):.0f}")
-
-    if "--strict" in sys.argv and stats["matched"] < MIN_MATCHED:
-        print(f"BREACH: {stats['matched']} matched < required "
-              f"{MIN_MATCHED}. Something upstream changed shape — check "
-              "the catalogue's `title` field and the INE snapshot before "
-              "lowering this.")
-        sys.exit(1)
 
 
 if __name__ == "__main__":
