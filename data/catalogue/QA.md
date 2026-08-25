@@ -47,8 +47,8 @@ Skipped by the harvest plan and tombstoned at build time; see `data/catalogue/ab
 
 Gzipped KB a first visit downloads before it can search: the page, its bundle and the whole catalogue. Levers, measured, for when a ceiling breaks: `url` is ~25% of the gzipped catalogue and derivable from area+slug; `description` is ~12% for a field the UI never renders.
 
-- first load: **265.3 KB** (ceiling 400)
-- of which catalogue.json: **151.8 KB** (ceiling 250)
+- first load: **265.6 KB** (ceiling 400)
+- of which catalogue.json: **152.0 KB** (ceiling 250)
 
 ## Gate
 
@@ -67,12 +67,12 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - breakdown_ratio: 0.5446
 - unit_ratio: 0.5182
 - revision_ratio: 0.09244
-- question_ratio: 0
-- period_ratio: 0
+- question_ratio: 0.003643
+- period_ratio: 0.003643
 - breakdown_ratio_by_area: europa 49%, municipios 60%, portugal 55%
 - unit_ratio_by_area: europa 100%, municipios 100%, portugal 0%
-- question_ratio_by_area: europa 0%, municipios 0%, portugal 0%
-- period_ratio_by_area: europa 0%, municipios 0%, portugal 0%
+- question_ratio_by_area: europa 1%, municipios 0%, portugal 0%
+- period_ratio_by_area: europa 1%, municipios 0%, portugal 0%
 - separator_repairs: 37
 - unit_contamination: 0
 - unit_translated_ratio: 1
@@ -87,7 +87,7 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - detail_pages_missing: 0
 - ine_matched: 212
 - eurostat_matched: 118
-- first_load_gzip_kb: 265.3
-- catalogue_gzip_kb: 151.8
+- first_load_gzip_kb: 265.6
+- catalogue_gzip_kb: 152
 
 - all thresholds pass

@@ -50,21 +50,21 @@ PORDATA's concept, stripped of its unit and breakdown, is not a Eurostat title's
 - `Single person private households total and aged 65 and over`
 - `Financial aid to students as percentage of total public expenditure on education total and by level of education (1999 2011)`
 - `Collective tourist accommodations total and by type`
-- `Female students enrolled in higher education (isced 5 8) total and by field of education`
+- `Female students enrolled in higher education (ISCED 5 8) total and by field of education`
 - `Enrolled female students total and by level of education`
-- `Male students enrolled in higher education (isced 5 8) total and by field of education`
+- `Male students enrolled in higher education (ISCED 5 8) total and by field of education`
 - `Enrolled male students total and by level of education`
 - `Enrolled students as percentage of resident population total and by level of education`
-- `Students enrolled in primary education (isced 1) total and by sub system of education`
-- `Students enrolled in lower secondary education (isced 2) total and by sub system of education`
-- `Students enrolled in pre primary education (isced 02) total and by sub system of education`
-- `Students enrolled in upper secondary education (isced 3) total and by sub system of education`
-- `Students enrolled in higher education (isced 5 8) total and by field of education`
-- `Students enrolled in higher education (isced 5 8) total and by sex`
-- `Students enrolled in higher education (isced 5 8) total and by sub system of education (percentage)`
-- `Students enrolled in higher education (isced 5 8) total and by sub system of education`
+- `Students enrolled in primary education (ISCED 1) total and by sub system of education`
+- `Students enrolled in lower secondary education (ISCED 2) total and by sub system of education`
+- `Students enrolled in pre primary education (ISCED 02) total and by sub system of education`
+- `Students enrolled in upper secondary education (ISCED 3) total and by sub system of education`
+- `Students enrolled in higher education (ISCED 5 8) total and by field of education`
+- `Students enrolled in higher education (ISCED 5 8) total and by sex`
+- `Students enrolled in higher education (ISCED 5 8) total and by sub system of education (percentage)`
+- `Students enrolled in higher education (ISCED 5 8) total and by sub system of education`
 - `Enrolled students total and by level of education`
-- `School expectancy (isced 02 8) (1998 2012)`
+- `School expectancy (ISCED 02 8) (1998 2012)`
 - `Healthy life years at 65 by sex`
 - `Government support to agricultural research and development (r d) per capita`
 - `Government support to agricultural research and development (r d)`
