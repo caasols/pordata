@@ -156,10 +156,28 @@ export const ALL_LANGS: Array<[string, string]> = [
 
 export const AVAILABLE = new Set(["pt", "en"]);
 
+/**
+ * The language for this visit: `?lang=` first, then a stored choice,
+ * then the browser, then English.
+ *
+ * The query parameter is what gives the English half an address. The
+ * site advertises `og:locale:alternate en_GB` and `inLanguage: [pt, en]`
+ * while language lived only in localStorage — so there was no English
+ * URL to link, index or share, and the English names the project
+ * invested in had no page. `hreflang` alternates point here.
+ *
+ * `scripts/build_detail_pages.py BOOT` implements this same order for
+ * the pre-rendered pages; `lang.test.ts` pins the table both read from.
+ */
 export function initialLang(): string {
-  let lang: string | null = null;
-  try { lang = localStorage.getItem("lang"); } catch { /* private mode */ }
-  if (lang && AVAILABLE.has(lang)) return lang;
+  let stored: string | null = null;
+  try { stored = localStorage.getItem("lang"); } catch { /* private mode */ }
+  let query: string | null = null;
+  try {
+    query = new URLSearchParams(location.search).get("lang");
+  } catch { /* no location in some test environments */ }
+  if (query && AVAILABLE.has(query)) return query;
+  if (stored && AVAILABLE.has(stored)) return stored;
   const nav = (navigator.language || "pt").slice(0, 2).toLowerCase();
   return AVAILABLE.has(nav) ? nav : "en";
 }

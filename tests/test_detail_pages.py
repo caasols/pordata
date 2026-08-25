@@ -426,6 +426,55 @@ class DarkFallbackTest(RepoCase):
         self.assertIn("html:not(.light)", self.sheet())
 
 
+class AlternateLanguageTest(unittest.TestCase):
+    """The English half needs an address.
+
+    The site advertised `og:locale:alternate en_GB` and `inLanguage:
+    [pt, en]` while language lived only in localStorage — so no English
+    URL existed to link, index or share, and the English names the
+    project invested in had no page. Nought of 2,195 pages carried a
+    language control either."""
+
+    def test_each_page_declares_both_languages_and_a_default(self):
+        html = render()
+        for tag in ('hreflang="pt-PT"', 'hreflang="en"',
+                    'hreflang="x-default"'):
+            self.assertIn(tag, html)
+
+    def test_the_english_alternate_is_a_real_distinct_url(self):
+        """An alternate pointing at the same URL as the canonical tells a
+        crawler the two languages are one page."""
+        html = render()
+        canonical = re.search(r'rel="canonical" href="([^"]+)"', html).group(1)
+        english = re.search(r'hreflang="en" href="([^"]+)"', html).group(1)
+        self.assertNotEqual(canonical, english)
+        self.assertTrue(english.startswith(canonical))
+
+    def test_the_page_carries_a_control_to_switch(self):
+        html = render()
+        self.assertIn('class="langs"', html)
+        self.assertIn('aria-label="English"', html)
+        self.assertIn('aria-label="Português"', html)
+
+    def test_the_control_needs_no_javascript(self):
+        """The `data-pt`/`data-en` spans are toggled by CSS on
+        `html[lang]`, so two links and the boot script are the whole
+        mechanism — on pages that ship no bundle."""
+        switch = render().split('class="langs"')[1].split("</span>")[0]
+        self.assertNotIn("onclick", switch)
+        self.assertEqual(switch.count("<a "), 2)
+
+    def test_the_sitemap_names_both_languages_for_every_url(self):
+        entries = d.sitemap([row(id=1), row(id=2, area="europa")])
+        self.assertEqual(entries.count('hreflang="pt-PT"'), 2)
+        self.assertEqual(entries.count('hreflang="en"'), 2)
+        self.assertIn("xmlns:xhtml", entries)
+
+    def test_the_sitemap_stays_well_formed_xml(self):
+        import xml.etree.ElementTree as ET
+        ET.fromstring(d.sitemap([row(id=1)]))
+
+
 class ProviderTest(unittest.TestCase):
     """A provider without a name is not a provider."""
 

@@ -220,7 +220,16 @@ h1{font-size:1.5rem;line-height:1.3;letter-spacing:-.025em;
  margin:.2rem 0 .35rem;font-weight:700}
 h2{font-size:.95rem;margin:2rem 0 .6rem;font-weight:600}
 h3{font-size:.85rem;margin:1.3rem 0 .2rem;font-weight:600}
-.back{display:inline-block;margin-bottom:1.1rem;font-size:.875rem;
+.topbar{display:flex;align-items:baseline;justify-content:space-between;
+ gap:1rem;margin-bottom:1.1rem}
+.langs{display:inline-flex;gap:.15rem;font-size:.75rem;font-weight:500}
+.langs a{padding:.15rem .4rem;border-radius:var(--radius-sm);
+ color:var(--muted-foreground);text-decoration:none}
+.langs a:hover{background:var(--accent);color:var(--accent-foreground)}
+html:not([lang="en"]) .langs a[hreflang="pt-PT"],
+html[lang="en"] .langs a[hreflang="en"]{
+ color:var(--foreground);background:var(--muted)}
+.back{display:inline-block;font-size:.875rem;
  color:var(--muted-foreground);text-decoration:none}
 .back:hover{color:var(--foreground)}
 .coverage{margin:0 0 .9rem;color:var(--muted-foreground);font-size:.875rem}
@@ -360,6 +369,22 @@ def theme_tokens(path: pathlib.Path = None) -> str:
             f".dark{{{dark.group(1).strip()}}}\n"
             "@media (prefers-color-scheme: dark){"
             f"html:not(.light){{{dark.group(1).strip()}}}}}\n")
+
+
+def lang_switch(row: dict) -> str:
+    """Two links, no JavaScript.
+
+    Nought of 2,195 pages carried a language control, so an English
+    speaker landing on one had no way to switch — while the site
+    advertised an English alternate. The `data-pt`/`data-en` spans are
+    already toggled by CSS on `html[lang]`, so a link that sets `?lang=`
+    and a boot script that reads it is the whole mechanism."""
+    url = page_url(row)
+    return (
+        f'<span class="langs">'
+        f'<a hreflang="pt-PT" href="{url}" aria-label="Português">PT</a>'
+        f'<a hreflang="en" href="{url}?lang=en" aria-label="English">EN</a>'
+        f'</span>')
 
 
 def esc(value) -> str:
@@ -664,6 +689,9 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str,
 <title>{esc(title)} — pordata map</title>
 <meta name="description" content="{esc(title)} — {esc(sources)}. {LABELS['metadataOnly'][0]}">
 <link rel="canonical" href="{page_url(row)}">
+<link rel="alternate" hreflang="pt-PT" href="{page_url(row)}">
+<link rel="alternate" hreflang="en" href="{page_url(row)}?lang=en">
+<link rel="alternate" hreflang="x-default" href="{page_url(row)}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:url" content="{page_url(row)}">
@@ -674,7 +702,10 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str,
 </head>
 <body>
 <main>
+<div class="topbar">
 <a class="back" href="{SITE}/">&larr; {both("back")}</a>
+{lang_switch(row)}
+</div>
 <h1>{esc(title)}</h1>
 {f'<p class="coverage">{esc(coverage)}</p>' if coverage else ''}
 <div class="chips">{"".join(chips)}</div>
@@ -760,10 +791,20 @@ def sitemap(rows: list) -> str:
         + (f"<lastmod>{esc(r['ultima_atualizacao'])}</lastmod>"
            if re.fullmatch(r"\d{4}-\d{2}-\d{2}",
                            r.get("ultima_atualizacao") or "") else "")
+        # Both languages, named. Without these the English half is a
+        # localStorage state rather than a URL, so nothing indexes it and
+        # the English names have no page.
+        + f'<xhtml:link rel="alternate" hreflang="pt-PT" '
+          f'href="{esc(page_url(r))}"/>'
+        + f'<xhtml:link rel="alternate" hreflang="en" '
+          f'href="{esc(page_url(r))}?lang=en"/>'
+        + f'<xhtml:link rel="alternate" hreflang="x-default" '
+          f'href="{esc(page_url(r))}"/>'
         + "</url>\n"
         for r in rows)
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+            '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
             f"{urls}</urlset>\n")
 
 
