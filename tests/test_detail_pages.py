@@ -329,6 +329,103 @@ class StructuredDataTest(unittest.TestCase):
         self.assertEqual(json.loads(block)["@type"], "Dataset")
 
 
+class LinkNameTest(unittest.TestCase):
+    """A one-to-many family is the normal case here, so a list of links
+    all reading "JSON" was the normal case too — 256 pages carried a
+    duplicate name and one carried twelve."""
+
+    @staticmethod
+    def names(html_text):
+        found = []
+        for match in re.finditer(r"<a\b[^>]*>(.*?)</a>", html_text, re.S):
+            label = re.search(r'aria-label="([^"]*)"', match.group(0))
+            found.append(label.group(1) if label
+                         else re.sub(r"<[^>]+>", "", match.group(1)).strip())
+        return found
+
+    def test_every_link_in_an_ine_family_is_named_distinctly(self):
+        many = entry(candidates=[f"{n:07d}" for n in range(5)],
+                     n_candidates=5, exact_title=[], confidence="family")
+        names = self.names(render(e=many, titles={}))
+        self.assertEqual(len(names), len(set(names)))
+
+    def test_identical_titles_are_still_told_apart(self):
+        """The hard case: several INE series legitimately share a title
+        and differ only by id."""
+        many = entry(candidates=["0000001", "0000002"], n_candidates=2,
+                     exact_title=[], confidence="family")
+        titles = {"0000001": "População residente",
+                  "0000002": "População residente"}
+        names = self.names(render(e=many, titles=titles))
+        self.assertEqual(len(names), len(set(names)))
+
+    def test_every_link_in_a_eurostat_family_is_named_distinctly(self):
+        many = eurostat_entry(candidates=["A", "B", "C"], n_candidates=3,
+                              exact_title=[], confidence="family",
+                              titles={"A": "Same", "B": "Same", "C": "Same"})
+        names = self.names(render(r=row(area="europa"), e=many))
+        self.assertEqual(len(names), len(set(names)))
+
+
+class BootScriptTest(unittest.TestCase):
+    """The nine lines that decide what a first-time visitor sees.
+
+    They read localStorage only, and the SPA writes `lang` on an explicit
+    toggle — so an English first visit stored nothing and every one of
+    the 2,195 crawlable pages rendered Portuguese, on the arrival path
+    they exist to serve."""
+
+    def test_it_consults_the_browser_language(self):
+        self.assertIn("navigator.language", d.BOOT)
+
+    def test_a_query_parameter_can_name_the_language(self):
+        """Without one there is no linkable English URL at all."""
+        self.assertIn('get("lang")', d.BOOT)
+
+    def test_it_still_restores_a_stored_choice(self):
+        self.assertIn('localStorage.getItem("lang")', d.BOOT)
+
+    def test_it_marks_an_explicit_light_choice(self):
+        """So the prefers-color-scheme block can be overridden rather
+        than winning unconditionally."""
+        self.assertIn('classList.add("light")', d.BOOT)
+
+    def test_the_whole_thing_is_inside_one_try(self):
+        """Private mode throws on a localStorage read; a page that dies
+        here renders unstyled."""
+        self.assertEqual(d.BOOT.count("try{"), 1)
+        self.assertIn("catch(e){}", d.BOOT)
+
+
+class DarkFallbackTest(RepoCase):
+    """`.dark` is applied by the boot script, so a visitor with
+    JavaScript off and a dark system preference got a white page — on
+    pages whose design claim is that they need no JavaScript."""
+
+    def sheet(self):
+        pathlib.Path("site/src").mkdir(parents=True, exist_ok=True)
+        pathlib.Path("site/src/index.css").write_text(FULL_CSS,
+                                                     encoding="utf-8")
+        return d.theme_tokens(pathlib.Path("site/src/index.css"))
+
+    def test_a_media_query_carries_the_dark_tokens(self):
+        self.assertIn("@media (prefers-color-scheme: dark)", self.sheet())
+
+    def test_it_declares_the_same_tokens_as_the_class(self):
+        """A subset would leave a half-dark page, which is worse than
+        either theme."""
+        css = self.sheet()
+        media = re.search(
+            r"@media \(prefers-color-scheme: dark\)\{html:not\(\.light\)\{(.*?)\}\}",
+            css, re.S).group(1)
+        dark = re.search(r"^\.dark\{(.*?)\}", css, re.S | re.M).group(1)
+        self.assertEqual(set(re.findall(r"--[\w-]+:", media)),
+                         set(re.findall(r"--[\w-]+:", dark)))
+
+    def test_an_explicit_light_choice_still_wins(self):
+        self.assertIn("html:not(.light)", self.sheet())
+
+
 class ProviderTest(unittest.TestCase):
     """A provider without a name is not a provider."""
 

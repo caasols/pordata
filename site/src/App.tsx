@@ -8,7 +8,8 @@ import { Card } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -189,27 +190,38 @@ export default function App() {
         <div className="flex flex-shrink-0 items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button aria-label={t("langLabel")}>
+              {/* WCAG 2.5.3: the accessible name must contain the
+                  visible text. "Idioma" over a visible "PT" meant a
+                  voice-control user saying "PT" could not reach it —
+                  and the sort chip a few lines down already does this
+                  correctly. */}
+              <Button aria-label={`${t("langLabel")}: ${lang.toUpperCase()}`}>
                 {lang.toUpperCase()}
                 <ChevronDown className="size-3.5 text-muted-foreground" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="max-h-[60vh]">
-              {ALL_LANGS.map(([l, name]) => (
-                <DropdownMenuItem
-                  key={l}
-                  disabled={!AVAILABLE.has(l)}
-                  title={name}
-                  aria-label={name}
-                  onSelect={() => setLanguage(l)}
-                >
-                  <span>{l.toUpperCase()}</span>
-                  {l === lang && <Check className="size-3.5" />}
-                </DropdownMenuItem>
-              ))}
+              <DropdownMenuRadioGroup
+                value={lang}
+                onValueChange={setLanguage}
+              >
+                {ALL_LANGS.map(([l, name]) => (
+                  <DropdownMenuRadioItem
+                    key={l}
+                    value={l}
+                    disabled={!AVAILABLE.has(l)}
+                    title={name}
+                    aria-label={`${name}: ${l.toUpperCase()}`}
+                  >
+                    <span>{l.toUpperCase()}</span>
+                    {l === lang && <Check className="size-3.5" />}
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
           <Button size="icon" aria-label={t("themeLabel")}
+                  aria-pressed={dark}
                   className="text-muted-foreground" onClick={toggleTheme}>
             {dark ? <Sun className="size-4" />
                   : <Moon className="size-4" />}
@@ -251,15 +263,17 @@ export default function App() {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-[10rem]">
-            {(Object.keys(SORT_KEYS) as SortMode[]).map((mode) => (
-              <DropdownMenuItem
-                key={mode}
-                onSelect={() => setSortMode(mode)}
-              >
-                {t(SORT_KEYS[mode])}
-                {mode === sortMode && <Check className="size-3.5" />}
-              </DropdownMenuItem>
-            ))}
+            <DropdownMenuRadioGroup
+              value={sortMode}
+              onValueChange={(v) => setSortMode(v as SortMode)}
+            >
+              {(Object.keys(SORT_KEYS) as SortMode[]).map((mode) => (
+                <DropdownMenuRadioItem key={mode} value={mode}>
+                  {t(SORT_KEYS[mode])}
+                  {mode === sortMode && <Check className="size-3.5" />}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
         {Object.keys(AREA_LABELS).map((key) => (

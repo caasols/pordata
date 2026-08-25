@@ -36,9 +36,34 @@ function DropdownMenuItem({ className, ...props }:
   );
 }
 
+// A menu where one entry is the current choice is a radio group, and
+// saying so is the only way a screen reader learns which. Selection was
+// signalled by a lucide `<Check />` alone — and lucide adds
+// `aria-hidden="true"` to an icon with no children and no a11y prop, so
+// the indicator was invisible to exactly the readers that needed it.
+function DropdownMenuRadioGroup({ ...props }:
+    React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>) {
+  return <DropdownMenuPrimitive.RadioGroup {...props} />;
+}
+
+function DropdownMenuRadioItem({ className, ...props }:
+    React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem>) {
+  return (
+    <DropdownMenuPrimitive.RadioItem
+      className={cn(
+        "flex cursor-pointer select-none items-center justify-between gap-2.5 rounded-sm px-2.5 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
 export {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 };

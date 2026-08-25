@@ -101,7 +101,7 @@ describe("App", () => {
     render(<App />);
     await screen.findByText("Birth rate");
     await user.click(screen.getByRole("button", { name: /Newest first/ }));
-    await user.click(await screen.findByRole("menuitem", { name: "Name A→Z" }));
+    await user.click(await screen.findByRole("menuitemradio", { name: "Name A→Z" }));
     await waitFor(() => {
       expect(headings()).toEqual(["Birth rate", "Doctors", "Gini index"]);
     });
@@ -120,8 +120,8 @@ describe("App", () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByText("Birth rate");
-    await user.click(screen.getByRole("button", { name: "Language" }));
-    const items = await screen.findAllByRole("menuitem");
+    await user.click(screen.getByRole("button", { name: /^Language:/ }));
+    const items = await screen.findAllByRole("menuitemradio");
     expect(items).toHaveLength(24);
     const disabled = items.filter((i) => i.hasAttribute("data-disabled"));
     expect(disabled).toHaveLength(22);
@@ -131,8 +131,8 @@ describe("App", () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByText("Birth rate");
-    await user.click(screen.getByRole("button", { name: "Language" }));
-    await user.click(await screen.findByRole("menuitem", { name: "Português" }));
+    await user.click(screen.getByRole("button", { name: /^Language:/ }));
+    await user.click(await screen.findByRole("menuitemradio", { name: /Português/ }));
     expect(await screen.findByText("3 indicadores")).toBeInTheDocument();
     // the PT card shows the split title, never the full colon string
     expect(headings()).toContain("Taxa de natalidade");
@@ -148,8 +148,8 @@ describe("App", () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByText("Birth rate");
-    await user.click(screen.getByRole("button", { name: "Language" }));
-    await user.click(await screen.findByRole("menuitem", { name: "Português" }));
+    await user.click(screen.getByRole("button", { name: /^Language:/ }));
+    await user.click(await screen.findByRole("menuitemradio", { name: /Português/ }));
     await screen.findByText("3 indicadores");
     // PT keeps the Portuguese unit
     expect(screen.getByText("Taxa - \u2030")).toBeInTheDocument();
@@ -177,7 +177,7 @@ describe("App", () => {
     await screen.findByText("Birth rate");
     expect(screen.getByRole("searchbox", { name: "Search indicators" }))
       .toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Language" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /^Language:/ })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Light/dark theme" }))
       .toBeInTheDocument();
     expect(screen.getByRole("button", { name: /^Sort: / })).toBeInTheDocument();
@@ -313,6 +313,55 @@ describe("displayNames", () => {
       .toEqual(["Portugal 2030", ""]);
     expect(displayNames(mk("Portugal 2030", "Portugal 2030"), "en"))
       .toEqual(["Portugal 2030", ""]);
+  });
+
+  it("tells assistive tech which sort is selected, not just which is ticked",
+     async () => {
+    // Selection used to be signalled by a lucide <Check /> alone, and
+    // lucide marks an icon with no children aria-hidden — so the one
+    // indicator of state was invisible to exactly the readers needing it.
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.click(screen.getByRole("button", { name: /^Sort:|^Ordenar:/ }));
+    const items = await screen.findAllByRole("menuitemradio");
+    const checked = items.filter((i) => i.getAttribute("aria-checked") === "true");
+    expect(checked).toHaveLength(1);
+    expect(checked[0]).toHaveTextContent(/Newest|Mais recentes/);
+  });
+
+  it("tells assistive tech which language is selected", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.click(screen.getByRole("button", { name: /^Language:|^Idioma:/ }));
+    const items = await screen.findAllByRole("menuitemradio");
+    const checked = items.filter((i) => i.getAttribute("aria-checked") === "true");
+    expect(checked).toHaveLength(1);
+  });
+
+  it("puts the visible text inside the accessible name of every labelled control",
+     async () => {
+    // WCAG 2.5.3. "Idioma" over a visible "PT" meant a voice-control
+    // user saying "PT" could not reach the control at all.
+    render(<App />);
+    await screen.findByText("Birth rate");
+    for (const el of Array.from(document.querySelectorAll("[aria-label]"))) {
+      const visible = (el.textContent || "").trim();
+      const name = el.getAttribute("aria-label") || "";
+      if (!visible || visible.length > 40) continue;
+      expect(
+        name.toLowerCase().includes(visible.toLowerCase()),
+        `visible "${visible}" is not inside accessible name "${name}"`,
+      ).toBe(true);
+    }
+  });
+
+  it("exposes the theme toggle as a pressed state", async () => {
+    render(<App />);
+    await screen.findByText("Birth rate");
+    expect(screen.getByRole("button", { name: /theme|Tema/i }))
+      .toHaveAttribute("aria-pressed");
   });
 });
 

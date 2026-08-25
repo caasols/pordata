@@ -308,13 +308,28 @@ html[lang="en"] [data-en]{display:revert}
 
 # Same keys the SPA writes, so crossing between them does not flip
 # appearance. Wrapped in try/catch because private mode throws on read.
+# The language half mirrors `site/src/lib/i18n.ts initialLang()`: stored
+# choice first, then `navigator.language`, then English. It used to read
+# localStorage only — and the SPA writes `lang` on an explicit toggle
+# only — so a first-time English visitor got `lang=en` on the index and
+# Portuguese on all 2,195 detail pages, which are the crawlable arrival
+# path those pages exist to serve. `?lang=` wins over both, so an English
+# URL can be linked and indexed.
+# The served markup stays `lang="pt"`: that is the canonical language,
+# and the JSON-LD `name`/`alternateName` pairing is keyed to it.
 BOOT = (
     '<script>(function(){try{var t=localStorage.getItem("theme"),'
-    'l=localStorage.getItem("lang");'
+    'l=localStorage.getItem("lang"),'
+    'q=new URLSearchParams(location.search).get("lang"),'
+    'a={pt:1,en:1};'
     'if(t==="dark"||(t!=="light"&&'
     'matchMedia("(prefers-color-scheme: dark)").matches))'
     'document.documentElement.classList.add("dark");'
-    'if(l==="en")document.documentElement.lang="en";}catch(e){}})()</script>'
+    'else if(t==="light")document.documentElement.classList.add("light");'
+    'if(!a[q])q=null;if(!a[l])l=null;'
+    'var n=(navigator.language||"pt").slice(0,2).toLowerCase();'
+    'var c=q||l||(a[n]?n:"en");'
+    'if(c==="en")document.documentElement.lang="en";}catch(e){}})()</script>'
 )
 
 
@@ -335,9 +350,16 @@ def theme_tokens(path: pathlib.Path = None) -> str:
             "build_detail_pages: no --font-sans in "
             f"{path or THEME_CSS}. The detail pages render in the site's "
             "typeface or they are a different site.")
+    # Three blocks, not two. The `.dark` class is applied by the inline
+    # boot script, so a visitor with JavaScript off and a dark system
+    # preference got a white page — on pages whose whole design claim is
+    # that they need no JavaScript. The media query carries the identical
+    # token set and is guarded so an explicit light choice still wins.
     return (f":root{{{root.group(1).strip()}\n{radius}\n"
             f"{font.group(1).strip()}}}\n"
-            f".dark{{{dark.group(1).strip()}}}\n")
+            f".dark{{{dark.group(1).strip()}}}\n"
+            "@media (prefers-color-scheme: dark){"
+            f"html:not(.light){{{dark.group(1).strip()}}}}}\n")
 
 
 def esc(value) -> str:
@@ -546,14 +568,20 @@ def provenance(entry: dict | None, titles: dict,
                 f'<p class="why">{both(why)}</p></div>')
     if entry.get("source") == "Eurostat":
         return eurostat_provenance(entry)
+    # Every link needs a name of its own. A one-to-many family is the
+    # normal case here, so this list routinely held several links reading
+    # the same title and up to twelve reading "JSON" — 256 pages carried
+    # a duplicate. The id was already in the adjacent span; it just was
+    # not in the accessible name.
     rows = "".join(
         f'<li><span class="id">{esc(i)}</span>'
-        f'<a href="{esc(INE_PAGE.format(i))}" rel="noopener">'
+        f'<a href="{esc(INE_PAGE.format(i))}" rel="noopener" '
+        f'aria-label="{esc(titles.get(i, i))} — INE {esc(i)}">'
         f'{esc(titles.get(i, i))}</a>'
         # the machine-readable route, which is the whole point of having
         # a crosswalk: an id you cannot fetch from is a footnote
-        f'<a class="api" rel="noopener" href="{esc(INE_JSON.format(i))}">'
-        f'JSON</a></li>'
+        f'<a class="api" rel="noopener" href="{esc(INE_JSON.format(i))}" '
+        f'aria-label="JSON — INE {esc(i)}">JSON</a></li>'
         for i in entry["candidates"][:12])
     more = ""
     if entry["n_candidates"] > 12:
@@ -579,12 +607,14 @@ def eurostat_provenance(entry: dict) -> str:
     exact = set(entry.get("exact_title") or [])
     rows = "".join(
         f'<li><span class="id">{esc(code)}</span>'
-        f'<a href="{esc(EUROSTAT_BROWSER.format(code))}" rel="noopener">'
+        f'<a href="{esc(EUROSTAT_BROWSER.format(code))}" rel="noopener" '
+        f'aria-label="{esc(stored.get(code, code))} — Eurostat {esc(code)}">'
         f'{esc(stored.get(code, code))}</a>'
         # the fetch route, which is the whole point of having a
         # crosswalk: a code you cannot fetch from is a footnote
         f'<a class="api" rel="noopener" '
-        f'href="{esc(EUROSTAT_TSV.format(code))}">TSV</a>'
+        f'href="{esc(EUROSTAT_TSV.format(code))}" '
+        f'aria-label="TSV — Eurostat {esc(code)}">TSV</a>'
         + ('<span class="chip" data-pt>título idêntico</span>'
            '<span class="chip" data-en>title matches</span>'
            if code in exact else '')
