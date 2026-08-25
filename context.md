@@ -420,6 +420,64 @@ The pipeline, end to end, all live on `main`:
   existed to see. This is INE's theme lesson from the other direction: there, theme *purity*
   rejected correct matches; here, theme *multiplicity* inflated the counts. An upstream theme
   tree is a set of views, not a partition.
+- **The 2026-08-25 audit, applied** (`data/audits/2026-08-25-mega-audit.md`). Twelve
+  dimensions, 114 findings, each checked by an independent verifier that saw the claims and
+  not the reasoning; 1 dropped as not reproduced. The measured layer came back honest — every
+  headline number recomputed exactly — and the failures were all in *claims about
+  enforcement*.
+
+  **Critical: decision 1 was unenforced and untrue.** `LICENSE-DATA` asserts "No PORDATA data
+  values are contained in or redistributed by this repository" over the directory it grants
+  CC BY 4.0 on; **15,946** were in `data/catalogue/pages.jsonl`. `marker_windows` slices 60
+  characters ahead of each marker and the last row of the data table sits directly above
+  `Fontes/Entidades:`, so record 2858's window opened
+  `4 3,2 1,9 10,4 10,7 8,7 4,0 3,9 3,8 3,7 5,9 1,6 1,8 2,0 2,4`. Redacted at the cut so no
+  window is ever held unredacted, and backfilled through the same function. Matched by form,
+  and the two forms are disjoint from everything a parser reads — grouped thousands need a
+  space or stop between three-digit groups, Portuguese decimals need a comma, and the
+  lookarounds exclude slashes, so `2026-01-06` survives for `recoverable_from_windows` and
+  `Euro (a partir de 1/1/1999) / ECU (até 31/12/1998) - Média` survives whole. Verified the
+  strongest way available: **the catalogue rebuilds byte-identical from the redacted corpus**.
+  `jsonl_value_leak_max: 0` now reads every window of every record, sharing the redactor's
+  pattern object rather than a copy — the copy that drifts is always the checker. *Note the
+  fix does not reach git history; that is a separate decision, and the audit did not scan it.*
+
+  **Four gates that could not fail.** The harvest QA step wrote `status` on two of three exit
+  paths and the runner uses `bash -e`, so an exception in the builder aborted before any
+  `echo` — leaving the output unset, falsy for all seven `if:` conditions, and
+  `continue-on-error` keeping the job green. `Commit progress` staged `docs/` under `always()`
+  whether or not the four derived builders had run. `build_crosswalk.py` wrote three files
+  *before* checking its floor and only under `--strict`, so a collapsed crosswalk landed on
+  disk and was pushed. `featured-sets.yml` — a full 2,195-row rebuild — ran `qa_catalogue.py`
+  without `--strict`, which prints a breach and exits 0, then pushed. And
+  `eurostat-catalogue.yml` refreshed the crosswalk's input without rebuilding it, the exact
+  rule `ine-catalogue.yml` states in a comment. All five are fixed, and stated as properties
+  over every workflow rather than one at a time; two of the three new assertions failed on
+  first run and caught the bugs above.
+
+  **`DesignSystemTest` had never run.** `tests.yml`'s push paths omitted `site/**` while
+  `setup.cfg`'s `also_copy` listed four paths that were not triggers — so the guard credited
+  with keeping one design across the SPA and the 2,195 detail pages was itself unguarded, on
+  four real commits. The two lists are now asserted against each other.
+
+  **Three things published that the catalogue could not support.** 38 INE panels printed an
+  operation under half their own family agreed with (portugal/3018, a resident-population
+  series, named a health survey at 0.447); the card and the page it opens showed different
+  units on 1,111 rows because the pages rendered `unit` raw while the SPA routes through
+  `unit-terms.json`; and `name_en` — derived from one regex over a URL shape that has already
+  broken once — was gated by nothing, so rewriting `/en/` to `/en-gb/` gave 0 of 2,195 names
+  with the gate still green.
+
+  **Three WCAG failures, all the same shape**: an alpha modifier on a token that passes at
+  full opacity. The focus ring computed to **1.29:1** against 1.4.11's 3:1 with `outline-none`
+  beside it — worse than shipping no focus style at all — and the token was only 2.59:1 before
+  the modifier; the micro-column labels were **2.99:1** at 9.5px; `n/a` was **1.97:1**,
+  functionally invisible, on the 1,057 rows with no unit. `site/src/lib/contrast.ts` now does
+  oklch → linear sRGB → luminance with alpha compositing and the test walks a table of real
+  pairs read out of the shipped stylesheet, anchored on white-on-black at exactly 21 rather
+  than on thresholds. Also: all 2,195 `Dataset` blocks lacked `description` (Google's
+  eligibility requirement) and `license`, and told crawlers the measured variable was
+  "Indivíduo" or "%" on 1,138 of them.
 - **Failures nobody hears** (roadmap 6b, 2026-08-24). Five places where something broke and
   the pipeline stayed green. *(i)* The harvest commit step had no `if`, so a crash or timeout
   skipped it and threw away every 25-page checkpoint the harvester writes precisely so a dead

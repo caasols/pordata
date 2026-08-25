@@ -127,7 +127,24 @@ nor Eurostat's is safe to assume) and the refusals: 480 Eurostat rows where no h
 (`data/crosswalk/EUROSTAT-REVIEW.md`) and the INE ones in `data/crosswalk/REVIEW.md`. Full
 detail and execution order in `context.md`.
 
-**Nine things worth not re-learning:**
+**The 2026-08-25 audit's findings are applied** (`data/audits/2026-08-25-mega-audit.md`,
+114 findings across 12 dimensions, each verified by an independent skeptic). The critical one:
+`LICENSE-DATA` said "No PORDATA data values are contained in or redistributed by this
+repository" while **15,946** sat in `data/catalogue/pages.jsonl` — `marker_windows` slices 60
+characters ahead of each marker and the last row of the data table sits above
+`Fontes/Entidades:`. Redacted at the cut and backfilled; `jsonl_value_leak_max: 0` reads every
+window of every record. Proof the redaction is surgical: the catalogue rebuilds byte-identical
+from the redacted corpus. Also closed: the harvest QA step could not report its own death
+(`bash -e` aborted before `echo status=`, leaving all seven `if:` conditions falsy and the job
+green); `docs/` was staged under `always()` regardless of whether the derived builders ran;
+the INE builder wrote before checking its floor; `featured-sets.yml` published with `--strict`
+omitted; `eurostat-catalogue.yml` refreshed an input without rebuilding its consumer;
+`DesignSystemTest` had never run on a site-only push; 38 pages printed an INE operation under
+half their family agreed with; the card and the page it opened showed different units on
+1,111 rows; `name_en` was ungated; and the focus ring computed to **1.29:1** against a 3:1
+requirement.
+
+**Ten things worth not re-learning:**
 - **Coverage thresholds for markup-parsed fields are per-area.** A catalogue-wide mean passed a
   100/100/0 unit split without complaint. The areas are separate PORDATA templates; a mean
   cannot say "each still works".
@@ -167,9 +184,20 @@ detail and execution order in `context.md`.
   those files so a variant change fails the build. Naming a font is not loading it: the SPA
   pulls Public Sans from Google Fonts in its own `<head>`, and the pages that only listed it
   in a stack rendered in the system sans.
-- **Anything a test reads off disk must be in mutmut's `also_copy`.** It runs the suite from a
-  copied tree, so `.github/`, `site/src/` and `docs/assets/` are listed. Without them the
-  cross-file tests die on a `FileNotFoundError` that reads like a bug in the code under test.
+- **Anything a test reads off disk must be in mutmut's `also_copy` *and* in `tests.yml`'s push
+  paths.** It runs the suite from a copied tree, so `.github/workflows/`, `site/src/`,
+  `docs/assets/` and `data/crosswalk/` are listed; without them the cross-file tests die on a
+  `FileNotFoundError` that reads like a bug in the code under test. The second half cost more:
+  four of the six were not triggers, so `DesignSystemTest` never ran on a site-only push and
+  the guard against two designs on one site was itself unguarded. `test_workflows.py` now
+  asserts one list against the other, so the coupling maintains itself.
+- **A guarantee no code can falsify is not a guarantee.** Decision 1 was stated in
+  `LICENSE-DATA`, in the README, in the FFMS email — and checked only against the published
+  `unit` field, so 15,946 values sat in the committed corpus through months of green CI. The
+  same shape produced every other high finding: a gate whose failure path emitted nothing, a
+  floor that ran after its writes, a report naming an enforcer that did not contain the check,
+  a focus-ring test asserting the *string* was present rather than that it could be seen.
+  Write the invariant over the bytes you ship, and check it where it can fail.
 - **Not every mutation survivor is worth killing.** `parse()`'s ~54 are equivalent mutants
   (`decode("utf-8")` vs `decode()`, `[-1]` vs `[+1]` on a two-element list), and ~80% of the
   rest are markdown labels in report writers. Test the *figures and sections* a reader
@@ -184,7 +212,7 @@ Ten workflows on `main`, the first two a detector→worker pair:
 |---|---|---|
 | `sitemap.yml` | 09:07 UTC daily + 18:23 UTC weekdays | fetches the sitemap, diffs it, opens an issue on add/remove, dispatches the harvest when work is pending |
 | `harvest.yml` | dispatch + 01:45 UTC safety net | fetch-missing + re-fetch-stale + retry-errors, rebuild, **QA gate**, both crosswalks, coverage gap, detail pages, commit |
-| `tests.yml` | push to scripts/tests/workflows | unittest + coverage gate (floor 80%, at 88%) + **mutmut gate** (floor 58%, at 65.3%) |
+| `tests.yml` | push to scripts/tests/workflows/site-src/docs-assets/crosswalk | unittest + coverage gate (floor 80%, at 90%) + **mutmut gate** (floor 58%, at 65.4%) + `qa_catalogue.py --strict` |
 | `site.yml` | push to site/ | typecheck, build, **committed `docs/` matches source**, vitest + coverage gate, StrykerJS (break 85) |
 | `pages-health.yml` | 11:11 UTC daily | fetches the live site, compares its `built_at` with the committed one and checks the served bundle's assets resolve; opens/closes one issue |
 | `ine-availability.yml` | 09:45 UTC daily | one HEAD to INE, logs serving-vs-blocked (roadmap 22; **self-retires after 21 samples — then delete it**) |
