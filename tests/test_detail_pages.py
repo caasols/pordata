@@ -230,6 +230,22 @@ class EurostatProvenanceTest(unittest.TestCase):
         self.assertIn("rivais", html)
         self.assertIn("pergunta em aberto", html)
 
+    def test_the_meta_row_carries_theme_period_and_unit(self):
+        """Three figures a reader uses to judge whether a candidate is
+        the right cube before clicking through to Eurostat."""
+        html = self.page()
+        self.assertIn("Population and social conditions / Demography", html)
+        self.assertIn("1960-2024", html)
+        self.assertIn("Ano (idade) - Média", html)
+
+    def test_several_covered_periods_are_all_listed(self):
+        """Rival cubes rarely share a span, and showing only one would
+        make the set look more settled than it is."""
+        html = self.page(period=["1960-2024", "2005-2025"], titles={},
+                         candidates=["A", "B"], n_candidates=2,
+                         exact_title=[], confidence="family")
+        self.assertIn("1960-2024, 2005-2025", html)
+
     def test_an_identical_title_is_marked(self):
         self.assertIn("título idêntico", self.page())
 
