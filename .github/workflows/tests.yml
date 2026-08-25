@@ -25,6 +25,10 @@ on:
       - "site/index.html"
       - "docs/assets/**"
       - "data/crosswalk/**"
+      - "data/spikes/**"
+      - "CLAUDE.md"
+      - "context.md"
+      - "README.md"
   pull_request:
 
 permissions:
