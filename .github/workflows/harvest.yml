@@ -82,6 +82,15 @@ jobs:
         if: steps.qa.outputs.status == 'pass'
         run: python3 scripts/build_crosswalk.py --strict
 
+      # The other half of the routing, and a separate script because the
+      # relation has a different shape: Eurostat publishes cubes, not
+      # pre-sliced series, so its candidates are rivals where INE's were
+      # a family. Refuses to overwrite its own output on a collapse
+      # rather than writing and then failing.
+      - name: Rebuild the Eurostat crosswalk
+        if: steps.qa.outputs.status == 'pass'
+        run: python3 scripts/build_eurostat_crosswalk.py
+
       # Reads the crosswalk it just rebuilt, to state its reach honestly
       # rather than subtract it: the series-level complement is not
       # computable at 8% recall, so the report works at concept level.

@@ -1,0 +1,3777 @@
+{
+ "europa/1247": null,
+ "europa/1251": {
+  "candidates": [
+   "TGS00100",
+   "TPS00199"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TPS00199"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 1,
+  "period": [
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by NUTS classification / Regional demographic statistics / Fertility",
+  "theme_share": 0.5,
+  "titles": {
+   "TGS00100": "Total fertility rate by NUTS 2 region",
+   "TPS00199": "Total fertility rate"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Média"
+ },
+ "europa/1252": null,
+ "europa/1253": null,
+ "europa/1258": null,
+ "europa/1260": {
+  "candidates": [
+   "ENPS_DEMO_MLEXPEC",
+   "TGS00101",
+   "TPS00205",
+   "TPS00208"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "2005-2025",
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social inclusion and social policy indicators / Health and long-term care portfolio / Access to care / Primary indicators",
+  "theme_share": 0.5,
+  "titles": {
+   "ENPS_DEMO_MLEXPEC": "Life expectancy at birth by sex - ENP-South countries",
+   "TGS00101": "Life expectancy at birth by sex and NUTS 2 region",
+   "TPS00205": "Life expectancy at birth by sex",
+   "TPS00208": "Life expectancy at birth by sex"
+  },
+  "truncated": false,
+  "unit": "Ano (idade) - Média"
+ },
+ "europa/1262": null,
+ "europa/1264": {
+  "candidates": [
+   "DEMO_MARCB",
+   "DEMO_MARCZ",
+   "DEMO_NMSTA",
+   "DEMO_NMSTA2"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "1960-2024",
+   "2012-2024",
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Demography, population stock and balance / Marriages",
+  "theme_share": 1.0,
+  "titles": {
+   "DEMO_MARCB": "Marriages by country of birth of bride and groom",
+   "DEMO_MARCZ": "Marriages by citizenship of bride and groom",
+   "DEMO_NMSTA": "Marriages by sex and previous marital status",
+   "DEMO_NMSTA2": "Marriages by previous legal union status of bride and groom"
+  },
+  "truncated": false,
+  "unit": "Registos"
+ },
+ "europa/1270": {
+  "candidates": [
+   "DEMO_DIVCB",
+   "DEMO_DIVCZ",
+   "DEMO_NDIVDUR"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 3,
+  "n_exact": 0,
+  "period": [
+   "1990-2024",
+   "2012-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Demography, population stock and balance / Divorces",
+  "theme_share": 1.0,
+  "titles": {
+   "DEMO_DIVCB": "Divorces by country of birth of wife and husband",
+   "DEMO_DIVCZ": "Divorces by citizenship of wife and husband",
+   "DEMO_NDIVDUR": "Divorces by duration of marriage (reached during the year)"
+  },
+  "truncated": false,
+  "unit": "Registos"
+ },
+ "europa/1271": null,
+ "europa/1274": null,
+ "europa/1275": null,
+ "europa/1276": null,
+ "europa/1277": null,
+ "europa/1282": null,
+ "europa/1287": null,
+ "europa/1288": null,
+ "europa/1290": null,
+ "europa/1291": null,
+ "europa/1293": null,
+ "europa/1294": null,
+ "europa/1296": null,
+ "europa/1299": null,
+ "europa/1301": null,
+ "europa/1303": null,
+ "europa/1304": null,
+ "europa/1305": null,
+ "europa/1314": {
+  "candidates": [
+   "HSW_N2_02"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by some sectors of economic activity",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2008-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Quality of employment / Safety and ethics of employment / Safety at work",
+  "theme_share": 1.0,
+  "titles": {
+   "HSW_N2_02": "Fatal Accidents at work by NACE Rev. 2 activity"
+  },
+  "truncated": false,
+  "unit": "Acidente de trabalho"
+ },
+ "europa/1315": null,
+ "europa/1319": null,
+ "europa/1320": null,
+ "europa/1322": null,
+ "europa/1323": null,
+ "europa/1324": null,
+ "europa/1325": null,
+ "europa/1326": null,
+ "europa/1327": null,
+ "europa/1328": null,
+ "europa/1329": null,
+ "europa/1330": null,
+ "europa/1331": null,
+ "europa/1332": null,
+ "europa/1334": {
+  "candidates": [
+   "HLTH_RS_BDSRG2",
+   "TGS00064"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1993-2025",
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by NUTS classification / Regional health statistics / Health care: resources and patients (non-expenditure data)",
+  "theme_share": 1.0,
+  "titles": {
+   "HLTH_RS_BDSRG2": "Available beds in hospitals by NUTS 2 region",
+   "TGS00064": "Available beds in hospitals by NUTS 2 region"
+  },
+  "truncated": false,
+  "unit": "Cama"
+ },
+ "europa/1335": null,
+ "europa/1342": null,
+ "europa/1344": null,
+ "europa/1349": null,
+ "europa/1350": null,
+ "europa/1351": {
+  "candidates": [
+   "EDUC_UOE_FINE06",
+   "EDUC_UOE_FINE08"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by level of education",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "2012-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Education and training / Education finance / Expenditure on education",
+  "theme_share": 1.0,
+  "titles": {
+   "EDUC_UOE_FINE06": "Public expenditure on education by education level and programme orientation - as % of GDP",
+   "EDUC_UOE_FINE08": "Public expenditure on education by education level and programme orientation - as % of public expenditure or % of GNI"
+  },
+  "truncated": false,
+  "unit": "PPC - Milhões"
+ },
+ "europa/1352": null,
+ "europa/1353": null,
+ "europa/1355": null,
+ "europa/1356": null,
+ "europa/1357": null,
+ "europa/1365": null,
+ "europa/1367": null,
+ "europa/1368": null,
+ "europa/1369": null,
+ "europa/1370": null,
+ "europa/1374": null,
+ "europa/1376": null,
+ "europa/1377": null,
+ "europa/1382": null,
+ "europa/1383": null,
+ "europa/1385": null,
+ "europa/1390": null,
+ "europa/1392": null,
+ "europa/1396": null,
+ "europa/1397": {
+  "candidates": [
+   "ENPS_NRG_BAL_C1",
+   "SDG_07_11",
+   "TAI04",
+   "TEN00124"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by type of consumer sector",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "2005-2024",
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Drivers / Energy",
+  "theme_share": 0.5,
+  "titles": {
+   "ENPS_NRG_BAL_C1": "Final energy consumption by sector - ENP-South countries",
+   "SDG_07_11": "Final energy consumption",
+   "TAI04": "Final energy consumption by agriculture and forestry sector – tonne of oil equivalent per hectare of UAA",
+   "TEN00124": "Final energy consumption by sector"
+  },
+  "truncated": false,
+  "unit": "tep (tonelada equivalente de petróleo) - Milhares"
+ },
+ "europa/1402": null,
+ "europa/1406": null,
+ "europa/1407": null,
+ "europa/1411": null,
+ "europa/1413": null,
+ "europa/1414": null,
+ "europa/1415": null,
+ "europa/1416": null,
+ "europa/1418": null,
+ "europa/1420": null,
+ "europa/1423": null,
+ "europa/1424": null,
+ "europa/1425": null,
+ "europa/1427": null,
+ "europa/1429": null,
+ "europa/1430": null,
+ "europa/1439": null,
+ "europa/1443": null,
+ "europa/1468": null,
+ "europa/1473": null,
+ "europa/1476": {
+  "candidates": [
+   "SDG_07_11",
+   "TEN00123"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by type of energy product",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "2005-2024",
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Drivers / Energy",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_07_11": "Final energy consumption",
+   "TEN00123": "Final energy consumption by product"
+  },
+  "truncated": false,
+  "unit": "tep (tonelada equivalente de petróleo) - Milhares"
+ },
+ "europa/1477": null,
+ "europa/1478": null,
+ "europa/1479": null,
+ "europa/1480": null,
+ "europa/1481": null,
+ "europa/1486": null,
+ "europa/1487": null,
+ "europa/1488": null,
+ "europa/1489": null,
+ "europa/1490": null,
+ "europa/1491": null,
+ "europa/1492": null,
+ "europa/1493": null,
+ "europa/1494": null,
+ "europa/1495": null,
+ "europa/1496": null,
+ "europa/1497": null,
+ "europa/1498": null,
+ "europa/1499": null,
+ "europa/1500": null,
+ "europa/1505": null,
+ "europa/1506": null,
+ "europa/1519": null,
+ "europa/1520": null,
+ "europa/1521": null,
+ "europa/1526": null,
+ "europa/1528": {
+  "candidates": [
+   "CENS_01NHFSTCTZ",
+   "CENS_21COBHA_R3",
+   "CENS_21CTZHA_R3",
+   "HLTH_DE040",
+   "HLTH_DP020",
+   "HLTH_DP040",
+   "HLTH_DP060",
+   "HLTH_DP070",
+   "HLTH_DP080",
+   "HLTH_DPEH040"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by dwelling type",
+  "filter_resolved": false,
+  "n_candidates": 10,
+  "n_exact": 0,
+  "period": [
+   "2001-2001",
+   "2011-2011",
+   "2012-2012",
+   "2021-2021"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Disability / Disability - historical data / Prevalence of disability (source LFS) - historical data",
+  "theme_share": 0.5,
+  "titles": {
+   "CENS_01NHFSTCTZ": "Population by sex, citizenship, family status and type of housing",
+   "CENS_21COBHA_R3": "Population by country of birth, age groups, type of housing arrangements and NUTS 3 region",
+   "CENS_21CTZHA_R3": "Population by country of citizenship, age groups, type of housing arrangements and NUTS 3 region",
+   "HLTH_DE040": "Population by type of disability, sex, age and educational attainment level",
+   "HLTH_DP020": "Population by type of longstanding health problem, sex and age",
+   "HLTH_DP040": "Population by type of basic activity difficulty, sex and age",
+   "HLTH_DP060": "Population by type of disability, sex, age and marital status",
+   "HLTH_DP070": "Population by type of disability, sex, age and household composition",
+   "HLTH_DP080": "Population by type of disability, sex, age and degree of urbanization",
+   "HLTH_DPEH040": "Population by sex, age, disability status and household type"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/1533": null,
+ "europa/1535": null,
+ "europa/1536": {
+  "candidates": [
+   "ILC_LVHO03",
+   "ILC_LVHO03H",
+   "ILC_LVHO04",
+   "ILC_LVHO04H"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by type of household",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "1994-2001",
+   "2003-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Living conditions and welfare / Income and living conditions / Living conditions / Housing conditions / Housing cost burden",
+  "theme_share": 1.0,
+  "titles": {
+   "ILC_LVHO03": "Average number of rooms per person by tenure status and dwelling type from 2003 onwards",
+   "ILC_LVHO03H": "Average number of rooms per person by tenure status and dwelling type until 2001",
+   "ILC_LVHO04": "Average number of rooms per person by type of household and income group from 2003",
+   "ILC_LVHO04H": "Average number of rooms per person by type of household and income group until 2001"
+  },
+  "truncated": false,
+  "unit": "Rácio"
+ },
+ "europa/1537": null,
+ "europa/1538": null,
+ "europa/1539": null,
+ "europa/1540": null,
+ "europa/1541": null,
+ "europa/1542": null,
+ "europa/1547": null,
+ "europa/1548": {
+  "candidates": [
+   "SDG_17_40"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_17_40"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2000-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 17 - Partnerships for the goals",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_17_40": "General government gross debt"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/1551": null,
+ "europa/1553": null,
+ "europa/1554": null,
+ "europa/1555": null,
+ "europa/1564": {
+  "candidates": [
+   "TPS00206"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TPS00206"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Demography, population stock and balance / Marriages",
+  "theme_share": 1.0,
+  "titles": {
+   "TPS00206": "Crude marriage rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - ‰"
+ },
+ "europa/1565": {
+  "candidates": [
+   "TPS00216"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TPS00216"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Demography, population stock and balance / Divorces",
+  "theme_share": 1.0,
+  "titles": {
+   "TPS00216": "Crude divorce rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - ‰"
+ },
+ "europa/1568": null,
+ "europa/1570": null,
+ "europa/1571": null,
+ "europa/1576": null,
+ "europa/1578": null,
+ "europa/1579": null,
+ "europa/1580": null,
+ "europa/1581": null,
+ "europa/1586": null,
+ "europa/1587": null,
+ "europa/1588": {
+  "candidates": [
+   "LFSA_AGAN",
+   "LFSQ_AGAN"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by citizenship status",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2025",
+   "1998-Q1-2026-Q1"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Labour market / Employment and unemployment (Labour force survey) / Labour force survey (LFS) series - detailed annual data / Labour force",
+  "theme_share": 0.5,
+  "titles": {
+   "LFSA_AGAN": "Labour force by citizenship",
+   "LFSQ_AGAN": "Labour force by citizenship - quarterly data"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1589": {
+  "candidates": [
+   "ENPS_DEMO_INFANT",
+   "TPS00027"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TPS00027"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 1,
+  "period": [
+   "2005-2024",
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Non EU countries / Southern European Neighbourhood Policy countries (ENP-South) / Population and social conditions / Population and demographic indicators / Demographic indicators",
+  "theme_share": 0.5,
+  "titles": {
+   "ENPS_DEMO_INFANT": "Infant mortality rate by sex - ENP-South countries",
+   "TPS00027": "Infant mortality rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - ‰"
+ },
+ "europa/1590": null,
+ "europa/1592": null,
+ "europa/1593": null,
+ "europa/1594": null,
+ "europa/1597": {
+  "candidates": [
+   "MET_LFE3EMP",
+   "URT_LFE3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1999-2023",
+   "1999-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Labour market statistics by metropolitan region",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_LFE3EMP": "Employment by sex, age and metropolitan region",
+   "URT_LFE3EMP": "Employment by sex, age and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1598": null,
+ "europa/1601": {
+  "candidates": [
+   "LFSI_EDUC_A",
+   "LFSI_EDUC_A_H",
+   "LFSI_EDUC_Q",
+   "LFSI_EDUC_Q_H"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by highest level of education completed",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "1998-2020",
+   "1998-Q1-2020-Q4",
+   "2009-2025",
+   "2009-Q1-2026-Q1"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Labour market / Employment and unemployment (Labour force survey) / LFS main indicators / Employment and labour force - LFS adjusted series / Employment and labour force - LFS adjusted series - historical data",
+  "theme_share": 1.0,
+  "titles": {
+   "LFSI_EDUC_A": "Employment by educational attainment level - annual data",
+   "LFSI_EDUC_A_H": "Employment by educational attainment level - annual data (1998–2020)",
+   "LFSI_EDUC_Q": "Employment by educational attainment level - quarterly data",
+   "LFSI_EDUC_Q_H": "Employment by educational attainment level - quarterly data (1998–2020)"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1602": {
+  "candidates": [
+   "ENPS_LFSA_EGAPS"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by occupational status",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2005-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Non EU countries / Southern European Neighbourhood Policy countries (ENP-South) / Population and social conditions / Labour market / Employment",
+  "theme_share": 1.0,
+  "titles": {
+   "ENPS_LFSA_EGAPS": "Employment by professional status - ENP-South countries"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1603": null,
+ "europa/1604": null,
+ "europa/1605": null,
+ "europa/1606": null,
+ "europa/1607": null,
+ "europa/1608": null,
+ "europa/1609": null,
+ "europa/1610": null,
+ "europa/1611": null,
+ "europa/1612": null,
+ "europa/1613": null,
+ "europa/1614": {
+  "candidates": [
+   "CENS_01NDQUART_HD",
+   "CENS_01NHCTZCOMP",
+   "CENS_01NHECO",
+   "CENS_01RHAGCHI",
+   "CENS_01RHECO",
+   "CENS_11HTTS_R2",
+   "CENS_21HHCS_R3",
+   "CENS_21HHCT_R3",
+   "LFSO_14HHCOMPCOB",
+   "LFST_HHMGSCOMP",
+   "LFST_HHNHTYCH",
+   "LFST_HHNHWHTC"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by type of household composition",
+  "filter_resolved": false,
+  "n_candidates": 12,
+  "n_exact": 0,
+  "period": [
+   "2001-2001",
+   "2006-2025",
+   "2011-2011",
+   "2014-2014",
+   "2021-2021",
+   "2021-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Housing / Population and social conditions / Labour force and employment / Household statistics",
+  "theme_share": 0.25,
+  "titles": {
+   "CENS_01NDQUART_HD": "Private households by type of housing",
+   "CENS_01NHCTZCOMP": "Private households by composition and citizenship",
+   "CENS_01NHECO": "Private households by size, composition and presence of elderly members",
+   "CENS_01RHAGCHI": "Private households by composition, age group of children and NUTS 3 region",
+   "CENS_01RHECO": "Private households by composition, size and NUTS 3 region",
+   "CENS_11HTTS_R2": "Private households by type, tenure status and NUTS 2 region",
+   "CENS_21HHCS_R3": "Private households by household composition, size and NUTS 3 region",
+   "CENS_21HHCT_R3": "Private households by household composition, tenure status and NUTS 3 region",
+   "LFSO_14HHCOMPCOB": "Private households by migration status, country of birth of parents and household composition (2014)",
+   "LFST_HHMGSCOMP": "Private households by migration status, labour status and household composition",
+   "LFST_HHNHTYCH": "Private households by household composition, number of children and age of youngest child",
+   "LFST_HHNHWHTC": "Private households by household composition, number of children and labour status within households"
+  },
+  "truncated": false,
+  "unit": "Agregado doméstico privado - Milhares"
+ },
+ "europa/1615": {
+  "candidates": [
+   "CENS_01RHAGCHI",
+   "LFST_HHNHTYCH",
+   "LFST_HHNHWHTC"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by number of children",
+  "filter_resolved": false,
+  "n_candidates": 3,
+  "n_exact": 0,
+  "period": [
+   "2001-2001",
+   "2006-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Housing / Population and social conditions / Labour force and employment / Household statistics",
+  "theme_share": 0.667,
+  "titles": {
+   "CENS_01RHAGCHI": "Private households by composition, age group of children and NUTS 3 region",
+   "LFST_HHNHTYCH": "Private households by household composition, number of children and age of youngest child",
+   "LFST_HHNHWHTC": "Private households by household composition, number of children and labour status within households"
+  },
+  "truncated": false,
+  "unit": "Agregado doméstico privado - Milhares"
+ },
+ "europa/1616": null,
+ "europa/1617": {
+  "candidates": [
+   "EARN_SES06_04",
+   "EARN_SES10_04",
+   "EARN_SES_AGT04",
+   "EDAT_LFS_9905",
+   "EDAT_LFS_9906",
+   "EDAT_LFS_9908",
+   "EDAT_LFS_9909",
+   "EDAT_LFS_9910",
+   "LFSA_EEGAED",
+   "LFSO_10FVAREDU",
+   "LFSO_14LEECM",
+   "LFSO_14LEEOW",
+   "LFSO_16FINDMET",
+   "LFSO_19FXWT08",
+   "LFSO_19MTWK17",
+   "LFSO_22WRKM10",
+   "LFSO_22WRKM14",
+   "LFSQ_EEGAED"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by highest level of education completed",
+  "filter_resolved": false,
+  "n_candidates": 18,
+  "n_exact": 0,
+  "period": [
+   "1983-2025",
+   "1998-Q1-2026-Q1",
+   "2002-2002",
+   "2004-2008",
+   "2004-2025",
+   "2006-2006",
+   "2008-2025",
+   "2010-2010",
+   "2014-2014",
+   "2016-2016",
+   "2019-2019",
+   "2022-2022"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Education and training / Education and training outcomes / Educational attainment level / Educational attainment of population / -----",
+  "theme_share": 0.278,
+  "titles": {
+   "EARN_SES06_04": "Employees by economic activity, sex and educational attainment level (2006)",
+   "EARN_SES10_04": "Employees by sex, economic activity and educational attainment level (2010)",
+   "EARN_SES_AGT04": "Employees by economic activity, sex, educational attainment level (2002)",
+   "EDAT_LFS_9905": "Employees by educational attainment level and occupation",
+   "EDAT_LFS_9906": "Employees by educational attainment level and employment contract",
+   "EDAT_LFS_9908": "Employees by educational attainment level and size of the local unit",
+   "EDAT_LFS_9909": "Employees by educational attainment level and NACE Rev. 1.1 activity (2004-2008)",
+   "EDAT_LFS_9910": "Employees by educational attainment level and NACE Rev. 2 activity (2008-2026)",
+   "LFSA_EEGAED": "Employees by educational attainment level",
+   "LFSO_10FVAREDU": "Employees by flexibility of their working schedule and educational attainment level (2010)",
+   "LFSO_14LEECM": "Employees by methods to find current job, migration status, educational attainment level and type of contract (2014)",
+   "LFSO_14LEEOW": "Employees by migration status, educational attainment level, occupation and working time (2014)",
+   "LFSO_16FINDMET": "Employees by educational attainment level, work experience while studying and method used for finding current job (2016)",
+   "LFSO_19FXWT08": "Employees by level of difficulty to take one or two days of leave at short notice, type of employment contract and size of the local unit (2019)",
+   "LFSO_19MTWK17": "Employees by recording presence or working hours, educational attainment level and size of the local unit (2019)",
+   "LFSO_22WRKM10": "Employees by level of repetitiveness of tasks, employment contract and full-time/part-time employment (2022)",
+   "LFSO_22WRKM14": "Employees by level of standardization of tasks, employment contract and full-time/part-time employment (2022)",
+   "LFSQ_EEGAED": "Employees by educational attainment level - quarterly data"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1618": null,
+ "europa/1619": null,
+ "europa/1620": {
+  "candidates": [
+   "LFSA_ETGAED",
+   "LFSQ_ETGAED",
+   "LFST_R_E2TGAEDCU",
+   "LFST_R_E2TGAEDNU"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by highest level of education completed",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "1983-2025",
+   "1995-2025",
+   "1998-Q1-2026-Q1"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Migrant integration and children in migration / Migrant integration / Employment - regional series / Employment and self-employment",
+  "theme_share": 0.5,
+  "titles": {
+   "LFSA_ETGAED": "Temporary employees by educational attainment level",
+   "LFSQ_ETGAED": "Temporary employees by educational attainment level - quarterly data",
+   "LFST_R_E2TGAEDCU": "Temporary employees by educational attainment level, country of birth and degree of urbanisation",
+   "LFST_R_E2TGAEDNU": "Temporary employees by educational attainment level, citizenship and degree of urbanisation"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1622": null,
+ "europa/1623": {
+  "candidates": [
+   "MET_10R_3EMP",
+   "URT_10R_3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sector of economic activity",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2022",
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Economic accounts by metropolitan region (ESA 2010)",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_10R_3EMP": "Employment by NACE Rev. 2 activity and metropolitan typology",
+   "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1624": null,
+ "europa/1625": {
+  "candidates": [
+   "MET_10R_3EMP",
+   "URT_10R_3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sector of economic activity",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2022",
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Economic accounts by metropolitan region (ESA 2010)",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_10R_3EMP": "Employment by NACE Rev. 2 activity and metropolitan typology",
+   "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1626": null,
+ "europa/1627": null,
+ "europa/1628": null,
+ "europa/1629": {
+  "candidates": [
+   "CENS_01NDQUART_HD",
+   "CENS_01NHCTZCOMP",
+   "CENS_01NHECO",
+   "CENS_01RHAGCHI",
+   "CENS_01RHECO",
+   "CENS_11HTTS_R2",
+   "CENS_21HHCS_R3",
+   "CENS_21HHCT_R3",
+   "LFSO_14HHCOMPCOB",
+   "LFST_HHMGSCOMP",
+   "LFST_HHNHTYCH",
+   "LFST_HHNHWHTC"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by type of household composition",
+  "filter_resolved": false,
+  "n_candidates": 12,
+  "n_exact": 0,
+  "period": [
+   "2001-2001",
+   "2006-2025",
+   "2011-2011",
+   "2014-2014",
+   "2021-2021",
+   "2021-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Housing / Population and social conditions / Labour force and employment / Household statistics",
+  "theme_share": 0.25,
+  "titles": {
+   "CENS_01NDQUART_HD": "Private households by type of housing",
+   "CENS_01NHCTZCOMP": "Private households by composition and citizenship",
+   "CENS_01NHECO": "Private households by size, composition and presence of elderly members",
+   "CENS_01RHAGCHI": "Private households by composition, age group of children and NUTS 3 region",
+   "CENS_01RHECO": "Private households by composition, size and NUTS 3 region",
+   "CENS_11HTTS_R2": "Private households by type, tenure status and NUTS 2 region",
+   "CENS_21HHCS_R3": "Private households by household composition, size and NUTS 3 region",
+   "CENS_21HHCT_R3": "Private households by household composition, tenure status and NUTS 3 region",
+   "LFSO_14HHCOMPCOB": "Private households by migration status, country of birth of parents and household composition (2014)",
+   "LFST_HHMGSCOMP": "Private households by migration status, labour status and household composition",
+   "LFST_HHNHTYCH": "Private households by household composition, number of children and age of youngest child",
+   "LFST_HHNHWHTC": "Private households by household composition, number of children and labour status within households"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/1630": {
+  "candidates": [
+   "MET_LFU3PERS",
+   "TEILM010",
+   "TEILM011",
+   "TEILM012",
+   "UNE_RT_A",
+   "UNE_RT_A_H",
+   "UNE_RT_M",
+   "UNE_RT_Q",
+   "UNE_RT_Q_H",
+   "URT_LFU3PERS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 10,
+  "n_exact": 0,
+  "period": [
+   "1983-01-2026-07",
+   "1992-2020",
+   "1992-Q1-2020-Q4",
+   "1999-2023",
+   "1999-2025",
+   "2003-2025",
+   "2003-Q1-2026-Q1",
+   "2025-08-2026-07"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Labour market / Employment and unemployment (Labour force survey) / LFS main indicators / Unemployment - LFS adjusted series / Unemployment - LFS adjusted series - historical data",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_LFU3PERS": "Unemployment by sex, age and metropolitan region",
+   "TEILM010": "Unemployment by sex",
+   "TEILM011": "Unemployment by sex - age group 15-24",
+   "TEILM012": "Unemployment by sex - age group 25-74",
+   "UNE_RT_A": "Unemployment by sex and age - annual data",
+   "UNE_RT_A_H": "Unemployment by sex and age - annual data (1992–2020)",
+   "UNE_RT_M": "Unemployment by sex and age - monthly data",
+   "UNE_RT_Q": "Unemployment by sex and age - quarterly data",
+   "UNE_RT_Q_H": "Unemployment by sex and age - quarterly data (1992–2020)",
+   "URT_LFU3PERS": "Unemployment by sex, age and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1633": null,
+ "europa/1634": null,
+ "europa/1640": null,
+ "europa/1658": null,
+ "europa/1659": null,
+ "europa/1660": null,
+ "europa/1662": null,
+ "europa/1665": null,
+ "europa/1666": null,
+ "europa/1667": null,
+ "europa/1668": null,
+ "europa/1669": null,
+ "europa/1674": null,
+ "europa/1690": null,
+ "europa/1691": null,
+ "europa/1696": null,
+ "europa/1698": null,
+ "europa/1699": null,
+ "europa/1700": null,
+ "europa/1701": null,
+ "europa/1705": null,
+ "europa/1712": null,
+ "europa/1713": null,
+ "europa/1714": null,
+ "europa/1720": null,
+ "europa/1728": null,
+ "europa/1729": null,
+ "europa/1735": null,
+ "europa/1736": null,
+ "europa/1738": {
+  "candidates": [
+   "ENPS_LFSA_EGAPS"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by occupational status males",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2005-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Non EU countries / Southern European Neighbourhood Policy countries (ENP-South) / Population and social conditions / Labour market / Employment",
+  "theme_share": 1.0,
+  "titles": {
+   "ENPS_LFSA_EGAPS": "Employment by professional status - ENP-South countries"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1739": {
+  "candidates": [
+   "ENPS_LFSA_EGAPS"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by occupational status females",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2005-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Non EU countries / Southern European Neighbourhood Policy countries (ENP-South) / Population and social conditions / Labour market / Employment",
+  "theme_share": 1.0,
+  "titles": {
+   "ENPS_LFSA_EGAPS": "Employment by professional status - ENP-South countries"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1740": null,
+ "europa/1742": {
+  "candidates": [
+   "MET_10R_3EMP",
+   "URT_10R_3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sector of economic activity males",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2022",
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Economic accounts by metropolitan region (ESA 2010)",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_10R_3EMP": "Employment by NACE Rev. 2 activity and metropolitan typology",
+   "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1743": {
+  "candidates": [
+   "MET_10R_3EMP",
+   "URT_10R_3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sector of economic activity females",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2022",
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Economic accounts by metropolitan region (ESA 2010)",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_10R_3EMP": "Employment by NACE Rev. 2 activity and metropolitan typology",
+   "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1744": {
+  "candidates": [
+   "MET_10R_3EMP",
+   "URT_10R_3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sector of economic activity males",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2022",
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Economic accounts by metropolitan region (ESA 2010)",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_10R_3EMP": "Employment by NACE Rev. 2 activity and metropolitan typology",
+   "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1745": {
+  "candidates": [
+   "MET_10R_3EMP",
+   "URT_10R_3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by sector of economic activity female",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1995-2022",
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Economic accounts by metropolitan region (ESA 2010)",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_10R_3EMP": "Employment by NACE Rev. 2 activity and metropolitan typology",
+   "URT_10R_3EMP": "Employment by NACE Rev. 2 activity and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1750": null,
+ "europa/1751": null,
+ "europa/1752": null,
+ "europa/1753": null,
+ "europa/1754": {
+  "candidates": [
+   "TEPSR_WC130"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2005-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social inclusion and social policy indicators / Overarching portfolio / Context information",
+  "theme_share": 1.0,
+  "titles": {
+   "TEPSR_WC130": "Activity rate by sex"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/1755": null,
+ "europa/1758": {
+  "candidates": [
+   "SDG_08_30",
+   "TESEM010",
+   "TIPSLM100"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 3,
+  "n_exact": 0,
+  "period": [
+   "2003-2025",
+   "2005-2025",
+   "2009-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 8 - Decent work and economic growth",
+  "theme_share": 0.333,
+  "titles": {
+   "SDG_08_30": "Employment rate by sex",
+   "TESEM010": "Employment rate by sex",
+   "TIPSLM100": "Employment rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/1762": null,
+ "europa/1763": null,
+ "europa/1768": null,
+ "europa/1775": null,
+ "europa/1776": null,
+ "europa/1781": null,
+ "europa/1786": null,
+ "europa/1796": {
+  "candidates": [
+   "MET_LFU3PERS",
+   "TEILM011",
+   "TEILM012",
+   "UNE_RT_A",
+   "UNE_RT_A_H",
+   "UNE_RT_M",
+   "UNE_RT_Q",
+   "UNE_RT_Q_H",
+   "URT_LFU3PERS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by age group",
+  "filter_resolved": false,
+  "n_candidates": 9,
+  "n_exact": 0,
+  "period": [
+   "1983-01-2026-07",
+   "1992-2020",
+   "1992-Q1-2020-Q4",
+   "1999-2023",
+   "1999-2025",
+   "2003-2025",
+   "2003-Q1-2026-Q1",
+   "2025-08-2026-07"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Labour market / Employment and unemployment (Labour force survey) / LFS main indicators / Unemployment - LFS adjusted series / Unemployment - LFS adjusted series - historical data",
+  "theme_share": 0.556,
+  "titles": {
+   "MET_LFU3PERS": "Unemployment by sex, age and metropolitan region",
+   "TEILM011": "Unemployment by sex - age group 15-24",
+   "TEILM012": "Unemployment by sex - age group 25-74",
+   "UNE_RT_A": "Unemployment by sex and age - annual data",
+   "UNE_RT_A_H": "Unemployment by sex and age - annual data (1992–2020)",
+   "UNE_RT_M": "Unemployment by sex and age - monthly data",
+   "UNE_RT_Q": "Unemployment by sex and age - quarterly data",
+   "UNE_RT_Q_H": "Unemployment by sex and age - quarterly data (1992–2020)",
+   "URT_LFU3PERS": "Unemployment by sex, age and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1798": null,
+ "europa/1800": null,
+ "europa/1804": null,
+ "europa/1805": null,
+ "europa/1806": null,
+ "europa/1807": null,
+ "europa/1808": null,
+ "europa/1809": null,
+ "europa/1811": null,
+ "europa/1817": null,
+ "europa/1818": null,
+ "europa/1824": null,
+ "europa/1825": null,
+ "europa/1838": null,
+ "europa/1851": {
+  "candidates": [
+   "MET_LFE3EMP",
+   "URT_LFE3EMP"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by age group",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1999-2023",
+   "1999-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by typology / Metropolitan regions / Labour market statistics by metropolitan region",
+  "theme_share": 0.5,
+  "titles": {
+   "MET_LFE3EMP": "Employment by sex, age and metropolitan region",
+   "URT_LFE3EMP": "Employment by sex, age and other typologies"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1865": null,
+ "europa/1866": null,
+ "europa/1867": null,
+ "europa/1877": null,
+ "europa/1883": null,
+ "europa/1884": {
+  "candidates": [
+   "MET_LFU3PERS",
+   "TEILM011",
+   "TEILM012",
+   "UNE_RT_A",
+   "UNE_RT_A_H",
+   "UNE_RT_M",
+   "UNE_RT_Q",
+   "UNE_RT_Q_H",
+   "URT_LFU3PERS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by age group",
+  "filter_resolved": false,
+  "n_candidates": 9,
+  "n_exact": 0,
+  "period": [
+   "1983-01-2026-07",
+   "1992-2020",
+   "1992-Q1-2020-Q4",
+   "1999-2023",
+   "1999-2025",
+   "2003-2025",
+   "2003-Q1-2026-Q1",
+   "2025-08-2026-07"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Labour market / Employment and unemployment (Labour force survey) / LFS main indicators / Unemployment - LFS adjusted series / Unemployment - LFS adjusted series - historical data",
+  "theme_share": 0.556,
+  "titles": {
+   "MET_LFU3PERS": "Unemployment by sex, age and metropolitan region",
+   "TEILM011": "Unemployment by sex - age group 15-24",
+   "TEILM012": "Unemployment by sex - age group 25-74",
+   "UNE_RT_A": "Unemployment by sex and age - annual data",
+   "UNE_RT_A_H": "Unemployment by sex and age - annual data (1992–2020)",
+   "UNE_RT_M": "Unemployment by sex and age - monthly data",
+   "UNE_RT_Q": "Unemployment by sex and age - quarterly data",
+   "UNE_RT_Q_H": "Unemployment by sex and age - quarterly data (1992–2020)",
+   "URT_LFU3PERS": "Unemployment by sex, age and other typologies"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/1888": null,
+ "europa/1913": null,
+ "europa/1915": {
+  "candidates": [
+   "NAMA_10R_2COE",
+   "TEC00013"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TEC00013"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 1,
+  "period": [
+   "2000-2024",
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Economy and finance / National accounts (ESA 2010) / Annual national accounts / Regional economic accounts / Branch and Household accounts",
+  "theme_share": 0.5,
+  "titles": {
+   "NAMA_10R_2COE": "Compensation of employees by NUTS 2 region",
+   "TEC00013": "Compensation of employees"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/1918": {
+  "candidates": [
+   "NAMA_10R_2COE",
+   "TEC00013"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TEC00013"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 1,
+  "period": [
+   "2000-2024",
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Economy and finance / National accounts (ESA 2010) / Annual national accounts / Regional economic accounts / Branch and Household accounts",
+  "theme_share": 0.5,
+  "titles": {
+   "NAMA_10R_2COE": "Compensation of employees by NUTS 2 region",
+   "TEC00013": "Compensation of employees"
+  },
+  "truncated": false,
+  "unit": "PPC - Milhões"
+ },
+ "europa/1925": null,
+ "europa/1926": null,
+ "europa/1927": null,
+ "europa/1928": null,
+ "europa/1929": {
+  "candidates": [
+   "TPS00198"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TPS00198"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Demography, population stock and balance / Main population indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "TPS00198": "Old-age-dependency ratio"
+  },
+  "truncated": false,
+  "unit": "Rácio - %"
+ },
+ "europa/1930": null,
+ "europa/1934": null,
+ "europa/1935": null,
+ "europa/1936": null,
+ "europa/1937": null,
+ "europa/1938": null,
+ "europa/1939": null,
+ "europa/1940": null,
+ "europa/1941": null,
+ "europa/1942": null,
+ "europa/1944": {
+  "candidates": [
+   "LFSA_AGAED",
+   "LFSA_AGAN",
+   "LFSQ_AGACOB",
+   "LFSQ_AGAED",
+   "LFSQ_AGAN",
+   "LFST_R_LFP2ACEDU",
+   "LFST_R_LFP2ACT"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 7,
+  "n_exact": 0,
+  "period": [
+   "1983-2025",
+   "1995-2025",
+   "1998-Q1-2026-Q1",
+   "1999-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Labour market / Employment and unemployment (Labour force survey) / Labour force survey (LFS) series - detailed quarterly data / Labour force",
+  "theme_share": 0.429,
+  "titles": {
+   "LFSA_AGAED": "Labour force by educational attainment level",
+   "LFSA_AGAN": "Labour force by citizenship",
+   "LFSQ_AGACOB": "Labour force by country of birth - quarterly data",
+   "LFSQ_AGAED": "Labour force by educational attainment level - quarterly data",
+   "LFSQ_AGAN": "Labour force by citizenship - quarterly data",
+   "LFST_R_LFP2ACEDU": "Labour force by educational attainment level and NUTS 2 region",
+   "LFST_R_LFP2ACT": "Labour force by NUTS 2 region"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/1951": null,
+ "europa/1953": null,
+ "europa/1962": null,
+ "europa/1963": null,
+ "europa/1964": null,
+ "europa/1967": null,
+ "europa/1968": null,
+ "europa/1977": null,
+ "europa/1980": null,
+ "europa/1992": null,
+ "europa/1994": null,
+ "europa/2026": null,
+ "europa/2027": null,
+ "europa/2119": null,
+ "europa/2125": null,
+ "europa/2126": null,
+ "europa/2169": null,
+ "europa/2170": null,
+ "europa/2171": {
+  "candidates": [
+   "TPS00184"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Living conditions and welfare / Income and living conditions / Income distribution and monetary poverty / Monetary poverty",
+  "theme_share": 1.0,
+  "titles": {
+   "TPS00184": "At-risk-of-poverty rate after social transfers by sex"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2264": {
+  "candidates": [
+   "SDG_08_40",
+   "TESEM130"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "2005-2025",
+   "2009-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 8 - Decent work and economic growth",
+  "theme_share": 0.5,
+  "titles": {
+   "SDG_08_40": "Long-term unemployment rate by sex",
+   "TESEM130": "Long-term unemployment rate by sex"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2265": null,
+ "europa/2330": null,
+ "europa/2331": null,
+ "europa/2332": {
+  "candidates": [
+   "ILC_MDDD11"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2003-2020"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Quality of life / Material living conditions / Material conditions / Material deprivation",
+  "theme_share": 1.0,
+  "titles": {
+   "ILC_MDDD11": "Severe material deprivation rate by age and sex"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2333": {
+  "candidates": [
+   "ILC_MDDD11",
+   "ILC_MDDD15",
+   "ILC_MDDD16"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by age group",
+  "filter_resolved": false,
+  "n_candidates": 3,
+  "n_exact": 0,
+  "period": [
+   "2003-2020"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Living conditions and welfare / Income and living conditions / Material deprivation / Material deprivation by dimension",
+  "theme_share": 1.0,
+  "titles": {
+   "ILC_MDDD11": "Severe material deprivation rate by age and sex",
+   "ILC_MDDD15": "Severe material deprivation rate by group of citizenship (population aged 18 and over)",
+   "ILC_MDDD16": "Severe material deprivation rate by group of country of birth (population aged 18 and over)"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2335": {
+  "candidates": [
+   "SDG_10_30"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social protection performance monitor - indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_10_30": "Relative median at-risk-of-poverty gap"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2336": {
+  "candidates": [
+   "SDG_10_30"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by age group",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social protection performance monitor - indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_10_30": "Relative median at-risk-of-poverty gap"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2386": null,
+ "europa/2387": null,
+ "europa/2402": null,
+ "europa/2408": null,
+ "europa/2409": null,
+ "europa/2417": null,
+ "europa/2418": null,
+ "europa/2419": null,
+ "europa/2420": null,
+ "europa/2424": null,
+ "europa/2425": null,
+ "europa/2429": null,
+ "europa/2430": null,
+ "europa/2431": null,
+ "europa/2432": null,
+ "europa/2435": null,
+ "europa/2436": null,
+ "europa/2437": null,
+ "europa/2438": null,
+ "europa/2442": {
+  "candidates": [
+   "TOUR_DEM_TNAC",
+   "TOUR_DEM_TNACB",
+   "TOUR_DEM_TNAGE",
+   "TOUR_DEM_TNED11",
+   "TOUR_DEM_TNHD",
+   "TOUR_DEM_TNINC",
+   "TOUR_DEM_TNQ",
+   "TOUR_DEM_TNQ1",
+   "TOUR_DEM_TNSEX",
+   "TOUR_DEM_TNWS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by tourists in collective tourist accommodations total and by type of accommodation",
+  "filter_resolved": false,
+  "n_candidates": 10,
+  "n_exact": 0,
+  "period": [
+   "1996-Q1-2011-Q4",
+   "2012-2024",
+   "2020-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Industry, trade and services / Tourism / Trips of EU residents - annual data / Tourism nights / Number of nights spent by socio-demographic characteristics of the tourist",
+  "theme_share": 0.5,
+  "titles": {
+   "TOUR_DEM_TNAC": "Nights spent by main mode of accommodation",
+   "TOUR_DEM_TNACB": "Nights spent by booking channel for the main mode of accommodation (from 2020 onwards)",
+   "TOUR_DEM_TNAGE": "Nights spent by age group of the tourist",
+   "TOUR_DEM_TNED11": "Nights spent by educational attainment level of the tourist",
+   "TOUR_DEM_TNHD": "Nights spent by type of destination of the trip (personal trips only)",
+   "TOUR_DEM_TNINC": "Nights spent by household income quartile of the tourist",
+   "TOUR_DEM_TNQ": "Nights spent by purpose, duration, destination and sex of the tourist  (1996-2011)",
+   "TOUR_DEM_TNQ1": "Nights spent by purpose, duration, destination and main mode of accommodation (1996-2011)",
+   "TOUR_DEM_TNSEX": "Nights spent by sex of the tourist",
+   "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
+  },
+  "truncated": false,
+  "unit": "Dormida"
+ },
+ "europa/2443": {
+  "candidates": [
+   "TOUR_DEM_TNAGE",
+   "TOUR_DEM_TNED11",
+   "TOUR_DEM_TNHD",
+   "TOUR_DEM_TNINC",
+   "TOUR_DEM_TNQ",
+   "TOUR_DEM_TNSEX",
+   "TOUR_DEM_TNWS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by tourists in collective tourist accommodations total and by type of tourist",
+  "filter_resolved": false,
+  "n_candidates": 7,
+  "n_exact": 0,
+  "period": [
+   "1996-Q1-2011-Q4",
+   "2012-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Industry, trade and services / Tourism / Trips of EU residents - annual data / Tourism nights / Number of nights spent by socio-demographic characteristics of the tourist",
+  "theme_share": 0.714,
+  "titles": {
+   "TOUR_DEM_TNAGE": "Nights spent by age group of the tourist",
+   "TOUR_DEM_TNED11": "Nights spent by educational attainment level of the tourist",
+   "TOUR_DEM_TNHD": "Nights spent by type of destination of the trip (personal trips only)",
+   "TOUR_DEM_TNINC": "Nights spent by household income quartile of the tourist",
+   "TOUR_DEM_TNQ": "Nights spent by purpose, duration, destination and sex of the tourist  (1996-2011)",
+   "TOUR_DEM_TNSEX": "Nights spent by sex of the tourist",
+   "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
+  },
+  "truncated": false,
+  "unit": "Dormida"
+ },
+ "europa/2444": null,
+ "europa/2445": null,
+ "europa/2448": null,
+ "europa/2449": null,
+ "europa/2450": null,
+ "europa/2451": null,
+ "europa/2452": null,
+ "europa/2458": null,
+ "europa/2461": null,
+ "europa/2465": null,
+ "europa/2466": null,
+ "europa/2467": null,
+ "europa/2470": null,
+ "europa/2474": null,
+ "europa/2483": {
+  "candidates": [
+   "TOUR_DEM_TNAGE",
+   "TOUR_DEM_TNED11",
+   "TOUR_DEM_TNINC",
+   "TOUR_DEM_TNQ",
+   "TOUR_DEM_TNSEX",
+   "TOUR_DEM_TNWS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by tourists per 100 bed places available in collective tourist accommodations",
+  "filter_resolved": false,
+  "n_candidates": 6,
+  "n_exact": 0,
+  "period": [
+   "1996-Q1-2011-Q4",
+   "2012-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Industry, trade and services / Tourism / Trips of EU residents - annual data / Tourism nights / Number of nights spent by socio-demographic characteristics of the tourist",
+  "theme_share": 0.833,
+  "titles": {
+   "TOUR_DEM_TNAGE": "Nights spent by age group of the tourist",
+   "TOUR_DEM_TNED11": "Nights spent by educational attainment level of the tourist",
+   "TOUR_DEM_TNINC": "Nights spent by household income quartile of the tourist",
+   "TOUR_DEM_TNQ": "Nights spent by purpose, duration, destination and sex of the tourist  (1996-2011)",
+   "TOUR_DEM_TNSEX": "Nights spent by sex of the tourist",
+   "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/2484": null,
+ "europa/2489": {
+  "candidates": [
+   "DEMO_R_D3AREA",
+   "REG_AREA3"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1990-2015",
+   "2013-2026"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by NUTS classification / Regional demographic statistics / Population and area",
+  "theme_share": 0.5,
+  "titles": {
+   "DEMO_R_D3AREA": "Area by NUTS 3 region",
+   "REG_AREA3": "Area by NUTS 3 region"
+  },
+  "truncated": false,
+  "unit": "Km²"
+ },
+ "europa/2520": null,
+ "europa/2521": null,
+ "europa/2527": null,
+ "europa/2531": null,
+ "europa/2532": null,
+ "europa/2533": {
+  "candidates": [
+   "TOUR_DEM_TNAGE",
+   "TOUR_DEM_TNED11",
+   "TOUR_DEM_TNHD",
+   "TOUR_DEM_TNINC",
+   "TOUR_DEM_TNQ",
+   "TOUR_DEM_TNSEX",
+   "TOUR_DEM_TNWS"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by tourists in collective tourist accommodations total and by type of tourist",
+  "filter_resolved": false,
+  "n_candidates": 7,
+  "n_exact": 0,
+  "period": [
+   "1996-Q1-2011-Q4",
+   "2012-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Industry, trade and services / Tourism / Trips of EU residents - annual data / Tourism nights / Number of nights spent by socio-demographic characteristics of the tourist",
+  "theme_share": 0.714,
+  "titles": {
+   "TOUR_DEM_TNAGE": "Nights spent by age group of the tourist",
+   "TOUR_DEM_TNED11": "Nights spent by educational attainment level of the tourist",
+   "TOUR_DEM_TNHD": "Nights spent by type of destination of the trip (personal trips only)",
+   "TOUR_DEM_TNINC": "Nights spent by household income quartile of the tourist",
+   "TOUR_DEM_TNQ": "Nights spent by purpose, duration, destination and sex of the tourist  (1996-2011)",
+   "TOUR_DEM_TNSEX": "Nights spent by sex of the tourist",
+   "TOUR_DEM_TNWS": "Nights spent by activity status of the tourist"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/2534": null,
+ "europa/2538": null,
+ "europa/2540": null,
+ "europa/2541": null,
+ "europa/2580": null,
+ "europa/2656": null,
+ "europa/2664": null,
+ "europa/2666": null,
+ "europa/2672": null,
+ "europa/2674": null,
+ "europa/2676": {
+  "candidates": [
+   "TEINA080"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TEINA080"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2023-Q2-2026-Q1"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Euro indicators / PEEIs / National accounts / Others",
+  "theme_share": 1.0,
+  "titles": {
+   "TEINA080": "Gross national income"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/2678": null,
+ "europa/2680": null,
+ "europa/2683": null,
+ "europa/2687": {
+  "candidates": [
+   "TEINA090"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TEINA090"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2023-Q2-2026-Q1"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Euro indicators / PEEIs / National accounts / Others",
+  "theme_share": 1.0,
+  "titles": {
+   "TEINA090": "Gross disposable income"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/2692": null,
+ "europa/2696": null,
+ "europa/2698": {
+  "candidates": [
+   "AVIA_IF_ARP"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by type",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2001-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Transport / Air transport / Air transport infrastructure",
+  "theme_share": 1.0,
+  "titles": {
+   "AVIA_IF_ARP": "Commercial airports by type"
+  },
+  "truncated": false,
+  "unit": "Aeroporto"
+ },
+ "europa/2699": null,
+ "europa/2700": null,
+ "europa/2701": null,
+ "europa/2705": null,
+ "europa/2706": null,
+ "europa/2707": null,
+ "europa/2708": null,
+ "europa/2709": null,
+ "europa/2710": null,
+ "europa/2711": null,
+ "europa/2712": {
+  "candidates": [
+   "RAIL_GO_TOTAL"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by air total domestic flights and international flights",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2004-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Transport / Railway transport / Railway transport measurement - goods / Railway transport measurement - goods - historical data",
+  "theme_share": 1.0,
+  "titles": {
+   "RAIL_GO_TOTAL": "Goods transported"
+  },
+  "truncated": false,
+  "unit": "t (tonelada)"
+ },
+ "europa/2713": {
+  "candidates": [
+   "RAIL_GO_TOTAL"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by air input and output",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2004-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Transport / Railway transport / Railway transport measurement - goods / Railway transport measurement - goods - historical data",
+  "theme_share": 1.0,
+  "titles": {
+   "RAIL_GO_TOTAL": "Goods transported"
+  },
+  "truncated": false,
+  "unit": "t (tonelada)"
+ },
+ "europa/2714": {
+  "candidates": [
+   "RAIL_PA_TOTAL"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by sea disembarking and embarking",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2004-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Transport / Railway transport / Railway transport measurement - passengers / Railway transport measurement - passengers - historical data",
+  "theme_share": 1.0,
+  "titles": {
+   "RAIL_PA_TOTAL": "Passengers transported"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/2715": null,
+ "europa/2720": null,
+ "europa/2721": null,
+ "europa/2723": null,
+ "europa/2724": {
+  "candidates": [
+   "RAIL_AC_CATNMBR"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by type of accident",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2004-2016"
+  ],
+  "source": "Eurostat",
+  "theme": "Transport / Railway transport / Railway transport accidents - historical data",
+  "theme_share": 1.0,
+  "titles": {
+   "RAIL_AC_CATNMBR": "Railway accidents by type of accident - annual data (2004-2015)"
+  },
+  "truncated": false,
+  "unit": "Acidente"
+ },
+ "europa/2742": null,
+ "europa/2743": null,
+ "europa/2744": null,
+ "europa/2746": null,
+ "europa/2815": null,
+ "europa/2966": {
+  "candidates": [
+   "TEINA090"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by institutional sector",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2023-Q2-2026-Q1"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Euro indicators / PEEIs / National accounts / Others",
+  "theme_share": 1.0,
+  "titles": {
+   "TEINA090": "Gross disposable income"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/2967": null,
+ "europa/2969": null,
+ "europa/2970": {
+  "candidates": [
+   "GVC_SOBFEC",
+   "INN_CIS10_EDUC",
+   "INN_CIS10_IPR",
+   "INN_CIS10_TYPE",
+   "INN_CIS11_EDUC",
+   "INN_CIS11_GEN",
+   "INN_CIS11_GSCOT",
+   "INN_CIS11_HAM",
+   "INN_CIS11_MRK",
+   "INN_CIS11_SOU",
+   "INN_CIS11_STRAT",
+   "INN_CIS11_WORG",
+   "INN_CIS11_YREG",
+   "INN_CIS12_CLIM",
+   "INN_CIS12_COND",
+   "INN_CIS12_EDUC",
+   "INN_CIS12_ENVE",
+   "INN_CIS12_ENVF",
+   "INN_CIS12_ENVU",
+   "INN_CIS12_GEN",
+   "INN_CIS12_HAM",
+   "INN_CIS12_MRK",
+   "INN_CIS12_STRAT",
+   "INN_CIS12_YREG",
+   "INN_CIS13_CLIM"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by some sectors of economic activity",
+  "filter_resolved": false,
+  "n_candidates": 73,
+  "n_exact": 0,
+  "period": [
+   "2016-2016",
+   "2018-2018",
+   "2020-2020",
+   "2022-2022",
+   "2023-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Science, technology, digital society / Science and technology / Community innovation survey / Community innovation survey 2020 (CIS2020) / Information on enterprises",
+  "theme_share": 0.068,
+  "titles": {
+   "GVC_SOBFEC": "Enterprises by international sourcing status, size and NACE Rev. 2 activity",
+   "INN_CIS10_EDUC": "Enterprises by percentage of employees with university education, by NACE Rev. 2 activity and size class (2016)",
+   "INN_CIS10_IPR": "Enterprises by intellectual property rights (IPRs) and licensing in the enterprise, NACE Rev. 2 activity and size class (2016)",
+   "INN_CIS10_TYPE": "Enterprises by NACE Rev. 2 activity and size class (2016)",
+   "INN_CIS11_EDUC": "Enterprises by percentage of persons employed with university education, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_GEN": "Enterprises by their belonging to an enterprise group, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_GSCOT": "Enterprises by percentage of turnover from customised or co-created goods or services, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_HAM": "Enterprises by hampering factor for innovation activities, level of importance of the hampering factor, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_MRK": "Enterprises by market place, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_SOU": "Enterprises by kind of channels to acquire information relevant for innovation, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_STRAT": "Enterprises by type of business strategy applied, importance of the strategy, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_WORG": "Enterprises by level of importance of work organization methods, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_YREG": "Enterprises by year of registration and by type of enterprise, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS12_CLIM": "Enterprises by type and importance of factors related to climate change, NACE Rev.2 activity and size class (2020)",
+   "INN_CIS12_COND": "Enterprises by type and importance of market conditions, NACE Rev.2 activity and size class (2020)",
+   "INN_CIS12_EDUC": "Enterprises by percentage of employees with university education, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS12_ENVE": "Enterprises by type and importance of environmental benefits obtained within the enterprise by introducing business process innovation, by NACE Rev.2 activity and size class (2020)",
+   "INN_CIS12_ENVF": "Enterprises by type and importance of factors driving environmental innovations, NACE Rev.2 activity and size class (2020)",
+   "INN_CIS12_ENVU": "Enterprises by type and importance of environmental benefits obtained during the consumption or use of an innovative product of the enterprise, by NACE Rev.2 activity and size class (2020)",
+   "INN_CIS12_GEN": "Enterprises by their belonging to an enterprise group, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS12_HAM": "Enterprises by hampering factor for innovation activities, level of importance of the hampering factor, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS12_MRK": "Enterprises by market place, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS12_STRAT": "Enterprises by type of business strategy applied, importance of the strategy, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS12_YREG": "Enterprises by year of registration and by type of enterprise, NACE Rev.2 activity and size class (2020)",
+   "INN_CIS13_CLIM": "Enterprises by type and importance of factors related to climate change, NACE Rev. 2 activity and size class (CIS2022)"
+  },
+  "truncated": true,
+  "unit": "Empresa"
+ },
+ "europa/2973": null,
+ "europa/2974": null,
+ "europa/2975": null,
+ "europa/2976": null,
+ "europa/2978": null,
+ "europa/2979": null,
+ "europa/2980": null,
+ "europa/2981": null,
+ "europa/2982": null,
+ "europa/2983": null,
+ "europa/2984": null,
+ "europa/3006": null,
+ "europa/3007": null,
+ "europa/3019": null,
+ "europa/3027": null,
+ "europa/3031": null,
+ "europa/3046": null,
+ "europa/3049": null,
+ "europa/3050": null,
+ "europa/3053": {
+  "candidates": [
+   "RAIL_PA_TOTAL"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by sea at major ports total domestic and international",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2004-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Transport / Railway transport / Railway transport measurement - passengers / Railway transport measurement - passengers - historical data",
+  "theme_share": 1.0,
+  "titles": {
+   "RAIL_PA_TOTAL": "Passengers transported"
+  },
+  "truncated": false,
+  "unit": "Indivíduo - Milhares"
+ },
+ "europa/3055": null,
+ "europa/3066": null,
+ "europa/3067": null,
+ "europa/3068": null,
+ "europa/3069": null,
+ "europa/3070": null,
+ "europa/3071": null,
+ "europa/3077": null,
+ "europa/3078": null,
+ "europa/3131": null,
+ "europa/3135": null,
+ "europa/3154": null,
+ "europa/3155": null,
+ "europa/3156": null,
+ "europa/3157": null,
+ "europa/3158": null,
+ "europa/3162": null,
+ "europa/3163": null,
+ "europa/3164": null,
+ "europa/3165": null,
+ "europa/3166": null,
+ "europa/3178": {
+  "candidates": [
+   "INN_CIS11_MRKT",
+   "INN_CIS11_PF_MRKT",
+   "INN_CIS12_MRKT",
+   "INN_CIS12_PF_MRKT",
+   "INN_CIS13_MRKT"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by some sectors of economic activity",
+  "filter_resolved": false,
+  "n_candidates": 5,
+  "n_exact": 0,
+  "period": [
+   "2018-2018",
+   "2020-2020",
+   "2022-2022"
+  ],
+  "source": "Eurostat",
+  "theme": "Science, technology, digital society / Science and technology / Community innovation survey / Community innovation survey 2018 (CIS2018) / Information on enterprises",
+  "theme_share": 0.2,
+  "titles": {
+   "INN_CIS11_MRKT": "Turnover of enterprises by market place, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS11_PF_MRKT": "Turnover of enterprises by innovation profile, market place, NACE Rev. 2 activity and size class (2018)",
+   "INN_CIS12_MRKT": "Turnover of enterprises by market place, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS12_PF_MRKT": "Turnover of enterprises by innovation profile, market place, NACE Rev. 2 activity and size class (2020)",
+   "INN_CIS13_MRKT": "Turnover of enterprises by market place, NACE Rev. 2 activity and size class (CIS2022)"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/3179": null,
+ "europa/3181": null,
+ "europa/3183": null,
+ "europa/3186": null,
+ "europa/3187": null,
+ "europa/3204": null,
+ "europa/3206": null,
+ "europa/3207": null,
+ "europa/3208": null,
+ "europa/3209": null,
+ "europa/3210": null,
+ "europa/3211": null,
+ "europa/3216": null,
+ "europa/3224": null,
+ "europa/3225": null,
+ "europa/3226": null,
+ "europa/3228": null,
+ "europa/3236": null,
+ "europa/3237": null,
+ "europa/3239": null,
+ "europa/3267": null,
+ "europa/3268": null,
+ "europa/3269": null,
+ "europa/3270": null,
+ "europa/3271": null,
+ "europa/3283": null,
+ "europa/3285": null,
+ "europa/3298": null,
+ "europa/3299": null,
+ "europa/3300": null,
+ "europa/3301": null,
+ "europa/3302": null,
+ "europa/3303": null,
+ "europa/3305": null,
+ "europa/3308": null,
+ "europa/3309": null,
+ "europa/3310": null,
+ "europa/3311": null,
+ "europa/3312": {
+  "candidates": [
+   "CRIM_PRIS_AGE",
+   "CRIM_PRIS_OFF"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "2008-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Crime and criminal justice / Prison and prisoner characteristics",
+  "theme_share": 1.0,
+  "titles": {
+   "CRIM_PRIS_AGE": "Prisoners by age and sex",
+   "CRIM_PRIS_OFF": "Prisoners by offence category and sex"
+  },
+  "truncated": false,
+  "unit": "Indivíduo"
+ },
+ "europa/3313": {
+  "candidates": [
+   "CRIM_PRIS_CTZ"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by citizenship",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2008-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Crime and criminal justice / Prison and prisoner characteristics",
+  "theme_share": 1.0,
+  "titles": {
+   "CRIM_PRIS_CTZ": "Prisoners by citizenship"
+  },
+  "truncated": false,
+  "unit": "Indivíduo"
+ },
+ "europa/3314": {
+  "candidates": [
+   "CRIM_PRIS_TRI"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "CRIM_PRIS_TRI"
+  ],
+  "filter": "by legal status of the trial process",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2008-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Crime and criminal justice / Prison and prisoner characteristics",
+  "theme_share": 1.0,
+  "titles": {
+   "CRIM_PRIS_TRI": "Prisoners by legal status of the trial process"
+  },
+  "truncated": false,
+  "unit": "Indivíduo"
+ },
+ "europa/3318": null,
+ "europa/3330": null,
+ "europa/3333": null,
+ "europa/3335": null,
+ "europa/3336": null,
+ "europa/3337": null,
+ "europa/3338": null,
+ "europa/3354": null,
+ "europa/3355": null,
+ "europa/3356": null,
+ "europa/3358": null,
+ "europa/3360": null,
+ "europa/3386": null,
+ "europa/3388": {
+  "candidates": [
+   "CENS_01NACTZ",
+   "CENS_01NAPOP",
+   "CENS_01NHFSTCTZ",
+   "CENS_01NHHST",
+   "CENS_01NHTYPE",
+   "CENS_01RAPOP",
+   "CENS_01REWS",
+   "CENS_01RHTYPE",
+   "CENS_11AED_R2",
+   "CENS_11AN_R2",
+   "CENS_11AO_R2",
+   "CENS_11COBA_R2",
+   "CENS_11EMPN_R2",
+   "CENS_11EMPO_R2",
+   "CENS_11FS_R3",
+   "CENS_11MS_R3",
+   "CENS_21AE_R2",
+   "CENS_21AH",
+   "CENS_21AM_R2",
+   "CENS_21ARA_R2",
+   "CENS_21ARF_R3",
+   "CENS_21A_R2",
+   "CENS_21COBA_R2",
+   "CENS_21COBHS_R3",
+   "CENS_21CTZA_R2"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by tenure status",
+  "filter_resolved": false,
+  "n_candidates": 50,
+  "n_exact": 0,
+  "period": [
+   "2001-2001",
+   "2011-2011",
+   "2021-2021"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Disability / Disability - historical data / Prevalence of disability (source EHSIS) - historical data",
+  "theme_share": 0.18,
+  "titles": {
+   "CENS_01NACTZ": "Population by sex, citizenship and current activity status",
+   "CENS_01NAPOP": "Population by sex, age and current activity status",
+   "CENS_01NHFSTCTZ": "Population by sex, citizenship, family status and type of housing",
+   "CENS_01NHHST": "Population by sex, age group and family situation (household status)",
+   "CENS_01NHTYPE": "Population by sex, age and household status",
+   "CENS_01RAPOP": "Population by sex, age group, current activity status and NUTS 3 region",
+   "CENS_01REWS": "Population by sex, age group, educational attainment level, current activity status and NUTS 3 region",
+   "CENS_01RHTYPE": "Population by sex, age group, household status and NUTS 3 region",
+   "CENS_11AED_R2": "Population by current activity status, educational attainment level and NUTS 2 region",
+   "CENS_11AN_R2": "Population by current activity status, NACE Rev. 2 activity and NUTS 2 region",
+   "CENS_11AO_R2": "Population by current activity status, occupation and NUTS 2 region",
+   "CENS_11COBA_R2": "Population by group of country of birth, current activity status and NUTS 2 region",
+   "CENS_11EMPN_R2": "Population by status in employment, NACE Rev. 2 activity and NUTS 2 region",
+   "CENS_11EMPO_R2": "Population by status in employment, occupation and NUTS 2 region",
+   "CENS_11FS_R3": "Population by family status and NUTS 3 region",
+   "CENS_11MS_R3": "Population by marital status and NUTS 3 region",
+   "CENS_21AE_R2": "Population by groups of current activity status, age groups, educational attainment level and NUTS 2 region",
+   "CENS_21AH": "Population by groups of current activity status, age groups and household status",
+   "CENS_21AM_R2": "Population by groups of current activity status, age groups, legal marital status and NUTS 2 region",
+   "CENS_21ARA_R2": "Population by year of arrival in the country, groups of current activity status and NUTS 2 region",
+   "CENS_21ARF_R3": "Population by year of arrival in the country, age groups, family status and NUTS 3 region",
+   "CENS_21A_R2": "Population by current activity status, age and NUTS 2 region",
+   "CENS_21COBA_R2": "Population by groups of country of birth, age groups, groups of current activity status and NUTS 2 region",
+   "CENS_21COBHS_R3": "Population by country of birth, age groups, household status and NUTS 3 region",
+   "CENS_21CTZA_R2": "Population by groups of country of citizenship, age groups, groups of current activity status and NUTS 2 region"
+  },
+  "truncated": true,
+  "unit": "Valor Absoluto"
+ },
+ "europa/3393": {
+  "candidates": [
+   "DEMO_FABORT",
+   "DEMO_FABORTORD"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "1960-2024",
+   "2007-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Demography, population stock and balance / Fertility (national level)",
+  "theme_share": 1.0,
+  "titles": {
+   "DEMO_FABORT": "Legally induced abortions by mother's age",
+   "DEMO_FABORTORD": "Legally induced abortions by mother's age and number of previous live births"
+  },
+  "truncated": false,
+  "unit": "Registos"
+ },
+ "europa/3396": null,
+ "europa/3400": null,
+ "europa/3401": null,
+ "europa/3406": {
+  "candidates": [
+   "ILC_LVHO07A",
+   "ILC_LVHO07C",
+   "SDG_01_50",
+   "TESPM140",
+   "TESSI163",
+   "TESSI164"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "ILC_LVHO07C"
+  ],
+  "filter": "by tenure status",
+  "filter_resolved": false,
+  "n_candidates": 6,
+  "n_exact": 1,
+  "period": [
+   "2003-2025",
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Housing / Population and social conditions / Living conditions and welfare / Housing cost",
+  "theme_share": 0.333,
+  "titles": {
+   "ILC_LVHO07A": "Housing cost overburden rate by age, sex and poverty status",
+   "ILC_LVHO07C": "Housing cost overburden rate by tenure status",
+   "SDG_01_50": "Housing cost overburden rate by poverty status",
+   "TESPM140": "Housing cost overburden rate",
+   "TESSI163": "Housing cost overburden rate by poverty status - EU-SILC survey",
+   "TESSI164": "Housing cost overburden rate by tenure status - EU-SILC survey"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3423": null,
+ "europa/3425": null,
+ "europa/3427": null,
+ "europa/3428": {
+  "candidates": [
+   "CEI_WM020"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Circular economy indicators / Waste management",
+  "theme_share": 1.0,
+  "titles": {
+   "CEI_WM020": "Recycling rate of packaging waste by type of packaging"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3468": null,
+ "europa/3476": null,
+ "europa/3490": null,
+ "europa/3491": null,
+ "europa/3492": null,
+ "europa/3493": null,
+ "europa/3494": null,
+ "europa/3516": null,
+ "europa/3517": null,
+ "europa/3518": null,
+ "europa/3519": null,
+ "europa/3520": null,
+ "europa/3521": null,
+ "europa/3522": null,
+ "europa/3523": null,
+ "europa/3525": null,
+ "europa/3526": null,
+ "europa/3527": null,
+ "europa/3531": {
+  "candidates": [
+   "HLTH_DM010",
+   "ILC_MDSD11",
+   "SDG_01_31",
+   "TEPSR_LM420",
+   "TESPM030"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TESPM030"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 5,
+  "n_exact": 1,
+  "period": [
+   "2014-2025",
+   "2015-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Equality and non-discrimination / Income and living conditions / Severe material and social deprivation",
+  "theme_share": 0.4,
+  "titles": {
+   "HLTH_DM010": "Severe material and social deprivation rate by level of disability (activity limitation), sex and age",
+   "ILC_MDSD11": "Severe material and social deprivation rate by age and sex",
+   "SDG_01_31": "Severe material and social deprivation rate by age group and sex",
+   "TEPSR_LM420": "Severe material and social deprivation rate by sex",
+   "TESPM030": "Severe material and social deprivation rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3532": null,
+ "europa/3533": null,
+ "europa/3534": {
+  "candidates": [
+   "HLTH_DPE050",
+   "ILC_IW01",
+   "ILC_IW02",
+   "ILC_IW03",
+   "ILC_IW04",
+   "ILC_IW05",
+   "ILC_IW06",
+   "ILC_IW07",
+   "ILC_IW15",
+   "ILC_IW16",
+   "SDG_01_41",
+   "TESOV110",
+   "TESPM070",
+   "TESSI250"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_01_41",
+   "TESPM070"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 14,
+  "n_exact": 2,
+  "period": [
+   "2003-2025",
+   "2005-2025",
+   "2010-2025",
+   "2014-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Population and social conditions / Living conditions and welfare / Income and living conditions / Income distribution and monetary poverty / In-work poverty",
+  "theme_share": 0.643,
+  "titles": {
+   "HLTH_DPE050": "In-work at-risk-of-poverty rate by level of disability (activity limitation), sex and age",
+   "ILC_IW01": "In-work at-risk-of-poverty rate by age and sex",
+   "ILC_IW02": "In-work at-risk-of-poverty rate by household type",
+   "ILC_IW03": "In-work at-risk-of-poverty rate by work intensity of the household (population aged 18 to 64 years)",
+   "ILC_IW04": "In-work at-risk-of-poverty rate by educational attainment level",
+   "ILC_IW05": "In-work at-risk-of-poverty rate by type of contract",
+   "ILC_IW06": "In-work at-risk-of-poverty rate by months worked",
+   "ILC_IW07": "In-work at-risk-of-poverty rate by full-/part-time work",
+   "ILC_IW15": "In-work at-risk-of-poverty rate by group of citizenship (population aged 18 and over)",
+   "ILC_IW16": "In-work at-risk-of-poverty rate by group of country of birth (population aged 18 and over)",
+   "SDG_01_41": "In work at-risk-of-poverty rate",
+   "TESOV110": "In-work at-risk-of-poverty rate by sex",
+   "TESPM070": "In-work at-risk-of-poverty rate",
+   "TESSI250": "In-work at-risk-of-poverty rate by working time - EU-SILC survey"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3535": null,
+ "europa/3536": null,
+ "europa/3537": {
+  "candidates": [
+   "SDG_02_40"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_02_40"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Agri-environmental indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_02_40": "Area under organic farming"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3539": {
+  "candidates": [
+   "SDG_02_60"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_02_60"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "1990-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Agri-environmental indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_02_60": "Ammonia emissions from agriculture"
+  },
+  "truncated": false,
+  "unit": "Rácio"
+ },
+ "europa/3540": null,
+ "europa/3541": {
+  "candidates": [
+   "SDG_06_40"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_06_40"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2007-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 2 - Zero hunger",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_06_40": "Nitrate in groundwater"
+  },
+  "truncated": false,
+  "unit": "Rácio"
+ },
+ "europa/3542": {
+  "candidates": [
+   "SDG_02_10"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by body mass index",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2008-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Children and youth / Youth / Youth health and wellbeing",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_02_10": "Obesity rate by body mass index (BMI)"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3543": {
+  "candidates": [
+   "SDG_06_60"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_06_60"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2000-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Impact and adaptation / -----",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_06_60": "Water exploitation index, plus (WEI+)"
+  },
+  "truncated": false,
+  "unit": "Rácio - %"
+ },
+ "europa/3545": null,
+ "europa/3546": null,
+ "europa/3547": {
+  "candidates": [
+   "SDG_03_20"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_03_20"
+  ],
+  "filter": "by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2005-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 3 - Good health and well-being",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_03_20": "Share of people with good or very good perceived health by sex"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3548": {
+  "candidates": [
+   "SDG_03_60"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_03_60"
+  ],
+  "filter": "by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2008-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social inclusion and social policy indicators / Health and long-term care portfolio / Access to care / Primary indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_03_60": "Self-reported unmet need for medical examination and care by sex"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3549": null,
+ "europa/3551": {
+  "candidates": [
+   "SDG_07_20"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_07_20"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Drivers / Energy",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_07_20": "Final energy consumption in households per capita"
+  },
+  "truncated": false,
+  "unit": "kgep (kg equivalente de petróleo) - Rácio"
+ },
+ "europa/3554": null,
+ "europa/3556": {
+  "candidates": [
+   "SDG_04_31"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 4 - Quality education",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_04_31": "Participation in early childhood education by sex (children aged 3 and over)"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3557": {
+  "candidates": [
+   "SDG_04_60"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Employment performance monitor - indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_04_60": "Adult participation in learning by sex"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3559": {
+  "candidates": [
+   "SDG_05_11"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2021-2021"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Equality and non-discrimination / Experience of discrimination and personal security / Gender-based violence",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_05_11": "Physical and sexual violence to women by age group"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3560": null,
+ "europa/3561": {
+  "candidates": [
+   "SDG_05_30",
+   "TEPSR_LM220",
+   "TEPSR_LM230",
+   "TESEM060"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "TESEM060"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 1,
+  "period": [
+   "2005-2025",
+   "2009-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / European pillar of social rights (EPSR) / EPSR indicators by region and degree of urbanisation",
+  "theme_share": 0.5,
+  "titles": {
+   "SDG_05_30": "Gender employment gap, by type of employment",
+   "TEPSR_LM220": "Gender employment gap by NUTS 2 region",
+   "TEPSR_LM230": "Gender employment gap by degree of urbanisation",
+   "TESEM060": "Gender employment gap"
+  },
+  "truncated": false,
+  "unit": "Pontos percentuais"
+ },
+ "europa/3562": null,
+ "europa/3565": {
+  "candidates": [
+   "SDG_06_10"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2003-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Replaced EU SDG indicators / Replaced 2025 EU SDG indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_06_10": "Population having neither a bath, nor a shower, nor indoor flushing toilet in their household by poverty status"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3566": {
+  "candidates": [
+   "SDG_07_60"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2003-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 7 - Affordable and clean energy",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_07_60": "Population unable to keep home adequately warm by poverty status"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3567": {
+  "candidates": [
+   "SDG_08_10",
+   "TIPSNA40"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_08_10",
+   "TIPSNA40"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 2,
+  "period": [
+   "1995-2025",
+   "2000-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Economy and finance / National accounts (ESA 2010) / Annual national accounts / GDP and components",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_08_10": "Real GDP per capita",
+   "TIPSNA40": "Real GDP per capita"
+  },
+  "truncated": false,
+  "unit": "Euro - Rácio"
+ },
+ "europa/3568": {
+  "candidates": [
+   "SDG_08_11"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 8 - Decent work and economic growth",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_08_11": "Investment share of GDP by institutional sectors"
+  },
+  "truncated": false,
+  "unit": "Rácio - %"
+ },
+ "europa/3569": null,
+ "europa/3572": null,
+ "europa/3575": null,
+ "europa/3576": null,
+ "europa/3577": null,
+ "europa/3578": null,
+ "europa/3579": null,
+ "europa/3583": null,
+ "europa/3584": {
+  "candidates": [
+   "SDG_10_60"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2008-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 10 - Reduced inequalities",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_10_60": "Asylum applications by state of procedure"
+  },
+  "truncated": false,
+  "unit": ""
+ },
+ "europa/3586": {
+  "candidates": [
+   "SDG_11_20"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2003-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Housing / Population and social conditions / Living conditions and welfare / Environment of the dwelling",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_11_20": "Population living in households considering that they suffer from noise, by poverty status"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3587": {
+  "candidates": [
+   "SDG_16_20"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2003-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 11 - Sustainable cities and communities",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_16_20": "Population reporting occurrence of crime, violence or vandalism in their area by poverty status"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3589": {
+  "candidates": [
+   "SDG_16_10"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "General and regional statistics / Regional statistics by NUTS classification / Regional health statistics / Causes of death",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_16_10": "Standardised death rate due to homicide by sex"
+  },
+  "truncated": false,
+  "unit": "Taxa - Por cem mil"
+ },
+ "europa/3590": null,
+ "europa/3591": null,
+ "europa/3599": {
+  "candidates": [
+   "NRG_IND_EP",
+   "SDG_07_30"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "NRG_IND_EP",
+   "SDG_07_30"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 2,
+  "period": [
+   "1990-2024",
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Environment and energy / Energy / Energy statistics - quantities / Energy statistics - quantities, annual data / Energy indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "NRG_IND_EP": "Energy productivity",
+   "SDG_07_30": "Energy productivity"
+  },
+  "truncated": false,
+  "unit": "Rácio"
+ },
+ "europa/3600": {
+  "candidates": [
+   "SDG_07_40"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2004-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 13 - Climate action",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_07_40": "Share of renewable energy in gross final energy consumption by sector"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3601": {
+  "candidates": [
+   "SDG_07_50"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Environment and energy / Energy / Energy statistics - quantities / Energy statistics - quantities, annual data / Energy indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_07_50": "Energy import dependency by products"
+  },
+  "truncated": false,
+  "unit": "Rácio - %"
+ },
+ "europa/3602": null,
+ "europa/3605": null,
+ "europa/3607": {
+  "candidates": [
+   "CEI_WM011",
+   "SDG_11_60"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "CEI_WM011",
+   "SDG_11_60"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 2,
+  "period": [
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Circular economy indicators / Waste management",
+  "theme_share": 0.5,
+  "titles": {
+   "CEI_WM011": "Recycling rate of municipal waste",
+   "SDG_11_60": "Recycling rate of municipal waste"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3611": {
+  "candidates": [
+   "SDG_13_31"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_13_31"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Greenhouse gas emissions",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_13_31": "Average CO2 emissions per km from new passenger cars"
+  },
+  "truncated": false,
+  "unit": "Rácio"
+ },
+ "europa/3612": {
+  "candidates": [
+   "CEI_SRM030",
+   "ENV_AC_CUR",
+   "ENV_AC_CURM",
+   "SDG_12_41"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "CEI_SRM030",
+   "ENV_AC_CUR",
+   "SDG_12_41"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 3,
+  "period": [
+   "2004-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Environment and energy / Environment / Material flows and resource productivity",
+  "theme_share": 0.5,
+  "titles": {
+   "CEI_SRM030": "Circular material use rate",
+   "ENV_AC_CUR": "Circular material use rate",
+   "ENV_AC_CURM": "Circular material use rate by material type",
+   "SDG_12_41": "Circular material use rate"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3613": {
+  "candidates": [
+   "ENV_WASGEN",
+   "SDG_12_51"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "by hazardousness per capita",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "2004-2022"
+  ],
+  "source": "Eurostat",
+  "theme": "Environment and energy / Environment / Waste / Waste generation and treatment",
+  "theme_share": 1.0,
+  "titles": {
+   "ENV_WASGEN": "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity",
+   "SDG_12_51": "Generation of waste by hazardousness"
+  },
+  "truncated": false,
+  "unit": "Rácio"
+ },
+ "europa/3615": null,
+ "europa/3616": null,
+ "europa/3619": {
+  "candidates": [
+   "CLI_IAD_LOSS"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "1980-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Impact and adaptation / -----",
+  "theme_share": 1.0,
+  "titles": {
+   "CLI_IAD_LOSS": "Climate related economic losses by type of event"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/3620": null,
+ "europa/3621": {
+  "candidates": [
+   "SDG_13_50"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_13_50"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2014-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Climate change / Climate action initiatives",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_13_50": "Contribution to the international 100bn USD commitment on climate related expending"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/3624": null,
+ "europa/3626": null,
+ "europa/3627": {
+  "candidates": [
+   "SDG_17_50"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_17_50"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2000-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 17 - Partnerships for the goals",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_17_50": "Share of environmental taxes in total tax revenues"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3628": {
+  "candidates": [
+   "SDG_15_20"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_15_20"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2011-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 15 - Life on land",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_15_20": "Surface of the terrestrial protected areas"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3632": null,
+ "europa/3633": null,
+ "europa/3634": {
+  "candidates": [
+   "AEI_PR_SOILER"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "by water area affected by severe erosion rate",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2000-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Agriculture, forestry and fisheries / Agriculture / Agriculture and environment / Farm and agricultural land characteristics",
+  "theme_share": 1.0,
+  "titles": {
+   "AEI_PR_SOILER": "Estimated soil erosion by water, by erosion level, land cover and NUTS 3 region"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3639": {
+  "candidates": [
+   "ENV_AC_TAX"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by category of environmental taxes",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "1995-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Environment and energy / Environment / Environmental taxes",
+  "theme_share": 1.0,
+  "titles": {
+   "ENV_AC_TAX": "Environmental tax revenues"
+  },
+  "truncated": false,
+  "unit": "Euro - Milhões"
+ },
+ "europa/3640": null,
+ "europa/3641": null,
+ "europa/3642": {
+  "candidates": [
+   "SDG_14_60"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_14_60"
+  ],
+  "filter": "by eutrophication",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "1998-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 14 - Life below water",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_14_60": "Marine waters affected by eutrophication"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3644": {
+  "candidates": [
+   "TAG00025"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Agriculture, forestry and fisheries / Agriculture / Crop production / Crop production / Crop production in EU standard humidity (from 2000 onwards)",
+  "theme_share": 1.0,
+  "titles": {
+   "TAG00025": "Utilised agricultural area by categories"
+  },
+  "truncated": false,
+  "unit": "Hectare (ha)"
+ },
+ "europa/3646": null,
+ "europa/3647": null,
+ "europa/3648": null,
+ "europa/3649": null,
+ "europa/3650": null,
+ "europa/3651": null,
+ "europa/3652": null,
+ "europa/3653": null,
+ "europa/3654": {
+  "candidates": [
+   "SDG_03_11",
+   "TPS00150"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 2,
+  "n_exact": 0,
+  "period": [
+   "2004-2024",
+   "2013-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social inclusion and social policy indicators / Health and long-term care portfolio / Access to care / Primary indicators",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_03_11": "Healthy life years at birth by sex",
+   "TPS00150": "Healthy life years at birth by sex"
+  },
+  "truncated": false,
+  "unit": "Ano (idade) - Média"
+ },
+ "europa/3655": {
+  "candidates": [
+   "SDG_04_70"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_04_70"
+  ],
+  "filter": "by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2021-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Quality of life / Education / Self reported skills",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_04_70": "Share of individuals having at least basic digital skills, by sex"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3656": {
+  "candidates": [
+   "SDG_17_60"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2019-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Science, technology, digital society / Digital economy and society / Additional indicators on digitalisation / Internet coverage and prices",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_17_60": "High-speed internet coverage, by type of area"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3659": null,
+ "europa/3661": null,
+ "europa/3662": null,
+ "europa/3664": null,
+ "europa/3665": null,
+ "europa/3678": null,
+ "europa/3687": null,
+ "europa/3688": null,
+ "europa/3697": null,
+ "europa/3698": null,
+ "europa/3703": null,
+ "europa/3704": null,
+ "europa/3717": null,
+ "europa/3743": {
+  "candidates": [
+   "SDG_02_53"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_02_53"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2011-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 2 - Zero hunger",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_02_53": "Use and risk of chemical pesticides"
+  },
+  "truncated": false,
+  "unit": "Número Índice"
+ },
+ "europa/3745": null,
+ "europa/3746": {
+  "candidates": [
+   "SDG_13_21"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_13_21"
+  ],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "1990-2024"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 13 - Climate action",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_13_21": "Net greenhouse gas emissions of the Land use, Land use change and Forestry (LULUCF) sector"
+  },
+  "truncated": false,
+  "unit": "(A) Rácio (B) t CO 2 eq - Milhares"
+ },
+ "europa/3750": {
+  "candidates": [
+   "HLTH_DHC030",
+   "ILC_MDHO06A",
+   "ILC_MDHO06B",
+   "ILC_MDHO06C",
+   "ILC_MDHO06D",
+   "ILC_MDHO06Q",
+   "SDG_11_11",
+   "TEPSR_LM440"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "",
+  "filter_resolved": false,
+  "n_candidates": 8,
+  "n_exact": 0,
+  "period": [
+   "2003-2023",
+   "2005-2023",
+   "2010-2023"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Housing / Population and social conditions / Living conditions and welfare / Housing deprivation",
+  "theme_share": 1.0,
+  "titles": {
+   "HLTH_DHC030": "Severe housing deprivation rate by level of disability (activity limitation), sex and age",
+   "ILC_MDHO06A": "Severe housing deprivation rate by age, sex and poverty status",
+   "ILC_MDHO06B": "Severe housing deprivation rate by household type",
+   "ILC_MDHO06C": "Severe housing deprivation rate by tenure status",
+   "ILC_MDHO06D": "Severe housing deprivation rate by degree of urbanisation",
+   "ILC_MDHO06Q": "Severe housing deprivation rate by income quintile",
+   "SDG_11_11": "Severe housing deprivation rate by poverty status",
+   "TEPSR_LM440": "Severe housing deprivation rate by tenure status"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3788": {
+  "candidates": [
+   "HLTH_DM010",
+   "ILC_MDSD11",
+   "SDG_01_31",
+   "TESPM030"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by age group",
+  "filter_resolved": false,
+  "n_candidates": 4,
+  "n_exact": 0,
+  "period": [
+   "2014-2025",
+   "2015-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Equality and non-discrimination / Income and living conditions / Severe material and social deprivation",
+  "theme_share": 0.5,
+  "titles": {
+   "HLTH_DM010": "Severe material and social deprivation rate by level of disability (activity limitation), sex and age",
+   "ILC_MDSD11": "Severe material and social deprivation rate by age and sex",
+   "SDG_01_31": "Severe material and social deprivation rate by age group and sex",
+   "TESPM030": "Severe material and social deprivation rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3789": {
+  "candidates": [
+   "HLTH_DM010",
+   "ILC_MDSD11",
+   "SDG_01_31",
+   "TEPSR_LM420",
+   "TESPM030"
+  ],
+  "confidence": "family",
+  "exact_title": [],
+  "filter": "total and by sex",
+  "filter_resolved": false,
+  "n_candidates": 5,
+  "n_exact": 0,
+  "period": [
+   "2014-2025",
+   "2015-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Cross cutting topics / Equality and non-discrimination / Income and living conditions / Severe material and social deprivation",
+  "theme_share": 0.4,
+  "titles": {
+   "HLTH_DM010": "Severe material and social deprivation rate by level of disability (activity limitation), sex and age",
+   "ILC_MDSD11": "Severe material and social deprivation rate by age and sex",
+   "SDG_01_31": "Severe material and social deprivation rate by age group and sex",
+   "TEPSR_LM420": "Severe material and social deprivation rate by sex",
+   "TESPM030": "Severe material and social deprivation rate"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ },
+ "europa/3807": null,
+ "europa/3815": null,
+ "europa/3816": {
+  "candidates": [
+   "SDG_05_40"
+  ],
+  "confidence": "exact",
+  "exact_title": [
+   "SDG_05_40"
+  ],
+  "filter": "by sex",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 1,
+  "period": [
+   "2006-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Sustainable development indicators / Goal 5 - Gender equality",
+  "theme_share": 1.0,
+  "titles": {
+   "SDG_05_40": "Persons outside the labour force due to caring responsibilities by sex"
+  },
+  "truncated": false,
+  "unit": "Proporção - %"
+ },
+ "europa/3828": {
+  "candidates": [
+   "TEPSR_WC160"
+  ],
+  "confidence": "single",
+  "exact_title": [],
+  "filter": "total and by age group",
+  "filter_resolved": false,
+  "n_candidates": 1,
+  "n_exact": 0,
+  "period": [
+   "2005-2025"
+  ],
+  "source": "Eurostat",
+  "theme": "Tables on EU policy / Employment and social policy indicators / Social inclusion and social policy indicators / Overarching portfolio / Context information",
+  "theme_share": 1.0,
+  "titles": {
+   "TEPSR_WC160": "Activity rate by age"
+  },
+  "truncated": false,
+  "unit": "Taxa - %"
+ }
+}
