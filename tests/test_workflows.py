@@ -272,6 +272,19 @@ class PublishGateTest(unittest.TestCase):
                 self.assertIn(f"steps.{ident}.outputs", later,
                               f"{wf}:{name} never inspects {ident}")
 
+    def test_the_harvest_gate_runs_on_the_path_it_usually_takes(self):
+        """The steady-state nightly finds no new records and used to exit
+        the QA step before running it at all — so the one recurring job
+        that could notice a derived artifact going missing was the one
+        that never looked. Confirmed against the real run of 2026-08-25:
+        eight seconds, `status=skipped`, all four builders skipped."""
+        job = load(WF_DIR / "harvest.yml")["jobs"]["harvest"]
+        step = next(s for s in job["steps"] if s.get("id") == "qa")
+        body = str(step["run"])
+        head = body[:body.index("status=skipped")]
+        self.assertIn("qa_catalogue.py --strict", head,
+                      "the gate must run before the skipped path exits")
+
     def test_a_refreshed_upstream_cache_rebuilds_what_reads_it(self):
         """A catalogue snapshot without its crosswalk leaves the routing
         pointing at the previous snapshot's ids with nothing saying so —

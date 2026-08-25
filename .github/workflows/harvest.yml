@@ -62,7 +62,17 @@ jobs:
           # the one state that must never be silent.
           trap 'echo "status=error" >> "$GITHUB_OUTPUT"' ERR
           if git diff --quiet data/catalogue/; then
-            echo "No records changed; skipping rebuild."
+            # No new records, so nothing to rebuild — but the gate still
+            # runs. Its thresholds are not all about the catalogue:
+            # `detail_pages_missing`, `ine_matched`, `eurostat_matched`
+            # and `jsonl_value_leak` are filesystem and JSON checks over
+            # artifacts a *previous* run wrote, and this is the path the
+            # steady-state nightly takes — the harvest is complete, so
+            # every ordinary night lands here. Skipping the gate meant
+            # the one recurring job that could notice a derived artifact
+            # going missing was the one job that never looked.
+            echo "No records changed; skipping rebuild, still checking."
+            python3 scripts/qa_catalogue.py --strict
             echo "status=skipped" >> "$GITHUB_OUTPUT"
             exit 0
           fi
