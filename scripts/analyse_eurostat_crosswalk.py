@@ -36,6 +36,7 @@ import collections
 import csv
 import io
 import json
+import os
 import pathlib
 import re
 import statistics
@@ -46,29 +47,36 @@ CATALOGUE = pathlib.Path("docs/data/catalogue.json")
 EUROSTAT = pathlib.Path("data/eurostat/datasets.csv")
 REPORT = pathlib.Path("data/spikes/eurostat-crosswalk-shape.md")
 
-# English stopwords plus the words every statistical title carries, which
-# would otherwise tie everything to everything.
-STOPWORDS = {
-    "the", "of", "and", "by", "in", "to", "for", "on", "at", "as", "a",
-    "an", "or", "with", "from", "per", "total", "data", "statistics",
-    "annual", "quarterly", "monthly", "number", "rate", "other", "all",
-}
+# The operators come from `match_lib`, which the shipped matcher also
+# imports. They were copies here, and the numbers this file produces are
+# the project's cited evidence for how that matcher is shaped — so a copy
+# that drifted would make the evidence about a different matcher, with
+# nothing to notice.
+if __package__:
+    from . import match_lib
+else:  # executed directly
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import match_lib
+
+STOPWORDS = match_lib.STOPWORDS
+UNIT_PAREN = match_lib.UNIT_PAREN
+PORDATA_TAIL = match_lib.PORDATA_TAIL
+EUROSTAT_TAIL = match_lib.EUROSTAT_TAIL
+strip_accents = match_lib.strip_accents
+tokens = match_lib.tokens
+norm_title = match_lib.norm_title
+strip_unit = match_lib.strip_unit
 
 
-def strip_accents(text: str) -> str:
-    decomposed = unicodedata.normalize("NFD", (text or "").lower())
-    return "".join(c for c in decomposed
-                   if unicodedata.category(c) != "Mn")
+def split_tail(text, pattern):
+    """As `match_lib.split_tail`, but the tail as tokens.
 
-
-def tokens(text: str) -> set:
-    return {w for w in re.split(r"[^a-z0-9]+", strip_accents(text))
-            if (len(w) > 2 or w.isdigit()) and w not in STOPWORDS}
-
-
-def norm_title(text: str) -> str:
-    return re.sub(r"\s+", " ",
-                  re.sub(r"[^a-z0-9]+", " ", strip_accents(text))).strip()
+    The analyser compares breakdowns and the builder stores the phrase,
+    so this is a deliberate difference rather than a drifted copy — and
+    it is written in terms of the shared function so the *split* cannot
+    drift even though the return shape differs."""
+    head, tail = match_lib.split_tail(text, pattern)
+    return head, tokens(tail)
 
 
 def load():
@@ -139,37 +147,6 @@ def measure(rows: list, datasets: list) -> dict:
         "coverage": coverage,
         "distinct_titles": len(by_norm),
     }
-
-
-# PORDATA writes the unit into a trailing parenthetical and Eurostat
-# carries it as a *dimension* of the cube, so the word never appears in
-# an Eurostat title. `percentage` alone blocked 35 near-misses. This is
-# the INE unit lesson at the opposite polarity — there PORDATA held the
-# unit in a field and INE suffixed it into the title.
-UNIT_PAREN = re.compile(
-    r"\s*\((?:euro|percentage|pps|euro ecu|eu27 100|at current prices|"
-    r"\d{4}[^)]*|nace[^)]*|isced[^)]*)\)\s*$", re.I)
-# Both sides name their breakdown after a `by`, and neither puts it in
-# the same place: PORDATA writes "total and by sex", Eurostat "by sex,
-# age and metropolitan region".
-PORDATA_TAIL = re.compile(r"\s*[:,]?\s*\b(?:total and by|and by|by)\b.*$",
-                          re.I)
-EUROSTAT_TAIL = re.compile(r"\s*,?\s*\bby\b.*$", re.I)
-
-
-def strip_unit(text: str) -> str:
-    previous = None
-    while previous != text:
-        previous, text = text, UNIT_PAREN.sub("", text).strip()
-    return text
-
-
-def split_tail(text: str, pattern: re.Pattern) -> tuple[str, set]:
-    """The concept, and the words naming how it is broken down."""
-    found = pattern.search(text)
-    if not found:
-        return text.strip(), set()
-    return text[:found.start()].strip(), tokens(found.group(0))
 
 
 def operators(rows: list, datasets: list) -> dict:

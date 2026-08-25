@@ -288,3 +288,48 @@ class BucketTest(unittest.TestCase):
     def test_values_land_in_the_band_that_contains_them(self):
         self.assertEqual(euro.bucket([0.1, 0.6, 1.0], [0.5]),
                          [(0.0, 0.5, 1), (0.5, 1.01, 2)])
+
+
+class SharedOperatorTest(unittest.TestCase):
+    """One definition, imported by both.
+
+    The analyser carried byte-identical copies of six operators and near
+    copies of two more. That is worse than ordinary duplication here:
+    the numbers this analyser produces are the project's cited evidence
+    for why the matcher is shaped as it is — "containment reaches 18.3%",
+    "ranking picked a winner on 10 of 83 ties", "a token floor drops 38
+    matches" — while the matcher is rebuilt nightly. A drifted copy would
+    leave that evidence describing a different matcher, and no test
+    imported both modules."""
+
+    def setUp(self):
+        self.build = load_script("build_eurostat_crosswalk")
+        self.lib = load_script("match_lib")
+
+    def test_the_builder_and_the_analyser_share_one_object(self):
+        for name in ("STOPWORDS", "UNIT_PAREN", "PORDATA_TAIL",
+                     "EUROSTAT_TAIL", "strip_accents", "tokens",
+                     "norm_title", "strip_unit"):
+            self.assertIs(getattr(euro, name), getattr(self.build, name),
+                          f"{name} is not the same object in both")
+
+    def test_neither_redefines_an_operator_locally(self):
+        """An assignment that shadows the import is how this drifts
+        back."""
+        for module in ("build_eurostat_crosswalk", "analyse_eurostat_crosswalk"):
+            text = pathlib.Path("scripts", f"{module}.py").read_text("utf-8")
+            for name in ("def strip_accents", "def norm_title",
+                         "def tokens", "def strip_unit"):
+                self.assertNotIn(name, text,
+                                 f"{module} redefines {name}")
+
+    def test_the_split_differs_only_in_what_it_returns(self):
+        """The analyser wants tokens and the builder wants the phrase —
+        a deliberate difference, written in terms of the shared split so
+        the split itself cannot drift."""
+        head_a, tail_a = euro.split_tail("Activity rate total and by sex",
+                                         euro.PORDATA_TAIL)
+        head_b, tail_b = self.build.split_tail(
+            "Activity rate total and by sex", self.build.PORDATA_TAIL)
+        self.assertEqual(head_a, head_b)
+        self.assertEqual(tail_a, self.lib.tokens(tail_b))

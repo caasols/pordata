@@ -14,6 +14,7 @@ exits non-zero when a threshold in THRESHOLDS is breached, so a PORDATA
 parser regression fails the harvest job instead of publishing silently.
 """
 
+import datetime
 import gzip
 import json
 import os
@@ -32,6 +33,7 @@ else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
 # The same pattern build_catalogue repairs with, so the check and the
 # repair cannot disagree about what the defect looks like.
+LASTMOD_FILE = pathlib.Path("data/sitemap-lastmod.tsv")
 SEPARATOR_DEFECT = re.compile(r"(?<=\S) \? (?=\S)")
 ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]+\b")
 # The site renders units from this file; the gate below measures coverage
@@ -184,6 +186,10 @@ THRESHOLDS = {
 # the excerpt the harvester stores there (roadmap 19). Raise it to match
 # the others once 19 lands; until then a floor of 0.0 at least stops the
 # other two areas regressing silently, which is what happened before.
+# Derived from the sitemap rather than from page markup, so a re-fetch
+# is not what raises them and the reachability check does not apply.
+FETCH_INDEPENDENT = {"name_en_coverage"}
+
 PER_AREA_THRESHOLDS = {
     "unit_ratio": {"portugal": 0.0, "europa": 0.95, "municipios": 0.95},
     # Both start at 0 across the board: nothing harvested before
@@ -324,6 +330,30 @@ def gate(metrics: dict) -> list[str]:
             breaches.append(f"{metric}: {value} > allowed {limit}")
         elif key.endswith("_min") and value < limit:
             breaches.append(f"{metric}: {value:.4g} < required {limit}")
+    # A floor that cannot be reached *from here* is a red gate waiting to
+    # happen. Two conditions, both necessary: the field is below its
+    # floor now, and re-fetching every page the harvest can still visit
+    # would not close the gap — since the harvest re-fetches on lastmod
+    # movement only, a row PORDATA has not touched in a year is not
+    # coming back. A floor already satisfied is fine however high it
+    # sits, and `name_en` is excluded because it is derived from the
+    # sitemap slugs and needs no fetch at all.
+    reachable = metrics.get("refetchable_ratio_by_area") or {}
+    for metric, floors in PER_AREA_THRESHOLDS.items():
+        if metric in FETCH_INDEPENDENT:
+            continue
+        measured = metrics.get(f"{metric}_by_area") or {}
+        for area, floor in floors.items():
+            ceiling = reachable.get(area)
+            value = measured.get(area)
+            if ceiling is None or value is None or value >= floor:
+                continue
+            if floor > ceiling:
+                breaches.append(
+                    f"{metric}[{area}]: {value:.4g} now, floor {floor}, "
+                    f"but only {ceiling:.0%} of the area is still "
+                    "re-fetchable — this floor cannot be reached from "
+                    "here whatever the harvest does")
     for metric, floors in PER_AREA_THRESHOLDS.items():
         measured = metrics.get(f"{metric}_by_area")
         if not measured:
@@ -362,6 +392,37 @@ def crosswalk_matched(path: pathlib.Path) -> int | None:
         return None
     data = json.loads(path.read_text(encoding="utf-8"))
     return sum(1 for v in data.values() if v)
+
+
+STALE_DAYS = 365
+
+
+def refetchable_by_area(published: list) -> dict:
+    """Per area, the share of rows a re-fetch would actually visit."""
+    lastmod = {}
+    if LASTMOD_FILE.exists():
+        for line in LASTMOD_FILE.read_text(encoding="utf-8").splitlines():
+            parts = line.split("\t")
+            if len(parts) >= 2 and parts[1].strip():
+                lastmod[parts[0]] = parts[1].strip()[:10]
+    today = datetime.date.today()
+    totals: dict = {}
+    for row in published:
+        area = row.get("area")
+        if not area:
+            continue
+        seen, fresh = totals.get(area, (0, 0))
+        stamp = lastmod.get(row.get("url", ""))
+        age = None
+        if stamp:
+            try:
+                age = (today - datetime.date.fromisoformat(stamp)).days
+            except ValueError:
+                age = None
+        totals[area] = (seen + 1, fresh + (1 if age is not None
+                                           and age <= STALE_DAYS else 0))
+    return {area: round(fresh / seen, 3) if seen else 0.0
+            for area, (seen, fresh) in totals.items()}
 
 
 def value_tokens(rec: dict) -> int:
@@ -545,6 +606,13 @@ def main(strict: bool = False) -> None:
     if published:
         metrics["orgs_coverage"] = (
             sum(1 for r in published if r.get("orgs")) / len(published))
+        # What a re-fetch could reach. The harvest re-fetches on lastmod
+        # movement only, so a row PORDATA has not touched in over a year
+        # will not be visited — and item 20 names `unit_ratio[portugal]`
+        # as its finishing marker while portugal's ceiling is 0.943.
+        # Published so a floor written above its own ceiling fails at the
+        # moment someone writes it, rather than at the moment it runs.
+        metrics["refetchable_ratio_by_area"] = refetchable_by_area(published)
         metrics["name_en_acronym_case"] = sum(
             1 for row in published
             for acronym in set(ACRONYM.findall(row.get("name") or ""))

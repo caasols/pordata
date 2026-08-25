@@ -416,3 +416,51 @@ class PayloadBudgetTest(RepoCase):
     def test_the_catalogue_ceiling_sits_inside_the_first_load_one(self):
         self.assertLess(qa.THRESHOLDS["catalogue_gzip_kb_max"],
                         qa.THRESHOLDS["first_load_gzip_kb_max"])
+
+
+class ReachableCeilingTest(unittest.TestCase):
+    """Item 20 plans to raise `unit_ratio[portugal]` to match the other
+    two areas, and item 21 — the full re-harvest that would populate it —
+    is ordered three steps later. The harvest re-fetches on lastmod
+    movement only, so 60 portugal rows PORDATA has not touched in a year
+    are not coming back: the reachable ceiling is 0.943 and a floor of
+    0.95 could never pass. Published so that is visible when the floor is
+    written rather than when it runs."""
+
+    def test_a_floor_above_the_ceiling_breaches_when_the_field_is_short(self):
+        got = qa.gate({
+            "refetchable_ratio_by_area": {"portugal": 0.943},
+            "unit_ratio_by_area": {"portugal": 0.001, "europa": 1.0,
+                                   "municipios": 1.0},
+        })
+        with mock.patch.dict(qa.PER_AREA_THRESHOLDS["unit_ratio"],
+                             {"portugal": 0.95}):
+            got = qa.gate({
+                "refetchable_ratio_by_area": {"portugal": 0.943},
+                "unit_ratio_by_area": {"portugal": 0.001, "europa": 1.0,
+                                       "municipios": 1.0},
+            })
+        self.assertTrue(any("cannot be reached from here" in b for b in got),
+                        got)
+
+    def test_a_floor_already_satisfied_is_fine_however_high(self):
+        """municipios sits at 100% with a ceiling of 0.80 — the ceiling
+        constrains future accrual, not a field that is already there."""
+        got = qa.gate({
+            "refetchable_ratio_by_area": {"municipios": 0.80},
+            "unit_ratio_by_area": {"portugal": 1.0, "europa": 1.0,
+                                   "municipios": 1.0},
+        })
+        self.assertFalse([b for b in got if "cannot be reached" in b], got)
+
+    def test_a_field_the_sitemap_supplies_is_exempt(self):
+        """`name_en` comes from the /en slugs; no fetch raises it, so the
+        re-fetch ceiling says nothing about it."""
+        self.assertIn("name_en_coverage", qa.FETCH_INDEPENDENT)
+
+    def test_the_ceiling_is_reported_per_area(self):
+        got = qa.refetchable_by_area([
+            {"area": "portugal", "url": "u1"},
+            {"area": "europa", "url": "u2"},
+        ])
+        self.assertEqual(set(got), {"portugal", "europa"})

@@ -54,6 +54,7 @@ import collections
 import csv
 import io
 import json
+import os
 import pathlib
 import re
 import sys
@@ -74,79 +75,30 @@ REVIEW_SAMPLE = 40
 # regression in the splitter — not to freeze today's number.
 MIN_MATCHED = 100
 
-# Ordinary English plus the words every statistical title carries, which
-# would otherwise make unrelated titles look related.
-STOPWORDS = {
-    "the", "of", "and", "by", "in", "to", "for", "on", "at", "as", "a",
-    "an", "or", "with", "from", "per", "total", "data", "statistics",
-    "annual", "quarterly", "monthly", "number", "rate", "other", "all",
-}
+# The operators live in `match_lib` because `analyse_eurostat_crosswalk.py`
+# needs the same ones: its output is this project's cited evidence for
+# why this matcher is shaped as it is, and a copy that drifted would
+# make that evidence about a different matcher.
+if __package__:
+    from . import match_lib
+else:  # executed directly
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import match_lib
 
-# PORDATA's trailing parenthetical is a unit or a period, never part of
-# the concept. Listed rather than matched as "any parenthetical",
-# because `(BMI)`, `(COFOG)` and `(LULUCF)` *are* part of the concept.
-UNIT_PAREN = re.compile(
-    r"\s*\((?:euro|percentage|pps|euro ecu|eu27 100|at current prices|"
-    r"\d{4}[^)]*|nace[^)]*|isced[^)]*)\)\s*$", re.I)
-
-# PORDATA writes "total and by sex"; Eurostat writes "by sex, age and
-# metropolitan region". A bare `by` has to count on the PORDATA side —
-# "Obesity rate by body mass index" opens its breakdown that way — which
-# means the split can cut inside a name that merely contains "by"
-# ("soil erosion by water"). Requiring the heads to match *exactly*
-# absorbs that: a head cut in the wrong place does not match anything.
-PORDATA_TAIL = re.compile(r"\s*[:,]?\s*\b(?:total and by|and by|by)\b.*$",
-                          re.I)
-EUROSTAT_TAIL = re.compile(r"\s*,?\s*\bby\b.*$", re.I)
+STOPWORDS = match_lib.STOPWORDS
+UNIT_PAREN = match_lib.UNIT_PAREN
+PORDATA_TAIL = match_lib.PORDATA_TAIL
+EUROSTAT_TAIL = match_lib.EUROSTAT_TAIL
+strip_accents = match_lib.strip_accents
+tokens = match_lib.tokens
+norm_title = match_lib.norm_title
+strip_unit = match_lib.strip_unit
+split_tail = match_lib.split_tail
 THEME_SEP = " | "
-
-# Measured across all 7,572 rows of the cached catalogue: every download
-# and browser URL is exactly the dataset code substituted into these,
-# with no exceptions and none missing. So storing a URL per candidate
-# would repeat a template up to 25 times per entry — 184 KB of it — and
-# a consumer can build the route from the code instead. Kept as a
-# *checked* claim rather than an assumption: `load_eurostat` asserts it
-# on every build, so the day Eurostat changes the pattern the build
-# stops rather than quietly publishing dead links.
 TSV_TEMPLATE = ("https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1"
                 "/data/{code}/?format=TSV")
 BROWSER_TEMPLATE = ("https://ec.europa.eu/eurostat/databrowser/product"
                     "/view/{code}")
-
-
-def strip_accents(text: str) -> str:
-    decomposed = unicodedata.normalize("NFD", (text or "").lower())
-    return "".join(c for c in decomposed
-                   if unicodedata.category(c) != "Mn")
-
-
-def tokens(text: str) -> set:
-    """Content words. Digits are kept whatever their length — a year or
-    an age bracket is content, which is a lesson the INE matcher paid
-    for with a two-character floor that swallowed `65`."""
-    return {w for w in re.split(r"[^a-z0-9]+", strip_accents(text))
-            if (len(w) > 2 or w.isdigit()) and w not in STOPWORDS}
-
-
-def norm_title(text: str) -> str:
-    return re.sub(r"\s+", " ",
-                  re.sub(r"[^a-z0-9]+", " ", strip_accents(text))).strip()
-
-
-def strip_unit(text: str) -> str:
-    """Repeated, because a name can carry both a unit and a period."""
-    previous = None
-    while previous != text:
-        previous, text = text, UNIT_PAREN.sub("", text).strip()
-    return text
-
-
-def split_tail(text: str, pattern: re.Pattern) -> tuple[str, str]:
-    """The concept, and the phrase naming how it is broken down."""
-    found = pattern.search(text)
-    if not found:
-        return text.strip(), ""
-    return text[:found.start()].strip(), found.group(0).strip()
 
 
 def in_scope(row: dict) -> bool:
