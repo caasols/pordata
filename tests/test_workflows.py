@@ -388,6 +388,57 @@ class TriggerCoverageTest(unittest.TestCase):
             self.assertTrue((REPO / path).exists(), path)
 
 
+class DocContractTest(unittest.TestCase):
+    """Figures the docs state, checked against the thing itself.
+
+    `context.md` cited `30 16 * * 1-5` as the weekday sitemap cron — a
+    literal that appears in no workflow in the tree, sitting inside the
+    "Measured facts" block as the justification for the cadence. And it
+    said "Eight" workflows while listing eight of ten, omitting
+    `pages-health.yml`, the only gate on the last hop to the public."""
+
+    DOCS = ["CLAUDE.md", "context.md", "README.md"]
+    CRON = re.compile(r"`((?:[\d*/,-]+\s+){4}[\d*/,-]+)`")
+
+    @staticmethod
+    def real_crons():
+        found = set()
+        for path in WF_DIR.glob("*.yml"):
+            on = load(path).get(True) or {}
+            for entry in on.get("schedule") or []:
+                found.add(entry["cron"].strip())
+        return found
+
+    def test_every_cron_a_doc_cites_exists_in_a_workflow(self):
+        real = self.real_crons()
+        for name in self.DOCS:
+            text = (REPO / name).read_text(encoding="utf-8")
+            for cited in self.CRON.findall(text):
+                self.assertIn(cited.strip(), real,
+                              f"{name} cites cron {cited!r}, which no "
+                              f"workflow declares (real: {sorted(real)})")
+
+    def test_every_workflow_appears_in_the_claude_md_table(self):
+        table = (REPO / "CLAUDE.md").read_text(encoding="utf-8")
+        for path in WF_DIR.glob("*.yml"):
+            self.assertIn(path.name, table,
+                          f"{path.name} is in no CLAUDE.md table row")
+
+    def test_no_doc_states_a_workflow_count_that_is_wrong(self):
+        """`context.md` said "Eight" and listed eight of ten."""
+        words = {"Eight": 8, "Nine": 9, "Ten": 10, "Eleven": 11}
+        real = len(list(WF_DIR.glob("*.yml")))
+        for name in self.DOCS:
+            text = (REPO / name).read_text(encoding="utf-8")
+            for word, value in words.items():
+                for match in re.finditer(
+                        rf"\b{word}\b[^.\n]{{0,30}}workflows", text):
+                    self.assertEqual(
+                        value, real,
+                        f"{name} says {word} workflows; there are {real} "
+                        f"({match.group(0)!r})")
+
+
 class MutationScopeTest(unittest.TestCase):
     """A gate's own scope is a claim.
 

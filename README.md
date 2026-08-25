@@ -3,8 +3,9 @@
 Making Portuguese public statistics consumable.
 
 **Search the catalogue: [caasols.github.io/pordata](https://caasols.github.io/pordata/)** — a
-fuzzy index of all 2,195 PORDATA indicators, metadata only, each entry linking back to its
-PORDATA page. Machine-readable at stable paths, no key and no rate limit:
+fuzzy index of all 2,196 PORDATA indicators, metadata only, each entry opening a page of
+its own with the sources, the revision note and the upstream crosswalk — and a click-out to
+PORDATA from there. Machine-readable at stable paths, no key and no rate limit:
 [catalogue.json](https://caasols.github.io/pordata/data/catalogue.json) ·
 [catalogue.csv](https://caasols.github.io/pordata/data/catalogue.csv) ·
 [stats.json](https://caasols.github.io/pordata/data/stats.json).

@@ -42,9 +42,9 @@ The coverage line was hiding in the title, welded on with a colon: `split_breakd
 that tail on 54.5% of rows and **refuses** when the tail is the indicator itself, and
 `extract_unit` recovers a unit on 51.8%.
 
-**The INE crosswalk landed 2026-08-24.** `data/crosswalk/ine.json` routes **206 of 839**
+**The INE crosswalk landed 2026-08-24.** `data/crosswalk/ine.json` routes **212 of 839**
 in-scope rows (INE-sourced, portugal/municipios) to a candidate *family* of INE series — 113
-with an exact title inside it — and `null` for the other 633. The relation is one-to-many
+with an exact title inside it — and `null` for the other 627. The relation is one-to-many
 (spike A5), so each entry stores the set, its true size, the INE operation/theme, and the
 evidence; series selection is deferred to fetch time — never a single `ine_id`. **Family size
 is never a reason to refuse**: 62 candidates means INE publishes 62 of them. Six filters,
@@ -112,7 +112,7 @@ most are covered under a name the matcher declines to claim.
 menos…", `europa` "Que países…"), which makes it a better search and embedding input than the
 name; a **revision note** in the `revis` window on 215 pages, which is decision 5's caveat; and
 the **period**, whose mechanism differs by area — portugal has named year elements, municipios
-a `<select>` picker, europa neither. The parser now captures all three — the
+a `<select>` picker, and europa turns out to carry both. The parser captures all three — the
 revision note needed no fetch at all (203 rows carry it today, from windows already stored) —
 so future fetches pay for themselves; item **21** is the re-harvest that backfills the rest.
 

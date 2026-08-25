@@ -143,7 +143,11 @@ def extract_question(html: str) -> str:
 
 # The period's mechanism differs by area (A4 + A6): portugal names the
 # first and last year in their own elements, municipios exposes a
-# <select> year picker, europa does neither and is still unspecified.
+# <select> year picker, and europa carries *both* — 4 year elements and
+# 26-30 picker options on every page the spike sampled, so
+# `extract_period` already works there. `period_ratio[europa]` reads 0
+# because no europa record has been re-fetched since this was written,
+# which is harvest lag, not a missing extractor.
 YEAR_ELEMENT = re.compile(
     r'class="[^"]*Year(?:Current|Other)Text[^"]*"[^>]*>\s*(\d{4})\s*<', re.I)
 YEAR_OPTION = re.compile(r'<option[^>]+value="(\d{4})"', re.I)

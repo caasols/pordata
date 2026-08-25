@@ -494,3 +494,60 @@ class StripMarkupTest(unittest.TestCase):
     def test_a_lone_angle_bracket_survives(self):
         self.assertEqual(b.strip_markup("a < b"), "a < b")
         self.assertEqual(b.strip_markup("c > d"), "c > d")
+
+
+class AcronymCaseTest(unittest.TestCase):
+    """The /en slugs are lowercase, so a name derived from one lost every
+    acronym the Portuguese name capitalises — "higher education (isced 5
+    8)" against "(ISCED 5-8)", on 57 rows, uncounted because `name_en`
+    had no quality metric at all."""
+
+    def test_an_acronym_the_portuguese_name_uses_is_restored(self):
+        self.assertEqual(
+            b.restore_acronyms("higher education (isced 5 8)",
+                               "ensino superior (ISCED 5-8)"),
+            "higher education (ISCED 5 8)")
+
+    def test_several_acronyms_are_all_restored(self):
+        self.assertEqual(
+            b.restore_acronyms("emissions of co2 by nuts region",
+                               "emissões de CO2 por região NUTS"),
+            "emissions of CO2 by NUTS region")
+
+    def test_a_word_the_portuguese_name_does_not_capitalise_is_left(self):
+        """Inventing capitalisation from a word list would be guessing;
+        the PT name is the evidence."""
+        self.assertEqual(
+            b.restore_acronyms("gross domestic product",
+                               "produto interno bruto"),
+            "gross domestic product")
+
+    def test_short_words_are_not_treated_as_acronyms(self):
+        """A two-letter floor keeps "de"/"em" out; the pattern needs a
+        capital plus at least one more."""
+        self.assertEqual(b.restore_acronyms("rate by sex", "taxa por sexo"),
+                         "rate by sex")
+
+    def test_it_matches_whole_words_only(self):
+        self.assertEqual(
+            b.restore_acronyms("discedant students", "alunos ISCED"),
+            "discedant students")
+
+    def test_a_missing_side_is_returned_unchanged(self):
+        self.assertEqual(b.restore_acronyms("", "ISCED"), "")
+        self.assertEqual(b.restore_acronyms("isced", ""), "isced")
+
+
+class SeparatorRepairTest(unittest.TestCase):
+    """`fix_separator` had one call site — the name — while 49 published
+    descriptions carried the same mojibake en dash. `separator_repairs`
+    counts en dashes in *names*, so the metric was structurally blind."""
+
+    def test_the_defect_is_repaired_in_a_name(self):
+        self.assertEqual(b.fix_separator("Homens ? Mulheres"),
+                         "Homens – Mulheres")
+
+    def test_a_question_mark_that_is_punctuation_is_left_alone(self):
+        self.assertEqual(b.fix_separator("Quantos? Muitos"),
+                         "Quantos? Muitos")
+        self.assertEqual(b.fix_separator("Porquê?"), "Porquê?")

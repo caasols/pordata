@@ -9,6 +9,8 @@ tell those mutants apart.
 """
 
 import datetime
+import pathlib
+import re
 import unittest
 
 from helpers import load_script
@@ -226,3 +228,31 @@ class PeriodBoundaryTest(unittest.TestCase):
         html = ('<option value="2019">a</option>'
                 '<option value="2024">b</option>')
         self.assertEqual(harvest.extract_period(html), ("2019", "2024"))
+
+
+class RefutedPremiseTest(unittest.TestCase):
+    """A conclusion its own data disproved, repeated in five places.
+
+    `data/spikes/europa-period.md` opened with "Neither appears on
+    europa" directly above a table counting 4 year elements and 26-30
+    picker options on all three sampled pages — a hardcoded literal in
+    `render()`, so the probe regenerated it. `data/audits/` is exempt:
+    an audit report recording what *was* true is a dated record, not a
+    live claim."""
+
+    # `europa` as the subject, not merely nearby: A4's docstring says
+    # years appeared "on every sampled portugal and europa page and on
+    # **neither** municipios page", which is about municipios and true.
+    PATTERN = re.compile(r"europa\b\s*(?:does|has|is|uses)?\s*,?\s*"
+                         r"\*{0,2}neither\b", re.I)
+
+    def test_no_live_document_says_europa_has_neither_mechanism(self):
+        root = pathlib.Path(__file__).resolve().parents[1]
+        for path in list(root.glob("*.md")) + list(
+                (root / "scripts").glob("*.py")) + list(
+                (root / "data" / "spikes").glob("*.md")):
+            text = path.read_text(encoding="utf-8", errors="replace")
+            self.assertIsNone(
+                self.PATTERN.search(text),
+                f"{path.name} still says europa has neither period "
+                "mechanism; the spike's own table refutes it")

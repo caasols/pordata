@@ -1,6 +1,8 @@
 # Spike: the period on europa pages (roadmap 20)
 
-`extract_period` handles portugal's named year elements and the municipios `<select>` picker. Neither appears on europa, so `period_ratio[europa]` is gated at a floor of 0 — a recorded gap, not an acceptable state. A4 answered this for municipios by naming the innermost element around every year in the page; this is the same question pointed at the third template.
+> **Correction, 2026-08-25.** The opening sentence read "Neither appears on europa" — directly above the table that counts 4 year elements and 26–30 picker options on all three sampled pages. It was a hardcoded literal in `render()` rather than a reading of `known`, so re-running the probe regenerated it. The sentence is now derived from the counts, and the five documents that repeated it are corrected.
+
+`extract_period` handles portugal's named year elements and the municipios `<select>` picker. Both are already handled, and **municipios year picker and portugal year element and select element at all** appear on europa — so `extract_period` works there today and `period_ratio[europa]` reads 0 because no europa record has been re-fetched since the parser learned the field, not because the template lacks one. A4 answered this for municipios by naming the innermost element around every year in the page; this is the same question pointed at the third template.
 
 ## Are the mechanisms we already handle present?
 

@@ -35,7 +35,7 @@ hang off it. See Roadmap; execution order is in its header.
 | `LICENSE` / `LICENSE-DATA` | MIT for the code; CC BY 4.0 for the catalogue metadata, with PORDATA/FFMS attribution |
 | `scripts/` | Python package: sitemap watcher, harvester, catalogue build, QA, featured sets, spikes |
 | `tests/` | Python unittest suite, coverage-gated, mutation-tested via mutmut (`setup.cfg`). Site tests live in `site/src/**/*.test.*` (vitest + StrykerJS) |
-| `.github/workflows/` | Eight: sitemap watch (detector), catalogue harvest (worker, QA-gated), tests.yml and site.yml (per push), ine-availability (daily probe, self-retiring), featured-sets / ine-catalogue / spikes (manual). Table in `CLAUDE.md` |
+| `.github/workflows/` | Ten. The authoritative table is in `CLAUDE.md`; it is generated against the directory and this row deliberately does not restate the list, because it was two short — omitting `pages-health.yml`, the only gate on the last hop to the public, and `eurostat-catalogue.yml` |
 | `data/` | Committed pipeline state: sitemap snapshots, `catalogue/pages.jsonl`, CHANGELOG, QA (gated), `catalogue/abandoned.txt`, spike reports, `audits/` |
 | `site/` | The search UI source: React + Vite + Tailwind + shadcn-style components (TypeScript). `npm run build` → `docs/` |
 | `docs/` | The GitHub Pages site: built UI bundle (from `site/`, committed) + `data/` (catalogue.json/csv/stats — the static "API") |
@@ -87,7 +87,8 @@ The pipeline, end to end, all live on `main`:
   own axis (PORDATA's per-location overview set; ANDs with the areas), a sort pill
   (newest/oldest/A→Z/Z→A, newest default), infinite scroll in device-sized chunks, an
   "Resumo" badge (attribution in its tooltip) and a "descontinuado" badge, light/dark theme, PORDATA credited prominently, every hit linking
-  to its PORDATA page. Data redeploys automatically after every harvest chunk (the app
+  to **this project's** page for the indicator (since item 15; the click-out to pordata.pt
+  moved there, beside the chart slot it will replace). Data redeploys automatically after every harvest chunk (the app
   fetches `docs/data/*.json` at runtime, so data changes need no rebuild). Repo made public
   and Pages enabled 2026-08-22. A UI-consistency pass and a high-effort code audit
   (2026-08-23) normalised typography to a 4-step scale and fixed seven findings — singular
@@ -204,8 +205,9 @@ The pipeline, end to end, all live on `main`:
   every title — present in `<h2>` on 15/15 sampled pages, and phrased per area (`portugal`
   "Quantas…", `municipios` "Onde há mais e menos…", `europa` "Que países…") — is captured at
   harvest time, as is the **period**, whose mechanism differs by area (portugal names the first
-  and last year in their own elements; municipios uses a `<select>` picker; europa does
-  neither and stays honestly empty). The **revision note** needed no fetch at all: it was
+  and last year in their own elements; municipios uses a `<select>` picker; europa carries
+  **both**, which the 2026-08-25 spike measured after this was written — so the extractor
+  already works there and europa's zero is harvest lag, not a gap). The **revision note** needed no fetch at all: it was
   already sitting in the `revis` marker windows, and 203 rows now carry decision 5's caveat.
   Two false-positive classes had to be excluded, both real Portuguese: "imp**revis**ta"
   contains the stem, and "**revistas**" means magazines.
@@ -315,7 +317,7 @@ The pipeline, end to end, all live on `main`:
   is a shortlist of **302 concepts** INE publishes and PORDATA never names once, ranked and
   grouped by theme with three distinct examples each, for the owner to accept or reject —
   which is what produces the curation rule. **The series-level complement is not computed, and
-  saying so is the point.** The crosswalk names 1,062 of 13,084 INE ids (8.1%) because it
+  saying so is the point.** The crosswalk names 1,069 of 13,084 INE ids (8.2%) because it
   refuses rather than guesses; subtracting that would present ~12,000 series as "missing from
   PORDATA" when most are indicators PORDATA covers under a name the matcher declines to claim
   — a number that would be enormous, precise and wrong. The unit is therefore the **concept**:
@@ -347,9 +349,9 @@ The pipeline, end to end, all live on `main`:
   almost nothing there either. Neither is worth doing today; both are worth having already
   counted.
 - **The INE crosswalk** (roadmap 2, 2026-08-24). `data/crosswalk/ine.json` routes
-  **206 of the 839** in-scope PORDATA rows (INE-sourced, portugal/municipios) to a candidate
+  **212 of the 839** in-scope PORDATA rows (INE-sourced, portugal/municipios) to a candidate
   family of INE series — 113 with an exact title inside the family, 93 by containment — and
-  writes `null` for the other 633. **Coverage is not the goal.** The relation is one-to-many
+  writes `null` for the other 627. **Coverage is not the goal.** The relation is one-to-many
   (spike A5), so each entry stores the candidate set, its true size, the INE operation and
   theme it sits in, the geographic levels and periodicities available, and the evidence that
   selected it; picking a series is deferred to fetch time (item 14). Median family 8;
@@ -496,7 +498,7 @@ The pipeline, end to end, all live on `main`:
   compares its `built_at` with the committed one, and checks that the assets the *served*
   `index.html` names resolve — a partial deploy answers 200 on `/` and renders a white page,
   which a check of `/` alone would call healthy.
-- **The workflows are now tested** (roadmap 6b). Eight workflows were the only thing running
+- **The workflows are now tested** (roadmap 6b). The workflows were the only thing running
   this project and the one part of it with no tests. The failures they hide are quiet by
   construction: Actions does not error on a mistyped `steps.<id>`, it renders the empty string
   and takes the other branch; an output renamed in `diff_sitemap.py` leaves
@@ -547,10 +549,14 @@ Measured live on 2026-08-18, not read off documentation. Re-measure before relyi
 Re-measured 2026-08-21 from the first committed sitemap snapshot (`data/sitemap-urls.txt` and
 `data/sitemap-lastmod.tsv`, fetched by the Actions workflow): 5,906 unique URLs. The sitemap
 **carries `<lastmod>`** on 4,423 of them, with real, varied per-page dates (2023 through
-2026-08), so update tracking is high-signal, not churn. The 1,483 blank-lastmod pages are the
-whole `/en` tree in the sample plus structural pages: 308 `municipios/quadro+resumo/<concelho>`
-summary tables (one per municipality — these, not new indicators, explain the apparent +308
-municipal jump against 2026-08-18), 260 subtema and 48 tema taxonomy pages, and 29 retratos.
+2026-08), so update tracking is high-signal, not churn. The 1,483 blank-lastmod pages break down as
+**756 `/en`, 337 quadro+resumo, 260 subtema, 48 tema, 35 retratos and 47 other** — all six
+reproduce from `data/sitemap-lastmod.tsv`. Note the `/en` figure: the tree has 2,967 URLs, so
+**three quarters of it carries a real lastmod** and could be harvested incrementally. This
+paragraph previously called the blanks "the whole `/en` tree plus structural pages", which is
+wrong by roughly 4x on its main term and was internally impossible — 2,967 alone exceeds
+1,483. The quadro+resumo tables are one per municipality, and they, not new indicators,
+explain the apparent +308 municipal jump against 2026-08-18.
 The per-municipality quadros resumo are further evidence for the central insight: hand-built
 joins, one per concelho.
 
@@ -564,7 +570,7 @@ tables (308 municipal, 28 europa, 1 portugal).
 publishes on **weekdays only** — zero Saturday lastmods, ~19 Sunday ones (noise) against
 300–470 per weekday — in batches of 2–70 pages, most weekdays having some activity. lastmod is
 date-only (no time of day). This sized the watcher schedule: daily morning run plus a weekday
-late-afternoon run (`30 16 * * 1-5`, ~17:30 Lisbon) to catch same-day publishes; more frequent
+late-afternoon run (`23 18 * * 1-5`, ~19:23 Lisbon in summer) to catch same-day publishes; more frequent
 polling cannot help while the granularity is a day.
 
 | Fact | Value | How established |
@@ -729,7 +735,8 @@ list; together they are about ninety minutes, and each unblocks work that is oth
 to run.
 
 1. **25 — curate the INE gap shortlist** (~45 min). The accept/reject record *is* the curation
-   rule, and it is the only way to acquire one. Closes 16.
+   rule, and it is the only way to acquire one. Closes 16a; 16b is Eurostat's half
+   and has not started.
 2. **13 — INE and BPstat's reuse terms** (~10 min now; Eurostat is answered as CC BY 4.0).
    Both 403 from a cloud IP, so this needs a real browser. The only thing gating 14.
 3. **17 — name the project.** Cheap now, more expensive once Phase D publishes a package name
@@ -741,8 +748,11 @@ to run.
 
 5. **14 — the series archive.** Where the project stops being a catalogue. Unblocked the
    moment 13 is recorded, and the pilot it asks for (size, vintages, "no series" as a
-   first-class state) is measurable the same day, since nobody has yet fetched a single INE
-   series and the response shape is unmeasured.
+   first-class state) **already ran on 2026-08-25** — `data/spikes/ine-series.md` has the
+   response shape, the size distribution and the vintage fields. What item 14 still needs
+   specifying is the Eurostat half: 118 routed rows whose `filter_resolved` is false on all
+   118, so the fetcher has to resolve a breakdown against a cube's real dimensions or
+   refuse, which is a different job from picking one of an INE family.
 6. **15's charts**, on the archive. The layer is chosen and measured (`@tanstack/charts`,
    pre-rendered SVG plus interactive-on-demand); the slot is already shaped for it.
 7. **2 — the crosswalk's remaining half.** BPstat (measure it before specifying it; neither
@@ -892,7 +902,10 @@ to run.
      indicators to temas/subtemas; check first whether subtema pages are server-rendered
      lists, as the quadros turned out to be.
    - **(b) source entity** from `fontes`, already harvested: 165 distinct source strings
-     (measured 2026-08-23) to normalise to ~30 organisations (INE, Eurostat, OCDE, DGEEC…).
+     (measured 2026-08-23). It normalised to **127**, not the ~30 this plan assumed: PORDATA
+     names a lot of small entities, and 26 of the 127 appear on exactly one row. A facet
+     built for ~30 and given 127 with a 26-item singleton tail is a different design, so the
+     number is stated here rather than discovered at implementation time.
    - **(c) recency** buckets from `ultima_atualizacao` (updated this year / stale >5y).
    - **(d) status** — featured and descontinuado. *Shipped 2026-08-23 as the Resumo pill and
      the descontinuado badge; see "What has been built".*
@@ -951,7 +964,7 @@ to run.
      main unexamined risk in this item.
    - **Size: it does not fit in git.** Median 291 KB, mean 1,497 KB, max **10.2 MB** for a
      single series, and the largest response alone is 87% of the sample's bytes. Extrapolated
-     over the crosswalk's 1,062 named ids that is 0.29 GB by the median and 1.52 GB by the
+     over the crosswalk's 1,069 named ids that is 0.29 GB by the median and 1.52 GB by the
      mean — five times apart, so *neither is a size estimate at n=8*. What they jointly settle
      is that this cannot live beside `catalogue.json`, and that the next measurement should be
      the **distribution**, not another average.
@@ -1028,9 +1041,19 @@ to run.
    element that would later earn a place on the card — gated on 14, and the slot is waiting.
 
 16. **Coverage gap: what INE and Eurostat have that PORDATA does not** *(owner ask
-   2026-08-23; **INE half done 2026-08-24** — `data/coverage/INE-GAP.md`, 302 concepts
-   awaiting owner accept/reject, which is step (d); Eurostat still needs its TOC, which
-   needs network)*. The goal stated plainly: **be more complete than PORDATA**.
+   2026-08-23)*. Split, because one half is done and the other has not started and the
+   single item hid that:
+
+   - **16a — INE. Done 2026-08-24.** `data/coverage/INE-GAP.md`, 302 concepts awaiting
+     owner accept/reject, which is step (d) and is what item 25 closes. **25 closes 16a,
+     not 16.**
+   - **16b — Eurostat. Unblocked and unstarted.** The "needs network" clause was true
+     when written and is now stale: `data/eurostat/datasets.csv` has been tracked since
+     `362f09f`, `coverage_gap.py` runs entirely offline, and `grep -ci eurostat
+     scripts/coverage_gap.py` returns **0**. This is the cheapest unstarted work on the
+     board and it is against the larger upstream — 7,572 datasets and 616 in-scope rows,
+     versus INE's. Extend `coverage_gap.py` to emit `EUROSTAT-GAP.md`.
+ The goal stated plainly: **be more complete than PORDATA**.
    PORDATA curates ~2,196 indicators out of upstream catalogues that hold far more, and the
    crosswalk (item 2) is what makes the comparison computable — once each PORDATA indicator
    is matched to its upstream series, the *complement* is the gap.
@@ -1117,7 +1140,7 @@ to run.
    | **revision note** | `revis` marker window | 215 pages |
    | period (portugal) | `div.YearCurrentText` / `div.YearOtherText` | 5/5 portugal pages |
    | period (municipios) | `<select>` year picker, `<option value>` | A4, 3/3 pages |
-   | period (europa) | **unknown** | neither mechanism present |
+   | period (europa) | **shipped 2026-08-25** | both mechanisms present; accrues on re-fetch |
 
    Known already-missed, and the reason to expect more: `"ampliado"` was added to
    `MARKER_WORDS` after the harvest, so 1,053 portugal records carry no unit. Whatever items

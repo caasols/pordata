@@ -30,6 +30,10 @@ else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
     import harvest_catalogue as harvest
 
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
+# The same pattern build_catalogue repairs with, so the check and the
+# repair cannot disagree about what the defect looks like.
+SEPARATOR_DEFECT = re.compile(r"(?<=\S) \? (?=\S)")
+ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]+\b")
 # The site renders units from this file; the gate below measures coverage
 # against the same one, so the vocabulary cannot drift from the check.
 UNIT_TERMS = pathlib.Path("site/src/lib/unit-terms.json")
@@ -82,6 +86,12 @@ THRESHOLDS = {
     # again; zero means the normaliser stopped firing. Measured: 37.
     "separator_repairs_min": 20,
     "separator_repairs_max": 200,
+    # Counting en dashes says the normaliser fired; it cannot say the
+    # defect is gone, and it looked at `name` only while 49 descriptions
+    # still carried ` ? `. This counts the *residual* across every
+    # published string field, so a field added later is covered without
+    # editing the gate.
+    "separator_defect_residual_max": 0,
     # Nothing may reach the published unit field except a unit: no UI
     # text, no data values. Any hit is a parser regression.
     "unit_contamination_max": 0,
@@ -109,6 +119,11 @@ THRESHOLDS = {
     # only `/en/municipalities/` loses 504 names and a catalogue-wide
     # mean does not notice. Measured: 99.9% overall.
     "name_en_coverage_min": 0.98,
+    # The /en slugs are lowercase, so a name derived from one loses every
+    # acronym the Portuguese name capitalises — 57 rows read "(isced 5
+    # 8)". Also the only *quality* signal on the slug-derivation path:
+    # coverage says a name arrived, not that it is right.
+    "name_en_acronym_case_max": 0,
     # The crosswalks' own floors abort their builders, but only on the
     # runs where those builders execute. Registered here too so the claim
     # `EUROSTAT-QA.md` makes — "gated at qa_catalogue.py --strict" — is
@@ -530,6 +545,15 @@ def main(strict: bool = False) -> None:
     if published:
         metrics["orgs_coverage"] = (
             sum(1 for r in published if r.get("orgs")) / len(published))
+        metrics["name_en_acronym_case"] = sum(
+            1 for row in published
+            for acronym in set(ACRONYM.findall(row.get("name") or ""))
+            if re.search(rf"\b{re.escape(acronym.lower())}\b",
+                         row.get("name_en") or ""))
+        metrics["separator_defect_residual"] = sum(
+            len(SEPARATOR_DEFECT.findall(value))
+            for row in published for value in row.values()
+            if isinstance(value, str))
         metrics["name_en_coverage"] = coverage(published, "name_en")
         metrics["name_en_coverage_by_area"] = {
             area: coverage([r for r in published if r.get("area") == area],

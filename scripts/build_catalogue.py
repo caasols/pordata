@@ -244,6 +244,28 @@ def write_unmatched_worksheet(records: dict, stats: dict) -> None:
     UNMATCHED_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+# An acronym PORDATA wrote in capitals. Two or more, so "de" and "em"
+# are untouched; digits allowed so ISCED bands and NUTS levels survive.
+ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]+\b")
+
+
+def restore_acronyms(name_en: str, name_pt: str) -> str:
+    """Put back the capitals the slug lost.
+
+    The /en slugs are lowercase, so titlecasing the first letter gave
+    "higher education (isced 5 8)" against PT's "(ISCED 5-8)" — on 57
+    rows, uncounted because `name_en` had no quality metric at all. Only
+    acronyms the *Portuguese* name actually uses are restored: inventing
+    capitalisation from a word list would be guessing, and the PT name is
+    the evidence."""
+    if not name_en or not name_pt:
+        return name_en
+    for acronym in set(ACRONYM.findall(name_pt)):
+        name_en = re.sub(rf"\b{re.escape(acronym.lower())}\b",
+                         acronym, name_en)
+    return name_en
+
+
 def build_en_names(sitemap_text: str) -> dict[tuple, str]:
     """(area, id) -> English name, derived from the /en tree's slugs in
     the same sitemap snapshot (EN pages share page ids with their PT
@@ -539,8 +561,14 @@ def main() -> None:
             # when empty - because every key ships to every visitor
             # (roadmap 6f, payload budget).
             "name": name,
-            "name_en": en_names.get((rec["area"], rec["id"]), ""),
-            "description": strip_markup(rec.get("description", "")),
+            "name_en": restore_acronyms(
+                en_names.get((rec["area"], rec["id"]), ""), name),
+            # Repaired here too. `fix_separator` had one call site — the
+            # name — while 49 published descriptions carried the same
+            # mojibake en dash, and `separator_repairs` counts en dashes
+            # in *names*, so the metric was structurally blind to them.
+            "description": fix_separator(
+                strip_markup(rec.get("description", ""))),
             "fontes": split_fontes(rec.get("fontes", "")),
             "ultima_atualizacao": rec.get("ultima_atualizacao", ""),
             "url": rec["url"],

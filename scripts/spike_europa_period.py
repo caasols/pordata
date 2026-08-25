@@ -1,12 +1,14 @@
 """Spike: where does the period live on europa pages? (roadmap 20)
 
-The last open question in the field-capture thread. `extract_period`
-covers two of PORDATA's three templates and neither mechanism appears on
-the third:
+The last open question in the field-capture thread — and the answer, when
+it ran on 2026-08-25, was that the premise was wrong:
 
 - **portugal** — named year elements (`YearCurrentText` / `YearOtherText`)
 - **municipios** — a `<select>` of year `<option>`s
-- **europa** — neither, so `period_ratio[europa]` sits at a floor of 0
+- **europa** — *both*, 4 year elements and 26–30 picker options on every
+  sampled page, so `extract_period` already works there and
+  `period_ratio[europa]` reads 0 from harvest lag rather than a missing
+  extractor
 
 A4 answered the same question for municipios by naming, for every
 4-digit year in the page, the innermost element enclosing it. That is
@@ -104,15 +106,35 @@ def fetch(url: str) -> bytes:
 
 
 def render(results: list) -> str:
+    # Derived from the counts, not asserted alongside them. The opening
+    # sentence used to be a hardcoded "Neither appears on europa" sitting
+    # directly above a table that recorded 4 year elements and 26-30
+    # picker options on every sampled page — so re-running the probe
+    # regenerated the falsehood it had just disproved, and five documents
+    # repeated it.
+    found = sorted({name for row in results
+                    for name, count in (row.get("known") or {}).items()
+                    if count})
+    if found:
+        verdict = (
+            f"Both are already handled, and **{' and '.join(found)}** "
+            f"appear on europa — so `extract_period` works there today "
+            "and `period_ratio[europa]` reads 0 because no europa record "
+            "has been re-fetched since the parser learned the field, not "
+            "because the template lacks one.")
+    else:
+        verdict = (
+            "Neither appears on europa, so `period_ratio[europa]` is "
+            "gated at a floor of 0 — a recorded gap, not an acceptable "
+            "state.")
     lines = [
         "# Spike: the period on europa pages (roadmap 20)",
         "",
         "`extract_period` handles portugal's named year elements and the "
-        "municipios `<select>` picker. Neither appears on europa, so "
-        "`period_ratio[europa]` is gated at a floor of 0 — a recorded "
-        "gap, not an acceptable state. A4 answered this for municipios "
-        "by naming the innermost element around every year in the page; "
-        "this is the same question pointed at the third template.",
+        f"municipios `<select>` picker. {verdict} A4 answered this for "
+        "municipios by naming the innermost element around every year in "
+        "the page; this is the same question pointed at the third "
+        "template.",
         "",
         "## Are the mechanisms we already handle present?",
         "",
