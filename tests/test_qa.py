@@ -20,6 +20,44 @@ class RecoverableTest(unittest.TestCase):
         self.assertFalse(qa.recoverable_from_windows({}, "fontes"))
 
 
+class ValueLeakTest(unittest.TestCase):
+    """The gate that makes decision 1 falsifiable.
+
+    `unit_contamination_max` inspects the published `unit` field only,
+    which is why 15,946 observation values sat in the committed corpus
+    through months of green CI. This one reads every window of every
+    record."""
+
+    def test_a_window_carrying_values_is_counted(self):
+        rec = {"marker_windows": {"Fontes": ["3,2 1,9 10,4 Fontes: INE"]}}
+        self.assertEqual(qa.value_tokens(rec), 3)
+
+    def test_a_clean_window_counts_zero(self):
+        rec = {"marker_windows":
+               {"Fontes": ["Fontes/Entidades: INE, PORDATA"],
+                "ltima actualiza": ["Última actualização: 2025-12-22"]}}
+        self.assertEqual(qa.value_tokens(rec), 0)
+
+    def test_a_record_with_no_windows_counts_zero(self):
+        self.assertEqual(qa.value_tokens({"error": "500"}), 0)
+
+    def test_a_window_stored_as_a_bare_string_is_still_read(self):
+        """Older records store a string where newer ones store a list;
+        a checker that only understood one shape would pass the other."""
+        self.assertEqual(qa.value_tokens({"marker_windows": {"F": "1,5"}}), 1)
+
+    def test_the_checker_and_the_redactor_share_one_pattern(self):
+        """Two copies of a redaction pattern drift, and the one that
+        drifts is the checker — which then certifies the leak it exists
+        to catch."""
+        harvest = load_script("harvest_catalogue")
+        self.assertIs(qa.harvest.VALUE_TOKEN, harvest.VALUE_TOKEN)
+
+    def test_the_threshold_is_zero_and_not_a_ratio(self):
+        """A leak budget is a licence violation budget."""
+        self.assertEqual(qa.THRESHOLDS["jsonl_value_leak_max"], 0)
+
+
 class QaMainTest(RepoCase):
     def test_writes_report_with_findings(self):
         self.write_records([

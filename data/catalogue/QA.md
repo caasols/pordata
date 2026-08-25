@@ -55,6 +55,7 @@ Gzipped KB a first visit downloads before it can search: the page, its bundle an
 Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breach so a bad harvest never publishes.
 
 - jsonl_skipped_lines: 0
+- jsonl_value_leak: 0
 - ok_records_ratio: 0.9995
 - name_coverage: 0.9986
 - description_coverage: 0.9986

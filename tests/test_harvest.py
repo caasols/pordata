@@ -43,6 +43,61 @@ class ParseTest(unittest.TestCase):
         self.assertLessEqual(len(windows["Fontes"]), 3)
 
 
+class RedactionTest(unittest.TestCase):
+    """Decision 1, enforced over the bytes rather than stated in prose.
+
+    The 60 characters ahead of a marker are usually the last row of the
+    data table above "Fontes/Entidades:", so a stored window opened on a
+    run of PORDATA's own observations — 15,946 of them across the corpus,
+    committed under a licence file asserting they were not there.
+
+    The redaction has to be surgical: two things a parser depends on look
+    numeric and must survive, so each has a test naming what breaks
+    without it."""
+
+    def test_a_value_run_before_the_marker_is_removed(self):
+        got = h.redact_values(
+            "3,2 1,9 10,4 10,7 Fontes/Entidades: INE, PORDATA")
+        self.assertEqual(got, "Fontes/Entidades: INE, PORDATA")
+
+    def test_grouped_thousands_are_removed(self):
+        self.assertEqual(h.redact_values("total 1 234 567 pessoas"),
+                         "total pessoas")
+
+    def test_a_full_stop_grouped_number_is_removed(self):
+        self.assertEqual(h.redact_values("valor 1.234.567 fim"),
+                         "valor fim")
+
+    def test_an_iso_date_survives(self):
+        """`qa_catalogue.recoverable_from_windows` looks for exactly this
+        to decide whether a missing `ultima_atualizacao` is recoverable;
+        redacting it would make a recoverable record look lost."""
+        text = "Última actualização: 2025-12-22 Mais opções"
+        self.assertEqual(h.redact_values(text), text)
+
+    def test_a_unit_with_slash_dates_survives(self):
+        """"Euro (a partir de 1/1/1999) / ECU (até 31/12/1998) - Média" is
+        a real unit and `extract_unit` publishes it verbatim."""
+        unit = "Euro (a partir de 1/1/1999) / ECU (até 31/12/1998) - Média"
+        self.assertEqual(h.redact_values(unit), unit)
+
+    def test_a_bare_year_survives(self):
+        self.assertEqual(h.redact_values("base=2010 Copyright 2024"),
+                         "base=2010 Copyright 2024")
+
+    def test_a_unit_scale_digit_survives(self):
+        """`m 3 - Milhões` is metres cubed with the superscript lost."""
+        self.assertEqual(h.redact_values("m 3 - Milhões"), "m 3 - Milhões")
+
+    def test_windows_are_redacted_as_they_are_cut(self):
+        """Not a separate pass: a window is never held unredacted, so
+        there is no window in which a crash could commit one."""
+        text = "x" * 40 + " 3,2 1,9 Fontes: INE " + "y" * 200
+        got = h.marker_windows(text)
+        self.assertNotIn("3,2", got["Fontes"][0])
+        self.assertIn("Fontes: INE", got["Fontes"][0])
+
+
 class PlanTest(RepoCase):
     def test_missing_errored_stale(self):
         targets = lib.targets()  # 3 urls from the fixture sitemap

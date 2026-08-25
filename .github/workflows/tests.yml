@@ -8,10 +8,23 @@ on:
       - "setup.cfg"
       - "conftest.py"
       # every workflow, not just this one: tests/test_workflows.py asserts
-      # invariants across all eight, so an edit to any of them is exactly
+      # invariants across all ten, so an edit to any of them is exactly
       # when those assertions need to run. Data commits touch data/ and
       # docs/ only, so this does not fire on every harvest.
       - ".github/workflows/**"
+      # The suite reads these off disk, so a change to any of them can
+      # break it while touching no Python. DesignSystemTest reads the
+      # components the detail pages derive their stylesheet from, and it
+      # had never run on a site-only push: four commits changed
+      # `site/src/` with this job not triggering, and the guard CLAUDE.md
+      # credits with keeping one design on the site was one of them.
+      # `test_workflows.py` now asserts this list covers `setup.cfg`'s
+      # `also_copy`, so a test that reads a new directory must add it in
+      # both places or fail here.
+      - "site/src/**"
+      - "site/index.html"
+      - "docs/assets/**"
+      - "data/crosswalk/**"
   pull_request:
 
 permissions:
@@ -36,6 +49,15 @@ jobs:
           coverage report -m \
             --omit="scripts/spike_*,scripts/fetch_ine_catalogue.py,scripts/fetch_sitemap.py,scripts/__init__.py" \
             --fail-under=80
+
+      # The 24 thresholds run here too, not only during a harvest. The
+      # corpus scan behind `jsonl_value_leak_max` is the reason: decision
+      # 1 promises no PORDATA values are redistributed, and until it was
+      # a threshold nothing could falsify it — 15,946 sat in the
+      # committed corpus through months of green CI. Reading the
+      # committed catalogue is cheap and needs no network.
+      - name: QA thresholds against the committed catalogue
+        run: python3 scripts/qa_catalogue.py --strict
 
   mutation:
     runs-on: ubuntu-latest

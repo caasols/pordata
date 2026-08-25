@@ -23,9 +23,11 @@ import sys
 
 if __package__:
     from . import pordata_lib as lib
+    from . import harvest_catalogue as harvest
 else:  # executed directly, e.g. python3 scripts/qa_catalogue.py
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import pordata_lib as lib
+    import harvest_catalogue as harvest
 
 QA_FILE = pathlib.Path("data/catalogue/QA.md")
 # The site renders units from this file; the gate below measures coverage
@@ -83,6 +85,14 @@ THRESHOLDS = {
     # Nothing may reach the published unit field except a unit: no UI
     # text, no data values. Any hit is a parser regression.
     "unit_contamination_max": 0,
+    # Decision 1, checked over the bytes the data licence actually covers.
+    # `unit_contamination_max` above inspects the published `unit` field
+    # only, which is why 15,946 observation values sat in the committed
+    # `pages.jsonl` through months of green CI: the marker windows open on
+    # the last row of the data table above "Fontes/Entidades:". A promise
+    # no code can falsify is not a promise, so this reads every window of
+    # every record and any hit is a breach.
+    "jsonl_value_leak_max": 0,
     # Roadmap 18: the unit renders in Portuguese unless its parts are in
     # the vocabulary. Falling back is safe, so this is a floor rather than
     # a zero — but a floor means a PORDATA unit we have never seen shows
@@ -254,6 +264,18 @@ def gate(metrics: dict) -> list[str]:
     return breaches
 
 
+def value_tokens(rec: dict) -> int:
+    """Observation values left in a record's marker windows.
+
+    Imported from the harvester rather than re-expressed here: two copies
+    of a redaction pattern drift, and the one that drifts is the checker
+    — which then certifies the very leak it was written to catch."""
+    windows = rec.get("marker_windows") or {}
+    return sum(len(harvest.VALUE_TOKEN.findall(span))
+               for spans in windows.values()
+               for span in ([spans] if isinstance(spans, str) else spans))
+
+
 def main_strict() -> None:
     """main() with the gate armed; --strict on the CLI does the same."""
     main(strict=True)
@@ -309,6 +331,8 @@ def main(strict: bool = False) -> None:
                                         + (r.get("description") or ""))],
         "re-fetch failed; serving the previous good record":
             [r for r in ok if r.get("refetch_error")],
+        "marker window carries PORDATA data values (decision 1)":
+            [r for r in ok if value_tokens(r)],
         "parse-time shape assertion dropped a field (PORDATA changed?)":
             [r for r in ok if r.get("parse_warnings")],
     }
@@ -367,6 +391,7 @@ def main(strict: bool = False) -> None:
     dates = [r["ultima_atualizacao"] for r in ok if r.get("ultima_atualizacao")]
     metrics = {
         "jsonl_skipped_lines": lib.SKIPPED_LINES,
+        "jsonl_value_leak": sum(value_tokens(r) for r in records.values()),
         "ok_records_ratio": len(ok) / len(targets) if targets else 1.0,
         "name_coverage": coverage(ok, "name"),
         "description_coverage": coverage(ok, "description"),

@@ -72,13 +72,42 @@ def strip_text(html: str) -> str:
     return re.sub(r"\s+", " ", text)
 
 
+# Decision 1 in bytes rather than in intent. The 60 characters ahead of a
+# marker are usually the last row of the data table sitting above
+# "Fontes/Entidades:", so a window opens on a run of PORDATA's own
+# observations — 15,946 of them across the corpus before this existed,
+# committed under a licence file that says they are not here.
+#
+# Matched by *form*, and the two forms are disjoint from everything a
+# parser reads. Grouped thousands need a space or full stop between
+# three-digit groups; Portuguese decimals need a comma. An ISO date
+# (2026-01-06) has neither, and a unit's date (1/1/1999) is separated by
+# slashes, which the lookarounds exclude — so `Euro (a partir de
+# 1/1/1999) / ECU (até 31/12/1998) - Média` survives intact, as does the
+# `\d{4}-\d{2}-\d{2}` that `qa_catalogue.recoverable_from_windows`
+# looks for. Verified the strongest way available: rebuilding the whole
+# catalogue from the redacted corpus produces a byte-identical
+# `docs/data/catalogue.json`.
+VALUE_TOKEN = re.compile(
+    r"(?<![\d,./-])\d{1,3}(?:[ .]\d{3})+(?![\d,./-])"
+    r"|(?<![\d,./-])-?\d+,\d+(?![\d,./-])")
+
+
+def redact_values(text: str) -> str:
+    """Marker-window text with observation values removed.
+
+    Removed rather than masked: a placeholder is one more token for a
+    parser to trip over, and the point is that the values are not here."""
+    return re.sub(r"\s{2,}", " ", VALUE_TOKEN.sub("", text)).strip()
+
+
 def marker_windows(text: str) -> dict[str, list[str]]:
     windows: dict[str, list[str]] = {}
     for word in MARKER_WORDS:
         spans = []
         for m in re.finditer(re.escape(word), text):
             start = max(0, m.start() - 60)
-            spans.append(text[start:m.end() + 220])
+            spans.append(redact_values(text[start:m.end() + 220]))
             if len(spans) >= 3:
                 break
         if spans:

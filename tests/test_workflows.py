@@ -24,7 +24,8 @@ import yaml
 from helpers import load_script
 from test_diff_sitemap import DiffCase
 
-WF_DIR = pathlib.Path(__file__).resolve().parents[1] / ".github" / "workflows"
+REPO = pathlib.Path(__file__).resolve().parents[1]
+WF_DIR = REPO / ".github" / "workflows"
 WORKFLOWS = sorted(WF_DIR.glob("*.yml"))
 BRANCH_HEAD = "${{ github.ref_name }}"
 
@@ -206,6 +207,51 @@ class HarvestSalvageTest(unittest.TestCase):
         catalogue is what gets committed."""
         self.assertLess(index_of(self.job, "QA gate"),
                         index_of(self.job, "Commit progress"))
+
+
+class TriggerCoverageTest(unittest.TestCase):
+    """Whatever the suite reads off disk must also trigger the suite.
+
+    `setup.cfg`'s `also_copy` already enumerates every such path, because
+    mutmut runs from a copied tree and dies without them. That list and
+    `tests.yml`'s push paths are the same set for the same reason, and
+    they had drifted: four of the six `also_copy` entries were not
+    triggers, so `DesignSystemTest` — the guard credited with keeping one
+    design across the SPA and the 2,195 detail pages — never ran on a
+    site-only push. Four real commits changed `site/src/` with this job
+    not firing.
+
+    Asserting one against the other makes the coupling self-maintaining:
+    a test that starts reading a new directory must add it in both places
+    or fail here."""
+
+    @staticmethod
+    def also_copy():
+        import configparser
+        parser = configparser.ConfigParser()
+        parser.read(REPO / "setup.cfg")
+        raw = parser["mutmut"]["also_copy"]
+        return [line.strip().rstrip("/") for line in raw.splitlines()
+                if line.strip()]
+
+    @staticmethod
+    def push_paths():
+        return [p.rstrip("/").removesuffix("/**")
+                for p in load(WF_DIR / "tests.yml")[True]["push"]["paths"]]
+
+    def test_every_copied_path_also_triggers_the_suite(self):
+        triggers = self.push_paths()
+        for path in self.also_copy():
+            self.assertTrue(
+                any(path == t or path.startswith(t + "/") for t in triggers),
+                f"{path!r} is in setup.cfg also_copy but nothing in "
+                f"tests.yml push.paths covers it: {triggers}")
+
+    def test_every_copied_path_exists(self):
+        """A stale entry copies nothing and covers nothing, while reading
+        as though the coupling holds."""
+        for path in self.also_copy():
+            self.assertTrue((REPO / path).exists(), path)
 
 
 class SiteBundleTest(unittest.TestCase):
