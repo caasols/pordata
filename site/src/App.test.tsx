@@ -363,5 +363,52 @@ describe("displayNames", () => {
     expect(screen.getByRole("button", { name: /theme|Tema/i }))
       .toHaveAttribute("aria-pressed");
   });
+
+  it("offers the two source-count orders and Random", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.click(screen.getByRole("button", { name: /^Sort:|^Ordenar:/ }));
+    const names = (await screen.findAllByRole("menuitemradio"))
+      .map((i) => i.textContent);
+    expect(names).toEqual(expect.arrayContaining([
+      expect.stringMatching(/Most sources|Mais fontes/),
+      expect.stringMatching(/Fewest sources|Menos fontes/),
+      expect.stringMatching(/Random|Aleatório/),
+    ]));
+  });
+
+  it("re-deals when Random is picked again", async () => {
+    // The affordance: picking the mode you are already in is how you ask
+    // for another shuffle, so it cannot be a no-op.
+    const user = userEvent.setup();
+    const spy = vi.spyOn(Math, "random");
+    render(<App />);
+    await screen.findByText("Birth rate");
+    const open = () =>
+      user.click(screen.getByRole("button", { name: /^Sort:|^Ordenar:/ }));
+    await open();
+    await user.click(await screen.findByRole("menuitemradio",
+      { name: /Random|Aleatório/ }));
+    const first = spy.mock.calls.length;
+    await open();
+    await user.click(await screen.findByRole("menuitemradio",
+      { name: /Random|Aleatório/ }));
+    expect(spy.mock.calls.length).toBeGreaterThan(first);
+    spy.mockRestore();
+  });
+
+  it("does not consume a seed for the ordinary sorts", async () => {
+    const user = userEvent.setup();
+    const spy = vi.spyOn(Math, "random");
+    render(<App />);
+    await screen.findByText("Birth rate");
+    await user.click(screen.getByRole("button", { name: /^Sort:|^Ordenar:/ }));
+    const before = spy.mock.calls.length;
+    await user.click(await screen.findByRole("menuitemradio",
+      { name: /Name A→Z/ }));
+    expect(spy.mock.calls.length).toBe(before);
+    spy.mockRestore();
+  });
 });
 

@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  editDistance, norm, prepare, searchAndSort, tokenScore,
+  editDistance, norm, prepare, searchAndSort, shuffleKey,
+  sourceCount, tokenScore,
   type Row, type SortMode,
 } from "./search";
 
@@ -156,5 +157,127 @@ describe("searchAndSort", () => {
     const edge = prepare([row({ id: 1, name: "A", featured: [] })]);
     expect(searchAndSort(edge, "", new Set(), "az", (r) => r.name, "pt", true))
       .toEqual([]);
+  });
+
+});
+
+describe("sorting by how many sources a card credits", () => {
+  // Ties are the common case in the real catalogue — 1,264 of 2,196 rows
+  // credit exactly two sources — so these fixtures are mostly ties, and
+  // the chain is what the tests are about.
+  const rows = prepare([
+    row({ id: 1, name: "Bravo", fontes: ["INE", "PORDATA"],
+          ultima_atualizacao: "2025-01-01" }),
+    row({ id: 2, name: "Alfa", fontes: ["INE", "PORDATA"],
+          ultima_atualizacao: "2025-01-01" }),
+    row({ id: 3, name: "Charlie", fontes: ["INE", "PORDATA"],
+          ultima_atualizacao: "2026-01-01" }),
+    row({ id: 4, name: "Delta", fontes: ["PORDATA"],
+          ultima_atualizacao: "2024-01-01" }),
+    row({ id: 5, name: "Echo",
+          fontes: ["INE", "Eurostat", "OCDE", "PORDATA"],
+          ultima_atualizacao: "2020-01-01" }),
+  ]);
+  const run = (mode: SortMode) =>
+    searchAndSort(rows, "", new Set(), mode, (r) => r.name, "pt")
+      .map((h) => h[1].id);
+
+  it("fewest first puts the one-source row at the top", () => {
+    expect(run("srcFew")[0]).toBe(4);
+  });
+
+  it("most first puts the four-source row at the top", () => {
+    expect(run("srcMany")[0]).toBe(5);
+  });
+
+  it("breaks a tie on the more recent date", () => {
+    // 1, 2 and 3 all credit two sources; 3 is a year newer.
+    expect(run("srcFew").slice(1, 2)).toEqual([3]);
+    expect(run("srcMany").slice(1, 2)).toEqual([3]);
+  });
+
+  it("breaks a same-date tie alphabetically", () => {
+    // 1 "Bravo" and 2 "Alfa" share both count and date.
+    expect(run("srcFew").slice(2, 4)).toEqual([2, 1]);
+  });
+
+  it("does not invert the tie-break with the direction", () => {
+    // Asking for the least-sourced indicators is not asking for the
+    // oldest of them: both directions resolve ties newest-first.
+    const few = run("srcFew"), many = run("srcMany");
+    expect(few.indexOf(3)).toBeLessThan(few.indexOf(2));
+    expect(many.indexOf(3)).toBeLessThan(many.indexOf(2));
+  });
+
+  it("is the exact reverse of itself only on the primary key", () => {
+    expect(run("srcFew")[0]).toBe(4);
+    expect(run("srcMany").at(-1)).toBe(4);
+  });
+
+  it("counts the sources the card shows", () => {
+    expect(sourceCount(rows.find((r) => r.id === 5)!)).toBe(4);
+  });
+
+  it("treats a row with no sources as the fewest", () => {
+    const none = prepare([
+      row({ id: 9, name: "Zulu", fontes: [] }),
+      row({ id: 8, name: "Yankee", fontes: ["INE"] }),
+    ]);
+    expect(searchAndSort(none, "", new Set(), "srcFew",
+                         (r) => r.name, "pt").map((h) => h[1].id))
+      .toEqual([9, 8]);
+  });
+});
+
+describe("random order", () => {
+  const rows = prepare(
+    Array.from({ length: 40 }, (_, i) =>
+      row({ id: i + 1, name: `Row ${String(i).padStart(2, "0")}` })));
+  const run = (seed: number, subset = rows) =>
+    searchAndSort(subset, "", new Set(), "random", (r) => r.name, "pt",
+                  false, seed).map((h) => h[1].id);
+
+  it("is stable for a given seed", () => {
+    expect(run(7)).toEqual(run(7));
+  });
+
+  it("deals differently for a different seed", () => {
+    expect(run(7)).not.toEqual(run(8));
+  });
+
+  it("is not the insertion order", () => {
+    expect(run(7)).not.toEqual(rows.map((r) => r.id));
+  });
+
+  it("keeps every row exactly once", () => {
+    const got = run(7);
+    expect(new Set(got).size).toBe(rows.length);
+  });
+
+  it("does not re-deal when the list is filtered", () => {
+    // The point of hashing identity rather than shuffling the array: a
+    // keystroke must not re-order the cards that survive it.
+    const full = run(7);
+    const half = rows.filter((r) => r.id % 2 === 0);
+    const kept = full.filter((id) => id % 2 === 0);
+    expect(run(7, half)).toEqual(kept);
+  });
+
+  it("gives the same row the same key under the same seed", () => {
+    const r = rows[0];
+    expect(shuffleKey(3, r)).toBe(shuffleKey(3, r));
+    expect(shuffleKey(3, r)).not.toBe(shuffleKey(4, r));
+  });
+
+  it("distinguishes rows that share an id across areas", () => {
+    // (area, id) is the catalogue key; id alone is not unique.
+    const a = prepare([row({ id: 1, area: "portugal", name: "x" })])[0];
+    const b = prepare([row({ id: 1, area: "europa", name: "x" })])[0];
+    expect(shuffleKey(5, a)).not.toBe(shuffleKey(5, b));
+  });
+
+  it("spreads keys rather than clustering them", () => {
+    const keys = rows.map((r) => shuffleKey(11, r));
+    expect(new Set(keys).size).toBe(rows.length);
   });
 });

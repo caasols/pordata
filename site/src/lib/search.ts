@@ -78,14 +78,42 @@ export function tokenScore(tok: string, r: PreparedRow): number {
 // the score ordering was not useful for browsing; it returns as a real
 // blended ranking per roadmap item 9. Match scores still gate which
 // rows count as hits.
-export type SortMode = "az" | "za" | "new" | "old";
+export type SortMode =
+  "az" | "za" | "new" | "old" | "srcFew" | "srcMany" | "random";
 
 export type Hit = [number, PreparedRow];
+
+/**
+ * A stable ordering key from a seed and the row's own identity.
+ *
+ * Not a shuffle of the array: the key depends only on `(seed, area, id)`,
+ * so the survivors of a search or a filter keep the order they had. A
+ * Fisher-Yates over the filtered list would re-deal the cards on every
+ * keystroke, which is the opposite of what a browse order is for. The
+ * same seed always gives the same deal, so infinite scroll appends
+ * rather than reshuffling; a new seed is dealt only when the reader asks
+ * for one by picking Random again.
+ *
+ * FNV-1a, with `Math.imul` because the 32-bit product overflows a double.
+ */
+export function shuffleKey(seed: number, r: PreparedRow): number {
+  let hash = (seed ^ 0x811c9dc5) >>> 0;
+  const id = `${r.area}/${r.id}`;
+  for (let i = 0; i < id.length; i++) {
+    hash = Math.imul(hash ^ id.charCodeAt(i), 0x01000193) >>> 0;
+  }
+  return hash >>> 0;
+}
+
+/** How many sources the card credits — the `Fontes` column, as shown. */
+export function sourceCount(r: PreparedRow): number {
+  return (r.fontes || []).length;
+}
 
 export function searchAndSort(rows: PreparedRow[], query: string,
     activeAreas: ReadonlySet<string>, sortMode: SortMode,
     primaryName: (r: PreparedRow) => string, lang: string,
-    summaryOnly = false): Hit[] {
+    summaryOnly = false, seed = 0): Hit[] {
   const terms = norm(query).split(/\s+/).filter(Boolean);
   const hits: Hit[] = [];
   for (const r of rows) {
@@ -120,5 +148,20 @@ export function searchAndSort(rows: PreparedRow[], query: string,
       if (!da || !db) return !da && !db ? cmpName(a, b) : (da ? -1 : 1);
       return da.localeCompare(db) || cmpName(a, b);
     });
+  else if (sortMode === "srcFew" || sortMode === "srcMany") {
+    // Ties are the common case, not the exception: 1,264 of 2,196 rows
+    // credit exactly two sources. So the chain matters more than the
+    // primary key — newest first, then name — and it does *not* invert
+    // with the direction: asking for the least-sourced indicators is
+    // not asking for the oldest of them.
+    const counts = new Map(hits.map((h) => [h[1], sourceCount(h[1])]));
+    const sign = sortMode === "srcFew" ? 1 : -1;
+    hits.sort((a, b) =>
+      sign * (counts.get(a[1])! - counts.get(b[1])!)
+      || dateOf(b).localeCompare(dateOf(a))
+      || cmpName(a, b));
+  } else if (sortMode === "random")
+    hits.sort((a, b) =>
+      shuffleKey(seed, a[1]) - shuffleKey(seed, b[1]) || cmpName(a, b));
   return hits;
 }

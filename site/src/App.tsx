@@ -32,8 +32,11 @@ const CHUNK = Math.min(60,
 
 // Newest-first is the default; the pill highlights when deviating.
 // (No "relevance" option until roadmap 9 lands a real blended ranking.)
+// Order here is the order in the menu: time, then name, then breadth,
+// then the one that is not an order at all.
 const SORT_KEYS: Record<SortMode, string> = {
   new: "sortNew", old: "sortOld", az: "sortAz", za: "sortZa",
+  srcMany: "sortSrcMany", srcFew: "sortSrcFew", random: "sortRandom",
 };
 const DEFAULT_SORT: SortMode = "new";
 
@@ -99,6 +102,15 @@ export default function App() {
   const [active, setActive] = useState<ReadonlySet<string>>(new Set());
   const [summaryOnly, setSummaryOnly] = useState(false);
   const [sortMode, setSortMode] = useState<SortMode>(DEFAULT_SORT);
+  // The deal, not the order. Held in state so a re-render, a keystroke
+  // or another page of infinite scroll shows the same one — and dealt
+  // again whenever Random is picked, including when it is already
+  // selected, because "shuffle again" is the whole affordance.
+  const [seed, setSeed] = useState(0);
+  const chooseSort = (mode: SortMode) => {
+    if (mode === "random") setSeed(Math.floor(Math.random() * 2 ** 31));
+    setSortMode(mode);
+  };
 
   const t = (key: string, params?: Record<string, string>) =>
     translate(lang, key, params);
@@ -137,8 +149,8 @@ export default function App() {
   const hits: Hit[] = useMemo(() => {
     if (!rows) return [];
     return searchAndSort(rows, debounced, active, sortMode,
-      (r) => displayNames(r, lang)[0], lang, summaryOnly);
-  }, [rows, debounced, active, sortMode, lang, summaryOnly]);
+      (r) => displayNames(r, lang)[0], lang, summaryOnly, seed);
+  }, [rows, debounced, active, sortMode, lang, summaryOnly, seed]);
 
   // Infinite scroll: a sentinel below the list grows `shown` as it
   // nears the viewport; recreating the observer on each append makes it
@@ -265,7 +277,7 @@ export default function App() {
           <DropdownMenuContent align="start" className="min-w-[10rem]">
             <DropdownMenuRadioGroup
               value={sortMode}
-              onValueChange={(v) => setSortMode(v as SortMode)}
+              onValueChange={(v) => chooseSort(v as SortMode)}
             >
               {(Object.keys(SORT_KEYS) as SortMode[]).map((mode) => (
                 <DropdownMenuRadioItem key={mode} value={mode}>
