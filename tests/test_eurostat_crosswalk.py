@@ -277,6 +277,75 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(len(stats["refusals"]), 1)
 
 
+class ReportTest(unittest.TestCase):
+    """The figures a reader depends on, not the prose around them.
+
+    Roughly four of every five surviving mutants in this project's
+    report writers are markdown labels; asserting the wording pins the
+    sentence rather than the claim."""
+
+    @staticmethod
+    def built(names, titles):
+        return x.build([row(n, ident=i) for i, n in enumerate(names)],
+                       [dataset(t, code=f"D{i}")
+                        for i, t in enumerate(titles)])
+
+    def test_the_qa_report_states_the_coverage_it_measured(self):
+        _cross, stats = self.built(
+            ["Crude divorce rate", "Nothing Eurostat publishes"],
+            ["Crude divorce rate"])
+        got = x.qa_report(stats)
+        self.assertIn("English name): **2**", got)
+        self.assertIn("at least one dataset: **1** (50.0%)", got)
+        self.assertIn("indicator's): **1** (100.0%)", got)
+
+    def test_the_qa_report_separates_the_veto_from_the_refusals(self):
+        _cross, stats = self.built(
+            ["Exports total and by type of energy product"],
+            ["Exports by industry (FIGARO application)"])
+        self.assertIn("**1** found a head", x.qa_report(stats))
+
+    def test_the_qa_report_counts_the_unresolved_filters(self):
+        """The number that says how much of this crosswalk is a
+        question rather than an answer."""
+        _cross, stats = self.built(["Activity rate total and by sex"],
+                                   ["Activity rate by sex"])
+        self.assertIn("**1** of 1", x.qa_report(stats))
+
+    def test_the_qa_report_survives_an_empty_build(self):
+        """Division by the scope, which is zero before anything is in
+        it — a report that raises here hides why the build was empty."""
+        _cross, stats = x.build([], [])
+        self.assertIn("**0**", x.qa_report(stats))
+
+    def test_the_review_report_lists_both_kinds_of_refusal(self):
+        _cross, stats = self.built(
+            ["Exports total and by type of energy product",
+             "Nothing Eurostat publishes"],
+            ["Exports by industry (FIGARO application)"])
+        got = x.review_report(stats)
+        self.assertIn("Exports total and by type of energy product", got)
+        self.assertIn("Nothing Eurostat publishes", got)
+
+    def test_the_review_report_says_how_many_it_did_not_list(self):
+        _cross, stats = self.built(
+            [f"Concept {n} Eurostat never names"
+             for n in range(x.REVIEW_SAMPLE + 3)],
+            ["Crude divorce rate"])
+        self.assertIn("3 more", x.review_report(stats))
+
+
+class MedianTest(unittest.TestCase):
+    def test_an_odd_count_takes_the_middle(self):
+        self.assertEqual(x.median([3, 1, 2]), 2.0)
+
+    def test_an_even_count_averages_the_two_middles(self):
+        self.assertEqual(x.median([1, 2, 3, 4]), 2.5)
+
+    def test_no_candidates_is_zero_not_a_crash(self):
+        self.assertEqual(x.median([]), 0.0)
+
+
 class LoadTest(RepoCase):
     HEADER = ("code,title,themes,theme_count,last_update,"
               "last_structure_change,data_start,data_end,values,"
@@ -325,6 +394,18 @@ class GateTest(RepoCase):
             with self.assertRaises(SystemExit):
                 x.main()
         self.assertFalse(out.exists())
+
+    def test_a_healthy_build_writes_all_three_files(self):
+        rows = [row(f"Concept {n}", ident=n) for n in range(x.MIN_MATCHED)]
+        datasets = [dataset(f"Concept {n}", code=f"D{n}")
+                    for n in range(x.MIN_MATCHED)]
+        with mock.patch.object(x, "load_eurostat", return_value=datasets), \
+                mock.patch.object(pathlib.Path, "read_text",
+                                  return_value=json.dumps(rows)), \
+                mock.patch("builtins.print"):
+            x.main()
+        for name in ("eurostat.json", "EUROSTAT-QA.md", "EUROSTAT-REVIEW.md"):
+            self.assertTrue(pathlib.Path("data/crosswalk", name).exists(), name)
 
     def test_the_floor_sits_under_the_measured_run(self):
         """118 rows route today. The gate catches a collapse, not a

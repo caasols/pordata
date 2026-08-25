@@ -16,6 +16,7 @@ import unittest.mock
 from helpers import RepoCase, load_script
 
 cross = load_script("analyse_crosswalk")
+euro = load_script("analyse_eurostat_crosswalk")
 gate = load_script("mutation_gate")
 probe = load_script("probe_ine_availability")
 
@@ -179,3 +180,111 @@ class IneProbeRequestTest(RepoCase):
         text = probe.LOG.read_text(encoding="utf-8")
         self.assertEqual(text.count("date_utc"), 1)
         self.assertEqual(text.count("2026-08-25"), 2)
+
+
+class EurostatShapeTest(unittest.TestCase):
+    """The measurement that specified the Eurostat matcher.
+
+    It decides nothing and writes no crosswalk, but the numbers it
+    reports are what the builder was specified from — including the ones
+    that refuted the first idea — so the arithmetic behind them is worth
+    pinning.
+    """
+
+    @staticmethod
+    def dataset(title, themes="Economy"):
+        return {"title": title, "themes": themes,
+                "tokens": euro.tokens(title), "norm": euro.norm_title(title)}
+
+    @staticmethod
+    def row(name_en, area="europa", fontes=("Eurostat",)):
+        return {"area": area, "name_en": name_en, "fontes": list(fontes)}
+
+    def test_a_unit_parenthetical_is_stripped_before_comparing(self):
+        self.assertEqual(euro.strip_unit("Area under organic farming "
+                                         "(percentage)"),
+                         "Area under organic farming")
+
+    def test_an_acronym_in_parentheses_is_left_alone(self):
+        keep = "Obesity rate by body mass index (BMI)"
+        self.assertEqual(euro.strip_unit(keep), keep)
+
+    def test_the_breakdown_is_split_off_both_sides(self):
+        head, tail = euro.split_tail("Activity rate total and by sex",
+                                     euro.PORDATA_TAIL)
+        self.assertEqual(head, "Activity rate")
+        self.assertIn("sex", tail)
+
+    def test_a_title_with_no_breakdown_keeps_all_of_itself(self):
+        head, tail = euro.split_tail("Crude divorce rate", euro.EUROSTAT_TAIL)
+        self.assertEqual(head, "Crude divorce rate")
+        self.assertEqual(tail, set())
+
+    def test_the_operators_count_head_matches(self):
+        got = euro.operators([self.row("Activity rate total and by sex")],
+                             [self.dataset("Activity rate by sex")])
+        self.assertEqual(got["head"], 1)
+        self.assertEqual(got["survivors"], [1])
+
+    def test_the_operators_count_the_veto(self):
+        got = euro.operators(
+            [self.row("Exports total and by type of energy product")],
+            [self.dataset("Exports by industry (FIGARO application)")])
+        self.assertEqual(got["head"], 1)
+        self.assertEqual(got["vetoed"], 1)
+        self.assertEqual(got["survivors"], [])
+
+    def test_the_operators_record_what_a_token_floor_would_have_cost(self):
+        """The rejected idea is kept as a number, not a memory: a floor
+        of two content words deletes this pairing, whose titles are
+        identical."""
+        got = euro.operators([self.row("Obesity rate by body mass index")],
+                             [self.dataset("Obesity rate by body mass "
+                                           "index (BMI)")])
+        self.assertEqual(got["floor_would_drop"], 1)
+        self.assertEqual(got["survivors"], [1])
+
+    def test_an_out_of_scope_row_is_not_measured(self):
+        got = euro.operators([self.row("X", area="portugal")],
+                             [self.dataset("X")])
+        self.assertEqual(got["scope"], 0)
+
+    def test_the_containment_measurement_finds_an_exact_title(self):
+        got = euro.measure([self.row("Crude divorce rate")],
+                           [self.dataset("Crude divorce rate")])
+        self.assertEqual(got["exact"], 1)
+        self.assertEqual(got["contained"], 1)
+
+    def test_a_row_sharing_no_token_is_counted_apart(self):
+        got = euro.measure([self.row("Crude divorce rate")],
+                           [self.dataset("Ammonia emissions")])
+        self.assertEqual(got["no_shared"], 1)
+        self.assertEqual(got["contained"], 0)
+
+    def test_the_report_states_the_head_and_veto_counts(self):
+        got = euro.render_operators(euro.operators(
+            [self.row("Activity rate total and by sex"),
+             self.row("Exports total and by type of energy product")],
+            [self.dataset("Activity rate by sex"),
+             self.dataset("Exports by industry (FIGARO application)")]))
+        self.assertIn("**2** rows", got.replace("**2**\n", "**2** rows"))
+        self.assertIn("**1** refused outright", got)
+
+    def test_the_shape_report_states_its_inputs(self):
+        got = euro.render(euro.measure([self.row("Crude divorce rate")],
+                                       [self.dataset("Crude divorce rate")]))
+        self.assertIn("English name: **1**", got)
+        self.assertIn("Eurostat datasets: **1**", got)
+
+    def test_the_shape_report_survives_nothing_being_contained(self):
+        """A report that raises when the operator finds nothing hides
+        the finding — no containment at all would itself be the answer."""
+        got = euro.render(euro.measure([self.row("Crude divorce rate")],
+                                       [self.dataset("Ammonia emissions")]))
+        self.assertIn("nothing to tie", got)
+
+
+class BucketTest(unittest.TestCase):
+    def test_values_land_in_the_band_that_contains_them(self):
+        self.assertEqual(euro.bucket([0.1, 0.6, 1.0], [0.5]),
+                         [(0.0, 0.5, 1), (0.5, 1.01, 2)])
