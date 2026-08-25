@@ -144,6 +144,20 @@ half their family agreed with; the card and the page it opened showed different 
 1,111 rows; `name_en` was ungated; and the focus ring computed to **1.29:1** against a 3:1
 requirement.
 
+**The medium and low findings are applied too** (2026-08-25). The ones worth carrying:
+the **tombstone path had never run** — `if "error" in rec: continue` came before the
+`removed` branch and the abandoned record carries no `id`, so the catalogue shrank 2,196 →
+2,195 with no machine-readable trace; it publishes as `removed: true` now and the new
+`detail_pages_missing` gate caught the missing page within the minute. **The mutation gate
+scored 100% on a run that tested nothing** (killed/killable with killable at zero), which is
+the exact state a missing `also_copy` entry produces. `is_indicator_url` checked that a URL
+*mentioned* pordata.pt rather than came from it. **256 detail pages carried duplicate link
+names**, up to twelve reading "JSON", because a one-to-many family makes that the normal case.
+And the **English half had no address**: `og:locale:alternate en_GB` was advertised with
+`grep -r hreflang docs/` returning nothing, so language was a localStorage state rather than a
+URL. Now `?lang=`, `hreflang` on every page, alternates in the sitemap, and a two-link switch
+that needs no JavaScript.
+
 **Ten things worth not re-learning:**
 - **Coverage thresholds for markup-parsed fields are per-area.** A catalogue-wide mean passed a
   100/100/0 unit split without complaint. The areas are separate PORDATA templates; a mean
