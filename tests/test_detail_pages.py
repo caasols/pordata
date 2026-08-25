@@ -46,6 +46,19 @@ def entry(**over):
     return base
 
 
+def eurostat_entry(**over):
+    base = {"source": "Eurostat", "candidates": ["TPS00205"],
+            "n_candidates": 1, "n_exact": 1, "truncated": False,
+            "exact_title": ["TPS00205"],
+            "titles": {"TPS00205": "Life expectancy at birth by sex"},
+            "theme": "Population and social conditions / Demography",
+            "theme_share": 1.0, "period": ["1960-2024"],
+            "filter": "total and by sex", "filter_resolved": False,
+            "unit": "Ano (idade) - Média", "confidence": "exact"}
+    base.update(over)
+    return base
+
+
 def render(r=None, e=None, titles=None):
     return d.render(r or row(), e, titles or {}, "../../style.css?v=abc")
 
@@ -172,6 +185,85 @@ class ProvenanceTest(unittest.TestCase):
         self.assertIn("0012328", render(e=entry(), titles={}))
 
 
+class EurostatProvenanceTest(unittest.TestCase):
+    """The other crosswalk, whose panel exists to say a different thing.
+
+    INE's candidates are a family of pre-sliced series that all belong
+    to the indicator, so a long list is a fact about INE. Eurostat's are
+    rival cubes of which one is right, so a long list is an open
+    question — and the breakdown that would settle it is *unverified*,
+    because the cached catalogue carries titles and not dimension names.
+    A panel that blurred the two would misreport both."""
+
+    @staticmethod
+    def page(**over):
+        return render(r=row(area="europa"), e=eurostat_entry(**over))
+
+    def test_candidates_link_to_the_data_browser(self):
+        html = self.page()
+        self.assertIn(
+            "https://ec.europa.eu/eurostat/databrowser/product/view/TPS00205",
+            html)
+        self.assertIn("Life expectancy at birth by sex", html)
+
+    def test_each_candidate_carries_its_machine_readable_route(self):
+        """A code you cannot fetch from is a footnote — the same reason
+        the INE panel links its JSON endpoint."""
+        self.assertIn("/data/TPS00205/?format=TSV", self.page())
+
+    def test_the_wanted_breakdown_is_shown_as_unverified(self):
+        """The single most important thing on this panel. PORDATA asks
+        for a slice; nothing offline can confirm the cube has it."""
+        html = self.page()
+        self.assertIn("total and by sex", html)
+        self.assertIn("não foi verificado", html)
+        self.assertIn("<strong>not verified</strong>", html)
+
+    def test_an_entry_with_no_breakdown_shows_no_caveat(self):
+        """A caveat about a filter that was never asked for is noise."""
+        self.assertNotIn("Recorte pedido",
+                         self.page(filter="", confidence="exact"))
+
+    def test_it_says_the_candidates_are_rivals_not_a_family(self):
+        html = self.page(candidates=["A", "B"], n_candidates=2,
+                         exact_title=[], confidence="family")
+        self.assertIn("rivais", html)
+        self.assertIn("pergunta em aberto", html)
+
+    def test_an_identical_title_is_marked(self):
+        self.assertIn("título idêntico", self.page())
+
+    def test_a_candidate_that_is_not_an_exact_title_is_unmarked(self):
+        html = self.page(exact_title=[], confidence="single")
+        self.assertNotIn("título idêntico", html)
+
+    def test_a_long_candidate_list_is_capped_and_says_how_many_more(self):
+        html = self.page(candidates=[f"D{n}" for n in range(25)],
+                         n_candidates=25, exact_title=[], titles={},
+                         confidence="family")
+        self.assertEqual(html.count('class="id"'), 12)
+        self.assertIn("+13", html)
+
+    def test_a_code_with_no_stored_title_still_links(self):
+        self.assertIn("TPS00205", self.page(titles={}))
+
+    def test_a_europa_refusal_names_eurostat_not_ine(self):
+        """Telling a `europa` visitor there is "no INE match" would name
+        the wrong upstream for a row INE never publishes."""
+        html = render(r=row(area="europa"), e=None)
+        self.assertIn("Sem correspondência no Eurostat", html)
+        self.assertNotIn("Sem correspondência no INE", html)
+
+    def test_a_portugal_refusal_still_names_ine(self):
+        self.assertIn("Sem correspondência no INE", render(e=None))
+
+    def test_an_ine_entry_on_a_europa_row_still_renders_the_ine_panel(self):
+        """Dispatch is on the entry's source, not the area: the entry
+        knows which upstream it came from and the area does not."""
+        html = render(r=row(area="europa"), e=entry())
+        self.assertIn("https://www.ine.pt/xurl/indx/0012328/PT", html)
+
+
 class StructuredDataTest(unittest.TestCase):
     def test_each_page_describes_itself_as_a_dataset(self):
         data = json.loads(d.json_ld(row(), None))
@@ -195,6 +287,37 @@ class StructuredDataTest(unittest.TestCase):
         html = render(e=entry())
         block = html.split('application/ld+json">')[1].split("</script>")[0]
         self.assertEqual(json.loads(block)["@type"], "Dataset")
+
+
+class ProviderTest(unittest.TestCase):
+    """A provider without a name is not a provider."""
+
+    def test_an_ine_entry_names_its_operation(self):
+        self.assertIn('"name":"INE, Censos 2021"', render(e=entry()))
+
+    def test_a_eurostat_entry_names_eurostat_not_null(self):
+        """`operation` is INE's field; reading it for a Eurostat entry
+        emitted `{"name":null}` on every europa page."""
+        html = render(r=row(area="europa"), e=eurostat_entry())
+        self.assertIn('"name":"Eurostat"', html)
+        self.assertNotIn('"name":null', html)
+
+    def test_no_crosswalk_means_no_provider_at_all(self):
+        self.assertNotIn('"provider"', render(e=None))
+
+    def test_exact_matches_are_cited_as_sources(self):
+        """`isBasedOn` is the machine-readable form of the provenance
+        section — but only the exact ones: a crawler cannot read "rival
+        candidates, choice deferred" off a list of URLs."""
+        html = render(r=row(area="europa"), e=eurostat_entry())
+        self.assertIn("databrowser/product/view/TPS00205", html)
+
+    def test_a_deferred_family_cites_nothing_beyond_pordata(self):
+        html = render(e=entry(exact_title=[], confidence="family",
+                              candidates=["0012328", "0012329"],
+                              n_candidates=2))
+        self.assertIn('"isBasedOn":["https://www.pordata.pt/portugal/taxa-1"]',
+                      html)
 
 
 class EscapingTest(unittest.TestCase):

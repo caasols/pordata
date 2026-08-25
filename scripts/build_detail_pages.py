@@ -50,6 +50,7 @@ import sys
 
 CATALOGUE = pathlib.Path("docs/data/catalogue.json")
 CROSSWALK = pathlib.Path("data/crosswalk/ine.json")
+EUROSTAT_CROSSWALK = pathlib.Path("data/crosswalk/eurostat.json")
 INE_CSV = pathlib.Path("data/ine/indicators.csv")
 THEME_CSS = pathlib.Path("site/src/index.css")
 OUT_ROOT = pathlib.Path("docs/indicador")
@@ -59,6 +60,15 @@ OUT_ROOT = pathlib.Path("docs/indicador")
 # to find more than one.
 SITEMAP = pathlib.Path("docs/sitemap-indicadores.xml")
 SITE = "https://caasols.github.io/pordata"
+# Eurostat's routes are the dataset code in a template — measured
+# across all 7,572 rows by `build_eurostat_crosswalk.py`, which asserts
+# it on every build, so the crosswalk stores codes and the page builds
+# the links.
+EUROSTAT_BROWSER = ("https://ec.europa.eu/eurostat/databrowser/product"
+                    "/view/{}")
+EUROSTAT_TSV = ("https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1"
+                "/data/{}/?format=TSV")
+INE_PAGE = "https://www.ine.pt/xurl/indx/{}/PT"
 INE_JSON = ("https://www.ine.pt/ine/json_indicador/pindica.jsp"
             "?op=2&varcd={}&lang=PT")
 
@@ -125,6 +135,40 @@ LABELS = {
         "one happens when the values are fetched, not here — storing a "
         "single id would be choosing arbitrarily and recording the choice "
         "as fact."),
+    "datasets": ("Conjuntos de dados candidatos no Eurostat",
+                 "Candidate Eurostat datasets"),
+    "datasetsWhy": (
+        "O Eurostat publica <em>cubos</em> multidimensionais, não séries "
+        "já fatiadas: um indicador da PORDATA corresponde a um conjunto "
+        "de dados <em>mais</em> um filtro sobre as suas dimensões. Ao "
+        "contrário da família do INE, estes candidatos são "
+        "<em>rivais</em> — só um está certo — pelo que uma lista longa é "
+        "uma pergunta em aberto, não um facto sobre o Eurostat.",
+        "Eurostat publishes multi-dimensional <em>cubes</em>, not "
+        "pre-sliced series: one PORDATA indicator corresponds to a "
+        "dataset <em>plus</em> a filter over its dimensions. Unlike the "
+        "INE family these candidates are <em>rivals</em> — only one is "
+        "right — so a long list is an open question rather than a fact "
+        "about Eurostat."),
+    "filter": ("Recorte pedido", "Breakdown wanted"),
+    "filterWhy": (
+        "A PORDATA pede este recorte; o catálogo do Eurostat guarda "
+        "títulos, não nomes de dimensões, pelo que <strong>não foi "
+        "verificado</strong> que algum destes cubos possa ser fatiado "
+        "assim. Fica registado por verificar em vez de dado como certo.",
+        "PORDATA asks for this breakdown; Eurostat's catalogue stores "
+        "titles, not dimension names, so it is <strong>not "
+        "verified</strong> that any of these cubes can be sliced that "
+        "way. Recorded as unverified rather than assumed."),
+    "period": ("Período coberto", "Period covered"),
+    "noEurostat": ("Sem correspondência no Eurostat", "No Eurostat match"),
+    "noEurostatWhy": (
+        "O emparelhador recusa-se a adivinhar: nenhum conjunto de dados "
+        "do Eurostat passou os filtros para este indicador. Isso não "
+        "prova que não exista — prova que não temos a certeza.",
+        "The matcher refuses to guess: no Eurostat dataset passed the "
+        "filters for this indicator. That is not evidence none exists — "
+        "it is evidence we are not sure."),
     "discontinued": ("descontinuado", "discontinued"),
     "noCrosswalk": ("Sem correspondência no INE", "No INE match"),
     "noCrosswalkWhy": (
@@ -342,10 +386,18 @@ def page_url(row: dict) -> str:
 def json_ld(row: dict, entry: dict | None) -> str:
     """A `Dataset` per indicator.
 
-    `isBasedOn` points at PORDATA's page and, where the crosswalk found
-    one, at the INE operation — the machine-readable form of the same
-    claim the provenance section makes to a reader."""
+    `isBasedOn` points at PORDATA's page and, where the crosswalk is
+    confident enough to name one, at the upstream series or datasets
+    whose title is the indicator's — the machine-readable form of the
+    same claim the provenance section makes to a reader. Only the exact
+    matches: a crawler cannot read "rival candidates, choice deferred"
+    off a list of URLs, so listing a whole family here would assert
+    something the page itself declines to."""
     based_on = [row["url"]]
+    if entry:
+        route = (EUROSTAT_BROWSER if entry.get("source") == "Eurostat"
+                 else INE_PAGE)
+        based_on += [route.format(i) for i in entry.get("exact_title", [])]
     data = {
         "@context": "https://schema.org",
         "@type": "Dataset",
@@ -359,9 +411,12 @@ def json_ld(row: dict, entry: dict | None) -> str:
         "variableMeasured": row.get("unit") or None,
         "isAccessibleForFree": True,
     }
-    if entry:
-        data["provider"] = {"@type": "Organization",
-                            "name": entry.get("operation")}
+    # `operation` is INE's field and Eurostat entries have no equivalent,
+    # so naming the provider from it emitted `{"name": null}` on every
+    # europa page. A provider without a name is not a provider.
+    provider = (entry.get("operation") or entry.get("source")) if entry else ""
+    if provider:
+        data["provider"] = {"@type": "Organization", "name": provider}
     return escape_for_script(
         json.dumps({k: v for k, v in data.items() if v},
                    ensure_ascii=False, separators=(",", ":")))
@@ -382,14 +437,28 @@ def escape_for_script(payload: str) -> str:
             .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029"))
 
 
-def provenance(entry: dict | None, titles: dict) -> str:
+def provenance(entry: dict | None, titles: dict,
+               area: str = "portugal") -> str:
+    """The crosswalk, rendered as the reader meets it.
+
+    Dispatched on the entry's `source` rather than on the area, because
+    the two crosswalks answer differently shaped questions and saying so
+    is the point: INE's candidates are a *family* of pre-sliced series
+    that all belong to the indicator, so a long list is a fact about
+    INE; Eurostat's are *rival cubes* of which one is right, so a long
+    list is an open question. A single panel that blurred them would
+    misreport both."""
     if not entry:
+        absent, why = (("noEurostat", "noEurostatWhy") if area == "europa"
+                       else ("noCrosswalk", "noCrosswalkWhy"))
         return (f'<h2>{both("provenance")}</h2>'
-                f'<div class="card"><strong>{both("noCrosswalk")}</strong>'
-                f'<p class="why">{both("noCrosswalkWhy")}</p></div>')
+                f'<div class="card"><strong>{both(absent)}</strong>'
+                f'<p class="why">{both(why)}</p></div>')
+    if entry.get("source") == "Eurostat":
+        return eurostat_provenance(entry)
     rows = "".join(
         f'<li><span class="id">{esc(i)}</span>'
-        f'<a href="https://www.ine.pt/xurl/indx/{esc(i)}/PT" rel="noopener">'
+        f'<a href="{esc(INE_PAGE.format(i))}" rel="noopener">'
         f'{esc(titles.get(i, i))}</a>'
         # the machine-readable route, which is the whole point of having
         # a crosswalk: an id you cannot fetch from is a footnote
@@ -410,6 +479,44 @@ def provenance(entry: dict | None, titles: dict) -> str:
         + field("periodicity", esc(", ".join(entry.get("periodicities") or [])))
         + f'</div><h3>{both("candidates")}</h3>'
         f'<p class="why">{raw_both("candidatesWhy")}</p>'
+        f'<ol class="series">{rows}</ol>{more}</div>')
+
+
+def eurostat_provenance(entry: dict) -> str:
+    """The Eurostat panel, whose defining feature is what it refuses to
+    claim: the breakdown is shown as *wanted*, never as satisfied."""
+    stored = entry.get("titles") or {}
+    exact = set(entry.get("exact_title") or [])
+    rows = "".join(
+        f'<li><span class="id">{esc(code)}</span>'
+        f'<a href="{esc(EUROSTAT_BROWSER.format(code))}" rel="noopener">'
+        f'{esc(stored.get(code, code))}</a>'
+        # the fetch route, which is the whole point of having a
+        # crosswalk: a code you cannot fetch from is a footnote
+        f'<a class="api" rel="noopener" '
+        f'href="{esc(EUROSTAT_TSV.format(code))}">TSV</a>'
+        + ('<span class="chip" data-pt>título idêntico</span>'
+           '<span class="chip" data-en>title matches</span>'
+           if code in exact else '')
+        + '</li>'
+        for code in entry.get("candidates", [])[:12])
+    more = ""
+    if entry.get("n_candidates", 0) > 12:
+        more = (f'<p class="why">+{entry["n_candidates"] - 12} '
+                f'<span data-pt>outros conjuntos de dados candidatos</span>'
+                f'<span data-en>more candidate datasets</span></p>')
+    wanted = entry.get("filter") or ""
+    caveat = (f'<h3>{both("filter")}</h3>'
+              f'<p class="why"><strong>{esc(wanted)}</strong> — '
+              f'{raw_both("filterWhy")}</p>') if wanted else ""
+    return (
+        f'<h2>{both("provenance")}</h2><div class="card">'
+        f'<div class="meta">'
+        + field("theme", esc(entry.get("theme")), wide=True)
+        + field("period", esc(", ".join(entry.get("period") or [])))
+        + field("unit", esc(entry.get("unit")))
+        + f'</div>{caveat}<h3>{both("datasets")}</h3>'
+        f'<p class="why">{raw_both("datasetsWhy")}</p>'
         f'<ol class="series">{rows}</ol>{more}</div>')
 
 
@@ -462,7 +569,7 @@ def render(row: dict, entry: dict | None, titles: dict, css_ref: str) -> str:
 <p class="why">{both("chartWhy")}</p>
 <a class="cta" href="{esc(row['url'])}" rel="noopener">{both("openAt")}</a>
 </div>
-{provenance(entry, titles)}
+{provenance(entry, titles, row["area"])}
 <footer>{both("metadataOnly")}</footer>
 </main>
 </body>
@@ -503,13 +610,16 @@ def build(rows: list, crosswalk: dict, titles: dict,
     digest = hashlib.sha256(css.encode("utf-8")).hexdigest()[:8]
     written = int(write_if_changed(out / "style.css", css))
     stats = {"pages": 0, "written": written, "with_crosswalk": 0,
-             "css_version": digest}
+             "ine": 0, "eurostat": 0, "css_version": digest}
     for row in rows:
         entry = crosswalk.get(f"{row['area']}/{row['id']}")
         # ../../style.css from indicador/<area>/<id>/index.html
         html_text = render(row, entry, titles, f"../../style.css?v={digest}")
         stats["pages"] += 1
         stats["with_crosswalk"] += 1 if entry else 0
+        if entry:
+            stats["eurostat" if entry.get("source") == "Eurostat"
+                  else "ine"] += 1
         stats["written"] += int(
             write_if_changed(out / row["area"] / str(row["id"]) / "index.html",
                              html_text))
@@ -547,13 +657,20 @@ def missing_pages(rows: list, root: pathlib.Path = None) -> list:
 
 def main() -> None:
     rows = json.loads(CATALOGUE.read_text(encoding="utf-8"))
-    crosswalk = (json.loads(CROSSWALK.read_text(encoding="utf-8"))
-                 if CROSSWALK.exists() else {})
+    # The two are disjoint by construction — INE routes portugal and
+    # municipios, Eurostat routes europa — so merging them is a union,
+    # not a precedence question. Each entry names its own source and the
+    # panel dispatches on that.
+    crosswalk = {}
+    for path in (CROSSWALK, EUROSTAT_CROSSWALK):
+        if path.exists():
+            crosswalk.update(json.loads(path.read_text(encoding="utf-8")))
     stats = build(rows, crosswalk, ine_titles())
     stats["written"] += int(write_if_changed(SITEMAP, sitemap(rows)))
     print(f"detail pages: {stats['pages']} indicators, "
           f"{stats['written']} files written, "
-          f"{stats['with_crosswalk']} with INE provenance")
+          f"{stats['with_crosswalk']} with provenance "
+          f"({stats['ine']} INE, {stats['eurostat']} Eurostat)")
 
     if "--strict" in sys.argv:
         missing = missing_pages(rows)
