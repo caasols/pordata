@@ -37,7 +37,11 @@ publishing a degraded catalogue.
 nothing else; sources and freshness are labelled micro-columns in a fixed 3-column grid that
 holds its shape when a value is missing; the chart slot is reserved but inert until item 14.
 Since item 15 the whole card opens *this project's* page, not pordata.pt — the click-out moved
-to the detail page, beside the chart slot it will replace.
+to the detail page, beside the chart slot it will replace. The sort menu offers seven orders
+(newest/oldest/A→Z/Z→A/most sources/fewest sources/Random, newest default); **most** and
+**fewest sources** break ties by most recent then name — a chain that decides most of the list,
+since 1,264 of 2,196 rows credit exactly two — and **Random is a deal, not a shuffle**, hashing
+`(seed, area, id)` so filtering never re-deals.
 The coverage line was hiding in the title, welded on with a colon: `split_breakdown` demotes
 that tail on 54.5% of rows and **refuses** when the tail is the indicator itself, and
 `extract_unit` recovers a unit on 51.8%.
@@ -104,7 +108,9 @@ Not in `site/package.json`: nothing to chart until 14 archives values.
 `data/coverage/INE-GAP.md` names **302 concepts** INE publishes and PORDATA never mentions,
 for owner accept/reject. The *series*-level complement is deliberately not computed: the
 crosswalk names 8.1% of INE ids, so subtracting it would call ~12,000 series "missing" when
-most are covered under a name the matcher declines to claim.
+most are covered under a name the matcher declines to claim. **Eurostat's half (16b) has not
+started** and is the cheapest unstarted work on the board — `data/eurostat/datasets.csv` is
+already tracked and `coverage_gap.py` runs entirely offline, so it needs no network at all.
 
 **Three fields we do not capture, with selectors** (spike A6, 2026-08-24, sampled across all
 9 structural fingerprints): the plain-language **question** under each title, in `<h2>`, on
@@ -119,9 +125,10 @@ so future fetches pay for themselves; item **21** is the re-harvest that backfil
 **Next: the owner's queue, then BPstat and the refusals.** Four things are blocked on
 a human and nothing else, and all four unblock work that is otherwise ready — **25** (curate
 `data/coverage/INE-GAP.md`, ~45 min: the accept/reject record *is* the curation rule, and it
-closes 16), **13** (upstream licences — now ~10 min: Eurostat is answered as CC BY 4.0 in
-`data/spikes/licences.md`, INE and BPstat need a browser that is not a cloud IP; the only
-thing gating **14**), **17** (the rename), and item **1**'s residual checks (a ~20-record spot-check, plus curating
+closes **16a** — 16b, Eurostat's half, is separate and unstarted), **13** (upstream licences,
+now ~10 min: Eurostat is answered as CC BY 4.0 in `data/spikes/licences.md`, INE and BPstat
+need a browser that is not a cloud IP; the only thing gating **14**), **17** (the rename), and
+item **1**'s residual checks (a ~20-record spot-check, plus curating
 `data/catalogue/FEATURED-UNMATCHED.md`). Then **BPstat** (measure first — neither INE's shape
 nor Eurostat's is safe to assume) and the refusals: 480 Eurostat rows where no head matched
 (`data/crosswalk/EUROSTAT-REVIEW.md`) and the INE ones in `data/crosswalk/REVIEW.md`. Full

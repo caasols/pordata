@@ -723,51 +723,65 @@ Recorded so they are not re-litigated. Each carries what it costs if it turns ou
 ## Roadmap
 
 Only open work. History lives in "What has been built" and git. Item numbers are stable ids
-(referenced from code and docs), **not** priority order.
+referenced from code and docs — never reused, and **not** priority order. Everything below the
+table is ordered by *position*, deliberately not as a numbered list, because a leading `3.`
+beside a `17` reads as a second id.
 
-**Execution order (2026-08-24, end of day — after the crosswalk, the coverage gap, the CI
-hardening and the detail pages).** Ids are stable and never reused. Fully shipped: **6**
-(a–f), **10**, **11**, **12**, **18**, **19**, **23**, **24**. Half shipped, with the open half
-named in the item: **2** (INE done, Eurostat/BPstat open), **15** (metadata done, charts open),
-**16** (computed, owner pass open), **13** (Eurostat answered, INE/BPstat open).
+**Open items at a glance (2026-08-25, after the Eurostat crosswalk and the mega-audit's 114
+findings).** Anything absent is shipped and lives in "What has been built": **10**, **11**,
+**12**, **18**, **19**, **23**, **24**, and **6** (a–f), whose only residue — harvesting the
+`/en` tree — is deferred rather than scheduled.
 
-**Owner's queue first.** Four things are blocked on a human and nothing else, so they head the
-list; together they are about ninety minutes, and each unblocks work that is otherwise ready
-to run.
+| id | open work | blocked on | effort |
+|---|---|---|---|
+| **25** | curate the INE gap shortlist — accept/reject, one by one | owner | ~45 min |
+| **13** | INE and BPstat reuse terms (Eurostat answered: CC BY 4.0) | owner, a non-cloud browser | ~10 min |
+| **17** | name the project | owner | — |
+| **1** | ~20-record spot-check; curate `FEATURED-UNMATCHED.md` | owner, a browser | — |
+| **14** | the series archive | **13** | large |
+| **15** | the charts (metadata half shipped) | **14** | medium |
+| **2** | BPstat, and both refusal lists | — | large |
+| **16b** | the Eurostat coverage gap | — | **small** |
+| **20** | watch the new fields accrue; raise the floors | harvest lag | small |
+| **8b/c**, **9** | source/recency labels, then blended relevance | design | medium |
+| **7**, **3**, **4** | name/i18n review, the ledger, the FFMS follow-up (~2026-09-04) | — | background |
+| **5** | Phase D: the MCP server | owner go | large |
+| **21** | one full re-harvest | *deliberately last* | ~12 h of runner |
+| **22** | INE's availability window | runs itself; retires at 21 samples | — |
 
-1. **25 — curate the INE gap shortlist** (~45 min). The accept/reject record *is* the curation
-   rule, and it is the only way to acquire one. Closes 16a; 16b is Eurostat's half
-   and has not started.
-2. **13 — INE and BPstat's reuse terms** (~10 min now; Eurostat is answered as CC BY 4.0).
-   Both 403 from a cloud IP, so this needs a real browser. The only thing gating 14.
-3. **17 — name the project.** Cheap now, more expensive once Phase D publishes a package name
-   or FFMS replies.
-4. **The residual checks in item 1** — the ~20-record spot-check and
-   `data/catalogue/FEATURED-UNMATCHED.md`.
+**Owner's queue first — 25, 13, 17, and item 1's residual checks.** Four things are blocked on
+a human and nothing else, so they head the list; together they are about ninety minutes, and
+each unblocks work that is otherwise ready to run. **13** is the single gate on **14**, which
+is the gate on **15**'s charts — the longest dependent chain on the board hangs off a ten-minute
+look in a browser.
 
 **Then, in order:**
 
-5. **14 — the series archive.** Where the project stops being a catalogue. Unblocked the
-   moment 13 is recorded, and the pilot it asks for (size, vintages, "no series" as a
-   first-class state) **already ran on 2026-08-25** — `data/spikes/ine-series.md` has the
-   response shape, the size distribution and the vintage fields. What item 14 still needs
-   specifying is the Eurostat half: 118 routed rows whose `filter_resolved` is false on all
-   118, so the fetcher has to resolve a breakdown against a cube's real dimensions or
-   refuse, which is a different job from picking one of an INE family.
-6. **15's charts**, on the archive. The layer is chosen and measured (`@tanstack/charts`,
-   pre-rendered SVG plus interactive-on-demand); the slot is already shaped for it.
-7. **2 — the crosswalk's remaining half.** BPstat (measure it before specifying it; neither
-   INE's shape nor Eurostat's is safe to assume), and the refusals: 480 Eurostat rows where no
-   head matched, in `data/crosswalk/EUROSTAT-REVIEW.md`, and the INE ones in
-   `data/crosswalk/REVIEW.md`.
-8. **20 — watch the new fields accrue** and answer europa's period. Low effort, and it closes
-   out the whole field-capture thread.
-9. **8b/c, then 9** — labels from sources and recency, then blended relevance.
-10. Background, in any order: **7** (name/i18n review), **3** (the ledger), and **4** (the FFMS
-   follow-up, due ~2026-09-04).
-11. **21 — the full re-harvest** stays last on purpose: its value grows with everything the
-   parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
-   until it retires.
+- **14 — the series archive.** Where the project stops being a catalogue. Unblocked the moment
+  13 is recorded, and the pilot it asks for (size, vintages, "no series" as a first-class
+  state) **already ran on 2026-08-25** — `data/spikes/ine-series.md` has the response shape,
+  the size distribution and the vintage fields. What 14 still needs specifying is the Eurostat
+  half: 118 routed rows whose `filter_resolved` is false on all 118, so the fetcher has to
+  resolve a breakdown against a cube's real dimensions or refuse, which is a different job
+  from picking one of an INE family.
+- **15's charts**, on the archive. The layer is chosen and measured (`@tanstack/charts`,
+  pre-rendered SVG plus interactive-on-demand); the slot is already shaped for it.
+- **2 — the crosswalk's remaining half.** BPstat (measure it before specifying it; neither
+  INE's shape nor Eurostat's is safe to assume), and the refusals: 480 Eurostat rows where no
+  head matched, in `data/crosswalk/EUROSTAT-REVIEW.md`, and the INE ones in
+  `data/crosswalk/REVIEW.md`.
+- **16b — the Eurostat coverage gap.** Cheap and unblocked; it can be pulled forward into any
+  gap in the above, since it needs no network and no owner input.
+- **20 — watch the new fields accrue.** Low effort, and europa's period is already answered,
+  so this closes out the whole field-capture thread.
+- **8b/c, then 9** — labels from sources and recency, then blended relevance.
+- Background, in any order: **7** (name/i18n review), **3** (the ledger), and **4** (the FFMS
+  follow-up, due ~2026-09-04).
+- **21 — the full re-harvest** stays last on purpose: its value grows with everything the
+  parser learns from 15, so firing it early means doing it twice. **22** runs itself daily
+  until it retires.
+
+### The items
 
 1. **Harvest closed — residual owner checks.** 2,195/2,195 reachable pages; id 1221 is dead
    upstream and retired via `data/catalogue/abandoned.txt` (owner-verified in a browser, and
@@ -876,11 +890,8 @@ to run.
      `Save-Data` signal (skip auto-load) and keep the model optional, the page fully
      useful without it; low-end phone memory during inference → that is why the model
      must stay in the small-quantized class, not a larger one.
-6. **Hardening backlog — closed 2026-08-24** *(absorbed the old item 11; sourced from the
-   2026-08-23 `/mega-audit`, full report in `data/audits/`)*. All six strands shipped: (a)
-   silent data corruption, (b) failures nobody hears, (c) freshness, (d) test strength, (e)
-   code hygiene, (f) payload budget. Each is described in "What has been built"; the id stays
-   because code and docs reference `6b`/`6d`/`6f`.
+6. **Hardening backlog — closed 2026-08-24.** All six strands (a–f) shipped and are described
+   in "What has been built"; the id survives only because code and docs reference `6b`/`6d`/`6f`.
 
    **Still open, and only this:** harvesting the `/en` tree (~2,196 pages) if EN descriptions
    ever become worth having. Deferred, not scheduled — the EN *names* already come from the
@@ -992,22 +1003,28 @@ to run.
    `ind_string`; the period is the **key** of `Dados`, and `IndicadorCod` / `IndicadorDsg`
    identify the series. So (indicator, geography, period, value, unit, flag) maps to
    (`IndicadorCod`, `geocod`, the `Dados` key, `valor`, …) with the unit and flag still to be
-   located — `MetaInfUrl` is the obvious place to look next. The turn from a
-   catalogue of pointers into a data layer. For each crosswalked indicator, fetch the series
-   from its upstream API, normalise to one long-format schema (indicator, geography, period,
-   value, unit, flag), and archive it on the same git-scraping cadence the harvest already
-   runs. Three things to settle before building, each answerable from a pilot rather than in
-   the abstract:
-   - **Size.** A municipal indicator is ~308 geographies x ~65 years x breakdowns; across
-     ~2,200 indicators that plausibly spans tens of MB to several GB. Measure it on ~10 real
-     series across the three sources *first* — the answer decides whether this lives next to
-     `catalogue.json` in git or needs different storage entirely.
-   - **Vintages, not just latest.** Archiving on a schedule yields revision history for free,
-     and INE's 2021-2024 restatement is exactly the case decision 5 was written for. Neither
-     PORDATA nor INE lets anyone see what changed between releases; keeping vintages is the
-     cheapest genuinely new thing on this roadmap.
-   - **Honesty about coverage.** Uncrosswalked indicators keep `crosswalk: null` and simply
-     have no series. The site must render that state as a first-class case, never as an error.
+   located — `MetaInfUrl` is the obvious place to look next.
+
+   **The job itself.** For each crosswalked indicator, fetch the series from its upstream API,
+   normalise to one long-format schema (indicator, geography, period, value, unit, flag), and
+   archive it on the same git-scraping cadence the harvest already runs. The turn from a
+   catalogue of pointers into a data layer.
+
+   **What the pilot left open** — the three questions this item was written around are now two
+   answered and one untouched:
+   - **Storage, not size.** Answered enough to rule out the default: at a median of 291 KB and
+     a mean of 1,497 KB it cannot live beside `catalogue.json`. What is *not* settled is where
+     it goes instead, and the next measurement is the **distribution** rather than another
+     average — the two estimates are five times apart at n=8.
+   - **Vintages: available, so take them.** `DataExtracao` and `DataUltimoAtualizacao` come
+     back with every response, so revision history is a field rather than a diff. INE's
+     2021-2024 restatement is exactly the case decision 5 was written for, and neither PORDATA
+     nor INE shows anyone what changed between releases — this stays the cheapest genuinely
+     new thing on the roadmap.
+   - **Honesty about coverage — untouched by the pilot.** Uncrosswalked indicators keep
+     `crosswalk: null` and simply have no series. The site must render that state as a
+     first-class case, never as an error.
+
    Preconditions in QA thresholds, not prose: a per-source fetch-success floor, a schema
    conformance check, and a size budget that trips before the repo does.
 
@@ -1037,21 +1054,19 @@ to run.
    path is one component on one page. Re-check the release timeline before adopting, and
    treat the project going quiet, or `defineChart` churning across 0.x, as the signal to
    reconsider. **Not added to `site/package.json` yet**: nothing to chart until 14 archives
-   values, and a dependency nothing renders is a dependency nobody maintains. Replace the click-out to pordata.pt with a page this project owns: the
-   indicator's full metadata, its upstream attribution per decision 5 (source, vintage,
-   revision caveat rendered *with* the series, not in a footer), and a chart the user can
-   actually work with — pick geographies, pick a window, compare. This is stages 3
-   (Combination) and 4 (Interpretation) of the framing, which no amount of catalogue work
-   reaches. Two decisions to take when it starts:
-   - **Routing on GitHub Pages.** Hash routing is cheap but unshareable and invisible to
-     crawlers; pre-rendering ~2,200 static pages at build time costs build minutes and buys a
-     real canonical URL plus per-indicator JSON-LD. Lean pre-render — discoverability is the
-     project's stated purpose.
-   - **A metadata-only version can ship before 14.** A detail page with no chart still beats
-     bouncing to a page from the year 2000, and it de-risks the routing decision early.
-   The card already assumes this: it was rebuilt as a routing decision with a reserved, inert
-   chart slot, so the detail page inherits a card that expects it. A sparkline is the one
-   element that would later earn a place on the card — gated on 14, and the slot is waiting.
+   values, and a dependency nothing renders is a dependency nobody maintains.
+
+   **What the item was for, and what is left of it.** The goal was to replace the click-out to
+   pordata.pt with a page this project owns: the indicator's full metadata, its upstream
+   attribution per decision 5 (source, vintage, revision caveat rendered *with* the series,
+   not in a footer), and a chart the user can actually work with — pick geographies, pick a
+   window, compare. That is stages 3 (Combination) and 4 (Interpretation) of the framing,
+   which no amount of catalogue work reaches. **Only the chart is still open.** The two
+   decisions this item listed were both taken on 2026-08-24 and shipped: routing is
+   **pre-rendered static pages**, not hash routing, for the canonical URL and the
+   per-indicator JSON-LD; and the **metadata-only version shipped first**, which is what
+   de-risked the routing decision. A sparkline is the one element that would later earn a
+   place on the card — gated on 14, and the slot is waiting.
 
 16. **Coverage gap: what INE and Eurostat have that PORDATA does not** *(owner ask
    2026-08-23)*. Split, because one half is done and the other has not started and the
@@ -1066,7 +1081,8 @@ to run.
      scripts/coverage_gap.py` returns **0**. This is the cheapest unstarted work on the
      board and it is against the larger upstream — 7,572 datasets and 616 in-scope rows,
      versus INE's. Extend `coverage_gap.py` to emit `EUROSTAT-GAP.md`.
- The goal stated plainly: **be more complete than PORDATA**.
+
+   The goal stated plainly: **be more complete than PORDATA**.
    PORDATA curates ~2,196 indicators out of upstream catalogues that hold far more, and the
    crosswalk (item 2) is what makes the comparison computable — once each PORDATA indicator
    is matched to its upstream series, the *complement* is the gap.
@@ -1089,7 +1105,8 @@ to run.
    rule, which is the only honest way to acquire one.
 
    Preconditions: item 2 (INE cache and crosswalk) — without it the complement cannot be
-   computed at all, only guessed. Eurostat's TOC needs network, so it runs via Actions.
+   computed at all, only guessed. Eurostat's TOC needed network when this was written; it is
+   cached in `data/eurostat/datasets.csv` now, so 16b runs entirely offline.
 
 17. **Name the project properly** *(owner ask 2026-08-23: "pordata map is a shitty name")*.
    Three reasons it is worth real effort, beyond taste:
