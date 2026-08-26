@@ -84,8 +84,9 @@ The pipeline, end to end, all live on `main`:
   (PT/EN selectable per decision — content exists in PT/EN only; roadmap 7), all 24 EU
   languages listed greyed, `name_en` on every row derived free from the `/en` sitemap
   slugs, opt-in area filter pills in one swipeable row plus a **Resumo/Summary** pill on its
-  own axis (PORDATA's per-location overview set; ANDs with the areas), a sort pill
-  (newest/oldest/A→Z/Z→A, newest default), infinite scroll in device-sized chunks, an
+  own axis (PORDATA's per-location overview set; ANDs with the areas), a sort menu of
+  seven orders (newest/oldest/A→Z/Z→A/most sources/fewest sources/Random, newest
+  default), infinite scroll in device-sized chunks, an
   "Resumo" badge (attribution in its tooltip) and a "descontinuado" badge, light/dark theme, PORDATA credited prominently, every hit linking
   to **this project's** page for the indicator (since item 15; the click-out to pordata.pt
   moved there, beside the chart slot it will replace). Data redeploys automatically after every harvest chunk (the app
@@ -917,8 +918,20 @@ to run.
 
 9. **Relevance / recommended sorting** *(owner ask 2026-08-23)*. The fuzzy-score
    "relevance" option was **removed from the sort pill** the same day (owner call: not
-   producing a useful order); the pill now offers newest/oldest/A→Z/Z→A with
+   producing a useful order); the menu now offers newest/oldest/A→Z/Z→A plus the three
+   added 2026-08-25 — **most sources**, **fewest sources** and **Random** — with
    **newest-first as the default**, and match scores only gate which rows count as hits.
+   The source counts order by a chain the card already displays but nothing could sort by:
+   count, then most recent, then name. The chain deliberately does *not* invert with the
+   direction (asking for the least-sourced rows is not asking for the oldest of them), and
+   it decides most of the list — **1,264 of 2,196 rows credit exactly two sources**, over a
+   spread of 0 to 8 with nine distinct values. **Random is a deal, not a shuffle**: the
+   order is a hash of `(seed, area, id)`, so it depends on the row rather than the array
+   and the survivors of a search or an area filter keep the order they had, where a shuffle
+   over the filtered list would re-deal on every keystroke. A new seed is dealt whenever
+   Random is picked, including when it is already selected, since "shuffle again" is the
+   affordance. Under fewest-sources the tombstoned row (id 1221, 0 sources, undated) leads;
+   correct by the rule as written and left as-is (owner call 2026-08-25).
    Bringing relevance back means a real blended ranking: match score plus featured status,
    update recency, breadth (a headline indicator over a narrow breakdown), and eventually
    the Phase D embeddings for semantic closeness. The `sortRelevance` i18n strings remain
