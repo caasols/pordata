@@ -39,6 +39,13 @@ LASTMOD_FILE = "data/sitemap-lastmod.tsv"
 CHANGELOG = pathlib.Path("data/CHANGELOG.md")
 MAX_LISTED_UPDATES = 50
 MASS_CHURN_THRESHOLD = 200
+# The summary is printed as the GitHub issue body, and GitHub's API rejects
+# a body over 65,536 characters (createIssue: "Body is too long"). A frozen
+# snapshot once let the added/removed lists reach +724/-623 and every run
+# died there; the per-section caps below keep the body small, and this is the
+# last-resort ceiling, with margin, so any field added to the body later
+# cannot resurrect that failure.
+MAX_BODY_CHARS = 60000
 
 
 def committed(path: str) -> str | None:
@@ -59,6 +66,17 @@ def parse_tsv(text: str) -> dict[str, str]:
 
 def short(url: str) -> str:
     return url.split("pordata.pt/", 1)[-1]
+
+
+def listed(urls, heading, render):
+    """A capped markdown section: the heading, the first MAX_LISTED_UPDATES
+    rows, and an "and N more" line when the list is longer. Added and removed
+    used to be emitted in full, which is what overran the issue-body limit."""
+    block = ["", f"#### {heading}"]
+    block += [render(u) for u in urls[:MAX_LISTED_UPDATES]]
+    if len(urls) > MAX_LISTED_UPDATES:
+        block.append(f"- … and {len(urls) - MAX_LISTED_UPDATES} more")
+    return block
 
 
 def main() -> None:
@@ -95,25 +113,30 @@ def main() -> None:
         lines.append(f"**{len(added)} added, {len(removed)} removed, "
                      f"{len(updated)} updated (lastmod).**")
         if added:
-            lines += ["", "#### Added"] + [f"- `{short(u)}`" for u in added]
+            lines += listed(added, "Added", lambda u: f"- `{short(u)}`")
         if removed:
-            lines += ["", "#### Removed"] + [f"- `{short(u)}`" for u in removed]
+            lines += listed(removed, "Removed", lambda u: f"- `{short(u)}`")
         if updated:
-            lines.append("")
             if len(updated) > MASS_CHURN_THRESHOLD:
-                lines.append(
+                lines += [
+                    "",
                     f"#### Updated: {len(updated)} pages — wholesale lastmod "
-                    "churn, likely a sitemap regeneration; not listed individually."
-                )
+                    "churn, likely a sitemap regeneration; not listed individually.",
+                ]
             else:
-                lines.append("#### Updated")
-                lines += [f"- `{short(u)}` → {new_mods[u]}"
-                          for u in updated[:MAX_LISTED_UPDATES]]
-                if len(updated) > MAX_LISTED_UPDATES:
-                    lines.append(f"- … and {len(updated) - MAX_LISTED_UPDATES} more")
+                lines += listed(updated, "Updated",
+                                lambda u: f"- `{short(u)}` → {new_mods[u]}")
 
     summary = "\n".join(lines) + "\n"
-    print(summary)
+    # Last-resort ceiling: even with the per-section caps, never emit a body
+    # GitHub will reject. The same clamped string is printed and appended to
+    # the changelog, so the two never diverge.
+    if len(summary) > MAX_BODY_CHARS:
+        notice = "\n\n_(output truncated to fit)_\n"
+        summary = summary[:MAX_BODY_CHARS - len(notice)] + notice
+    # write, not print: summary already ends in a newline, and this keeps the
+    # emitted body exactly `summary` so the clamp above is the true ceiling.
+    sys.stdout.write(summary)
 
     changed = (
         not old_urls

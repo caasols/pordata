@@ -1,3 +1,5 @@
+import contextlib
+import io
 import json
 import os
 import pathlib
@@ -36,6 +38,12 @@ class DiffCase(RepoCase):
                         "commit", "-q", "-m", "snap"], check=True)
 
     def run_diff(self, *argv):
+        outputs, _ = self.run_diff_body(*argv)
+        return outputs
+
+    def run_diff_body(self, *argv):
+        """Like run_diff, but also returns the printed markdown summary —
+        the exact string that becomes the GitHub issue body."""
         out = pathlib.Path("gh_output")
         out.write_text("", encoding="utf-8")
         os.environ["GITHUB_OUTPUT"] = str(out.resolve())
@@ -43,12 +51,15 @@ class DiffCase(RepoCase):
         import sys
         old_argv = sys.argv
         sys.argv = ["diff_sitemap.py", *argv]
+        buf = io.StringIO()
         try:
-            d.main()
+            with contextlib.redirect_stdout(buf):
+                d.main()
         finally:
             sys.argv = old_argv
-        return dict(line.split("=", 1)
-                    for line in out.read_text().splitlines())
+        outputs = dict(line.split("=", 1)
+                       for line in out.read_text().splitlines())
+        return outputs, buf.getvalue()
 
 
 class BaselineTest(DiffCase):
@@ -106,6 +117,52 @@ class ChangesTest(DiffCase):
         changelog = pathlib.Path("data/CHANGELOG.md").read_text(
             encoding="utf-8")
         self.assertIn("wholesale lastmod churn", changelog)
+
+
+class BodySizeTest(DiffCase):
+    """The printed summary becomes the GitHub issue body, which the API
+    rejects above 65,536 chars. A frozen snapshot let added/removed grow
+    to +724/-623 and every run failed on `gh issue create`."""
+
+    # a slug about as long as PORDATA's real ones, so the byte budget is
+    # exercised, not a toy
+    STEM = ("populacao-residente-estimativas-a-31-de-dezembro-total-e-por"
+            "-sexo")
+
+    def big_urls(self, n, tag):
+        return [f"{PT}/portugal/{self.STEM}-{tag}{i}-{i}" for i in range(n)]
+
+    def test_large_add_remove_body_within_github_limit(self):
+        old = self.big_urls(800, "old")
+        self.write_snapshot(old, {u: "2026-08-01" for u in old})
+        self.commit_all()
+        new = self.big_urls(800, "new")
+        self.write_snapshot(new, {u: "2026-08-01" for u in new})
+        outputs, body = self.run_diff_body("--changelog")
+        self.assertEqual(outputs["added"], "800")
+        self.assertEqual(outputs["removed"], "800")
+        self.assertLess(len(body), 65536)
+
+    def test_added_list_truncated_but_count_complete(self):
+        self.commit_all()
+        new = list(URLS) + self.big_urls(120, "new")
+        self.write_snapshot(new, {u: "2026-08-01" for u in new})
+        outputs, body = self.run_diff_body("--changelog")
+        # the count reported to the workflow is the full total ...
+        self.assertEqual(outputs["added"], "120")
+        # ... but the rendered list is capped and says how many it omits
+        self.assertIn(f"and {120 - d.MAX_LISTED_UPDATES} more", body)
+
+    def test_body_hard_clamped_as_last_resort(self):
+        old = d.MAX_BODY_CHARS
+        d.MAX_BODY_CHARS = 500
+        self.addCleanup(setattr, d, "MAX_BODY_CHARS", old)
+        self.commit_all()
+        new = list(URLS) + self.big_urls(60, "new")
+        self.write_snapshot(new, {u: "2026-08-01" for u in new})
+        _, body = self.run_diff_body("--changelog")
+        self.assertLessEqual(len(body), d.MAX_BODY_CHARS)
+        self.assertIn("truncated", body)
 
 
 if __name__ == "__main__":
