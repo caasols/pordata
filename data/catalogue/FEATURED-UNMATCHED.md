@@ -214,5 +214,5 @@ To pin one, add it to `data/catalogue/featured.json`:
 - **Residentes que viajaram para o estrangeiro em % da população que viajou**
   - `3807` 60% (+1) População residente: total, nacionais e estrangeiros
   - `2448` 60% (+2) População residente que viajou em turismo: total e por sexo
-  - `2527` 60% (+3) População residente que viajou em turismo em % da população residente: total e por destino da viagem
+  - `1815` 60% (+3) População residente, estimativas a 1 de janeiro: total, nacionais e estrangeiros
 
