@@ -752,6 +752,7 @@ findings).** Anything absent is shipped and lives in "What has been built": **10
 | **16b** | the Eurostat coverage gap | — | **small** |
 | **20** | watch the new fields accrue; raise the floors | harvest lag | small |
 | **26** | confirm `sitemap watch` recovered in production: next scheduled run is green, snapshot un-freezes, one catch-up issue opens with a bounded body | next scheduled run | tiny |
+| **27** | prune the leftovers of the issue-body-cap work: remove the `sitemap-issue-body-cap` git worktree and delete the merged remote branches `worktree-sitemap-issue-body-cap` and `docs-sitemap-fix` (and this branch once merged) | — | tiny |
 | **8b/c**, **9** | source/recency labels, then blended relevance | design | medium |
 | **7**, **3**, **4** | name/i18n review, the ledger, the FFMS follow-up (~2026-09-04) | — | background |
 | **5** | Phase D: the MCP server | owner go | large |
