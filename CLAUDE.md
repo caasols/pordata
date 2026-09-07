@@ -165,7 +165,7 @@ And the **English half had no address**: `og:locale:alternate en_GB` was adverti
 URL. Now `?lang=`, `hreflang` on every page, alternates in the sitemap, and a two-link switch
 that needs no JavaScript.
 
-**Ten things worth not re-learning:**
+**Eleven things worth not re-learning:**
 - **Coverage thresholds for markup-parsed fields are per-area.** A catalogue-wide mean passed a
   100/100/0 unit split without complaint. The areas are separate PORDATA templates; a mean
   cannot say "each still works".
@@ -224,6 +224,18 @@ that needs no JavaScript.
   rest are markdown labels in report writers. Test the *figures and sections* a reader
   depends on, not the prose. And put logic in `src/lib` — that is where StrykerJS mutates, so
   a helper living in `App.tsx` is unit-tested but never mutation-tested.
+- **"Notify before commit" self-heals only *transient* failures.** `sitemap.yml` opens the
+  add/remove issue before advancing the snapshot on purpose, so a lost notification re-fires
+  next run (the diff is against the *committed* snapshot). But `gh issue create` failing is
+  not always transient: added/removed were rendered in full while only *updated* was capped,
+  so once a frozen snapshot let the diff reach +724/-623 the ~144 KB body hit GitHub's 65,536
+  hard limit, `bash -e` aborted before the commit, the snapshot never advanced, and the diff
+  only grew — the self-healing ordering became a permanent deadlock (22 straight failures,
+  2026-08-25 → 2026-09-07). The site looked fine because the harvest safety-net kept
+  publishing; only change-detection was dead. Lesson: **anything that feeds an external API
+  with a hard limit must be bounded at the source**, and its bound tested over the bytes
+  actually emitted. Fixed 2026-09-07: cap added/removed like updated, plus a last-resort body
+  clamp. A capped display never touches the counts, which come from the full sets.
 
 ## How it runs
 

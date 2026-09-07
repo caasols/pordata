@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-24
+updated: 2026-09-07
 ---
 
 # pordata: context
@@ -531,7 +531,15 @@ sha, so data-writing workflows must check out the branch ref at run time (fixed 
 after one duplicated chunk); a paths-filtered push trigger fires on every branch, so steps
 that dispatch workflows or commit data must be gated to main (fixed 2026-08-23 after a
 feature-branch harvest diverged the branch); an unconditional rebuild step turns no-op runs
-into daily timestamp-only commits (build is now gated on records changing).
+into daily timestamp-only commits (build is now gated on records changing); and a step that
+opens the add/remove issue *before* committing the snapshot (deliberately, so a lost
+notification re-fires) deadlocks the detector for good when the failure is not transient —
+`sitemap watch` failed on every scheduled run from 2026-08-25 to 2026-09-07 because the
+uncapped added/removed lists let a frozen-snapshot diff (+724/-623) produce a ~144 KB issue
+body over GitHub's 65,536-char limit, and `bash -e` aborted before the snapshot could advance,
+so the diff only grew (fixed 2026-09-07: cap added/removed the way updated already was, plus a
+last-resort body clamp, tested over the emitted bytes; the harvest safety-net had kept the
+site current throughout, so only change-detection was frozen).
 
 ## What PORDATA is
 
@@ -743,6 +751,7 @@ findings).** Anything absent is shipped and lives in "What has been built": **10
 | **2** | BPstat, and both refusal lists | — | large |
 | **16b** | the Eurostat coverage gap | — | **small** |
 | **20** | watch the new fields accrue; raise the floors | harvest lag | small |
+| **26** | confirm `sitemap watch` recovered in production: next scheduled run is green, snapshot un-freezes, one catch-up issue opens with a bounded body | next scheduled run | tiny |
 | **8b/c**, **9** | source/recency labels, then blended relevance | design | medium |
 | **7**, **3**, **4** | name/i18n review, the ledger, the FFMS follow-up (~2026-09-04) | — | background |
 | **5** | Phase D: the MCP server | owner go | large |
