@@ -191,3 +191,13 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/acao+social+no+ensino+superior+dotacao+e+despesa+por+fontes+de+financiamento-3806` → 2026-08-28
 - `portugal/assinantes+++equipamentos+de+utilizadores+do+servico+movel-1180` → 2026-09-02
 - … and 39 more
+
+### Sitemap diff 2026-09-08
+
+**0 added, 0 removed, 4 updated (lastmod).**
+
+#### Updated
+- `europa/emissoes+de+amoniaco+pela+agricultura-3539` → 2026-09-08
+- `portugal/resultados+no+pisa++a+matematica++dos+alunos+residentes+em+portugal-3514` → 2026-09-08
+- `portugal/resultados+no+pisa++em+ciencias++dos+alunos+residentes+em+portugal-3515` → 2026-09-08
+- `portugal/resultados+no+pisa++em+leitura++dos+alunos+residentes+em+portugal-3513` → 2026-09-08
