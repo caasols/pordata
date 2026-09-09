@@ -53,13 +53,14 @@ Add to `site/src/lib/unit-terms.json` (roadmap 18); until then these render in P
 - `(A) Embarcação (B) Indivíduo` (1 rows)
 - `(A) Linha (B) metro` (1 rows)
 - `(A) Publicação científica (B) Citação` (1 rows)
+- `(A) Equipamentos culturais (B) Indivíduo` (1 rows)
 - published rows with no detail page: ['europa/1815', 'municipios/137', 'municipios/139', 'municipios/138', 'portugal/3700', 'portugal/98', 'portugal/97']
 
 ## Payload budget (roadmap 6f)
 
 Gzipped KB a first visit downloads before it can search: the page, its bundle and the whole catalogue. Levers, measured, for when a ceiling breaks: `url` is ~25% of the gzipped catalogue and derivable from area+slug; `description` is ~12% for a field the UI never renders.
 
-- first load: **270.4 KB** (ceiling 400)
+- first load: **270.5 KB** (ceiling 400)
 - of which catalogue.json: **156.4 KB** (ceiling 250)
 
 ## Gate
@@ -77,17 +78,17 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - parse_warnings: 0
 - published_rows_ratio: 1
 - breakdown_ratio: 0.5461
-- unit_ratio: 0.5411
+- unit_ratio: 0.5415
 - revision_ratio: 0.09578
-- question_ratio: 0.04993
-- period_ratio: 0.04993
+- question_ratio: 0.05129
+- period_ratio: 0.05129
 - breakdown_ratio_by_area: europa 49%, municipios 61%, portugal 55%
 - unit_ratio_by_area: europa 100%, municipios 100%, portugal 5%
 - question_ratio_by_area: europa 6%, municipios 4%, portugal 5%
 - period_ratio_by_area: europa 6%, municipios 4%, portugal 5%
 - separator_repairs: 37
 - unit_contamination: 0
-- unit_translated_ratio: 0.9916
+- unit_translated_ratio: 0.9908
 - featured_collisions: 0
 - featured_rows: 43
 - orgs_coverage: 0.9936
@@ -100,7 +101,7 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - detail_pages_missing: 7
 - ine_matched: 212
 - eurostat_matched: 118
-- first_load_gzip_kb: 270.4
+- first_load_gzip_kb: 270.5
 - catalogue_gzip_kb: 156.4
 
 - **BREACH** detail_pages_missing: 7 > allowed 0
