@@ -215,3 +215,12 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 #### Updated
 - `europa/emissao+media+de+co2+por+km+dos+automoveis+novos+de+passageiros-3611` → 2026-09-09
 - `portugal/ministerio+publico+nos+tribunais+judiciais+processos+de+inquerito+registados+e+movimentados-249` → 2026-09-09
+
+### Sitemap diff 2026-09-09
+
+**0 added, 0 removed, 3 updated (lastmod).**
+
+#### Updated
+- `municipios/populacao+residente+do+sexo+feminino+total+e+por+grupo+etario-453` → 2026-09-09
+- `municipios/populacao+residente+do+sexo+masculino+total+e+por+grupo+etario-464` → 2026-09-09
+- `portugal/recintos+culturais+numero+e+lotacao-185` → 2026-09-09
