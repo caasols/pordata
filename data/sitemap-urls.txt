@@ -1062,9 +1062,11 @@ https://www.pordata.pt/en/municipalities/registred+individuals+total+and+by+age+
 https://www.pordata.pt/en/municipalities/registred+individuals+total+and+by+citizenship-617
 https://www.pordata.pt/en/municipalities/registred+individuals+total+and+by+sex-653
 https://www.pordata.pt/en/municipalities/researchers+(fte)+involved+in+research+and+development+activities+(r+d)+total+and+by+sector+of+performance-874
+https://www.pordata.pt/en/municipalities/resident+female+population++estimates+at+december+31st+total+and+by+age+group-139
 https://www.pordata.pt/en/municipalities/resident+female+population+aged+between+16+and+89+total+and+by+highest+level+of+educational+qualifications+obtained-804
 https://www.pordata.pt/en/municipalities/resident+female+population+total+and+by+age+group-453
 https://www.pordata.pt/en/municipalities/resident+female+population+total+and+by+major+age+groups-466
+https://www.pordata.pt/en/municipalities/resident+male+population++estimates+at+december+31st+total+and+by+age+group-138
 https://www.pordata.pt/en/municipalities/resident+male+population+aged+between+16+and+89+total+and+by+highest+level+of+educational+qualifications+obtained-803
 https://www.pordata.pt/en/municipalities/resident+male+population+total+and+by+age+group-464
 https://www.pordata.pt/en/municipalities/resident+male+population+total+and+by+major+age+groups-465
@@ -4011,9 +4013,11 @@ https://www.pordata.pt/municipios/populacao+residente++estimativas+a+31+de+dezem
 https://www.pordata.pt/municipios/populacao+residente++estimativas+a+31+de+dezembro+total+e+por+sexo-136
 https://www.pordata.pt/municipios/populacao+residente+com+idade+entre+16+e+89+anos+sem+o+ensino+secundario+(percentagem)-886
 https://www.pordata.pt/municipios/populacao+residente+com+idade+entre+16+e+89+anos+total+e+por+nivel+de+escolaridade+completo+mais+elevado-802
+https://www.pordata.pt/municipios/populacao+residente+do+sexo+feminino++estimativas+a+31+de+dezembro+total+e+por+grupo+etario-139
 https://www.pordata.pt/municipios/populacao+residente+do+sexo+feminino+com+idade+entre+16+e+89+anos+total+e+por+nivel+de+escolaridade+completo+mais+elevado-804
 https://www.pordata.pt/municipios/populacao+residente+do+sexo+feminino+total+e+por+grandes+grupos+etarios-466
 https://www.pordata.pt/municipios/populacao+residente+do+sexo+feminino+total+e+por+grupo+etario-453
+https://www.pordata.pt/municipios/populacao+residente+do+sexo+masculino++estimativas+a+31+de+dezembro+total+e+por+grupo+etario-138
 https://www.pordata.pt/municipios/populacao+residente+do+sexo+masculino+com+idade+entre+16+e+89+anos+total+e+por+nivel+de+escolaridade+completo+mais+elevado-803
 https://www.pordata.pt/municipios/populacao+residente+do+sexo+masculino+total+e+por+grandes+grupos+etarios-465
 https://www.pordata.pt/municipios/populacao+residente+do+sexo+masculino+total+e+por+grupo+etario-464

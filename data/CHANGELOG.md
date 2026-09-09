@@ -201,3 +201,17 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/resultados+no+pisa++a+matematica++dos+alunos+residentes+em+portugal-3514` → 2026-09-08
 - `portugal/resultados+no+pisa++em+ciencias++dos+alunos+residentes+em+portugal-3515` → 2026-09-08
 - `portugal/resultados+no+pisa++em+leitura++dos+alunos+residentes+em+portugal-3513` → 2026-09-08
+
+### Sitemap diff 2026-09-09
+
+**4 added, 0 removed, 2 updated (lastmod).**
+
+#### Added
+- `en/municipalities/resident+female+population++estimates+at+december+31st+total+and+by+age+group-139`
+- `en/municipalities/resident+male+population++estimates+at+december+31st+total+and+by+age+group-138`
+- `municipios/populacao+residente+do+sexo+feminino++estimativas+a+31+de+dezembro+total+e+por+grupo+etario-139`
+- `municipios/populacao+residente+do+sexo+masculino++estimativas+a+31+de+dezembro+total+e+por+grupo+etario-138`
+
+#### Updated
+- `europa/emissao+media+de+co2+por+km+dos+automoveis+novos+de+passageiros-3611` → 2026-09-09
+- `portugal/ministerio+publico+nos+tribunais+judiciais+processos+de+inquerito+registados+e+movimentados-249` → 2026-09-09
