@@ -1,15 +1,15 @@
 # Catalogue QA
 
-Records: 2201 (2200 ok, 0 errored)
+Records: 2203 (2202 ok, 0 errored)
 
 ## Field coverage (% non-empty)
 
 | area | n | name | description | fontes | ultima_atualizacao | json_ld |
 |---|---|---|---|---|---|---|
 | europa | 639 | 100% | 100% | 100% | 100% | 100% |
-| municipios | 505 | 100% | 100% | 100% | 100% | 100% |
+| municipios | 507 | 100% | 100% | 100% | 100% | 100% |
 | portugal | 1056 | 100% | 100% | 100% | 100% | 100% |
-| ALL | 2200 | 100% | 100% | 100% | 100% | 100% |
+| ALL | 2202 | 100% | 100% | 100% | 100% | 100% |
 
 ## Findings
 
@@ -35,20 +35,32 @@ Skipped by the harvest plan and tombstoned at build time; see `data/catalogue/ab
 
 ## Published layer (docs/data/catalogue.json)
 
-- rows: 2196 (2195 live, 1 tombstoned)
+- rows: 2203 (2202 live, 1 tombstoned)
 - name_en present: 100%
 - fontes non-empty: 100%
 - featured flagged rows: 43
-- breakdown line: 54%
-- unit: 52%
-- either (coverage line renders): 78%
+- breakdown line: 55%
+- unit: 54%
+- either (coverage line renders): 80%
+
+### Unit terms with no translation
+
+Add to `site/src/lib/unit-terms.json` (roadmap 18); until then these render in Portuguese.
+
+- `Publicação científica` (3 rows)
+- `(A) Valor absoluto (B) Média` (3 rows)
+- `Assinatura/ Subscrição (até 2009); Equipamento (a partir de 2010)` (1 rows)
+- `(A) Embarcação (B) Indivíduo` (1 rows)
+- `(A) Linha (B) metro` (1 rows)
+- `(A) Publicação científica (B) Citação` (1 rows)
+- published rows with no detail page: ['europa/1815', 'municipios/137', 'municipios/139', 'municipios/138', 'portugal/3700', 'portugal/98', 'portugal/97']
 
 ## Payload budget (roadmap 6f)
 
 Gzipped KB a first visit downloads before it can search: the page, its bundle and the whole catalogue. Levers, measured, for when a ceiling breaks: `url` is ~25% of the gzipped catalogue and derivable from area+slug; `description` is ~12% for a field the UI never renders.
 
-- first load: **266.0 KB** (ceiling 400)
-- of which catalogue.json: **152.0 KB** (ceiling 250)
+- first load: **270.4 KB** (ceiling 400)
+- of which catalogue.json: **156.4 KB** (ceiling 250)
 
 ## Gate
 
@@ -63,19 +75,19 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - date_iso_ratio: 1
 - duplicate_area_id: 0
 - parse_warnings: 0
-- published_rows_ratio: 0.9982
-- breakdown_ratio: 0.5446
-- unit_ratio: 0.5182
-- revision_ratio: 0.09244
-- question_ratio: 0.003643
-- period_ratio: 0.003643
-- breakdown_ratio_by_area: europa 49%, municipios 60%, portugal 55%
-- unit_ratio_by_area: europa 100%, municipios 100%, portugal 0%
-- question_ratio_by_area: europa 1%, municipios 0%, portugal 0%
-- period_ratio_by_area: europa 1%, municipios 0%, portugal 0%
+- published_rows_ratio: 1
+- breakdown_ratio: 0.5461
+- unit_ratio: 0.5411
+- revision_ratio: 0.09578
+- question_ratio: 0.04993
+- period_ratio: 0.04993
+- breakdown_ratio_by_area: europa 49%, municipios 61%, portugal 55%
+- unit_ratio_by_area: europa 100%, municipios 100%, portugal 5%
+- question_ratio_by_area: europa 6%, municipios 4%, portugal 5%
+- period_ratio_by_area: europa 6%, municipios 4%, portugal 5%
 - separator_repairs: 37
 - unit_contamination: 0
-- unit_translated_ratio: 1
+- unit_translated_ratio: 0.9916
 - featured_collisions: 0
 - featured_rows: 43
 - orgs_coverage: 0.9936
@@ -84,11 +96,11 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - separator_defect_residual: 0
 - name_en_coverage: 1
 - name_en_coverage_by_area: europa 100%, municipios 100%, portugal 100%
-- distinct_orgs: 127
-- detail_pages_missing: 0
+- distinct_orgs: 128
+- detail_pages_missing: 7
 - ine_matched: 212
 - eurostat_matched: 118
-- first_load_gzip_kb: 266
-- catalogue_gzip_kb: 152
+- first_load_gzip_kb: 270.4
+- catalogue_gzip_kb: 156.4
 
-- all thresholds pass
+- **BREACH** detail_pages_missing: 7 > allowed 0
