@@ -224,3 +224,11 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `municipios/populacao+residente+do+sexo+feminino+total+e+por+grupo+etario-453` → 2026-09-09
 - `municipios/populacao+residente+do+sexo+masculino+total+e+por+grupo+etario-464` → 2026-09-09
 - `portugal/recintos+culturais+numero+e+lotacao-185` → 2026-09-09
+
+### Sitemap diff 2026-09-10
+
+**0 added, 0 removed, 2 updated (lastmod).**
+
+#### Updated
+- `municipios/populacao+residente+do+sexo+feminino+total+e+por+grandes+grupos+etarios-466` → 2026-09-10
+- `municipios/populacao+residente+do+sexo+masculino+total+e+por+grandes+grupos+etarios-465` → 2026-09-10
