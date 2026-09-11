@@ -232,3 +232,12 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 #### Updated
 - `municipios/populacao+residente+do+sexo+feminino+total+e+por+grandes+grupos+etarios-466` → 2026-09-10
 - `municipios/populacao+residente+do+sexo+masculino+total+e+por+grandes+grupos+etarios-465` → 2026-09-10
+
+### Sitemap diff 2026-09-11
+
+**0 added, 0 removed, 3 updated (lastmod).**
+
+#### Updated
+- `portugal/museus++jardins+zoologicos++botanicos+e+aquarios+numero+e+visitantes-1309` → 2026-09-11
+- `portugal/museus++jardins+zoologicos++botanicos+e+aquarios+por+100+mil+habitantes-585` → 2026-09-11
+- `portugal/museus++jardins+zoologicos++botanicos+e+aquarios+visitantes+por+mil+habitantes-655` → 2026-09-11
