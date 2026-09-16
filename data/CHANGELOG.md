@@ -241,3 +241,10 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/museus++jardins+zoologicos++botanicos+e+aquarios+numero+e+visitantes-1309` → 2026-09-11
 - `portugal/museus++jardins+zoologicos++botanicos+e+aquarios+por+100+mil+habitantes-585` → 2026-09-11
 - `portugal/museus++jardins+zoologicos++botanicos+e+aquarios+visitantes+por+mil+habitantes-655` → 2026-09-11
+
+### Sitemap diff 2026-09-16
+
+**0 added, 0 removed, 1 updated (lastmod).**
+
+#### Updated
+- `municipios/museus+numero+-742` → 2026-09-16
