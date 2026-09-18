@@ -248,3 +248,10 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 
 #### Updated
 - `municipios/museus+numero+-742` → 2026-09-16
+
+### Sitemap diff 2026-09-18
+
+**0 added, 0 removed, 1 updated (lastmod).**
+
+#### Updated
+- `europa/peixe+capturado-3652` → 2026-09-18
