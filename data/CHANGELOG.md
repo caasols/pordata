@@ -255,3 +255,47 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 
 #### Updated
 - `europa/peixe+capturado-3652` → 2026-09-18
+
+### Sitemap diff 2026-09-23
+
+**0 added, 0 removed, 38 updated (lastmod).**
+
+#### Updated
+- `portugal/administracoes+publicas+defice+excedente+por+nivel+de+administracao-2785` → 2026-09-23
+- `portugal/administracoes+publicas+despesas++receitas+e+defice+excedente-2784` → 2026-09-23
+- `portugal/balanca+de+viagens+e+turismo+em+percentagem+do+pib-2632` → 2026-09-23
+- `portugal/caixa+geral+de+aposentacoes+receitas+e+despesas+em+percentagem+do+pib-2040` → 2026-09-23
+- `portugal/consumo+privado-2821` → 2026-09-23
+- `portugal/consumo+publico-2820` → 2026-09-23
+- `portugal/deflatores-502` → 2026-09-23
+- `portugal/despesa+corrente+em+cuidados+de+saude+em+percentagem+do+pib-610` → 2026-09-23
+- `portugal/despesa+da+seguranca+social+em+percentagem+do+pib-705` → 2026-09-23
+- `portugal/despesas+das+administracoes+publicas+em+educacao+em+percentagem+do+pib-867` → 2026-09-23
+- `portugal/despesas+das+administracoes+publicas+em+percentagem+do+pib+total+e+por+funcoes-3700` → 2026-09-23
+- `portugal/despesas+das+administracoes+publicas+em+saude+em+percentagem+do+pib-855` → 2026-09-23
+- `portugal/despesas+das+administracoes+publicas+total++correntes+e+de+capital-2790` → 2026-09-23
+- `portugal/despesas+das+administracoes+publicas+total+e+por+classificacao+economica-2791` → 2026-09-23
+- `portugal/despesas+em+atividades+de+investigacao+e+desenvolvimento+(i+d)+em+percentagem+do+pib+por+setor+de+execucao-1133` → 2026-09-23
+- `portugal/despesas+em+atividades+de+investigacao+e+desenvolvimento+(i+d)+em+percentagem+do+pib-779` → 2026-09-23
+- `portugal/investimento+formacao+bruta+de+capital+fixo+em+percentagem+do+pib-2833` → 2026-09-23
+- `portugal/investimento+formacao+bruta+de+capital+fixo-2831` → 2026-09-23
+- `portugal/pensoes+da+seguranca+social+em+percentagem+do+pib+despesa+total+e+por+tipo-942` → 2026-09-23
+- `portugal/pib+na+otica+da+despesa-2283` → 2026-09-23
+- `portugal/pib+na+otica+da+producao-2280` → 2026-09-23
+- `portugal/pib+na+otica+do+rendimento-2282` → 2026-09-23
+- `portugal/poupanca+das+familias-2323` → 2026-09-23
+- `portugal/poupanca+e+ordenados+salarios+no+total+do+rendimento+disponivel+das+familias(percentagem)-710` → 2026-09-23
+- `portugal/produto+interno+bruto+(pib)-130` → 2026-09-23
+- `portugal/receitas+da+seguranca+social+em+percentagem+do+pib-766` → 2026-09-23
+- `portugal/receitas+das+administracoes+publicas+total++correntes+e+de+capital-2795` → 2026-09-23
+- `portugal/receitas+das+administracoes+publicas+total+e+por+classificacao+economica-2796` → 2026-09-23
+- `portugal/remessas+de+emigrantes++imigrantes+e+saldo+em+percentagem+do+pib-2366` → 2026-09-23
+- `portugal/remuneracoes+dos+empregados-2404` → 2026-09-23
+- `portugal/rendimento+disponivel+bruto+das+familias-2407` → 2026-09-23
+- `portugal/rendimento+e+poupanca+das+familias-78` → 2026-09-23
+- `portugal/rendimento+nacional+bruto+e+rendimento+disponivel+bruto+em+percentagem+do+pib-2942` → 2026-09-23
+- `portugal/rendimento+nacional+bruto+e+rendimento+disponivel+bruto-2379` → 2026-09-23
+- `portugal/transferencias+publicas+com+a+uniao+europeia+em+percentagem+do+pib-2364` → 2026-09-23
+- `portugal/valor+acrescentado+bruto+da+agricultura+em+percentagem+do+pib-3715` → 2026-09-23
+- `portugal/valor+acrescentado+bruto+da+silvicultura+em+percentagem+do+pib-3707` → 2026-09-23
+- `portugal/valor+acrescentado+bruto+das+pescas+e+aquicultura+em+percentagem+do+pib-3742` → 2026-09-23
