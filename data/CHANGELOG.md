@@ -310,3 +310,10 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/despesas+medias+de+consumo+final+das+familias+total+e+por+tipo+de+bens+e+servicos-768` → 2026-09-24
 - `portugal/investimento+formacao+bruta+de+capital+fixo+por+setor+institucional-2324` → 2026-09-24
 - `portugal/rendimento+disponivel+bruto+total+e+por+setor+institucional-2380` → 2026-09-24
+
+### Sitemap diff 2026-09-24
+
+**0 added, 0 removed, 1 updated (lastmod).**
+
+#### Updated
+- `portugal/consumo+das+familias+no+territorio+economico+total++duradouro+e+nao+duradouro-2825` → 2026-09-24
