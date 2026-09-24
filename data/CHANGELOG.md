@@ -299,3 +299,14 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/valor+acrescentado+bruto+da+agricultura+em+percentagem+do+pib-3715` → 2026-09-23
 - `portugal/valor+acrescentado+bruto+da+silvicultura+em+percentagem+do+pib-3707` → 2026-09-23
 - `portugal/valor+acrescentado+bruto+das+pescas+e+aquicultura+em+percentagem+do+pib-3742` → 2026-09-23
+
+### Sitemap diff 2026-09-24
+
+**0 added, 0 removed, 5 updated (lastmod).**
+
+#### Updated
+- `portugal/administracoes+publicas+divida+bruta+em+percentagem+do+pib-2786` → 2026-09-24
+- `portugal/consumo+final+das+familias+no+territorio+economico+total+e+por+tipo+de+bens+e+servicos-2416` → 2026-09-24
+- `portugal/despesas+medias+de+consumo+final+das+familias+total+e+por+tipo+de+bens+e+servicos-768` → 2026-09-24
+- `portugal/investimento+formacao+bruta+de+capital+fixo+por+setor+institucional-2324` → 2026-09-24
+- `portugal/rendimento+disponivel+bruto+total+e+por+setor+institucional-2380` → 2026-09-24
