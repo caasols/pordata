@@ -317,3 +317,25 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 
 #### Updated
 - `portugal/consumo+das+familias+no+territorio+economico+total++duradouro+e+nao+duradouro-2825` → 2026-09-24
+
+### Sitemap diff 2026-09-25
+
+**0 added, 0 removed, 16 updated (lastmod).**
+
+#### Updated
+- `portugal/administracoes+publicas+despesas++receitas+e+defice+excedente+em+percentagem+do+pib-2788` → 2026-09-25
+- `portugal/consumo+privado+em+percentagem+do+pib-2937` → 2026-09-25
+- `portugal/despesas+das+administracoes+publicas+em+percentagem+do+pib+total++correntes+e+de+capital-2793` → 2026-09-25
+- `portugal/divida+publica+divida+das+administracoes+publicas-2783` → 2026-09-25
+- `portugal/emprego+total+e+por+ramo+de+atividade++equivalente+a+tempo+completo-2296` → 2026-09-25
+- `portugal/exportacoes+de+bens+e+servicos+total+e+por+produto-2291` → 2026-09-25
+- `portugal/formacao+bruta+de+capital+fixo+total+e+por+ramo+de+atividade+investidor-2289` → 2026-09-25
+- `portugal/formacao+bruta+de+capital+total+e+por+produto-2290` → 2026-09-25
+- `portugal/importacoes+de+bens+e+servicos+total+e+por+produto-2292` → 2026-09-25
+- `portugal/intensidade+carbonica+da+economia+por+setor+de+atividade-3477` → 2026-09-25
+- `portugal/receitas+das+administracoes+publicas+em+percentagem+do+pib+total++correntes+e+de+capital-2802` → 2026-09-25
+- `portugal/receitas+fiscais+e+contribuicoes+sociais+das+administracoes+publicas-3749` → 2026-09-25
+- `portugal/taxa+de+crescimento+do+pib-2298` → 2026-09-25
+- `portugal/valor+acrescentado+bruto+das+pescas+e+aquicultura+em+percentagem+do+pib-3742` → 2026-09-25
+- `portugal/valor+acrescentado+bruto+das+pescas+e+aquicultura-3741` → 2026-09-25
+- `portugal/valor+acrescentado+bruto+total+e+por+ramo+de+atividade-2293` → 2026-09-25
