@@ -339,3 +339,34 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/valor+acrescentado+bruto+das+pescas+e+aquicultura+em+percentagem+do+pib-3742` → 2026-09-25
 - `portugal/valor+acrescentado+bruto+das+pescas+e+aquicultura-3741` → 2026-09-25
 - `portugal/valor+acrescentado+bruto+total+e+por+ramo+de+atividade-2293` → 2026-09-25
+
+### Sitemap diff 2026-09-28
+
+**0 added, 0 removed, 25 updated (lastmod).**
+
+#### Updated
+- `municipios/espetaculos+ao+vivo+bilhetes+vendidos-52` → 2026-09-28
+- `municipios/espetaculos+ao+vivo+espectadores-45` → 2026-09-28
+- `municipios/espetaculos+ao+vivo+receitas+de+bilheteira-37` → 2026-09-28
+- `municipios/espetaculos+ao+vivo+sessoes-43` → 2026-09-28
+- `portugal/docentes+do+ensino+superior+total++por+subsistema+e+por+tipo+de+ensino-354` → 2026-09-28
+- `portugal/docentes+do+ensino+superior+total+e+por+sexo-666` → 2026-09-28
+- `portugal/docentes+do+ensino+superior+total+e+por+subsistema+de+ensino-225` → 2026-09-28
+- `portugal/docentes+do+ensino+superior+total+e+por+tipo+de+ensino-352` → 2026-09-28
+- `portugal/espetaculos+ao+vivo+receitas+de+bilheteira-400` → 2026-09-28
+- `portugal/espetaculos+ao+vivo+sessoes+e+espectadores-583` → 2026-09-28
+- `portugal/musica++danca+e+variedades+espectadores+por+mil+habitantes-590` → 2026-09-28
+- `portugal/musica++danca+e+variedades+numero+medio+de+espectadores+por+sessao-595` → 2026-09-28
+- `portugal/musica++danca+e+variedades+sessoes+e+espectadores-181` → 2026-09-28
+- `portugal/opera+espectadores+por+mil+habitantes-591` → 2026-09-28
+- `portugal/opera+numero+medio+de+espectadores+por+sessao-596` → 2026-09-28
+- `portugal/opera+sessoes+e+espectadores-182` → 2026-09-28
+- `portugal/pib+per+capita-2297` → 2026-09-27
+- `portugal/teatro+espectadores+por+mil+habitantes-592` → 2026-09-28
+- `portugal/teatro+numero+medio+de+espectadores+por+sessao-597` → 2026-09-28
+- `portugal/teatro+receitas+de+bilheteira-392` → 2026-09-28
+- `portugal/teatro+sessoes+e+espectadores-183` → 2026-09-28
+- `portugal/veiculos+rodoviarios+motorizados+de+passageiros+em+circulacao+total+e+por+idade+do+veiculo-3102` → 2026-09-28
+- `portugal/veiculos+rodoviarios+motorizados+em+circulacao+total+e+por+tipo+de+combustivel-3101` → 2026-09-28
+- `portugal/veiculos+rodoviarios+motorizados+em+circulacao+total+e+por+tipo+de+veiculos-3100` → 2026-09-28
+- `portugal/veiculos+rodoviarios+motorizados+por+mil+habitantes-3234` → 2026-09-28
