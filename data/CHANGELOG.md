@@ -370,3 +370,11 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/veiculos+rodoviarios+motorizados+em+circulacao+total+e+por+tipo+de+combustivel-3101` → 2026-09-28
 - `portugal/veiculos+rodoviarios+motorizados+em+circulacao+total+e+por+tipo+de+veiculos-3100` → 2026-09-28
 - `portugal/veiculos+rodoviarios+motorizados+por+mil+habitantes-3234` → 2026-09-28
+
+### Sitemap diff 2026-09-28
+
+**0 added, 0 removed, 2 updated (lastmod).**
+
+#### Updated
+- `municipios/espetaculos+ao+vivo+espectadores+por+mil+habitantes-426` → 2026-09-28
+- `municipios/espetaculos+ao+vivo+numero+medio+de+espectadores+por+sessao-427` → 2026-09-28
