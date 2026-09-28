@@ -64,7 +64,7 @@ Add to `site/src/lib/unit-terms.json` (roadmap 18); until then these render in P
 Gzipped KB a first visit downloads before it can search: the page, its bundle and the whole catalogue. Levers, measured, for when a ceiling breaks: `url` is ~25% of the gzipped catalogue and derivable from area+slug; `description` is ~12% for a field the UI never renders.
 
 - first load: **273.5 KB** (ceiling 400)
-- of which catalogue.json: **159.4 KB** (ceiling 250)
+- of which catalogue.json: **159.5 KB** (ceiling 250)
 
 ## Gate
 
@@ -83,8 +83,8 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - breakdown_ratio: 0.5461
 - unit_ratio: 0.5724
 - revision_ratio: 0.09578
-- question_ratio: 0.08579
-- period_ratio: 0.08579
+- question_ratio: 0.0867
+- period_ratio: 0.0867
 - breakdown_ratio_by_area: europa 49%, municipios 61%, portugal 55%
 - unit_ratio_by_area: europa 100%, municipios 100%, portugal 11%
 - question_ratio_by_area: europa 7%, municipios 6%, portugal 11%
@@ -105,7 +105,7 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - ine_matched: 212
 - eurostat_matched: 118
 - first_load_gzip_kb: 273.5
-- catalogue_gzip_kb: 159.4
+- catalogue_gzip_kb: 159.5
 
 - **BREACH** detail_pages_missing: 7 > allowed 0
 - **BREACH** unit_translated_ratio: 0.9857 < required 0.99
