@@ -378,3 +378,16 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 #### Updated
 - `municipios/espetaculos+ao+vivo+espectadores+por+mil+habitantes-426` → 2026-09-28
 - `municipios/espetaculos+ao+vivo+numero+medio+de+espectadores+por+sessao-427` → 2026-09-28
+
+### Sitemap diff 2026-10-01
+
+**0 added, 0 removed, 7 updated (lastmod).**
+
+#### Updated
+- `europa/dormidas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+alojamento-2442` → 2026-10-01
+- `europa/dormidas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+turista+(percentagem)-2533` → 2026-10-01
+- `europa/dormidas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+turista-2443` → 2026-10-01
+- `europa/dormidas+de+turistas+por+100+camas+disponiveis+em+alojamentos+turisticos+coletivos-2483` → 2026-10-01
+- `europa/entradas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+alojamento-2444` → 2026-10-01
+- `europa/entradas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+turista-2445` → 2026-10-01
+- `europa/numero+medio+de+dormidas+por+entrada+nos+alojamentos+turisticos+coletivos+total+e+por+tipo+de+turista-2534` → 2026-10-01
