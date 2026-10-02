@@ -391,3 +391,15 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `europa/entradas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+alojamento-2444` → 2026-10-01
 - `europa/entradas+de+turistas+em+alojamentos+turisticos+coletivos+total+e+por+tipo+de+turista-2445` → 2026-10-01
 - `europa/numero+medio+de+dormidas+por+entrada+nos+alojamentos+turisticos+coletivos+total+e+por+tipo+de+turista-2534` → 2026-10-01
+
+### Sitemap diff 2026-10-02
+
+**0 added, 0 removed, 6 updated (lastmod).**
+
+#### Updated
+- `portugal/emigrantes+permanentes+total+e+por+nacionalidade-3797` → 2026-10-02
+- `portugal/emigrantes+total+e+por+tipo+e+sexo-23` → 2026-10-02
+- `portugal/imigrantes+permanentes+total+e+por+nacionalidade-3795` → 2026-10-02
+- `portugal/imigrantes+permanentes+total+e+por+naturalidade-3256` → 2026-10-02
+- `portugal/imigrantes+permanentes+total+e+por+sexo-3254` → 2026-10-02
+- `portugal/taxa+bruta+de+emigracao-832` → 2026-10-02
