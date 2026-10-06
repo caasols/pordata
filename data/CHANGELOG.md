@@ -403,3 +403,20 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/imigrantes+permanentes+total+e+por+naturalidade-3256` → 2026-10-02
 - `portugal/imigrantes+permanentes+total+e+por+sexo-3254` → 2026-10-02
 - `portugal/taxa+bruta+de+emigracao-832` → 2026-10-02
+
+### Sitemap diff 2026-10-06
+
+**0 added, 0 removed, 11 updated (lastmod).**
+
+#### Updated
+- `portugal/alunos+do+sexo+feminino+em+percentagem+dos+matriculados+no+ensino+superior+total+e+por+area+de+educacao+e+formacao+-1051` → 2026-10-06
+- `portugal/alunos+do+sexo+feminino+em+percentagem+dos+matriculados+no+ensino+superior+total+e+por+subsistema+de+ensino++-1053` → 2026-10-06
+- `portugal/alunos+do+sexo+feminino+em+percentagem+dos+matriculados+no+ensino+superior+total+e+por+tipo+de+ensino++-1052` → 2026-10-06
+- `portugal/alunos+matriculados+no+ensino+superior+privado+por+cada+100+alunos+matriculados+no+ensino+superior+publico++-1050` → 2026-10-06
+- `portugal/alunos+matriculados+no+ensino+superior+total++por+subsistema+e+por+tipo+de+ensino-1019` → 2026-10-06
+- `portugal/alunos+matriculados+no+ensino+superior+total+e+por+area+de+educacao+e+formacao-1026` → 2026-10-06
+- `portugal/alunos+matriculados+no+ensino+superior+total+e+por+nivel+de+formacao-1023` → 2026-10-06
+- `portugal/alunos+matriculados+no+ensino+superior+total+e+por+subsistema+de+ensino-1017` → 2026-10-06
+- `portugal/alunos+matriculados+no+ensino+superior+total+e+por+tipo+de+ensino-1018` → 2026-10-06
+- `portugal/bolseiros+do+ensino+superior+em+percentagem+de+alunos+matriculados+no+ensino+superior+total+e+por+subsistema+de+ensino-864` → 2026-10-06
+- `portugal/indice+de+envelhecimento+dos+docentes+do+ensino+superior+total++por+subsistema+e+por+tipo+de+ensino-1013` → 2026-10-06
