@@ -420,3 +420,14 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/alunos+matriculados+no+ensino+superior+total+e+por+tipo+de+ensino-1018` → 2026-10-06
 - `portugal/bolseiros+do+ensino+superior+em+percentagem+de+alunos+matriculados+no+ensino+superior+total+e+por+subsistema+de+ensino-864` → 2026-10-06
 - `portugal/indice+de+envelhecimento+dos+docentes+do+ensino+superior+total++por+subsistema+e+por+tipo+de+ensino-1013` → 2026-10-06
+
+### Sitemap diff 2026-10-07
+
+**0 added, 0 removed, 5 updated (lastmod).**
+
+#### Updated
+- `portugal/alunos+matriculados+no+ensino+superior+total+e+por+sexo-1048` → 2026-10-07
+- `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+grupo+etario-3251` → 2026-10-07
+- `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+motivo+de+aquisicao-3252` → 2026-10-07
+- `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+principais+nacionalidades+anteriores-3249` → 2026-10-07
+- `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+sexo-3250` → 2026-10-07
