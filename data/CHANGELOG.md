@@ -431,3 +431,10 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+motivo+de+aquisicao-3252` → 2026-10-07
 - `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+principais+nacionalidades+anteriores-3249` → 2026-10-07
 - `portugal/populacao+residente+estrangeira+que+adquiriu+nacionalidade+portuguesa+total+e+por+sexo-3250` → 2026-10-07
+
+### Sitemap diff 2026-10-09
+
+**0 added, 0 removed, 1 updated (lastmod).**
+
+#### Updated
+- `portugal/taxa+de+poupanca+das+familias-2340` → 2026-10-09
