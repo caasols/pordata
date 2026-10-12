@@ -438,3 +438,15 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 
 #### Updated
 - `portugal/taxa+de+poupanca+das+familias-2340` → 2026-10-09
+
+### Sitemap diff 2026-10-12
+
+**0 added, 0 removed, 6 updated (lastmod).**
+
+#### Updated
+- `europa/despesa+media+em+viagens+turisticas+por+turista+(euro+ecu)-2531` → 2026-10-12
+- `europa/numero+medio+de+viagens+turisticas+por+turista-2532` → 2026-10-12
+- `europa/populacao+residente+que+viajou+em+turismo+em+percentagem+da+populacao+residente+total+e+por+destino+da+viagem-2527` → 2026-10-12
+- `europa/populacao+residente+que+viajou+em+turismo+em+percentagem+da+populacao+residente+total+e+por+grupo+etario-2815` → 2026-10-12
+- `europa/populacao+residente+que+viajou+em+turismo+total+e+por+destino+da+viagem-2450` → 2026-10-12
+- `europa/populacao+residente+que+viajou+em+turismo+total+e+por+grupo+etario-2449` → 2026-10-12
