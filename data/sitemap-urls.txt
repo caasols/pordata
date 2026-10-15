@@ -950,8 +950,6 @@ https://www.pordata.pt/en/municipalities/labour+force+total+and+by+highest+level
 https://www.pordata.pt/en/municipalities/labour+force+total+and+by+sex-806
 https://www.pordata.pt/en/municipalities/licensed+buildings+for+family+housing+total+and+by+type+of+building+work-107
 https://www.pordata.pt/en/municipalities/licensed+buildings+total+and+by+type+of+building+work-106
-https://www.pordata.pt/en/municipalities/life+expectancy+at+65+years+old+total+and+by+sex-872
-https://www.pordata.pt/en/municipalities/life+expectancy+at+birth+total+and+by+sex-873
 https://www.pordata.pt/en/municipalities/lifelong+monthly+allowance+of+social+security+(2001+2017)-523
 https://www.pordata.pt/en/municipalities/live+births+of+mothers+resident+in+portugal+outside+marriage+by+cohabitation+of+parents-108
 https://www.pordata.pt/en/municipalities/live+births+of+mothers+resident+in+portugal+total+and+by+mother%27s+highest+level+of+educational+qualifications+obtained-719
@@ -3879,8 +3877,6 @@ https://www.pordata.pt/municipios/empresas+nao+financeiras+total+e+por+escalao+d
 https://www.pordata.pt/municipios/empresas+nao+financeiras+total+e+por+forma+juridica-911
 https://www.pordata.pt/municipios/empresas+nao+financeiras+total+e+por+setor+de+atividade+economica-346
 https://www.pordata.pt/municipios/entidades+empregadoras+com+declaracao+de+remuneracao+a+seguranca+social-521
-https://www.pordata.pt/municipios/esperanca+de+vida+a+nascenca+total+e+por+sexo-873
-https://www.pordata.pt/municipios/esperanca+de+vida+aos+65+anos+total+e+por+sexo-872
 https://www.pordata.pt/municipios/espetaculos+ao+vivo+bilhetes+vendidos-52
 https://www.pordata.pt/municipios/espetaculos+ao+vivo+espectadores+por+mil+habitantes-426
 https://www.pordata.pt/municipios/espetaculos+ao+vivo+espectadores-45

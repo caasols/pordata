@@ -450,3 +450,13 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `europa/populacao+residente+que+viajou+em+turismo+em+percentagem+da+populacao+residente+total+e+por+grupo+etario-2815` → 2026-10-12
 - `europa/populacao+residente+que+viajou+em+turismo+total+e+por+destino+da+viagem-2450` → 2026-10-12
 - `europa/populacao+residente+que+viajou+em+turismo+total+e+por+grupo+etario-2449` → 2026-10-12
+
+### Sitemap diff 2026-10-15
+
+**0 added, 4 removed, 0 updated (lastmod).**
+
+#### Removed
+- `en/municipalities/life+expectancy+at+65+years+old+total+and+by+sex-872`
+- `en/municipalities/life+expectancy+at+birth+total+and+by+sex-873`
+- `municipios/esperanca+de+vida+a+nascenca+total+e+por+sexo-873`
+- `municipios/esperanca+de+vida+aos+65+anos+total+e+por+sexo-872`
