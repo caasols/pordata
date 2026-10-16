@@ -460,3 +460,10 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `en/municipalities/life+expectancy+at+birth+total+and+by+sex-873`
 - `municipios/esperanca+de+vida+a+nascenca+total+e+por+sexo-873`
 - `municipios/esperanca+de+vida+aos+65+anos+total+e+por+sexo-872`
+
+### Sitemap diff 2026-10-16
+
+**0 added, 0 removed, 1 updated (lastmod).**
+
+#### Updated
+- `portugal/idade+media+da+mae+ao+nascimento+do+primeiro+filho-805` → 2026-10-16
