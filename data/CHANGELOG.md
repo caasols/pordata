@@ -467,3 +467,12 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 
 #### Updated
 - `portugal/idade+media+da+mae+ao+nascimento+do+primeiro+filho-805` → 2026-10-16
+
+### Sitemap diff 2026-10-16
+
+**0 added, 0 removed, 3 updated (lastmod).**
+
+#### Updated
+- `municipios/idade+media+da+mae+ao+nascimento+de+um+filho-842` → 2026-10-16
+- `municipios/idade+media+da+mae+ao+nascimento+do+primeiro+filho-843` → 2026-10-16
+- `portugal/idade+media+da+mae+ao+nascimento+de+um+filho-417` → 2026-10-16
