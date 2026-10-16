@@ -63,8 +63,8 @@ Add to `site/src/lib/unit-terms.json` (roadmap 18); until then these render in P
 
 Gzipped KB a first visit downloads before it can search: the page, its bundle and the whole catalogue. Levers, measured, for when a ceiling breaks: `url` is ~25% of the gzipped catalogue and derivable from area+slug; `description` is ~12% for a field the UI never renders.
 
-- first load: **274.8 KB** (ceiling 400)
-- of which catalogue.json: **160.8 KB** (ceiling 250)
+- first load: **274.9 KB** (ceiling 400)
+- of which catalogue.json: **160.9 KB** (ceiling 250)
 
 ## Gate
 
@@ -81,14 +81,14 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - parse_warnings: 0
 - published_rows_ratio: 1
 - breakdown_ratio: 0.5461
-- unit_ratio: 0.5828
+- unit_ratio: 0.5833
 - revision_ratio: 0.0985
-- question_ratio: 0.103
-- period_ratio: 0.103
+- question_ratio: 0.1035
+- period_ratio: 0.1035
 - breakdown_ratio_by_area: europa 49%, municipios 61%, portugal 55%
 - unit_ratio_by_area: europa 100%, municipios 100%, portugal 14%
-- question_ratio_by_area: europa 9%, municipios 6%, portugal 13%
-- period_ratio_by_area: europa 9%, municipios 6%, portugal 13%
+- question_ratio_by_area: europa 9%, municipios 6%, portugal 14%
+- period_ratio_by_area: europa 9%, municipios 6%, portugal 14%
 - separator_repairs: 37
 - unit_contamination: 0
 - unit_translated_ratio: 0.986
@@ -104,8 +104,8 @@ Thresholds are machine-checked (decision 7b); `--strict` exits non-zero on breac
 - detail_pages_missing: 7
 - ine_matched: 212
 - eurostat_matched: 118
-- first_load_gzip_kb: 274.8
-- catalogue_gzip_kb: 160.8
+- first_load_gzip_kb: 274.9
+- catalogue_gzip_kb: 160.9
 
 - **BREACH** detail_pages_missing: 7 > allowed 0
 - **BREACH** unit_translated_ratio: 0.986 < required 0.99
