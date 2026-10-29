@@ -246,7 +246,8 @@ The pipeline, end to end, all live on `main`:
   CHANGELOG over-reported roughly threefold. Now `lib.is_indicator_url`, shared.
 - **A page per indicator** (roadmap 15, metadata half, 2026-08-24). Every card used to bounce
   to pordata.pt; now it opens a page this project owns, at a real URL —
-  `/indicador/<area>/<id>/`, **2,195 of them pre-rendered**, each with its own `Dataset`
+  `/indicador/<area>/<id>/`, **2,196 of them pre-rendered** (2,195 live indicators plus a
+  tombstone at `/indicador/portugal/1221/` for the retired id), each with its own `Dataset`
   JSON-LD and listed in `docs/sitemap-indicadores.xml`. Hash routing was the cheap option and
   the wrong one: a catalogue whose whole claim is machine discoverability cannot have 2,195
   indicators with no addresses. **No JavaScript bundle** — a metadata page is a document, not
