@@ -486,3 +486,12 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `portugal/divorcios-323` → 2026-10-29
 - `portugal/qualidade+da+agua+para+consumo+humano-1122` → 2026-10-29
 - `portugal/taxa+de+divorcio-651` → 2026-10-29
+
+### Sitemap diff 2026-10-29
+
+**0 added, 0 removed, 3 updated (lastmod).**
+
+#### Updated
+- `municipios/divorcios+entre+pessoas+do+sexo+oposto+total+e+por+forma+de+celebracao+do+casamento-96` → 2026-10-29
+- `municipios/divorcios-97` → 2026-10-29
+- `municipios/taxa+de+divorcio-361` → 2026-10-29
