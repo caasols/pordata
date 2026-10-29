@@ -476,3 +476,13 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `municipios/idade+media+da+mae+ao+nascimento+de+um+filho-842` → 2026-10-16
 - `municipios/idade+media+da+mae+ao+nascimento+do+primeiro+filho-843` → 2026-10-16
 - `portugal/idade+media+da+mae+ao+nascimento+de+um+filho-417` → 2026-10-16
+
+### Sitemap diff 2026-10-29
+
+**0 added, 0 removed, 4 updated (lastmod).**
+
+#### Updated
+- `portugal/divorcios+entre+pessoas+do+sexo+oposto+total+e+por+forma+de+celebracao+do+casamento-1281` → 2026-10-29
+- `portugal/divorcios-323` → 2026-10-29
+- `portugal/qualidade+da+agua+para+consumo+humano-1122` → 2026-10-29
+- `portugal/taxa+de+divorcio-651` → 2026-10-29
