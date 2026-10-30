@@ -495,3 +495,12 @@ Appended by the sitemap watch workflow. Newest entries at the bottom.
 - `municipios/divorcios+entre+pessoas+do+sexo+oposto+total+e+por+forma+de+celebracao+do+casamento-96` → 2026-10-29
 - `municipios/divorcios-97` → 2026-10-29
 - `municipios/taxa+de+divorcio-361` → 2026-10-29
+
+### Sitemap diff 2026-10-30
+
+**0 added, 0 removed, 3 updated (lastmod).**
+
+#### Updated
+- `municipios/jornais+e+outras+publicacoes+periodicas+titulos+publicados-64` → 2026-10-30
+- `portugal/emigrantes+permanentes+total+e+por+grupo+etario-2522` → 2026-10-30
+- `portugal/imigrantes+permanentes+total+e+por+grupo+etario-3255` → 2026-10-30
